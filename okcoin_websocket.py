@@ -36,7 +36,7 @@ def buildMySign(params,secretKey):
 def on_open(self):
     #subscribe okcoin.com spot ticker
     #self.send("{'event':'addChannel','channel':'ok_sub_spotcny_btc_ticker','binary':'true'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_spotcny_btc_trades','binary':'true'}")
+    #self.send("{'event':'addChannel','channel':'ok_sub_spotcny_btc_trades','binary':'true'}")
     #self.send("{'event':'addChannel','channel':'ok_sub_spotcny_btc_depth_20','binary':'true'}")
     stock1Min = stock("btc_cny",stock.OneMin,500)
     stock5Min = stock("btc_cny",stock.FiveMin,500)
@@ -53,7 +53,6 @@ def on_message(self,evt):
     if type(mjson) == dict and mjson.has_key("event") and mjson["event"]=="pong":
         last_time = time.time()
         return
-    #print(data)
     if type(mjson) == list:
         for tdata in mjson:
             if tdata.has_key("channel") and tdata["channel"] == "ok_sub_spotcny_btc_kline_1min" and tdata.has_key("data"):
@@ -65,7 +64,7 @@ def on_message(self,evt):
                         stock1Min.on_kline(KLine(k))
                 kdj,touchBoll = stock1Min.canBuy()
 
-                logging.info("kdj=%s,touch=%s,fmacd=%s" % (kdj,touchBoll,stock5Min.lastmacd()))
+                logging.info("kdj=%s,touch=%s,fiveIsStrong=%s" % (kdj,touchBoll,stock5Min.isUp()))
 
                 if buyPrice!=None and kdj==False:
                     logging.info("buy-%s,sell-%s,diff=%s" % (buyPrice,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice)))
@@ -73,7 +72,7 @@ def on_message(self,evt):
                 if buyPrice==None and kdj==True and touchBoll==True:
                     buyPrice=stock1Min.lastKline().close
                     logging.info("buy-%s,time=%s" % (stock1Min.lastKline().close,stock1Min.lastKline().time))
-                if buyPrice==None and kdj==True and touchBoll==False and stock5Min.lastmacd()<0:
+                if buyPrice==None and kdj==True and touchBoll==False and stock5Min.isUp()==True:
                     buyPrice=stock1Min.lastKline().close
                     logging.info("buy-%s,time=%s" % (stock1Min.lastKline().close,stock1Min.lastKline().time))
 
@@ -84,10 +83,10 @@ def on_message(self,evt):
                 else:
                     for k in kdata:
                         stock5Min.on_kline(KLine(k))
-            #if tdata.has_key("channel") and tdata["channel"] == "ok_sub_spotcny_btc_trades" and tdata.has_key("data"):
-                #kdata = tdata["data"]
-                #for k in kdata:
-                #    stock1Min.on_trade(Trade(k))
+            if tdata.has_key("channel") and tdata["channel"] == "ok_sub_spotcny_btc_trades" and tdata.has_key("data"):
+                kdata = tdata["data"]
+                for k in kdata:
+                    stock1Min.on_trade(Trade(k))
 
 def inflate(data):
     decompress = zlib.decompressobj(

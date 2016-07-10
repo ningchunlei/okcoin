@@ -39,6 +39,7 @@ class KLine(object):
 class Trade(object):
 
     def __init__(self,data):
+
         self.price = float(data[1])
         self.vol = float(data[2])
         tm = time.strftime("%y-%m-%d",time.localtime())+" "+data[3][0:-3]
@@ -114,8 +115,13 @@ class stock(object):
         #tp = self.trades[self.cursor-20:self.cursor+1]
         #tp.reverse()
         #print  tp
-    def lastmacd(self):
-        return self.stocks[self.cursor-1].macd
+
+    def isUp(self):
+        if self.stocks[self.cursor].j - self.stocks[self.cursor].k >0:
+            return True
+        else:
+            return False
+
     def lastKline(self):
         return self.stocks[self.cursor]
 
@@ -126,7 +132,9 @@ class stock(object):
         if self.trades[index] == 0:
             self.trades[index] = TradePrice(trade.time);
         self.trades[index].update(trade)
-
+        tp = self.trades[self.cursor-20:self.cursor+1]
+        tp.reverse()
+        print  tp
 
     def fetchKLine(self):
         klines = Client.fetchKline(self._symbol,self._stockType,self._maxLength,None)
@@ -141,6 +149,7 @@ class stock(object):
         if (kline.time-self.baseTime)/self._interval >= len(self.stocks):
             self.baseTime = None;
             self.on_kline(kline)
+
         self.cursor = (kline.time-self.baseTime)/self._interval
         self.stocks[self.cursor] = kline;
         self.macd(self.cursor,60)
