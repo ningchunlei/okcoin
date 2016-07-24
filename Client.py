@@ -27,5 +27,27 @@ def fetchKline(symbol,type,size,sinceTime):
         klines.append(stock.KLine(k))
     return klines;
 
+def fetchTrade(symbol):
+    data = okcoinSpot.trades()
+    klines=[0]*len(data)
+    count=0;
+    for k in data:
+        print k
+        dd=stock.Trade(None,xdata=[k["price"],k["amount"],k["date_ms"]])
+        if klines[count] == 0:
+            klines[count] = stock.KLine(None,trade=dd)
+        else:
+            xline = klines[count]
+            if xline.time == dd.ktime:
+                xline.vol = xline.vol + dd.vol
+                xline.close = dd.price
+                if xline.close > xline.high:
+                    xline.high = xline.close;
+                if xline.close < xline.low:
+                    xline.low = xline.close
+            else:
+                count = count + 1;
+                klines[count] = stock.KLine(None,trade=dd)
 
-   
+    print klines[0:count]
+    return klines[0:count]

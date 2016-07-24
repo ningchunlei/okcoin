@@ -5,17 +5,27 @@ import talib
 import numpy as np
 import json
 import time
+from datetime import datetime,timedelta
 import pandas
+import logging
 
 class KLine(object):
 
-    def __init__(self,data):
-        self.time = int(data[0])/1000
-        self.open = float(data[1])
-        self.high = float(data[2])
-        self.low = float(data[3])
-        self.close = float(data[4])
-        self.vol = float(data[5])
+    def __init__(self,data,trade=None):
+        if trade == None:
+            self.time = int(data[0])/1000
+            self.open = float(data[1])
+            self.high = float(data[2])
+            self.low = float(data[3])
+            self.close = float(data[4])
+            self.vol = float(data[5])
+        else:
+            self.time = trade.ktime
+            self.vol = trade.vol
+            self.open = trade.price
+            self.high = trade.price
+            self.low = trade.price
+            self.close = trade.price
         self.dif = 0
         self.dea = 0
         self.macd = 0
@@ -27,8 +37,8 @@ class KLine(object):
         self.dn = 0;
 
     def __str__(self):
-        return "%s;close=%f;macd=%f;k=%f;j=%f,boll=%f," \
-               "up=%f,dn=%f" %(time.ctime(self.time),self.close,self.macd,self.k,self.j,self.boll,self.up,self.dn)
+        return "%s;close=%f;high=%f;low=%s;vol=%s;macd=%f;k=%f;j=%f,boll=%f," \
+               "up=%f,dn=%f" %(time.ctime(self.time),self.close,self.high,self.low,self.vol,self.macd,self.k,self.j,self.boll,self.up,self.dn)
 
     def __unicode__(self):
         return str(self)
@@ -38,14 +48,41 @@ class KLine(object):
 
 class Trade(object):
 
-    def __init__(self,data):
+    def __init__(self,data,xdata=None):
+        if xdata==None:
+            self.price = float(data[1])
+            self.vol = float(data[2])
+        else:
+            self.price = float(xdata[0])
+            self.vol = float(xdata[1])
+        stime = None
+        if xdata==None:
+            tm = time.strftime("%y-%m-%d",time.localtime())+" "+data[3]
+            stime = datetime.strptime(tm,"%y-%m-%d %H:%M:%S")
+            ltime = datetime.now();
+            if ltime.hour==24 and stime.hour==0:
+                stime = stime + timedelta(days=1)
+        else:
+            stime = datetime.fromtimestamp(xdata[2]/1000)
+        self.time = time.mktime(stime.timetuple())
 
-        self.price = float(data[1])
-        self.vol = float(data[2])
-        tm = time.strftime("%y-%m-%d",time.localtime())+" "+data[3][0:-3]
-        stime = time.strptime(tm,"%y-%m-%d %H:%M")
-        self.time = time.mktime(stime)
-        self.channel = data[4];
+        if stime.second<15:
+            stime = stime.replace(second=0)
+        elif stime.second<30:
+            stime = stime.replace(second=15)
+        elif stime.second<45:
+            stime = stime.replace(second=30)
+        elif stime.second<=60:
+            stime = stime.replace(second=45)
+
+        self.ktime = time.mktime(stime.timetuple())
+        if xdata==None:
+            self.channel = data[4];
+    def __str__(self):
+        return "time=%s;price=%s;vol=%s,channel=%s" % (time.ctime(self.time),self.price,self.vol,self.channel)
+    def __repr__(self):
+        return str(self)
+
 
 class TradePrice(object):
 
@@ -77,6 +114,7 @@ class stock(object):
     FiveMin = '5min'
     ThirtyMin = '30min'
     FourHour = '4hour'
+    FifteenSec = '15sec'
 
 
     def __init__(self,symbol,stockType,maxLength):
@@ -95,6 +133,8 @@ class stock(object):
             self._interval = 30*60
         elif stockType == stock.FourHour:
             self._interval = 240*60
+        elif stockType == stock.FifteenSec:
+            self._interval = 15
 
     def on_kline(self,kline):
         if self.baseTime == None:
@@ -116,6 +156,34 @@ class stock(object):
         #tp.reverse()
         #print  tp
 
+    def tkine(self,trade):
+
+        if self.baseTime==None or int((trade.time-self.baseTime)/self._interval) >= len(self.stocks):
+            self.stocks = self.stocks[500:]
+            self.stocks.extend([0]*500)
+            if self.stocks[0] == 0 :
+                self.baseTime = trade.ktime
+            else:
+                self.baseTime = self.stocks[0].time
+
+
+        self.cursor = int((trade.ktime-self.baseTime)/self._interval)
+        if self.stocks[self.cursor]==None or self.stocks[self.cursor]==0:
+            kline = KLine(None,trade=trade)
+            self.stocks[self.cursor] = kline
+        else:
+            kline = self.stocks[self.cursor]
+            kline.vol = kline.vol + trade.vol
+            kline.close=trade.price
+            if kline.close > kline.high:
+                kline.high = kline.close;
+            if kline.close < kline.low:
+                kline.low = kline.close
+
+        if self.cursor > 30:
+            self.kdj(self.cursor-30,self.cursor+1)
+            self.boll(self.cursor-30,self.cursor+1)
+
     def isUp(self):
         if self.stocks[self.cursor].j - self.stocks[self.cursor].k >0:
             return True
@@ -125,6 +193,12 @@ class stock(object):
     def lastKline(self):
         return self.stocks[self.cursor]
 
+    def preLastKline(self):
+        return self.stocks[self.cursor-1]
+
+    def pre2LastKline(self):
+        return self.stocks[self.cursor-2]
+
     def on_trade(self,trade):
         if self.baseTime == None:
             return
@@ -132,9 +206,7 @@ class stock(object):
         if self.trades[index] == 0:
             self.trades[index] = TradePrice(trade.time);
         self.trades[index].update(trade)
-        tp = self.trades[self.cursor-20:self.cursor+1]
-        tp.reverse()
-        print  tp
+        logging.info(trade)
 
     def fetchKLine(self):
         klines = Client.fetchKline(self._symbol,self._stockType,self._maxLength,None)
@@ -144,6 +216,13 @@ class stock(object):
         self.baseTime = klines[0].time
         self.macd(len(klines)-1,len(klines))
 
+    def fetchTradeLine(self):
+        klines = Client.fetchTrade(self._symbol)
+        self.stocks=[0]*2*self._maxLength
+        self.stocks[0:len(klines)]=klines
+        self.trades=[0]*2*self._maxLength
+        self.baseTime = klines[0].time
+        self.macd(len(klines)-1,len(klines))
 
     def updateKLine(self,kline):
         if (kline.time-self.baseTime)/self._interval >= len(self.stocks):
@@ -178,6 +257,7 @@ class stock(object):
 
         return flagBuy,flag
 
+
     def kdj(self,start,stop):
         close=[]
         high =[]
@@ -203,6 +283,54 @@ class stock(object):
             self.stocks[i].k = k[i-start]
             self.stocks[i].d = d[i-start]
             self.stocks[i].j = j[i-start]
+
+    def lowhighprice(self,start,stop):
+        close=[]
+        high =[]
+        low =[]
+        for i in range(start,stop):
+            close.append(self.stocks[i].close)
+            high.append(self.stocks[i].high)
+            low.append(self.stocks[i].low)
+
+        lowest = pandas.rolling_min(pandas.Series(low),9)
+        highest = pandas.rolling_max(pandas.Series(high),9)
+        return lowest[len(lowest)-1],highest[len(highest)-1]
+
+    '''
+        return 当前K线的支撑价,转换价,下个K线同趋势的价位的预测
+    '''
+    def forecastClose(self):
+        pre = self.stocks[self.cursor-1]
+        last = self.stocks[self.cursor]
+        lowest,highest = self.lowhighprice(self.cursor-30,self.cursor+1)
+
+        diff = pre.j - pre.k
+        currentzhicheng = (9*diff - 8*pre.k+12 * pre.d)*(highest-lowest)/400.0 + lowest
+
+        diff = 0
+        fanzhuanprice = (9*diff - 8*pre.k+12 * pre.d)*(highest-lowest)/400.0 + lowest
+
+        diff = last.j - last.k
+        nextprice = (9*diff - 8*last.k+12 * last.d)*(highest-lowest)/400.0 + lowest
+
+        return currentzhicheng,fanzhuanprice,nextprice
+
+
+    def forecastKDJ(self):
+        last = self.stocks[self.cursor]
+        lowest,highest = self.lowhighprice(self.cursor-30,self.cursor+1)
+
+        rsv = ((last.close-lowest)/(highest - lowest))*100
+        k = 2/3.0*last.k + 1/3.0*rsv
+        d  = 2/3.0*last.d + 1/3.0*k
+        j = 3*k -2*d
+        diff = j - k;
+        if diff > last.j- last.k :
+            return True;
+        else:
+            return False
+
 
     def boll(self,start,stop):
         close=[]
