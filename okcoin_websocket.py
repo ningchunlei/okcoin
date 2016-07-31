@@ -91,7 +91,7 @@ def go():
         pricelogging.info("tbuy-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),stock1Min.lastKline().time))
         buyPrice1 = None
     '''
-    if lastm1.j-lastm1.k<0 and lastm1.j-lastm1.k>prelastm1.j-prelastm1.k and current.close > m1up and current.close > m1next \
+    if lastm1.j-lastm1.k<0 and lastm1.j-lastm1.k>prelastm1.j-prelastm1.k and lastm1.close> prelastm1.close and current.close>lastm1.close and current.close > m1up and current.close > m1next \
         and buyPrice1==None:
         pricelogging.info("tbuy-%s,time=%s" % (stock1Min.lastKline().close,stock1Min.lastKline().time))
         buyPrice1 = current.close
@@ -101,7 +101,7 @@ def go():
         buyPrice1 = None
 
     if buyPrice1!=None and lastm1.j-lastm1.k>0 and current.close<m1up:
-        if current.close> m5up and lastM5.j-lastM5.k>prelastM5.j-prelastM5.k:
+        if int(current.close)>=int(m5up) and lastM5.j-lastM5.k>prelastM5.j-prelastM5.k:
             return
         pricelogging.info("tbuy-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),stock1Min.lastKline().time))
         buyPrice1 = None
