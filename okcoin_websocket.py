@@ -6,6 +6,7 @@ import hashlib
 import zlib
 import base64
 import threading
+from datetime import datetime
 from stock import stock,KLine,Trade
 import logging
 
@@ -39,6 +40,8 @@ stock15Sec = stock("btc_cny",stock.FifteenSec,500)
 buyPrice = None
 buyPrice1 = None
 buyPrice2 = None
+buy1Time = None
+buy2Time = None
 
 #business
 def buildMySign(params,secretKey):
@@ -60,11 +63,12 @@ def on_open(self):
 
 
 def go():
-    global buyPrice1,buyPrice2,bidsList,asksList
+    global buyPrice1,buyPrice2,bidsList,asksList,buy1Time,buy2Time
     m5up,m5down,m5next = stock5Min.forecastClose()
     m1up,m1down,m1next = stock1Min.forecastClose()
     lastM5 = stock5Min.lastKline()
     prelastM5 = stock5Min.preLastKline()
+    pre2lastM5 = stock5Min.pre2LastKline()
     current = stock1Min.lastKline()
     lastm1 = stock1Min.preLastKline()
     prelastm1 = stock1Min.pre2LastKline()
@@ -91,22 +95,44 @@ def go():
         pricelogging.info("tbuy-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),stock1Min.lastKline().time))
         buyPrice1 = None
     '''
-    if lastm1.j-lastm1.k<0 and lastm1.j-lastm1.k>prelastm1.j-prelastm1.k and lastm1.close> prelastm1.close and current.close>lastm1.close and current.close > m1up and current.close > m1next \
+
+    kdj,touchBoll = stock1Min.canBuy()
+
+    if lastM5.j-lastM5.k<0 and lastm1.j-lastm1.k<0 and lastm1.j-lastm1.k>prelastm1.j-prelastm1.k \
+            and touchBoll==True and lastm1.close> prelastm1.close and current.close>lastm1.close and current.close > m1up and current.close > m1next \
         and buyPrice1==None:
-        pricelogging.info("tbuy-%s,time=%s" % (stock1Min.lastKline().close,stock1Min.lastKline().time))
+        pricelogging.info("tbuy-%s,time=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time)))
         buyPrice1 = current.close
+        buy1Time = lastM5.time
 
-    if buyPrice1!=None and lastm1.j-lastm1.k<0 and current.close<m1up :
-        pricelogging.info("tbuy-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),stock1Min.lastKline().time))
-        buyPrice1 = None
+    if buy1Time!=None and buyPrice1!=None:
+        if lastM5.time - buy1Time <= 5*60:
+            if lastm1.j-lastm1.k<0 and current.close<m1up :
+                pricelogging.info("tbuy1-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),stock1Min.lastKline().time))
+                buyPrice1 = None
+                buy1Time = None
+            if lastm1.j-lastm1.k>0 and current.close<m1up:
+                if int(current.close)>=int(m5up):
+                    return
+                pricelogging.info("tbuy2-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),stock1Min.lastKline().time))
+                buyPrice1 = None
+                buy1Time = None
+        else:
+            buy1Time = None
 
-    if buyPrice1!=None and lastm1.j-lastm1.k>0 and current.close<m1up:
-        if int(current.close)>=int(m5up) and lastM5.j-lastM5.k>prelastM5.j-prelastM5.k:
-            return
-        pricelogging.info("tbuy-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),stock1Min.lastKline().time))
-        buyPrice1 = None
-
-
+    if buy1Time ==None and buyPrice1!=None:
+        if current.close<m5up and lastM5.j-lastM5.k>0 and buy2Time==None:
+            buy2Time = lastM5.time
+        elif buy2Time!=None and current.time-buy2Time>3 and current.close<m5up and lastm1.j-lastm1.k<prelastm1.j-prelastm1.k:
+            pricelogging.info("tbuy3-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),stock1Min.lastKline().time))
+            buyPrice1 = None
+            buy2Time = None
+        elif buy2Time!=None and current.time-buy2Time>4 and prelastM5.j-pre2lastM5.k > pre2lastM5.j-pre2lastM5.k:
+            buy2Time = None
+        elif buy2Time!=None and current.time-buy2Time>4 and prelastM5.j-pre2lastM5.k < pre2lastM5.j-pre2lastM5.k:
+            pricelogging.info("tbuy4-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),stock1Min.lastKline().time))
+            buyPrice1 = None
+            buy2Time = None
 
 
     '''
