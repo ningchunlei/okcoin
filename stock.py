@@ -263,6 +263,12 @@ class stock(object):
             flag = True
         return flag
 
+    def premiddleDown(self):
+        flag = False
+        if self.stocks[self.cursor-1].close < self.stocks[self.cursor-1].boll and self.stocks[self.cursor-1].close < self.stocks[self.cursor-1].open:
+            flag = True
+        return flag
+
     def touchMiddle(self):
         flag = False
         if self.stocks[self.cursor].close < self.stocks[self.cursor].boll:
@@ -272,6 +278,14 @@ class stock(object):
     def touchUp(self):
         flag = False
         for i in range(1,6):
+            if int(self.stocks[self.cursor-i].high) >= int(self.stocks[self.cursor-i].up):
+                flag = True
+
+        return flag
+
+    def touchUpShort(self):
+        flag = False
+        for i in range(1,3):
             if int(self.stocks[self.cursor-i].high) >= int(self.stocks[self.cursor-i].up):
                 flag = True
 
