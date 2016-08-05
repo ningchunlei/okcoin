@@ -257,6 +257,31 @@ class stock(object):
 
         return flagBuy,flag
 
+    def middleUp(self):
+        flag = False
+        if self.stocks[self.cursor].close <= self.stocks[self.cursor].boll:
+            flag = True
+        return flag
+
+    def touchMiddle(self):
+        flag = False
+        if self.stocks[self.cursor].close < self.stocks[self.cursor].boll:
+            flag = True
+        return flag
+
+    def touchUp(self):
+        flag = False
+        for i in range(1,6):
+            if int(self.stocks[self.cursor-i].high) >= int(self.stocks[self.cursor-i].up):
+                flag = True
+
+        return flag
+
+    def touchUpMy(self):
+        flag = False
+        if int(self.stocks[self.cursor].high) >= int(self.stocks[self.cursor].up):
+            flag = True
+        return flag
 
     def kdj(self,start,stop):
         close=[]
