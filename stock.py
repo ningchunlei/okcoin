@@ -257,6 +257,14 @@ class stock(object):
 
         return flagBuy,flag
 
+    def touchDown(self):
+        flag = False
+        for i in range(1,6):
+            if int(self.stocks[self.cursor-i].low) <= int(self.stocks[self.cursor-i].dn):
+                flag = True
+
+        return flag
+
     def middleUp(self):
         flag = False
         if self.stocks[self.cursor].close <= self.stocks[self.cursor].boll:
@@ -286,6 +294,14 @@ class stock(object):
     def touchUpShort(self):
         flag = False
         for i in range(1,3):
+            if int(self.stocks[self.cursor-i].high) >= int(self.stocks[self.cursor-i].up):
+                flag = True
+
+        return flag
+
+    def touchUpMyShort(self):
+        flag = False
+        for i in range(0,3):
             if int(self.stocks[self.cursor-i].high) >= int(self.stocks[self.cursor-i].up):
                 flag = True
 
