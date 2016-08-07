@@ -268,6 +268,31 @@ class stock(object):
 
         return flag
 
+    def downToUp(self):
+        flag = False
+        count=0
+        while True:
+            if self.stocks[self.cursor-count].low <=  self.stocks[self.cursor-count].dn:
+                flag=True
+                break
+            if self.stocks[self.cursor-count].high >= self.stocks[self.cursor-count].up:
+                flag = False
+                break
+            count+=1
+
+        return flag
+
+    def mayDown(self,indexTime):
+        flag = False
+        count=1
+        while True:
+            if self.stocks[self.cursor-count].time == indexTime:
+                break
+            if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k < self.stocks[self.cursor-count-1].j-self.stocks[self.cursor-count-1].k:
+                flag = True
+            count += 1
+        return flag
+
     def touchShortDown(self):
         flag = False
         for i in range(1,3):
@@ -283,7 +308,7 @@ class stock(object):
 
     def middleUpByIndex(self,index):
         flag = False
-        if self.stocks[self.cursor-index].close <= self.stocks[self.cursor-index].boll:
+        if self.stocks[self.cursor-index].close >= self.stocks[self.cursor-index].boll:
             flag = True
         return flag
 
@@ -297,6 +322,13 @@ class stock(object):
         flag = False
         if self.stocks[self.cursor].close < self.stocks[self.cursor].boll:
             flag = True
+        return flag
+
+    def touchMiddleLong(self):
+        flag = False
+        for i in range(1,4):
+            if self.stocks[self.cursor-i].close < self.stocks[self.cursor-i].boll:
+                flag = True
         return flag
 
     def touchUp(self):
