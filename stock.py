@@ -112,6 +112,7 @@ class TradePrice(object):
 class stock(object):
     OneMin = '1min'
     FiveMin = '5min'
+    FifteenMin = '15min'
     ThirtyMin = '30min'
     FourHour = '4hour'
     FifteenSec = '15sec'
@@ -129,6 +130,8 @@ class stock(object):
             self._interval = 1*60
         elif stockType == stock.FiveMin:
             self._interval = 5*60
+        elif stockType == stock.FifteenMin:
+            self._interval = 15*60
         elif stockType == stock.ThirtyMin:
             self._interval = 30*60
         elif stockType == stock.FourHour:
@@ -265,9 +268,22 @@ class stock(object):
 
         return flag
 
+    def touchShortDown(self):
+        flag = False
+        for i in range(1,3):
+            if int(self.stocks[self.cursor-i].low) <= int(self.stocks[self.cursor-i].dn):
+                flag = True
+        return flag
+
     def middleUp(self):
         flag = False
         if self.stocks[self.cursor].close <= self.stocks[self.cursor].boll:
+            flag = True
+        return flag
+
+    def middleUpByIndex(self,index):
+        flag = False
+        if self.stocks[self.cursor-index].close <= self.stocks[self.cursor-index].boll:
             flag = True
         return flag
 

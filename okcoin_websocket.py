@@ -36,6 +36,7 @@ asksList=[]
 stock1Min = stock("btc_cny",stock.OneMin,500)
 stock5Min = stock("btc_cny",stock.FiveMin,500)
 stock15Sec = stock("btc_cny",stock.FifteenSec,500)
+stock15Min = stock("btc_cny",stock.FifteenMin,500)
 
 buyPrice = None
 buyPrice1 = None
@@ -45,6 +46,8 @@ buy2Time = None
 buyTriggerTime = None
 buyPrice3=None
 downToUp = None
+upToDown = None
+middleToUp = None
 
 #business
 def buildMySign(params,secretKey):
@@ -61,12 +64,15 @@ def on_open(self):
     stock1Min = stock("btc_cny",stock.OneMin,500)
     stock5Min = stock("btc_cny",stock.FiveMin,500)
     stock15Sec = stock("btc_cny",stock.FifteenSec,500)
+    stock15Min = stock("btc_cny",stock.FifteenMin,500)
+
     self.send("{'event':'addChannel','channel':'ok_sub_spotcny_btc_kline_1min','binary':'true'}")
     self.send("{'event':'addChannel','channel':'ok_sub_spotcny_btc_kline_5min','binary':'true'}")
+    #self.send("{'event':'addChannel','channel':'ok_sub_spotcny_btc_kline_15min','binary':'true'}")
 
 
 def go():
-    global buyPrice1,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp
+    global buyPrice1,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp
     m5up,m5down,m5next = stock5Min.forecastClose()
     m1up,m1down,m1next = stock1Min.forecastClose()
     lastM5 = stock5Min.lastKline()
@@ -75,6 +81,7 @@ def go():
     current = stock1Min.lastKline()
     lastm1 = stock1Min.preLastKline()
     prelastm1 = stock1Min.pre2LastKline()
+    lastM15 = stock15Min.lastKline()
 
     if len(bidsList)<=1:
         return
@@ -89,6 +96,73 @@ def go():
     pricelogging.info("time=%s,msup=%s,ssup=%s,price=%s,M5 up=%s,down=%s,next=%s,%s,boll=%s,m5close=%s" % (time.ctime(current.time),m5upBuySupport,m5upSellSupport,current.close,m5up,m5down,m5next,stock5Min.forecastKDJ(),lastM5.boll,lastM5.close))
     pricelogging.info("time=%s,msup=%s,ssup=%s,price=%s,M1 up=%s,down=%s,next=%s,%s" % (time.ctime(current.time),m1upBuySupport,m1upSellSupport,current.close,m1up,m1down,m1next,stock1Min.forecastKDJ()))
 
+
+    if buyPrice1==None and stock1Min.touchShortDown() and lastm1.j - lastm1.k>=0 and prelastm1.j-prelastm1.k<0:
+        pricelogging.info("tbuy-%s,time=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time)))
+        buyPrice1 = current.close
+        buy1Time = current.time
+        downToUp=True
+        upToDown=None
+        middleToUp = None
+
+    if buyPrice1==None and stock1Min.touchShortDown() and lastm1.j-lastm1.k<0 and current.j - current.k>0 and current.close > m1down \
+        and current.close > m1up and current.close > m1next and m1upBuySupport>40:
+        pricelogging.info("tbuy8-%s,time=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time)))
+        buyPrice1 = current.close
+        buy1Time = current.time
+        downToUp=True
+        upToDown=None
+        middleToUp = None
+
+    if buyPrice1!=None and buy1Time!=current.time and lastm1.j-lastm1.k<=0 and downToUp==True and (not stock1Min.touchUp()):
+        if prelastM5.close>prelastM5.open and prelastM5.close > pre2lastM5.close:
+            return
+        else:
+            pricelogging.info("tbuy1-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+            buyPrice1 = None
+            buy1Time = None
+            downToUp = None
+            upToDown = None
+            middleToUp = None
+
+
+
+    if buyPrice1!=None and lastm1.j-lastm1.k<=0 and downToUp==True and stock1Min.touchUp() or (buyPrice1!=None and lastm1.j-lastm1.k<=0 and middleToUp==True and stock1Min.touchUp()):
+        pricelogging.info("tbuy2-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+        buyPrice1 = None
+        buy1Time = None
+        downToUp = None
+        upToDown = True
+        middleToUp = None
+
+
+    if buyPrice1==None and stock5Min.middleUpByIndex(1)  and stock5Min.middleUpByIndex(2) and stock5Min.middleUpByIndex(0) and lastM5.j - lastM5.k > 0 and prelastM5.j - prelastM5.k >0 and upToDown and stock1Min.touchMiddle():
+        pricelogging.info("tbuy3-%s,time=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time)))
+        buyPrice1 = current.close
+        buy1Time = current.time
+        middleToUp=True
+        upToDown = None
+        downToUp = None
+
+
+    if buyPrice1!=None and middleToUp and stock1Min.touchShortDown() and not (stock5Min.touchDown() and prelastM5.j-prelastM5.k>0):
+        pricelogging.info("tbuy4-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+        buyPrice1 = None
+        buy1Time = None
+        downToUp = None
+        upToDown = None
+        middleToUp = None
+
+
+    if buyPrice1 != None and buyPrice1 > current.close + 5:
+        pricelogging.info("tbuy5-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+        buyPrice1 = None
+        buy1Time = None
+        downToUp = None
+        upToDown = None
+        middleToUp = None
+
+
     '''
     if lastm1.j-lastm1.k <0 and isbuy==True and current.close > m1up and buyPrice1==None:
         pricelogging.info("tbuy-%s,time=%s" % (stock1Min.lastKline().close,stock1Min.lastKline().time))
@@ -99,6 +173,8 @@ def go():
         buyPrice1 = None
     '''
 
+
+    '''
     kdj,touchBoll = stock1Min.canBuy()
 
     pricelogging.info("5j-5k=%s,%s,5m=%s,%s,%s,%s,%s,%s,%s,%s" % (lastM5.j-lastM5.k,(prelastM5.j-prelastM5.k<0 and lastM5.j-lastM5.k<5),stock5Min.premiddleDown(),lastm1.j-lastm1.k>prelastm1.j-prelastm1.k,
@@ -187,7 +263,7 @@ def go():
 
     if downToUp==True and buyPrice3==None and lastM5.j-lastM5.k <=0:
         downToUp = False
-
+    '''
 
     '''
     if buy1Time!=None and buyPrice1!=None:
@@ -272,6 +348,15 @@ def on_message(self,evt):
                     for k in kdata:
                         stock5Min.on_kline(KLine(k))
                 go()
+            if tdata.has_key("channel") and tdata["channel"] == "ok_sub_spotcny_btc_kline_15min" and tdata.has_key("data"):
+                kdata = tdata["data"]
+                if type(kdata[0]) == int :
+                    stock15Min.on_kline(KLine(kdata))
+                else:
+                    for k in kdata:
+                        stock15Min.on_kline(KLine(k))
+                go()
+
             if tdata.has_key("channel") and tdata["channel"] == "ok_sub_spotcny_btc_trades" and tdata.has_key("data"):
                 kdata = tdata["data"]
                 for k in kdata:
@@ -415,6 +500,7 @@ if __name__ == "__main__":
             stock1Min = stock("btc_cny",stock.OneMin,500)
             stock5Min = stock("btc_cny",stock.FiveMin,500)
             stock15Sec = stock("btc_cny",stock.FifteenSec,500)
+            stock15Min = stock("btc_cny",stock.FifteenMin,500)
             print("reconnect")
         except Exception,e:
             logging.error(e)

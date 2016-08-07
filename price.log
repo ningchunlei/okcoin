@@ -19666,3 +19666,32 @@ time=Sun Jul 31 11:31:00 2016,msup=0,ssup=112.732,price=4224.66,M5 up=4228.77698
 time=Sun Jul 31 11:31:00 2016,msup=0,ssup=112.732,price=4224.66,M1 up=4226.89293638,down=4228.58259918,next=4225.21657182,False
 time=Sun Jul 31 11:31:00 2016,msup=0,ssup=112.732,price=4224.66,M5 up=4228.77698056,down=4228.2083538,next=4226.09550761,False
 time=Sun Jul 31 11:31:00 2016,msup=0,ssup=112.732,price=4224.66,M1 up=4226.89293638,down=4228.58259918,next=4225.21657182,False
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug  7 12:14:00 2016,msup=0,ssup=39.278,price=3878.63,M5 up=3882.06989683,down=3878.24080295,next=3880.29542049,False,boll=3876.662,m5close=3878.77
+time=Sun Aug  7 12:14:00 2016,msup=0,ssup=0.169,price=3878.63,M1 up=3878.71676545,down=3880.32286523,next=3878.48046628,True
+time=Sun Aug  7 12:14:00 2016,msup=0,ssup=39.278,price=3878.63,M5 up=3882.06989683,down=3878.24080295,next=3880.20208715,False,boll=3876.655,m5close=3878.63
+time=Sun Aug  7 12:14:00 2016,msup=0,ssup=0.169,price=3878.63,M1 up=3878.71676545,down=3880.32286523,next=3878.48046628,True
+kdj=None,touch=True,fiveIsStrong=False
+time=Sun Aug  7 12:17:00 2016,msup=0,ssup=57.252,price=3877.85,M5 up=3880.44208715,down=3879.69289011,next=3878.7706065,False,boll=3876.431,m5close=3877.81
+time=Sun Aug  7 12:17:00 2016,msup=0,ssup=0.17,price=3877.85,M1 up=3877.78804521,down=3878.56229243,next=3877.74332093,True
+kdj=None,touch=True,fiveIsStrong=False
+time=Sun Aug  7 12:17:00 2016,msup=0,ssup=57.58,price=3877.85,M5 up=3880.44208715,down=3879.69289011,next=3878.7706065,False,boll=3876.431,m5close=3877.81
+time=Sun Aug  7 12:17:00 2016,msup=0,ssup=0,price=3877.85,M1 up=3877.78804521,down=3878.56229243,next=3877.74332093,True
+kdj=None,touch=True,fiveIsStrong=False
+time=Sun Aug  7 12:17:00 2016,msup=0,ssup=55.551,price=3877.67,M5 up=3880.44208715,down=3879.69289011,next=3878.7706065,False,boll=3876.431,m5close=3877.81
+time=Sun Aug  7 12:17:00 2016,msup=0,ssup=0.234,price=3877.67,M1 up=3877.78804521,down=3878.56229243,next=3877.62332093,True
+kdj=None,touch=True,fiveIsStrong=False
+time=Sun Aug  7 12:17:00 2016,msup=0,ssup=44.515,price=3877.2,M5 up=3880.44208715,down=3879.69289011,next=3878.44393983,False,boll=3876.4065,m5close=3877.32
+time=Sun Aug  7 12:17:00 2016,msup=0,ssup=2.895,price=3877.2,M1 up=3877.32919453,down=3878.21404849,next=3877.14474773,True
+time=Sun Aug  7 12:17:00 2016,msup=0,ssup=44.515,price=3877.2,M5 up=3880.44208715,down=3879.69289011,next=3878.36393983,False,boll=3876.4005,m5close=3877.2
+time=Sun Aug  7 12:17:00 2016,msup=0,ssup=2.895,price=3877.2,M1 up=3877.32919453,down=3878.21404849,next=3877.14474773,True
+kdj=None,touch=True,fiveIsStrong=False
+time=Sun Aug  7 12:17:00 2016,msup=0,ssup=31.857,price=3877.24,M5 up=3880.44208715,down=3879.69289011,next=3878.21727317,False,boll=3876.3895,m5close=3876.98
+time=Sun Aug  7 12:17:00 2016,msup=0,ssup=1.405,price=3877.24,M1 up=3877.3108405,down=3878.20011873,next=3877.16480481,True
+time=Sun Aug  7 12:17:00 2016,msup=0,ssup=31.857,price=3877.24,M5 up=3880.44208715,down=3879.69289011,next=3878.3906065,False,boll=3876.4025,m5close=3877.24
+time=Sun Aug  7 12:17:00 2016,msup=0,ssup=1.405,price=3877.24,M1 up=3877.3108405,down=3878.20011873,next=3877.16480481,True
+kdj=None,touch=True,fiveIsStrong=False
+time=Sun Aug  7 12:17:00 2016,msup=0,ssup=49.376,price=3877.11,M5 up=3880.44208715,down=3879.69289011,next=3878.3906065,False,boll=3876.4025,m5close=3877.24
+time=Sun Aug  7 12:17:00 2016,msup=0,ssup=0.984,price=3877.11,M1 up=3877.3108405,down=3878.20011873,next=3877.07813814,True
+time=Sun Aug  7 12:17:00 2016,msup=0,ssup=43.646,price=3877.11,M5 up=3880.44208715,down=3879.69289011,next=3878.30393983,False,boll=3876.396,m5close=3877.11
+time=Sun Aug  7 12:17:00 2016,msup=0,ssup=0.954,price=3877.11,M1 up=3877.3108405,down=3878.20011873,next=3877.07813814,True
