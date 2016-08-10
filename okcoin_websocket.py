@@ -101,7 +101,45 @@ def go():
 
     pricelogging.info("touchShortDown=%s,buyprice=%s,1jkd=%s,pre1kdj=%s,buy1time=%s,cukdj=%s" % (stock1Min.touchShortDown(),buyPrice1,lastm1.j-lastm1.k,prelastm1.j-prelastm1.k,buy1Time,current.j-current.k))
 
-    if prelastM5.j - prelastM5.k<0 and prelastM5.j - prelastM5.k>-5 and stock5Min.touchDown()
+
+    prelast5diff = prelastM5.j-prelastM5.k
+    pre2last5diff = pre2lastM5.j - pre2lastM5.k
+
+    prelast1diff = lastm1.j-lastm1.k
+    pre2last1diff = prelastm1.j - prelastm1.k
+
+    if buyPrice1==None and prelast5diff<0 and pre2last5diff<0 and  prelast5diff>pre2last5diff and prelast5diff>-5 and stock5Min.touchShortDown() \
+        and stock1Min.touchDown() and stock1Min.downToUp():
+        if pre2last1diff<0 and prelast1diff>=0 :
+            pricelogging.info("tbuy-%s,time=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time)))
+            buyPrice1 = current.close
+            buy1Time = current.time
+            spec = True
+        if pre2last1diff>=0 and prelast1diff > pre2last1diff:
+            pricelogging.info("tbuy1-%s,time=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time)))
+            buyPrice1 = current.close
+            buy1Time = current.time
+            spec = True
+
+    if buyPrice1!=None and spec==True and prelast1diff < pre2last1diff and buy1Time-lastM5.time<5*60:
+        pricelogging.info("tbuy2-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+        buyPrice1 = None
+        buy1Time = None
+        spec = None
+    if buyPrice1!=None and spec==True and prelast1diff < pre2last1diff and buy1Time-lastM5.time>=5*60 and buy1Time-lastM5.time<10*60:
+        pricelogging.info("tbuy2-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+        buyPrice1 = None
+        buy1Time = None
+        spec = None
+
+    if buyPrice1!=None and spec==True and prelast5diff>0:
+        spec = None
+
+
+    if buyPrice1!=None and spec==None
+
+
+
 
     '''
     if sellSpec and ((current.time == buy1Time and current.close>buyPrice1) or (current.time!=buy1Time)):

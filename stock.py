@@ -355,6 +355,17 @@ class stock(object):
 
         return flag
 
+    def touchUpSell(self):
+        pk = self.stocks[self.cursor-1].high - self.stocks[self.cursor-1].up
+        pk2 = self.stocks[self.cursor-2].high - self.stocks[self.cursor-2].up
+        kdjdiff = self.stocks[self.cursor-1].j - self.stocks[self.cursor-1].k
+        kdj2diff = self.stocks[self.cursor-2].j - self.stocks[self.cursor-2].k
+        if pk>0 and kdjdiff<=0:
+            return True
+        if pk<0 and pk2>=0 and kdjdiff < kdj2diff:
+            return True
+        return False
+
     def touchUpMy(self):
         flag = False
         if int(self.stocks[self.cursor].high) >= int(self.stocks[self.cursor].up):
