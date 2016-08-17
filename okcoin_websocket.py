@@ -121,22 +121,28 @@ def go():
             buy1Time = current.time
             spec = True
 
+    if buyPrice1==None and prelast5diff<0 and pre2last5diff<0 and  prelast5diff>pre2last5diff and prelast5diff>-5 and stock5Min.touchSimlarDown(4) \
+            and stock1Min.touchDown() and stock1Min.downToUp():
+        if pre2last1diff<0 and prelast1diff>=0 :
+            pricelogging.info("tbuy21-%s,time=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time)))
+            buyPrice1 = current.close
+            buy1Time = current.time
+            spec = True
+        if pre2last1diff>=0 and prelast1diff > pre2last1diff:
+            pricelogging.info("tbuy22-%s,time=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time)))
+            buyPrice1 = current.close
+            buy1Time = current.time
+            spec = True
+
+
     if buyPrice1!=None and spec==True and prelast5diff>0:
         spec = None
 
-    if buyPrice1!=None and spec==True and buy1Time!=current.time and prelast1diff < pre2last1diff and buy1Time-lastM5.time<5*60:
+    if buyPrice1!=None and spec==True and buy1Time!=current.time and prelast1diff < pre2last1diff and stock1Min.touchMiddleLong()==False and buy1Time-lastM5.time<5*60:
         pricelogging.info("tbuy2-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
         buyPrice1 = None
         buy1Time = None
         spec = None
-    if buyPrice1!=None and spec==True and buy1Time!=current.time and prelast1diff < pre2last1diff and buy1Time-lastM5.time>=5*60 and buy1Time-lastM5.time<10*60:
-        pricelogging.info("tbuy3-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
-        buyPrice1 = None
-        buy1Time = None
-        spec = None
-
-
-
 
     if buyPrice1!=None and spec==None and buy1Time!=current.time and stock1Min.touchUpSell():
         pricelogging.info("tbuy4-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))

@@ -300,6 +300,13 @@ class stock(object):
                 flag = True
         return flag
 
+    def touchSimlarDown(self,end):
+        flag = False
+        for i in range(1,end):
+            if i!=1 and self.stocks[self.cursor-i].low-0.5 <= self.stocks[self.cursor-i].dn and self.stocks[self.cursor-i+1].close>self.stocks[self.cursor-i].close:
+                flag = True
+        return flag
+
     def middleUp(self):
         flag = False
         if self.stocks[self.cursor].close <= self.stocks[self.cursor].boll:
@@ -330,6 +337,7 @@ class stock(object):
             if self.stocks[self.cursor-i].close < self.stocks[self.cursor-i].boll:
                 flag = True
         return flag
+
 
     def touchUp(self):
         flag = False
