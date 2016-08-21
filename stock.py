@@ -202,6 +202,9 @@ class stock(object):
     def pre2LastKline(self):
         return self.stocks[self.cursor-2]
 
+    def preMyLastKline(self,count):
+        return self.stocks[self.cursor-count]
+
     def on_trade(self,trade):
         if self.baseTime == None:
             return
@@ -268,6 +271,14 @@ class stock(object):
 
         return flag
 
+    def touchDownRange(self,start,end):
+        flag = False
+        for i in range(start,end):
+            if int(self.stocks[self.cursor-i].low) <= int(self.stocks[self.cursor-i].dn):
+                flag = True
+
+        return flag
+
     def downToUp(self):
         flag = False
         count=0
@@ -281,6 +292,62 @@ class stock(object):
             count+=1
 
         return flag
+
+    def kdjUp(self,indexTime):
+        flag = 0
+        count=1
+        while True:
+            if self.stocks[self.cursor-count].time == indexTime:
+                break
+            if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k > 0 and self.stocks[self.cursor-count-1].j-self.stocks[self.cursor-count-1].k <= 0:
+                flag += 1
+            count += 1
+
+        if flag==1:
+            return True
+        return False
+
+    def countTouchUp(self,indexTime):
+        findex = 0
+        count=1
+        ha = {}
+        while True:
+            if self.stocks[self.cursor-count].time == indexTime:
+                break
+            if self.stocks[self.cursor-count].high >self.stocks[self.cursor-count].up and ha.has_key(findex)==False:
+                findex[findex] = 1
+            if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k > 0 and self.stocks[self.cursor-count-1].j-self.stocks[self.cursor-count-1].k <= 0:
+                findex += 1
+            count += 1
+        return len(ha)
+
+    def countCross(self,indexTime):
+        findex = 0
+        count=1
+        ha = {}
+        while True:
+            if self.stocks[self.cursor-count].time == indexTime:
+                break
+            if self.stocks[self.cursor-count].high >self.stocks[self.cursor-count].up and ha.has_key(findex)==False:
+                findex[findex] = 1
+            if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k > 0 and self.stocks[self.cursor-count-1].j-self.stocks[self.cursor-count-1].k <= 0:
+                findex += 1
+            count += 1
+        return findex
+
+    def kdjUpDontTouchMax(self,indexTime):
+        maxc = 0
+        count=1
+        while True:
+            if self.stocks[self.cursor-count].time == indexTime:
+                break
+            if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k > maxc:
+                maxc = self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k
+            count += 1
+
+        if maxc-3>self.stocks[self.cursor].j-self.stocks[self.cursor].k:
+            return False
+        return True
 
     def mayDown(self,indexTime):
         flag = False
@@ -338,6 +405,31 @@ class stock(object):
                 flag = True
         return flag
 
+    def touchMyMiddelByLow(self,start,end):
+        flag = False
+        for i in range(start,end):
+            if self.stocks[self.cursor-i].low < self.stocks[self.cursor-i].boll:
+                flag = True
+        return flag
+
+    def touchMiddleToLowRange(self):
+        flag = True
+        for i in range(0,2):
+            if not (self.stocks[self.cursor-i].open < self.stocks[self.cursor-i].boll and self.stocks[self.cursor-i].close < self.stocks[self.cursor-i].boll):
+                flag=False
+        return flag
+
+    def touchHighBetweenMiddleRange(self):
+        count=1
+        while True:
+            if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k>0:
+                break;
+            if self.stocks[self.cursor-count].high>self.stocks[self.cursor-count].up:
+                break;
+            count += 1
+        if count>=3:
+            return True
+        return False
 
     def touchUp(self):
         flag = False
