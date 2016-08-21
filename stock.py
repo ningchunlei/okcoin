@@ -315,7 +315,7 @@ class stock(object):
             if self.stocks[self.cursor-count].time == indexTime:
                 break
             if self.stocks[self.cursor-count].high >self.stocks[self.cursor-count].up and ha.has_key(findex)==False:
-                findex[findex] = 1
+                ha[findex] = 1
             if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k > 0 and self.stocks[self.cursor-count-1].j-self.stocks[self.cursor-count-1].k <= 0:
                 findex += 1
             count += 1
@@ -324,12 +324,20 @@ class stock(object):
     def countCross(self,indexTime):
         findex = 0
         count=1
-        ha = {}
         while True:
             if self.stocks[self.cursor-count].time == indexTime:
                 break
-            if self.stocks[self.cursor-count].high >self.stocks[self.cursor-count].up and ha.has_key(findex)==False:
-                findex[findex] = 1
+            if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k > 0 and self.stocks[self.cursor-count-1].j-self.stocks[self.cursor-count-1].k <= 0:
+                findex += 1
+            count += 1
+        return findex
+
+    def countCrossDiff(self,indexTime,fcount):
+        findex = 0
+        count=fcount
+        while True:
+            if self.stocks[self.cursor-count].time == indexTime:
+                break
             if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k > 0 and self.stocks[self.cursor-count-1].j-self.stocks[self.cursor-count-1].k <= 0:
                 findex += 1
             count += 1
