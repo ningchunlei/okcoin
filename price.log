@@ -19751,3 +19751,209 @@ touchShortDown=False,buyprice=None,1jkd=-22.2732366846,pre1kdj=-28.4450344729,bu
 time=Wed Aug 10 22:52:00 2016,msup=2.837,ssup=0,price=3987.85,M5 up=3987.54953736,down=3990.87505962,next=3987.38034331,True,boll=3978.2635,m5close=3987.85
 time=Wed Aug 10 22:52:00 2016,msup=4.857,ssup=0,price=3987.85,M1 up=3987.16196545,down=3991.16613658,next=3987.17574725,True
 touchShortDown=False,buyprice=None,1jkd=-22.2732366846,pre1kdj=-28.4450344729,buy1time=None,cukdj=-18.4460385422
+kdj=None,touch=True,fiveIsStrong=False
+time=Sun Aug 21 16:05:00 2016,msup=13.391,ssup=0,price=3892.15,M5 up=3891.44647083,down=3893.03485268,next=3891.76567007,True,boll=3901.307,m5close=3892.19
+time=Sun Aug 21 16:05:00 2016,msup=10.65,ssup=0,price=3892.15,M1 up=3891.69576504,down=3890.36397012,next=3892.14656556,True
+touchShortDown=False,buyprice=None,1jkd=9.17688143518,pre1kdj=10.7832855447,buy1time=None,cukdj=12.3068381243
+time=Sun Aug 21 16:05:00 2016,msup=13.391,ssup=0,price=3892.15,M5 up=3891.44647083,down=3893.03485268,next=3891.7390034,True,boll=3901.305,m5close=3892.15
+time=Sun Aug 21 16:05:00 2016,msup=10.65,ssup=0,price=3892.15,M1 up=3891.69576504,down=3890.36397012,next=3892.14656556,True
+touchShortDown=False,buyprice=None,1jkd=9.17688143518,pre1kdj=10.7832855447,buy1time=None,cukdj=12.3068381243
+kdj=None,touch=True,fiveIsStrong=False
+time=Sun Aug 21 16:05:00 2016,msup=12.872,ssup=0,price=3892.0,M5 up=3891.44647083,down=3893.03485268,next=3891.7390034,True,boll=3901.305,m5close=3892.15
+time=Sun Aug 21 16:05:00 2016,msup=10.587,ssup=0,price=3892.0,M1 up=3891.69576504,down=3890.36397012,next=3892.04656556,False
+touchShortDown=False,buyprice=None,1jkd=9.17688143518,pre1kdj=10.7832855447,buy1time=None,cukdj=11.2732463931
+time=Sun Aug 21 16:05:00 2016,msup=12.872,ssup=0,price=3892.0,M5 up=3891.44647083,down=3893.03485268,next=3891.6390034,True,boll=3901.2975,m5close=3892.0
+time=Sun Aug 21 16:05:00 2016,msup=10.587,ssup=0,price=3892.0,M1 up=3891.69576504,down=3890.36397012,next=3892.04656556,False
+touchShortDown=False,buyprice=None,1jkd=9.17688143518,pre1kdj=10.7832855447,buy1time=None,cukdj=11.2732463931
+kdj=None,touch=True,fiveIsStrong=False
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:09:00 2016,msup=220.951,ssup=0,price=3894.99,M5 up=3891.44647083,down=3893.03485268,next=3893.66567007,True,boll=3901.4495,m5close=3895.04
+time=Sun Aug 21 16:09:00 2016,msup=0,ssup=73.994,price=3894.99,M1 up=3895.93101258,down=3892.29456441,next=3895.70772065,False
+touchShortDown=False,buyprice=None,1jkd=27.3932065161,pre1kdj=21.0705417748,buy1time=None,cukdj=20.3045995378
+time=Sun Aug 21 16:09:00 2016,msup=170.33,ssup=0,price=3894.99,M5 up=3891.44647083,down=3893.03485268,next=3893.63233674,True,boll=3901.447,m5close=3894.99
+time=Sun Aug 21 16:09:00 2016,msup=0,ssup=72.394,price=3894.99,M1 up=3895.93101258,down=3892.29456441,next=3895.70772065,False
+touchShortDown=False,buyprice=None,1jkd=27.3932065161,pre1kdj=21.0705417748,buy1time=None,cukdj=20.3045995378
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:09:00 2016,msup=200.351,ssup=0,price=3895.07,M5 up=3891.44647083,down=3893.03485268,next=3893.63233674,True,boll=3901.447,m5close=3894.99
+time=Sun Aug 21 16:09:00 2016,msup=0,ssup=63.737,price=3895.07,M1 up=3895.93101258,down=3892.29456441,next=3895.76105399,False
+touchShortDown=False,buyprice=None,1jkd=27.3932065161,pre1kdj=21.0705417748,buy1time=None,cukdj=20.9072360727
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:09:00 2016,msup=143.99,ssup=0,price=3894.99,M5 up=3891.44647083,down=3893.03485268,next=3893.63233674,True,boll=3901.447,m5close=3894.99
+time=Sun Aug 21 16:09:00 2016,msup=0,ssup=63.252,price=3894.99,M1 up=3895.93101258,down=3892.29456441,next=3895.70772065,False
+touchShortDown=False,buyprice=None,1jkd=27.3932065161,pre1kdj=21.0705417748,buy1time=None,cukdj=20.3045995378
+time=Sun Aug 21 16:09:00 2016,msup=143.99,ssup=0,price=3894.99,M5 up=3891.44647083,down=3893.03485268,next=3893.63233674,True,boll=3901.447,m5close=3894.99
+time=Sun Aug 21 16:09:00 2016,msup=0,ssup=63.252,price=3894.99,M1 up=3895.93101258,down=3892.29456441,next=3895.70772065,False
+touchShortDown=False,buyprice=None,1jkd=27.3932065161,pre1kdj=21.0705417748,buy1time=None,cukdj=20.3045995378
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:10:00 2016,msup=31.504,ssup=0,price=3894.53,M5 up=3893.05233674,down=3891.96718942,next=3894.30468417,True,boll=3900.9035,m5close=3894.75
+time=Sun Aug 21 16:10:00 2016,msup=0,ssup=6.853,price=3894.53,M1 up=3895.12772065,down=3893.30228507,next=3894.93206639,False
+touchShortDown=False,buyprice=None,1jkd=13.7509272214,pre1kdj=27.3932065161,buy1time=None,cukdj=9.24832341801
+xbuy1-1,3894.53,time=Sun Aug 21 16:10:00 2016
+time=Sun Aug 21 16:10:00 2016,msup=31.504,ssup=0,price=3894.53,M5 up=3893.05233674,down=3891.96718942,next=3894.1580175,True,boll=3900.8925,m5close=3894.53
+time=Sun Aug 21 16:10:00 2016,msup=0,ssup=6.853,price=3894.53,M1 up=3895.12772065,down=3893.30228507,next=3894.93206639,False
+touchShortDown=False,buyprice=None,1jkd=13.7509272214,pre1kdj=27.3932065161,buy1time=1471767000,cukdj=9.24832341801
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:10:00 2016,msup=141.766,ssup=0,price=3894.85,M5 up=3893.05233674,down=3891.96718942,next=3894.1580175,True,boll=3900.8925,m5close=3894.53
+time=Sun Aug 21 16:10:00 2016,msup=0,ssup=1.749,price=3894.85,M1 up=3895.12772065,down=3893.30228507,next=3895.14539973,False
+touchShortDown=False,buyprice=None,1jkd=13.7509272214,pre1kdj=27.3932065161,buy1time=1471767000,cukdj=11.6588695574
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:11:00 2016,msup=103.483,ssup=0,price=3894.74,M5 up=3893.05233674,down=3891.96718942,next=3894.64468417,True,boll=3900.929,m5close=3895.26
+time=Sun Aug 21 16:11:00 2016,msup=0,ssup=5.528,price=3894.74,M1 up=3895.40064271,down=3893.92423539,next=3895.12425949,False
+touchShortDown=False,buyprice=None,1jkd=13.391449595,pre1kdj=13.7509272214,buy1time=None,cukdj=7.39922544918
+xbuy1-1,3894.74,time=Sun Aug 21 16:11:00 2016
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:11:00 2016,msup=105.184,ssup=0,price=3895.07,M5 up=3893.05233674,down=3891.96718942,next=3894.64468417,True,boll=3900.929,m5close=3895.26
+time=Sun Aug 21 16:11:00 2016,msup=0,ssup=0.9,price=3895.07,M1 up=3895.40064271,down=3893.92423539,next=3895.34425949,False
+touchShortDown=False,buyprice=None,1jkd=13.391449595,pre1kdj=13.7509272214,buy1time=1471767060,cukdj=10.3924227281
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:11:00 2016,msup=114.19,ssup=0,price=3895.31,M5 up=3893.05233674,down=3891.96718942,next=3894.64468417,True,boll=3900.929,m5close=3895.26
+time=Sun Aug 21 16:11:00 2016,msup=0,ssup=1.774,price=3895.31,M1 up=3895.40064271,down=3893.92423539,next=3895.50425949,False
+touchShortDown=False,buyprice=None,1jkd=13.391449595,pre1kdj=13.7509272214,buy1time=1471767060,cukdj=12.5692934764
+time=Sun Aug 21 16:11:00 2016,msup=114.19,ssup=0,price=3895.31,M5 up=3893.05233674,down=3891.96718942,next=3894.6780175,True,boll=3900.9315,m5close=3895.31
+time=Sun Aug 21 16:11:00 2016,msup=0,ssup=1.774,price=3895.31,M1 up=3895.40064271,down=3893.92423539,next=3895.50425949,False
+touchShortDown=False,buyprice=None,1jkd=13.391449595,pre1kdj=13.7509272214,buy1time=1471767060,cukdj=12.5692934764
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:11:00 2016,msup=118.915,ssup=0,price=3895.36,M5 up=3893.05233674,down=3891.96718942,next=3894.6780175,True,boll=3900.9315,m5close=3895.31
+time=Sun Aug 21 16:11:00 2016,msup=0,ssup=0.215,price=3895.36,M1 up=3895.40064271,down=3893.92423539,next=3895.53759283,False
+touchShortDown=False,buyprice=None,1jkd=13.391449595,pre1kdj=13.7509272214,buy1time=1471767060,cukdj=13.0228082156
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:12:00 2016,msup=117.929,ssup=0,price=3895.4,M5 up=3893.05233674,down=3891.96718942,next=3894.6780175,True,boll=3900.9315,m5close=3895.31
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=0.422,price=3895.4,M1 up=3895.54277007,down=3894.12751639,next=3895.60484043,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767060,cukdj=11.7090739295
+time=Sun Aug 21 16:12:00 2016,msup=117.929,ssup=0,price=3895.4,M5 up=3893.05233674,down=3891.96718942,next=3894.7380175,True,boll=3900.936,m5close=3895.4
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=0.422,price=3895.4,M1 up=3895.54277007,down=3894.12751639,next=3895.60484043,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767060,cukdj=11.7090739295
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:12:00 2016,msup=117.929,ssup=0,price=3895.4,M5 up=3893.05233674,down=3891.96718942,next=3894.7380175,True,boll=3900.936,m5close=3895.4
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=0.422,price=3895.4,M1 up=3895.54277007,down=3894.12751639,next=3895.60484043,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767060,cukdj=11.7090739295
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:12:00 2016,msup=116.462,ssup=0,price=3895.26,M5 up=3893.05233674,down=3891.96718942,next=3894.7380175,True,boll=3900.936,m5close=3895.4
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=1.109,price=3895.26,M1 up=3895.54277007,down=3894.12751639,next=3895.5115071,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767060,cukdj=10.420829163
+time=Sun Aug 21 16:12:00 2016,msup=116.462,ssup=0,price=3895.26,M5 up=3893.05233674,down=3891.96718942,next=3894.64468417,True,boll=3900.929,m5close=3895.26
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=1.109,price=3895.26,M1 up=3895.54277007,down=3894.12751639,next=3895.5115071,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767060,cukdj=10.420829163
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:12:00 2016,msup=117.507,ssup=0,price=3895.1,M5 up=3893.05233674,down=3891.96718942,next=3894.64468417,True,boll=3900.929,m5close=3895.26
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=0.738,price=3895.1,M1 up=3895.54277007,down=3894.12751639,next=3895.40484043,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767060,cukdj=8.94854942986
+time=Sun Aug 21 16:12:00 2016,msup=117.507,ssup=0,price=3895.1,M5 up=3893.05233674,down=3891.96718942,next=3894.5380175,True,boll=3900.921,m5close=3895.1
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=0.738,price=3895.1,M1 up=3895.54277007,down=3894.12751639,next=3895.40484043,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767060,cukdj=8.94854942986
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:12:00 2016,msup=101.503,ssup=0,price=3894.91,M5 up=3893.05233674,down=3891.96718942,next=3894.5380175,True,boll=3900.921,m5close=3895.1
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=3.892,price=3894.91,M1 up=3895.54277007,down=3894.12751639,next=3895.27817377,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767060,cukdj=7.20021724674
+time=Sun Aug 21 16:12:00 2016,msup=101.503,ssup=0,price=3894.91,M5 up=3893.05233674,down=3891.96718942,next=3894.41135084,True,boll=3900.9115,m5close=3894.91
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=3.892,price=3894.91,M1 up=3895.54277007,down=3894.12751639,next=3895.27817377,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767060,cukdj=7.20021724674
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:12:00 2016,msup=142.451,ssup=0,price=3895.28,M5 up=3893.05233674,down=3891.96718942,next=3894.41135084,True,boll=3900.9115,m5close=3894.91
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=2.132,price=3895.28,M1 up=3895.54277007,down=3894.12751639,next=3895.52484043,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767060,cukdj=10.6048641297
+time=Sun Aug 21 16:12:00 2016,msup=142.451,ssup=0,price=3895.28,M5 up=3893.05233674,down=3891.96718942,next=3894.6580175,True,boll=3900.93,m5close=3895.28
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=2.132,price=3895.28,M1 up=3895.54277007,down=3894.12751639,next=3895.52484043,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767060,cukdj=10.6048641297
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:12:00 2016,msup=141.887,ssup=0,price=3895.17,M5 up=3893.05233674,down=3891.96718942,next=3894.5180175,True,boll=3900.9195,m5close=3895.07
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=45.014,price=3895.17,M1 up=3895.54277007,down=3894.12751639,next=3895.4515071,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=None,cukdj=9.59267181311
+xbuy1-1,3895.17,time=Sun Aug 21 16:12:00 2016
+time=Sun Aug 21 16:12:00 2016,msup=142.256,ssup=0,price=3895.17,M5 up=3893.05233674,down=3891.96718942,next=3894.58468417,True,boll=3900.9245,m5close=3895.17
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=44.521,price=3895.17,M1 up=3895.54277007,down=3894.12751639,next=3895.4515071,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767120,cukdj=9.59267181311
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:12:00 2016,msup=137.567,ssup=0,price=3895.25,M5 up=3893.05233674,down=3891.96718942,next=3894.58468417,True,boll=3900.9245,m5close=3895.17
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=45.268,price=3895.25,M1 up=3895.54277007,down=3894.12751639,next=3895.50484043,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767120,cukdj=10.3288116797
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:12:00 2016,msup=130.603,ssup=0,price=3895.25,M5 up=3893.05233674,down=3891.96718942,next=3894.58468417,True,boll=3900.9245,m5close=3895.17
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=49.578,price=3895.25,M1 up=3895.54277007,down=3894.12751639,next=3895.50484043,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767120,cukdj=10.3288116797
+time=Sun Aug 21 16:12:00 2016,msup=137.917,ssup=0,price=3895.25,M5 up=3893.05233674,down=3891.96718942,next=3894.6380175,True,boll=3900.9285,m5close=3895.25
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=44.419,price=3895.25,M1 up=3895.54277007,down=3894.12751639,next=3895.50484043,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767120,cukdj=10.3288116797
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:12:00 2016,msup=137.785,ssup=0,price=3895.26,M5 up=3893.05233674,down=3891.96718942,next=3894.6380175,True,boll=3900.9285,m5close=3895.25
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=45.02,price=3895.26,M1 up=3895.54277007,down=3894.12751639,next=3895.5115071,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767120,cukdj=10.420829163
+time=Sun Aug 21 16:12:00 2016,msup=137.793,ssup=0,price=3895.26,M5 up=3893.05233674,down=3891.96718942,next=3894.64468417,True,boll=3900.929,m5close=3895.26
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=47.259,price=3895.26,M1 up=3895.54277007,down=3894.12751639,next=3895.5115071,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767120,cukdj=10.420829163
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:12:00 2016,msup=109.992,ssup=0,price=3895.26,M5 up=3893.05233674,down=3891.96718942,next=3894.64468417,True,boll=3900.929,m5close=3895.26
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=46.007,price=3895.26,M1 up=3895.54277007,down=3894.12751639,next=3895.5115071,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767120,cukdj=10.420829163
+time=Sun Aug 21 16:12:00 2016,msup=111.709,ssup=0,price=3895.26,M5 up=3893.05233674,down=3891.96718942,next=3894.64468417,True,boll=3900.929,m5close=3895.26
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=44.622,price=3895.26,M1 up=3895.54277007,down=3894.12751639,next=3895.5115071,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767120,cukdj=10.420829163
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:12:00 2016,msup=110.977,ssup=0,price=3895.19,M5 up=3893.05233674,down=3891.96718942,next=3894.64468417,True,boll=3900.929,m5close=3895.26
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=46.49,price=3895.19,M1 up=3895.54277007,down=3894.12751639,next=3895.46484043,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767120,cukdj=9.77670677975
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:12:00 2016,msup=119.79,ssup=0,price=3894.88,M5 up=3893.05233674,down=3891.96718942,next=3894.64468417,True,boll=3900.929,m5close=3895.26
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=40.296,price=3894.88,M1 up=3895.54277007,down=3894.12751639,next=3895.25817377,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767120,cukdj=6.92416479678
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:12:00 2016,msup=106.291,ssup=0,price=3895.27,M5 up=3893.05233674,down=3891.96718942,next=3894.64468417,True,boll=3900.929,m5close=3895.26
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=39.515,price=3895.27,M1 up=3895.54277007,down=3894.12751639,next=3895.51817377,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767120,cukdj=10.5128466463
+time=Sun Aug 21 16:12:00 2016,msup=122.483,ssup=0,price=3895.27,M5 up=3893.05233674,down=3891.96718942,next=3894.65135084,True,boll=3900.9295,m5close=3895.27
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=40.371,price=3895.27,M1 up=3895.54277007,down=3894.12751639,next=3895.51817377,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767120,cukdj=10.5128466463
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:12:00 2016,msup=104.706,ssup=0,price=3895.17,M5 up=3893.05233674,down=3891.96718942,next=3894.65135084,True,boll=3900.9295,m5close=3895.27
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=38.997,price=3895.17,M1 up=3895.54277007,down=3894.12751639,next=3895.4515071,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767120,cukdj=9.59267181311
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:12:00 2016,msup=99.739,ssup=0,price=3895.41,M5 up=3893.05233674,down=3891.96718942,next=3894.65135084,True,boll=3900.9295,m5close=3895.27
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=38.593,price=3895.41,M1 up=3895.54277007,down=3894.12751639,next=3895.6115071,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767120,cukdj=11.8010914128
+time=Sun Aug 21 16:12:00 2016,msup=118.766,ssup=0,price=3895.41,M5 up=3893.05233674,down=3891.96718942,next=3894.74468417,True,boll=3900.9365,m5close=3895.41
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=38.863,price=3895.41,M1 up=3895.54277007,down=3894.12751639,next=3895.6115071,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767120,cukdj=11.8010914128
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:12:00 2016,msup=117.952,ssup=0,price=3895.29,M5 up=3893.05233674,down=3891.96718942,next=3894.74468417,True,boll=3900.9365,m5close=3895.41
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=39.203,price=3895.29,M1 up=3895.54277007,down=3894.12751639,next=3895.5315071,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767120,cukdj=10.696881613
+time=Sun Aug 21 16:12:00 2016,msup=117.952,ssup=0,price=3895.29,M5 up=3893.05233674,down=3891.96718942,next=3894.66468417,True,boll=3900.9305,m5close=3895.29
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=39.203,price=3895.29,M1 up=3895.54277007,down=3894.12751639,next=3895.5315071,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767120,cukdj=10.696881613
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:12:00 2016,msup=116.577,ssup=0,price=3894.71,M5 up=3893.05233674,down=3891.96718942,next=3894.66468417,True,boll=3900.9305,m5close=3895.29
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=43.702,price=3894.71,M1 up=3895.54277007,down=3894.12751639,next=3895.14484043,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767120,cukdj=5.35986758031
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:12:00 2016,msup=117.056,ssup=0,price=3894.61,M5 up=3893.05233674,down=3891.96718942,next=3894.66468417,True,boll=3900.9305,m5close=3895.29
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=44.322,price=3894.61,M1 up=3895.54277007,down=3894.12751639,next=3895.07817377,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767120,cukdj=4.43969274709
+time=Sun Aug 21 16:12:00 2016,msup=117.056,ssup=0,price=3894.61,M5 up=3893.05233674,down=3891.96718942,next=3894.21135084,True,boll=3900.8965,m5close=3894.61
+time=Sun Aug 21 16:12:00 2016,msup=0,ssup=44.322,price=3894.61,M1 up=3895.54277007,down=3894.12751639,next=3895.07817377,False
+touchShortDown=False,buyprice=None,1jkd=13.0228082156,pre1kdj=13.391449595,buy1time=1471767120,cukdj=4.43969274709
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:13:00 2016,msup=95.829,ssup=0,price=3894.87,M5 up=3893.05233674,down=3891.96718942,next=3894.21135084,True,boll=3900.8965,m5close=3894.61
+time=Sun Aug 21 16:13:00 2016,msup=0,ssup=4.721,price=3894.87,M1 up=3895.15474143,down=3894.71720971,next=3895.01352845,False
+touchShortDown=False,buyprice=None,1jkd=4.43969274709,pre1kdj=13.0228082156,buy1time=1471767120,cukdj=1.55038347762
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:13:00 2016,msup=95.829,ssup=0,price=3894.87,M5 up=3893.05233674,down=3891.96718942,next=3894.21135084,True,boll=3900.8965,m5close=3894.61
+time=Sun Aug 21 16:13:00 2016,msup=0,ssup=4.721,price=3894.87,M1 up=3895.15474143,down=3894.71720971,next=3895.01352845,False
+touchShortDown=False,buyprice=None,1jkd=4.43969274709,pre1kdj=13.0228082156,buy1time=1471767120,cukdj=1.55038347762
+time=Sun Aug 21 16:13:00 2016,msup=95.829,ssup=0,price=3894.87,M5 up=3893.05233674,down=3891.96718942,next=3894.38468417,True,boll=3900.9095,m5close=3894.87
+time=Sun Aug 21 16:13:00 2016,msup=0,ssup=4.721,price=3894.87,M1 up=3895.15474143,down=3894.71720971,next=3895.01352845,False
+touchShortDown=False,buyprice=None,1jkd=4.43969274709,pre1kdj=13.0228082156,buy1time=1471767120,cukdj=1.55038347762
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:13:00 2016,msup=111.435,ssup=0,price=3895.39,M5 up=3893.05233674,down=3891.96718942,next=3894.38468417,True,boll=3900.9095,m5close=3894.87
+time=Sun Aug 21 16:13:00 2016,msup=0,ssup=0.185,price=3895.39,M1 up=3895.15474143,down=3894.71720971,next=3895.36019511,True
+touchShortDown=False,buyprice=None,1jkd=4.43969274709,pre1kdj=13.0228082156,buy1time=1471767120,cukdj=6.82689286371
+time=Sun Aug 21 16:13:00 2016,msup=111.435,ssup=0,price=3895.39,M5 up=3893.05233674,down=3891.96718942,next=3894.73135084,True,boll=3900.9355,m5close=3895.39
+time=Sun Aug 21 16:13:00 2016,msup=0,ssup=0.185,price=3895.39,M1 up=3895.15474143,down=3894.71720971,next=3895.36019511,True
+touchShortDown=False,buyprice=None,1jkd=4.43969274709,pre1kdj=13.0228082156,buy1time=1471767120,cukdj=6.82689286371
+kdj=None,touch=False,fiveIsStrong=True
+time=Sun Aug 21 16:13:00 2016,msup=117.019,ssup=0,price=3895.33,M5 up=3893.05233674,down=3891.96718942,next=3894.73135084,True,boll=3900.9355,m5close=3895.39
+time=Sun Aug 21 16:13:00 2016,msup=2.157,ssup=0,price=3895.33,M1 up=3895.15474143,down=3894.71720971,next=3895.32019511,True
+touchShortDown=False,buyprice=None,1jkd=4.43969274709,pre1kdj=13.0228082156,buy1time=1471767120,cukdj=6.21806485763
+time=Sun Aug 21 16:13:00 2016,msup=117.019,ssup=0,price=3895.33,M5 up=3893.05233674,down=3891.96718942,next=3894.69135084,True,boll=3900.9325,m5close=3895.33
+time=Sun Aug 21 16:13:00 2016,msup=2.157,ssup=0,price=3895.33,M1 up=3895.15474143,down=3894.71720971,next=3895.32019511,True
+touchShortDown=False,buyprice=None,1jkd=4.43969274709,pre1kdj=13.0228082156,buy1time=1471767120,cukdj=6.21806485763
