@@ -97,6 +97,8 @@ def go():
     m5upSellSupport = findTotalSupportWithAsks(m5up,asksList[0])
     m5upBuySupport = findTotalSupportWithBids(m5up,bidsList[0])
 
+    if current.time-lastM5.time>=5*60:
+        return
 
     pricelogging.info("time=%s,msup=%s,ssup=%s,price=%s,M5 up=%s,down=%s,next=%s,%s,boll=%s,m5close=%s" % (time.ctime(current.time),m5upBuySupport,m5upSellSupport,current.close,m5up,m5down,m5next,stock5Min.forecastKDJ(),lastM5.boll,lastM5.close))
     pricelogging.info("time=%s,msup=%s,ssup=%s,price=%s,M1 up=%s,down=%s,next=%s,%s" % (time.ctime(current.time),m1upBuySupport,m1upSellSupport,current.close,m1up,m1down,m1next,stock1Min.forecastKDJ()))
@@ -110,8 +112,7 @@ def go():
     prelast1diff = lastm1.j-lastm1.k
     pre2last1diff = prelastm1.j - prelastm1.k
 
-    if current.time-lastM5.time>=5:
-        return
+
 
     if buy1Time==None and stock5Min.touchDownRange(0,4)==True \
                             and pre2last5diff<-5 and prelast5diff>0 and prelast5diff>pre2last5diff:
