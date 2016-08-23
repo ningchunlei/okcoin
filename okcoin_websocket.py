@@ -185,6 +185,14 @@ def go():
                 xkdj = None
                 spec = 2
             return
+
+        if stock1Min.downToUp() and stock1Min.countCross(buy1Time)==0 and stock1Min.kdjUpDontTouchMax(buy1Time) and lastM5.j-lastM5.k>prelast5diff:
+            pricelogging.info("tbuy10-%s,time=%s,deciderTime=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time)))
+            buyPrice1 = current.close
+            xkdj = None
+            spec = 2
+            return
+
         if stock1Min.downToUp() and stock1Min.kdjUp(buy1Time) and stock1Min.kdjUpDontTouchMax(buy1Time) and lastM5.j-lastM5.k>prelast5diff:
             pricelogging.info("tbuy1-%s,time=%s,deciderTime=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time)))
             buyPrice1 = current.close
