@@ -112,7 +112,7 @@ def go():
     prelast1diff = lastm1.j-lastm1.k
     pre2last1diff = prelastm1.j - prelastm1.k
 
-
+    pricelogging.info("5down=%s,pre2kdj=%s,prekdj=%s,curkdj=%s" % (stock5Min.touchDownRange(0,4),pre2last5diff,prelast5diff,lastM5.j-lastM5.k))
 
     if buy1Time==None and stock5Min.touchDownRange(0,4)==True \
                             and pre2last5diff<-5 and prelast5diff>0 and prelast5diff>pre2last5diff:
@@ -121,7 +121,16 @@ def go():
         xkdj = prelast1diff
         xbuy="11"
         spec = 1
-        pricelogging.info("xbuy11-%s,%s,time=%s" % (xbuy,stock1Min.lastKline().close,time.ctime(buy1Time)))
+        pricelogging.info("xbuy11-%s,%s,time=%s,b2time=%s" % (xbuy,stock1Min.lastKline().close,time.ctime(buy1Time),time.ctime(buy2Time)))
+
+    if buy1Time==None and stock5Min.touchDownRange(0,4)==True \
+            and pre2last5diff>0 and prelast5diff>0 and prelast5diff>pre2last5diff:
+        buy1Time = current.time
+        buy2Time = lastM5.time
+        xkdj = prelast1diff
+        xbuy="12"
+        spec = 1
+        pricelogging.info("xbuy12-%s,%s,time=%s,b2time=%s" % (xbuy,stock1Min.lastKline().close,time.ctime(buy1Time),time.ctime(buy2Time)))
 
     #touch down to up
     if buy1Time==None and stock5Min.touchDownRange(0,4)==True and \
@@ -131,7 +140,7 @@ def go():
         xkdj = prelast1diff
         xbuy="1"
         spec = 1
-        pricelogging.info("xbuy1-%s,%s,time=%s" % (xbuy,stock1Min.lastKline().close,time.ctime(buy1Time)))
+        pricelogging.info("xbuy1-%s,%s,time=%s,b2time=%s" % (xbuy,stock1Min.lastKline().close,time.ctime(buy1Time),time.ctime(buy2Time)))
 
 
     #touch middle to up
@@ -142,7 +151,7 @@ def go():
         xkdj = prelast1diff
         xbuy="2"
         spec = 1
-        pricelogging.info("xbuy2-%s,%s,time=%s" % (xbuy,stock1Min.lastKline().close,time.ctime(buy1Time)))
+        pricelogging.info("xbuy2-%s,%s,time=%s,b2time=%s" % (xbuy,stock1Min.lastKline().close,time.ctime(buy1Time),time.ctime(buy2Time)))
 
     #touch down middle to up
     if buy1Time==None and stock5Min.touchMiddle()==True and stock5Min.touchMiddleToLowRange() and stock5Min.touchHighBetweenMiddleRange()==True and \
@@ -152,7 +161,7 @@ def go():
         xkdj = prelast1diff
         xbuy="3"
         spec = 1
-        pricelogging.info("xbuy3-%s,%s,time=%s" % (xbuy,stock1Min.lastKline().close,time.ctime(buy1Time)))
+        pricelogging.info("xbuy3-%s,%s,time=%s,b2time=%s" % (xbuy,stock1Min.lastKline().close,time.ctime(buy1Time),time.ctime(buy2Time)))
 
 
     if buy2Time!=None and lastM5.time - buy2Time == 5*60 and (prelast5diff<pre2last5diff or prelast5diff<0):
