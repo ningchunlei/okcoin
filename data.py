@@ -3,7 +3,7 @@ from datetime import datetime
 import time
 import os
 
-store_dir="/tmp"
+store_dir="/root/ningcl/btc"
 
 def store(filetype,klines):
     for kline in klines:
