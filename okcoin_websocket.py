@@ -805,7 +805,7 @@ def check_connect():
         if time.time()-last_time>6:
             ws.close()
 
-
+'''
 if __name__ == "__main__":
     thread = threading.Thread(target=check_connect)
     thread.setDaemon(True)
@@ -822,3 +822,4 @@ if __name__ == "__main__":
         except Exception,e:
             logging.error(e)
 
+'''

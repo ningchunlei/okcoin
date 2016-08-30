@@ -19,6 +19,19 @@ class KLine(object):
             self.low = float(data[3])
             self.close = float(data[4])
             self.vol = float(data[5])
+        elif trade == "kline":
+            self.time = time.mktime(datetime.strptime(data[4],"%y-%m-%d %H:%M").timetuple())
+            self.open = float(data[1])
+            self.high = float(data[2])
+            self.low = float(data[3])
+            self.close = float(data[0])
+            self.vol = 0
+        elif trade == "copy":
+            self.open = data.open
+            self.high = data.high
+            self.low = data.low
+            self.close = data.close
+            self.vol = 0
         else:
             self.time = trade.ktime
             self.vol = trade.vol
