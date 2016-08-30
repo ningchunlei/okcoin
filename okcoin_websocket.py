@@ -112,35 +112,36 @@ def go():
     prelast1diff = lastm1.j-lastm1.k
     pre2last1diff = prelastm1.j - prelastm1.k
 
-    pricelogging.info("5down=%s,pre2kdj=%s,prekdj=%s,curkdj=%s" % (stock5Min.touchDownRange(0,4),pre2last5diff,prelast5diff,lastM5.j-lastM5.k))
+    pricelogging.info("spec=%s,5down=%s,pre2kdj=%s,prekdj=%s,curkdj=%s" % (spec,stock5Min.touchDownRange(0,4),pre2last5diff,prelast5diff,lastM5.j-lastM5.k))
 
-    if buy1Time==None and stock5Min.touchDownRange(0,4)==True \
-                            and pre2last5diff<-5 and prelast5diff>0 and prelast5diff>pre2last5diff:
-        buy1Time = current.time
-        buy2Time = lastM5.time
-        xkdj = prelast1diff
-        xbuy="11"
-        spec = 1
-        pricelogging.info("xbuy11-%s,%s,time=%s,b2time=%s" % (xbuy,stock1Min.lastKline().close,time.ctime(buy1Time),time.ctime(buy2Time)))
+    if spec == None:
+        if buy1Time==None and stock5Min.touchDownRange(0,4)==True \
+                                and pre2last5diff<-5 and prelast5diff>0 and prelast5diff>pre2last5diff:
+            buy1Time = current.time
+            buy2Time = lastM5.time
+            xkdj = prelast1diff
+            xbuy="11"
+            spec = 1
+            pricelogging.info("xbuy11-%s,%s,time=%s,b2time=%s" % (xbuy,stock1Min.lastKline().close,time.ctime(buy1Time),time.ctime(buy2Time)))
 
-    if buy1Time==None and stock5Min.touchDownRange(0,4)==True \
-            and pre2last5diff>0 and prelast5diff>0 and prelast5diff>pre2last5diff:
-        buy1Time = current.time
-        buy2Time = lastM5.time
-        xkdj = prelast1diff
-        xbuy="12"
-        spec = 1
-        pricelogging.info("xbuy12-%s,%s,time=%s,b2time=%s" % (xbuy,stock1Min.lastKline().close,time.ctime(buy1Time),time.ctime(buy2Time)))
+        if buy1Time==None and stock5Min.touchDownRange(0,4)==True \
+                and pre2last5diff>0 and prelast5diff>0 and prelast5diff>pre2last5diff:
+            buy1Time = current.time
+            buy2Time = lastM5.time
+            xkdj = prelast1diff
+            xbuy="12"
+            spec = 1
+            pricelogging.info("xbuy12-%s,%s,time=%s,b2time=%s" % (xbuy,stock1Min.lastKline().close,time.ctime(buy1Time),time.ctime(buy2Time)))
 
-    #touch down to up
-    if buy1Time==None and stock5Min.touchDownRange(0,4)==True and \
-                            stock5Min.preMyLastKline(3).j- stock5Min.preMyLastKline(3).k < 0 and pre2last5diff<-5 and prelast5diff>-5 and prelast5diff>pre2last5diff:
-        buy1Time = current.time
-        buy2Time = lastM5.time
-        xkdj = prelast1diff
-        xbuy="1"
-        spec = 1
-        pricelogging.info("xbuy1-%s,%s,time=%s,b2time=%s" % (xbuy,stock1Min.lastKline().close,time.ctime(buy1Time),time.ctime(buy2Time)))
+        #touch down to up
+        if buy1Time==None and stock5Min.touchDownRange(0,4)==True and \
+                                stock5Min.preMyLastKline(3).j- stock5Min.preMyLastKline(3).k < 0 and pre2last5diff<-5 and prelast5diff>-5 and prelast5diff>pre2last5diff:
+            buy1Time = current.time
+            buy2Time = lastM5.time
+            xkdj = prelast1diff
+            xbuy="1"
+            spec = 1
+            pricelogging.info("xbuy1-%s,%s,time=%s,b2time=%s" % (xbuy,stock1Min.lastKline().close,time.ctime(buy1Time),time.ctime(buy2Time)))
 
 
     '''
