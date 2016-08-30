@@ -1,14 +1,16 @@
 import sys
-import stock,time,os
+import time,os
 from datetime import datetime,timedelta
 import okcoin_websocket
+from stock import stock,KLine
 
-startime = sys.argv[0]
-endtime = sys.argv[1]
+startime = sys.argv[1].replace(","," ")
+endtime = sys.argv[2].replace(","," ")
 
+print startime
 store_dir = "/root/ningcl/btc"
 
-class RStock(stock.stock):
+class RStock(stock):
 
     def __init__(self,symbol,stockType,maxLength):
         super(RStock,self).__init__(symbol,stockType,maxLength)
@@ -21,12 +23,12 @@ class RStock(stock.stock):
             fstart = ktime.strftime("%y-%m-%d %H:%M")
 
         dt = datetime.strptime(fstart,"%y-%m-%d %H:%M")
-        if self.stockType == stock.OneMin:
+        if self._stockType == stock.OneMin:
             diff = 1
-        elif self.stockType == stock.FiveMin:
+        elif self._stockType == stock.FiveMin:
             diff = 5
             dt = dt - timedelta(minutes=dt.minute % 5)
-        elif self.stockType == stock.FifteenMin:
+        elif self._stockType == stock.FifteenMin:
             diff = 15
             dt = dt - timedelta(minutes=dt.minute % 15)
 
@@ -39,11 +41,11 @@ class RStock(stock.stock):
                 break
             klines.extend(xlines)
             diff = 0
-            if self.stockType == stock.OneMin:
+            if self._stockType == stock.OneMin:
                 diff = 1
-            elif self.stockType == stock.FiveMin:
+            elif self._stockType == stock.FiveMin:
                 diff = 5
-            elif self.stockType == stock.FifteenMin:
+            elif self._stockType == stock.FifteenMin:
                 diff = 15
             fstart = (datetime.fromtimestamp(klines[-1].time) + timedelta(minutes=diff)).strftime("%y-%m-%d %H:%M")
         self.stocks=[0]*2*self._maxLength
@@ -53,11 +55,11 @@ class RStock(stock.stock):
         self.macd(len(klines)-1,len(klines))
 
     def readKlines(self,ftime,length):
-        if self.stockType == stock.OneMin:
+        if self._stockType == stock.OneMin:
             diff = 1
-        elif self.stockType == stock.FiveMin:
+        elif self._stockType == stock.FiveMin:
             diff = 5
-        elif self.stockType == stock.FifteenMin:
+        elif self._stockType == stock.FifteenMin:
             diff = 15
         fstart = (datetime.fromtimestamp(ftime) + timedelta(minutes=diff)).strftime("%y-%m-%d %H:%M")
 
@@ -68,34 +70,37 @@ class RStock(stock.stock):
                 break
             klines.extend(xlines)
             diff = 0
-            if self.stockType == stock.OneMin:
+            if self._stockType == stock.OneMin:
                 diff = 1
-            elif self.stockType == stock.FiveMin:
+            elif self._stockType == stock.FiveMin:
                 diff = 5
-            elif self.stockType == stock.FifteenMin:
+            elif self._stockType == stock.FifteenMin:
                 diff = 15
             fstart = (datetime.fromtimestamp(klines[-1].time) + timedelta(minutes=diff)).strftime("%y-%m-%d %H:%M")
 
         return klines
 
     def readKLine(self,fstart,length):
-        tday = datetime.strptime(fstart,"%y-%m-%d %H:%M")
-        tdaytime = time.mktime(tday.timetuple())
+        tday  = datetime.strptime(fstart,"%y-%m-%d %H:%M")
+        tstart = time.mktime(tday.timetuple())
 
         fname = tday.strftime("%y-%m-%d")
+        tdaytime = time.mktime(datetime.strptime(fname,"%y-%m-%d").timetuple())
+
+
         filetype = None
-        if self.stockType == stock.OneMin:
+        if self._stockType == stock.OneMin:
             filetype = "1"
-        elif self.stockType == stock.FiveMin:
+        elif self._stockType == stock.FiveMin:
             filetype = "5"
-        elif self.stockType == stock.FifteenMin:
+        elif self._stockType == stock.FifteenMin:
             filetype = "15"
 
         if os.path.exists(store_dir+"/"+fname+"."+filetype) == False:
             return []
 
         fwriter = open(store_dir+"/"+fname+"."+filetype,"r+")
-        offset = (fstart-tdaytime)/24*60*60
+        offset = (tstart-tdaytime)/24*60*60
         fwriter.seek(offset)
 
         klines=[]
@@ -103,14 +108,15 @@ class RStock(stock.stock):
             line = fwriter.readline()
             if line == "":
                 break
-            klines.append(stock.KLine(line.split(","),"kline"))
+            print line.split(",")
+            klines.append(KLine(line.split(","),"kline"))
 
         return klines
 
 
-stock1Min = RStock("btc_cny",stock.OneMin,500)
-stock5Min = RStock("btc_cny",stock.FiveMin,500)
-stock15Min = RStock("btc_cny",stock.FifteenMin,500)
+stock1Min = RStock("btc_cny",stock.OneMin,30)
+stock5Min = RStock("btc_cny",stock.FiveMin,30)
+stock15Min = RStock("btc_cny",stock.FifteenMin,30)
 
 stock1Min.fetchKLine()
 stock5Min.fetchKLine()
@@ -129,13 +135,13 @@ while stock1Min.stocks[-1].time < overtime:
         while len(cache1Min)!=0:
             kline1Min = cache1Min.pop()
             if kline5 == None:
-                kline5 = stock.KLine(kline1Min,"copy")
+                kline5 = KLine(kline1Min,"copy")
                 dt = datetime.fromtimestamp(kline1Min.time)
                 kline5.time = dt - timedelta(minutes=dt.minute % 5)
             elif kline5 != None:
                 dt = datetime.fromtimestamp(kline1Min.time)
                 if dt.minute % 5 == 0:
-                    kline5 = stock.KLine(kline1Min,"copy")
+                    kline5 = KLine(kline1Min,"copy")
                     kline5.time = dt - timedelta(minutes=dt.minute % 5)
                 else:
                     if kline5.high < kline1Min.high:
@@ -146,13 +152,13 @@ while stock1Min.stocks[-1].time < overtime:
 
 
             if kline15 == None:
-                kline15 = stock.KLine(kline1Min,"copy")
+                kline15 = KLine(kline1Min,"copy")
                 dt = datetime.fromtimestamp(kline1Min.time)
                 kline15.time = dt - timedelta(minutes=dt.minute % 15)
             elif kline15 != None:
                 dt = datetime.fromtimestamp(kline1Min.time)
                 if dt.minute % 15 == 0:
-                    kline15 = stock.KLine(kline1Min,"copy")
+                    kline15 = KLine(kline1Min,"copy")
                     kline15.time = dt - timedelta(minutes=dt.minute % 15)
                 else:
                     if kline15.high < kline1Min.high:

@@ -17,23 +17,27 @@ def store(filetype,klines):
         os.close(fd)
 
         fwriter = open(store_dir+"/"+fname+"."+filetype,"r+")
-        offset = (kline.time-tdaytime)/24*60*60
-        fwriter.seek(offset)
+        if filetype == "1":
+            offset = (kline.time-tdaytime)/60
+        elif filetype == "5":
+            offset = (kline.time-tdaytime)/(60*5)
+        elif filetype == "15":
+            offset = (kline.time-tdaytime)/(60*15)
+        fwriter.seek(offset*48)
         #32 + 16 + 2 = 50 + close open high low,time
         fwriter.write("%6.2f,%6.2f,%6.2f,%6.2f,%s\r\n" % (kline.close,kline.open,kline.high,kline.low,ktimestr))
         fwriter.close()
 
 while True:
-    klines = Client.fetchKline("btc_cny","1min",500,None)
-    store("1",klines)
+    try:
+        klines = Client.fetchKline("btc_cny","1min",500,None)
+        store("1",klines)
+        klines = Client.fetchKline("btc_cny","5min",500,None)
+        store("5",klines)
 
-    klines = Client.fetchKline("btc_cny","5min",500,None)
-    store("5",klines)
-
-    klines = Client.fetchKline("btc_cny","15min",500,None)
-    store("15",klines)
-
-    time.sleep(60)
-
-
+        klines = Client.fetchKline("btc_cny","15min",500,None)
+        store("15",klines)
+        time.sleep(60)
+    except Exception as e:
+        pass
 
