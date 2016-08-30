@@ -88,22 +88,22 @@ def go():
     prelastm1 = stock1Min.pre2LastKline()
     lastM15 = stock15Min.lastKline()
 
-    if len(bidsList)<=1:
-        return
+    #if len(bidsList)<=1:
+    #    return
 
-    m1upSellSupport = findTotalSupportWithAsks(m1up,asksList[0])
-    m1upBuySupport = findTotalSupportWithBids(m1up,bidsList[0])
+    #m1upSellSupport = findTotalSupportWithAsks(m1up,asksList[0])
+    #m1upBuySupport = findTotalSupportWithBids(m1up,bidsList[0])
 
-    m5upSellSupport = findTotalSupportWithAsks(m5up,asksList[0])
-    m5upBuySupport = findTotalSupportWithBids(m5up,bidsList[0])
+    #m5upSellSupport = findTotalSupportWithAsks(m5up,asksList[0])
+    #m5upBuySupport = findTotalSupportWithBids(m5up,bidsList[0])
 
     if current.time-lastM5.time>=5*60:
         return
 
-    pricelogging.info("time=%s,msup=%s,ssup=%s,price=%s,M5 up=%s,down=%s,next=%s,%s,boll=%s,m5close=%s" % (time.ctime(current.time),m5upBuySupport,m5upSellSupport,current.close,m5up,m5down,m5next,stock5Min.forecastKDJ(),lastM5.boll,lastM5.close))
-    pricelogging.info("time=%s,msup=%s,ssup=%s,price=%s,M1 up=%s,down=%s,next=%s,%s" % (time.ctime(current.time),m1upBuySupport,m1upSellSupport,current.close,m1up,m1down,m1next,stock1Min.forecastKDJ()))
+    #pricelogging.info("time=%s,msup=%s,ssup=%s,price=%s,M5 up=%s,down=%s,next=%s,%s,boll=%s,m5close=%s" % (time.ctime(current.time),m5upBuySupport,m5upSellSupport,current.close,m5up,m5down,m5next,stock5Min.forecastKDJ(),lastM5.boll,lastM5.close))
+    #pricelogging.info("time=%s,msup=%s,ssup=%s,price=%s,M1 up=%s,down=%s,next=%s,%s" % (time.ctime(current.time),m1upBuySupport,m1upSellSupport,current.close,m1up,m1down,m1next,stock1Min.forecastKDJ()))
 
-    pricelogging.info("touchShortDown=%s,buyprice=%s,1jkd=%s,pre1kdj=%s,buy1time=%s,cukdj=%s" % (stock1Min.touchShortDown(),buyPrice1,lastm1.j-lastm1.k,prelastm1.j-prelastm1.k,buy1Time,current.j-current.k))
+    pricelogging.info("time=%s,price=%s,touchShortDown=%s,buyprice=%s,1jkd=%s,pre1kdj=%s,buy1time=%s,cukdj=%s" % (time.ctime(current.time),current.close,stock1Min.touchShortDown(),buyPrice1,lastm1.j-lastm1.k,prelastm1.j-prelastm1.k,buy1Time,current.j-current.k))
 
 
     prelast5diff = prelastM5.j-prelastM5.k
@@ -223,7 +223,7 @@ def go():
             spec = 2
             return
 
-
+    print lastM5,buy2Time
     if  lastM5.time - buy2Time > 5*60 and lastM5.j-lastM5.k<=0:
         if buyPrice1 > current.close:
             return

@@ -125,6 +125,10 @@ stock1Min.fetchKLine()
 stock5Min.fetchKLine()
 stock15Min.fetchKLine()
 
+okcoin_websocket.stock1Min = stock1Min
+okcoin_websocket.stock5Min = stock5Min
+okcoin_websocket.stock15Min = stock15Min
+
 
 overtime = time.mktime(datetime.strptime(endtime,"%y-%m-%d %H:%M").timetuple())
 

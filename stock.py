@@ -309,7 +309,7 @@ class stock(object):
         flag = 0
         count=1
         while True:
-            if self.stocks[self.cursor-count].time == indexTime:
+            if self.stocks[self.cursor-count].time <=  indexTime:
                 break
             if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k > 0 and self.stocks[self.cursor-count-1].j-self.stocks[self.cursor-count-1].k <= 0:
                 flag += 1
@@ -324,7 +324,7 @@ class stock(object):
         count=1
         ha = {}
         while True:
-            if self.stocks[self.cursor-count].time == indexTime:
+            if self.stocks[self.cursor-count].time <= indexTime:
                 break
             if self.stocks[self.cursor-count].high >self.stocks[self.cursor-count].up and ha.has_key(findex)==False:
                 ha[findex] = 1
@@ -336,8 +336,9 @@ class stock(object):
     def countCross(self,indexTime):
         findex = 0
         count=1
+        print indexTime
         while True:
-            if self.stocks[self.cursor-count].time == indexTime:
+            if self.stocks[self.cursor-count].time <= indexTime:
                 break
             if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k > 0 and self.stocks[self.cursor-count-1].j-self.stocks[self.cursor-count-1].k <= 0:
                 findex += 1
@@ -348,7 +349,7 @@ class stock(object):
         findex = 0
         count=fcount
         while True:
-            if self.stocks[self.cursor-count].time == indexTime:
+            if self.stocks[self.cursor-count].time <=  indexTime:
                 break
             if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k > 0 and self.stocks[self.cursor-count-1].j-self.stocks[self.cursor-count-1].k <= 0:
                 findex += 1
@@ -359,7 +360,7 @@ class stock(object):
         maxc = 0
         count=1
         while True:
-            if self.stocks[self.cursor-count].time == indexTime:
+            if self.stocks[self.cursor-count].time <= indexTime:
                 break
             if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k > maxc:
                 maxc = self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k
@@ -373,7 +374,7 @@ class stock(object):
         flag = False
         count=1
         while True:
-            if self.stocks[self.cursor-count].time == indexTime:
+            if self.stocks[self.cursor-count].time <= indexTime:
                 break
             if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k < self.stocks[self.cursor-count-1].j-self.stocks[self.cursor-count-1].k:
                 flag = True
