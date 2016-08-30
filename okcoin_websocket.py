@@ -223,8 +223,7 @@ def go():
             spec = 2
             return
 
-    print lastM5,buy2Time
-    if  lastM5.time - buy2Time > 5*60 and lastM5.j-lastM5.k<=0:
+    if buy2Time!=None and  lastM5.time - buy2Time > 5*60 and lastM5.j-lastM5.k<=0:
         if buyPrice1 > current.close:
             return
         if buyPrice1!=None:
