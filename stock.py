@@ -20,7 +20,7 @@ class KLine(object):
             self.close = float(data[4])
             self.vol = float(data[5])
         elif trade == "kline":
-            self.time = time.mktime(datetime.strptime(data[4],"%y-%m-%d %H:%M").timetuple())
+            self.time = time.mktime(datetime.strptime(data[4].strip("\r\n"),"%y-%m-%d %H:%M").timetuple())
             self.open = float(data[1])
             self.high = float(data[2])
             self.low = float(data[3])
@@ -247,8 +247,7 @@ class stock(object):
         if (kline.time-self.baseTime)/self._interval >= len(self.stocks):
             self.baseTime = None;
             self.on_kline(kline)
-
-        self.cursor = (kline.time-self.baseTime)/self._interval
+        self.cursor = int((kline.time-self.baseTime)/self._interval)
         self.stocks[self.cursor] = kline;
         self.macd(self.cursor,60)
         self.kdj(self.cursor-300,self.cursor+1)

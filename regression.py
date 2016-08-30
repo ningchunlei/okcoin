@@ -7,7 +7,6 @@ from stock import stock,KLine
 startime = sys.argv[1].replace(","," ")
 endtime = sys.argv[2].replace(","," ")
 
-print startime
 store_dir = "/root/ningcl/btc"
 
 class RStock(stock):
@@ -50,6 +49,7 @@ class RStock(stock):
             fstart = (datetime.fromtimestamp(klines[-1].time) + timedelta(minutes=diff)).strftime("%y-%m-%d %H:%M")
         self.stocks=[0]*2*self._maxLength
         self.stocks[0:len(klines)]=klines
+        self.cursor = len(klines)-1
         self.trades=[0]*2*self._maxLength
         self.baseTime = klines[0].time
         self.macd(len(klines)-1,len(klines))
@@ -100,27 +100,31 @@ class RStock(stock):
             return []
 
         fwriter = open(store_dir+"/"+fname+"."+filetype,"r+")
-        offset = (tstart-tdaytime)/24*60*60
-        fwriter.seek(offset)
+        if filetype == "1":
+            offset = (tstart-tdaytime)/60
+        elif filetype=="5":
+            offset = (tstart-tdaytime)/(60*5)
+        elif filetype == "15":
+            offset = (tstart-tdaytime)/(60*15)
+        fwriter.seek(offset*48)
 
         klines=[]
         while len(klines)<length:
             line = fwriter.readline()
             if line == "":
                 break
-            print line.split(",")
             klines.append(KLine(line.split(","),"kline"))
 
         return klines
 
 
-stock1Min = RStock("btc_cny",stock.OneMin,30)
-stock5Min = RStock("btc_cny",stock.FiveMin,30)
-stock15Min = RStock("btc_cny",stock.FifteenMin,30)
-
+stock1Min = RStock("btc_cny",stock.OneMin,500)
+stock5Min = RStock("btc_cny",stock.FiveMin,500)
+stock15Min = RStock("btc_cny",stock.FifteenMin,500)
 stock1Min.fetchKLine()
 stock5Min.fetchKLine()
 stock15Min.fetchKLine()
+
 
 overtime = time.mktime(datetime.strptime(endtime,"%y-%m-%d %H:%M").timetuple())
 
@@ -129,20 +133,21 @@ kline5 = None
 kline15 = None
 
 
-while stock1Min.stocks[-1].time < overtime:
+while stock1Min.lastKline().time < overtime:
     if len(cache1Min)==0:
-        cache1Min = stock1Min.readKlines(stock1Min.stocks[-1].time,100)
+        cache1Min = stock1Min.readKlines(stock1Min.lastKline().time,100)
+        cache1Min.reverse()
         while len(cache1Min)!=0:
             kline1Min = cache1Min.pop()
             if kline5 == None:
                 kline5 = KLine(kline1Min,"copy")
                 dt = datetime.fromtimestamp(kline1Min.time)
-                kline5.time = dt - timedelta(minutes=dt.minute % 5)
+                kline5.time = time.mktime((dt - timedelta(minutes=dt.minute % 5)).timetuple())
             elif kline5 != None:
                 dt = datetime.fromtimestamp(kline1Min.time)
                 if dt.minute % 5 == 0:
                     kline5 = KLine(kline1Min,"copy")
-                    kline5.time = dt - timedelta(minutes=dt.minute % 5)
+                    kline5.time = time.mktime((dt - timedelta(minutes=dt.minute % 5)).timetuple())
                 else:
                     if kline5.high < kline1Min.high:
                         kline5.high = kline1Min.high
@@ -154,19 +159,18 @@ while stock1Min.stocks[-1].time < overtime:
             if kline15 == None:
                 kline15 = KLine(kline1Min,"copy")
                 dt = datetime.fromtimestamp(kline1Min.time)
-                kline15.time = dt - timedelta(minutes=dt.minute % 15)
+                kline15.time = time.mktime((dt - timedelta(minutes=dt.minute % 15)).timetuple())
             elif kline15 != None:
                 dt = datetime.fromtimestamp(kline1Min.time)
                 if dt.minute % 15 == 0:
                     kline15 = KLine(kline1Min,"copy")
-                    kline15.time = dt - timedelta(minutes=dt.minute % 15)
+                    kline15.time = time.mktime((dt - timedelta(minutes=dt.minute % 15)).timetuple())
                 else:
                     if kline15.high < kline1Min.high:
                         kline15.high = kline1Min.high
                     if kline15.low > kline1Min.low:
                         kline15.low = kline1Min.low
                     kline15.close = kline1Min.close
-
             stock1Min.on_kline(kline1Min)
             stock5Min.on_kline(kline5)
             stock15Min.on_kline(kline15)
