@@ -15,10 +15,10 @@ class RStock(stock):
         super(RStock,self).__init__(symbol,stockType,maxLength)
 
     def fetchKLine(self):
-        if self.stocks[-1] == 0 or self.stocks[-1] == None:
+        if self.lastKline() == 0 or self.lastKline() == None:
             fstart = startime
         else:
-            ktime = datetime.fromtimestamp(self.stocks[-1])
+            ktime = datetime.fromtimestamp(self.lastKline().time)
             fstart = ktime.strftime("%y-%m-%d %H:%M")
 
         dt = datetime.strptime(fstart,"%y-%m-%d %H:%M")
@@ -113,6 +113,7 @@ class RStock(stock):
             line = fwriter.readline()
             if line == "":
                 break
+            print line.split(",")
             klines.append(KLine(line.split(","),"kline"))
 
         return klines
