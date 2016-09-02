@@ -281,7 +281,7 @@ def go():
             buyPrice1 = None
             xkdj = None
 
-    if buyPrice1==None and spec==3 and buy2Time!=None and prelast1diff > pre2last1diff and  pre2last1diff<0 and prelast1diff>0 and prelast5diff>0 and lastM5.j-lastM5.k>10 :
+    if buyPrice1==None and spec==3 and buy2Time!=None and prelast1diff > pre2last1diff and  pre2last1diff<0 and prelast1diff>0 and prelast5diff>0 and lastM5.j-lastM5.k>10 and current.close > current.open:
         pricelogging.info("tbuy8-%s,time=%s,deciderTime=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time)))
         buyPrice1=current.close
         buy1Time = current.time
