@@ -115,6 +115,7 @@ def go():
     pricelogging.info("spec=%s,5down=%s,pre2kdj=%s,prekdj=%s,curkdj=%s" % (spec,stock5Min.touchDownRange(0,4),pre2last5diff,prelast5diff,lastM5.j-lastM5.k))
 
     if spec == None:
+        '''
         if buy1Time==None and stock5Min.touchDownRange(0,4)==True \
                                 and pre2last5diff<-5 and prelast5diff>0 and prelastM5.close > pre2lastM5.close and prelast5diff>pre2last5diff:
             buy1Time = current.time
@@ -123,6 +124,7 @@ def go():
             xbuy="11"
             spec = 1
             pricelogging.info("xbuy11-%s,%s,time=%s,b2time=%s" % (xbuy,stock1Min.lastKline().close,time.ctime(buy1Time),time.ctime(buy2Time)))
+        '''
 
         if buy1Time==None and stock5Min.touchDownRange(0,4)==True \
                 and pre2last5diff>0 and prelast5diff>0 and prelastM5.close > pre2lastM5.close and prelast5diff>pre2last5diff:
