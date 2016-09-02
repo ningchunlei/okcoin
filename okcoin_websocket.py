@@ -238,6 +238,8 @@ def go():
             spec = 2
             return
 
+
+
     if buy2Time!=None and  lastM5.time - buy2Time > 5*60 and lastM5.j-lastM5.k<=0:
         if buyPrice1 > current.close:
             return
@@ -251,6 +253,15 @@ def go():
         xkdj = None
         spec=None
 
+
+    if buyPrice1!=None and spec==2 and (current.time-buy2Time<=4 and current.time-buy2Time>2) and stock1Min.touchDown() and current.j-current.k<prelast1diff:
+        pricelogging.info("tbuy61-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+        buy1Time = None
+        buy2Time = None
+        xbuy=None
+        buyPrice1 = None
+        xkdj = None
+        spec=None
 
     if buyPrice1!=None and spec==2 and ((stock1Min.countTouchUp(buy1Time)>=1 and stock1Min.countCross(buy1Time)>2) or stock1Min.countTouchUp(buy1Time)==1)and stock1Min.touchUpSell():
         if stock1Min.lastKline().close > buyPrice1:
