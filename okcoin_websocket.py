@@ -180,6 +180,20 @@ def go():
         xkdj = None
         spec = None
 
+    if buy2Time!=None and stock5Min.countCross(buy2Time)>=2:
+        if buyPrice1 > current.close:
+            return
+        if buyPrice1!=None:
+            pricelogging.info("tbuy4-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+
+        pricelogging.info("disable-%s-%s,time=%s,deciderTime=%s" % (xbuy,stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time)))
+        buy1Time = None
+        buy2Time = None
+        xbuy=None
+        buyPrice1 = None
+        xkdj = None
+        spec = None
+
 
     if buy1Time!=None and buyPrice1==None and xbuy!=None and spec==1:
         if stock1Min.downToUp() and xkdj<0:
@@ -256,7 +270,7 @@ def go():
             buyPrice1 = None
             xkdj = None
 
-    if buyPrice1==None and spec==3 and buy2Time!=None and prelast1diff > pre2last1diff and  pre2last1diff<0 and prelast1diff>0 and prelast5diff>0 and lastM5.j-lastM5.k>0 and lastM5.j-lastM5.k>prelast5diff:
+    if buyPrice1==None and spec==3 and buy2Time!=None and prelast1diff > pre2last1diff and  pre2last1diff<0 and prelast1diff>0 and prelast5diff>0 and lastM5.j-lastM5.k>10 :
         pricelogging.info("tbuy8-%s,time=%s,deciderTime=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time)))
         buyPrice1=current.close
         buy1Time = current.time
