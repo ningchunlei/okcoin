@@ -305,6 +305,20 @@ class stock(object):
 
         return flag
 
+    def findDownKline(self):
+        kline = None
+        count=0
+        while True:
+            if self.stocks[self.cursor-count].low <=  self.stocks[self.cursor-count].dn:
+                kline=self.stocks[self.cursor-count];
+                break
+            if self.stocks[self.cursor-count].high >= self.stocks[self.cursor-count].up:
+                kline = None
+                break
+            count+=1
+
+        return kline
+
     def kdjUp(self,indexTime):
         flag = 0
         count=1

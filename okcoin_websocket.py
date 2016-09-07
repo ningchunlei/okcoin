@@ -53,6 +53,7 @@ xspec = None
 sellSpec = None
 xbuy = None
 xkdj = None
+up15 = None
 
 #business
 def buildMySign(params,secretKey):
@@ -77,7 +78,7 @@ def on_open(self):
 
 
 def go():
-    global buyPrice1,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj
+    global buyPrice1,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15
     m5up,m5down,m5next = stock5Min.forecastClose()
     m1up,m1down,m1next = stock1Min.forecastClose()
     lastM5 = stock5Min.lastKline()
@@ -87,6 +88,10 @@ def go():
     lastm1 = stock1Min.preLastKline()
     prelastm1 = stock1Min.pre2LastKline()
     lastM15 = stock15Min.lastKline()
+
+    lastM15 = stock15Min.lastKline()
+    prelastM15 = stock15Min.preLastKline()
+    pre2lastM15 = stock15Min.pre2LastKline()
 
     #if len(bidsList)<=1:
     #    return
@@ -112,7 +117,17 @@ def go():
     prelast1diff = lastm1.j-lastm1.k
     pre2last1diff = prelastm1.j - prelastm1.k
 
-    pricelogging.info("spec=%s,5down=%s,pre2kdj=%s,prekdj=%s,curkdj=%s" % (spec,stock5Min.touchDownRange(0,4),pre2last5diff,prelast5diff,lastM5.j-lastM5.k))
+    prelast15diff = prelastM15.j - prelastM15.k
+    pre2last15diff = pre2lastM15.j - pre2lastM15.k
+
+    pricelogging.info("spec=%s,5down=%s,pre2kdj=%s,prekdj=%s,curkdj=%s,up15=%s" % (spec,stock5Min.touchDownRange(0,4),pre2last5diff,prelast5diff,lastM5.j-lastM5.k,up15))
+
+    if up15 == None and stock15Min.downToUp() and stock15Min.findDownKline()!=None and stock15Min.countCross(stock15Min.findDownKline().time)<=1:
+        if pre2last15diff>0 and prelast15diff>0 and prelast15diff > pre2last15diff:
+            up15 = True
+
+    if stock15Min.downToUp()==False or prelast15diff<0:
+        up15 = None
 
     if spec == None:
         '''
@@ -145,6 +160,13 @@ def go():
             spec = 1
             pricelogging.info("xbuy1-%s,%s,time=%s,b2time=%s" % (xbuy,stock1Min.lastKline().close,time.ctime(buy1Time),time.ctime(buy2Time)))
 
+        if up15==True and pre2last5diff<0 and prelast5diff>pre2last5diff:
+            buy1Time = current.time
+            buy2Time = lastM5.time
+            xkdj = prelast1diff
+            xbuy="51"
+            spec = 1
+            pricelogging.info("xbuy51-%s,%s,time=%s,b2time=%s" % (xbuy,stock1Min.lastKline().close,time.ctime(buy1Time),time.ctime(buy2Time)))
 
     '''
     #touch middle to up
