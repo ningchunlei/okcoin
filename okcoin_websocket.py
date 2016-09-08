@@ -1408,14 +1408,14 @@ def go3():
         buyPrice1 = None
 
 
-    if up5!=None and up5>2 and stock5Min.downToUp() and buyPrice1==None and  prelast1diff > pre2last1diff and pre2last1diff<0 and prelastm1.close<lastm1.close:
+    if up5!=None and up5>=2 and stock5Min.downToUp() and buyPrice1==None and  prelast1diff > pre2last1diff and pre2last1diff<0 and prelastm1.close<lastm1.close:
         buy1Time = current.time
         buyPrice1 = current.close
         up5 += 1
         pricelogging.info("tbuy31-%s,time=%s,deciderTime=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time)))
 
 
-    if up5!=None and up5>2 and stock5Min.downToUp()==False and buyPrice1==None and  prelast1diff > pre2last1diff and pre2last1diff<0 and prelast1diff>0 and prelastm1.close<lastm1.close:
+    if up5!=None and up5>=2 and stock5Min.downToUp()==False and buyPrice1==None and  prelast1diff > pre2last1diff and pre2last1diff<0 and prelast1diff>0 and prelastm1.close<lastm1.close:
         buy1Time = current.time
         buyPrice1 = current.close
         up5 += 1
