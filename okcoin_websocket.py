@@ -1546,10 +1546,24 @@ def go4():
             kk5pos = None
             kk15pos = None
             spec = None
-
+        elif stock1Min.touchMiddleSell() and spec==1:
+            pricelogging.info("tbuy38-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+            buy1Time = None
+            buy2Time = None
+            buyPrice1 = None
+            kk1pos = None
+            kk5pos = None
+            kk15pos = None
+            spec = None
         elif stock1Min.touchUpSell():
-            if buyPrice1 > current.close:
+            if current.time - buy1Time<3:
+                pass
+            elif buyPrice1 > current.close:
                 return
+
+            if current.close - buyPrice1 < 1 and prelast5diff> pre2last5diff and prelast5diff<0:
+                return
+
             pricelogging.info("tbuy3-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buy1Time = None
             buy2Time = None
