@@ -1469,13 +1469,13 @@ def go4():
 
 
     def pos(kk):
-        if kk.touchDown() and kk.upmiddle(kk.findDownKline().time)==True:
+        if kk.downToUp() and kk.upmiddle(kk.findDownKline().time)==True:
             return 2
-        elif kk.touchDown() and kk.upmiddle(kk.findDownKline().time)==False:
+        elif kk.downToUp() and kk.upmiddle(kk.findDownKline().time)==False:
             return 1
-        elif kk.touchDown()==False and kk.downmiddle(kk.findUpKline().time)==False:
+        elif kk.downToUp()==False and kk.downmiddle(kk.findUpKline().time)==False:
             return 3
-        elif kk.touchDown()==False and kk.downmiddle(kk.findUpKline().time)==True:
+        elif kk.downToUp()==False and kk.downmiddle(kk.findUpKline().time)==True:
             return 4
 
     k1pos = pos(stock1Min)
