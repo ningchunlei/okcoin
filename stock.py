@@ -410,6 +410,17 @@ class stock(object):
             count += 1
         return findex
 
+    def countCross2(self,indexTime):
+        findex = 0
+        count=1
+        while True:
+            if self.stocks[self.cursor-count].time <= indexTime:
+                break
+            if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k < 0 and self.stocks[self.cursor-count-1].j-self.stocks[self.cursor-count-1].k >= 0:
+                findex += 1
+            count += 1
+        return findex
+
     def countCrossDiff(self,indexTime,fcount):
         findex = 0
         count=fcount
@@ -517,6 +528,9 @@ class stock(object):
             return True
         return False
 
+
+
+
     def touchUp(self):
         flag = False
         for i in range(1,6):
@@ -561,6 +575,7 @@ class stock(object):
             return True
         if pk<0 and pk2>=0 and kdjdiff < kdj2diff:
             return True
+
 
 
     def touchUpMy(self):

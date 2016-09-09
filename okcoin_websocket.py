@@ -1557,8 +1557,9 @@ def go4():
             kk15pos = None
             spec = None
         elif stock1Min.touchMiddleSell() and spec==1:
-            if current.close - buyPrice1 < 1 and prelast5diff> pre2last5diff and prelast5diff<0:
+            if stock5Min.downToUp() and prelast5diff>pre2last5diff:
                 return
+
             pricelogging.info("tbuy38-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buy1Time = None
             buy2Time = None
@@ -1573,7 +1574,7 @@ def go4():
             elif buyPrice1 > current.close:
                 return
 
-            if current.close - buyPrice1 < 1 and prelast5diff> pre2last5diff and prelast5diff<0 and kk5pos==1 :
+            if stock5Min.downToUp() and prelast5diff>pre2last5diff:
                 return
 
             pricelogging.info("tbuy3-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
@@ -1591,8 +1592,9 @@ def go4():
             else:
                 if buyPrice1 > current.close:
                     return
-                if current.close - buyPrice1 < 1 and prelast5diff> pre2last5diff and prelast5diff<0 and kk5pos==1:
-                    return
+
+            if stock5Min.downToUp() and prelast5diff>pre2last5diff:
+                return
 
             pricelogging.info("tbuy4-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buy1Time = None
@@ -1602,7 +1604,15 @@ def go4():
             kk5pos = None
             kk15pos = None
             spec = None
-
+        elif lastM5.j-lastM5.k<0 and stock5Min.countCross2(buy2Time)==1:
+            pricelogging.info("tbuy41-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+            buy1Time = None
+            buy2Time = None
+            buyPrice1 = None
+            kk1pos = None
+            kk5pos = None
+            kk15pos = None
+            spec = None
 
 
 def on_message(self,evt):
