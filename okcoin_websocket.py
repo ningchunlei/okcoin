@@ -1548,8 +1548,11 @@ def go4():
             spec = None
 
         elif current.j-current.k<0:
-            if buyPrice1 > current.close:
-                return
+            if spec ==1 and kk5pos==4 and (kk15pos==3 or kk15pos==4) :
+                pass
+            else:
+                if buyPrice1 > current.close:
+                    return
             pricelogging.info("tbuy4-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buy1Time = None
             buy2Time = None
