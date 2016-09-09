@@ -1526,6 +1526,7 @@ def go4():
 
     if buyPrice1!=None:
         if lastM5.time-buy2Time==5*60 and prelast5diff<pre2last5diff and (spec==1 or spec==2):
+            pricelogging.info("tbuy2-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buy1Time = None
             buy2Time = None
             buyPrice1 = None
@@ -1533,10 +1534,11 @@ def go4():
             kk5pos = None
             kk15pos = None
             spec = None
-            pricelogging.info("tbuy2-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+
         elif stock1Min.touchUpSell():
             if buyPrice1 > current.close:
                 return
+            pricelogging.info("tbuy3-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buy1Time = None
             buy2Time = None
             buyPrice1 = None
@@ -1544,10 +1546,11 @@ def go4():
             kk5pos = None
             kk15pos = None
             spec = None
-            pricelogging.info("tbuy3-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+
         elif current.j-current.k<0:
             if buyPrice1 > current.close:
                 return
+            pricelogging.info("tbuy4-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buy1Time = None
             buy2Time = None
             buyPrice1 = None
@@ -1555,7 +1558,7 @@ def go4():
             kk5pos = None
             kk15pos = None
             spec = None
-            pricelogging.info("tbuy4-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+
 
 
 def on_message(self,evt):
