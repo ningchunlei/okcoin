@@ -1591,9 +1591,8 @@ def go4():
             else:
                 if buyPrice1 > current.close:
                     return
-
-            if current.close - buyPrice1 < 1 and prelast5diff> pre2last5diff and prelast5diff<0:
-                return
+                if current.close - buyPrice1 < 1 and prelast5diff> pre2last5diff and prelast5diff<0:
+                    return
 
             pricelogging.info("tbuy4-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buy1Time = None
