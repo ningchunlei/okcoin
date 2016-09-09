@@ -319,6 +319,15 @@ class stock(object):
 
         return kline
 
+    def findLastKDJCrossKlineCount(self):
+        count=1
+        while True:
+            if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k>0:
+                break
+            count+=1
+        return count
+
+
     def findUpKline(self):
         kline = None
         count=0
