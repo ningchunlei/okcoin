@@ -1482,6 +1482,8 @@ def go4():
     k5pos = pos(stock5Min)
     k15pos = pos(stock15Min)
 
+    pricelogging.info("time=%s,price=%s,preM1=%s,pre2M1=%s,preM5=%s,pre2M=%s,preM15=%s,pre2M15=%s,k1=%s,k5=%s,k15=%s" % (time.ctime(current.time),current.close,prelast1diff,pre2last1diff,prelast5diff,pre2last5diff,prelast15diff,pre2last15diff,k1pos,k5pos,k15pos))
+
     if buyPrice1==None:
         if (k5pos == 1  or k5pos == 4) and prelast5diff<0 and prelast5diff > pre2last5diff and prelastM5.close>pre2lastM5.close:
             if ((prelast1diff>0 and pre2last1diff<0)) and (k1pos==1 or k1pos==4):
