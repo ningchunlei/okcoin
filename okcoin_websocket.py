@@ -1489,8 +1489,8 @@ def go4():
                 buy2Time = lastM5.time
                 buyPrice1 = current.close
                 kk1pos = k1pos
-                kk5pos = kk5pos
-                kk15pos = kk15pos
+                kk5pos = k5pos
+                kk15pos = k15pos
                 spec = 1
                 pricelogging.info("tbuy1-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
         elif (k5pos == 1  or k5pos == 4) and prelast5diff>0 and prelast5diff > pre2last5diff and prelastM5.close>pre2lastM5.close:
@@ -1499,8 +1499,8 @@ def go4():
                 buy2Time = lastM5.time
                 buyPrice1 = current.close
                 kk1pos = k1pos
-                kk5pos = kk5pos
-                kk15pos = kk15pos
+                kk5pos = k5pos
+                kk15pos = k15pos
                 spec = 2
                 pricelogging.info("tbuy2-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
         elif k5pos ==2 and prelast5diff>0 and pre2last5diff > 0:
@@ -1509,8 +1509,8 @@ def go4():
                 buy2Time = lastM5.time
                 buyPrice1 = current.close
                 kk1pos = k1pos
-                kk5pos = kk5pos
-                kk15pos = kk15pos
+                kk5pos = k5pos
+                kk15pos = k15pos
                 spec = 3
                 pricelogging.info("tbuy2-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
         elif k5pos == 3 and (k15pos == 2 or k15pos==1) and lastM15.j-lastM15.k>0 and prelast5diff > pre2last5diff:
@@ -1519,8 +1519,8 @@ def go4():
                 buy2Time = lastM5.time
                 buyPrice1 = current.close
                 kk1pos = k1pos
-                kk5pos = kk5pos
-                kk15pos = kk15pos
+                kk5pos = k5pos
+                kk15pos = k15pos
                 spec = 4
                 pricelogging.info("tbuy2-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
 
