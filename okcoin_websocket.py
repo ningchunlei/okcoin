@@ -1547,6 +1547,8 @@ def go4():
             kk15pos = None
             spec = None
         elif stock1Min.touchMiddleSell() and spec==1:
+            if current.close - buyPrice1 < 1 and prelast5diff> pre2last5diff and prelast5diff<0:
+                return
             pricelogging.info("tbuy38-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buy1Time = None
             buy2Time = None
