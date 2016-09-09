@@ -1486,7 +1486,7 @@ def go4():
 
     if buyPrice1==None:
         if (k5pos == 1  or k5pos == 4) and prelast5diff<0 and prelast5diff > pre2last5diff and prelastM5.close>pre2lastM5.close:
-            if ((prelast1diff>0 and pre2last1diff<0)) and (k1pos==1 or k1pos==4):
+            if ((prelast1diff>0 and pre2last1diff<0) or (prelast1diff>0 and prelast1diff>pre2last1diff)) and (k1pos==1 or k1pos==4):
                 buy1Time = current.time
                 buy2Time = lastM5.time
                 buyPrice1 = current.close
@@ -1496,7 +1496,7 @@ def go4():
                 spec = 1
                 pricelogging.info("tbuy1-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
         elif (k5pos == 1  or k5pos == 4) and prelast5diff>0 and prelast5diff > pre2last5diff and prelastM5.close>pre2lastM5.close:
-            if prelast1diff>0 and pre2last1diff<0 and (k1pos==1 or k1pos==4):
+            if ((prelast1diff>0 and pre2last1diff<0) or (prelast1diff>0 and prelast1diff>pre2last1diff)) and (k1pos==1 or k1pos==4):
                 buy1Time = current.time
                 buy2Time = lastM5.time
                 buyPrice1 = current.close
