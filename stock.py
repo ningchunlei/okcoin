@@ -319,6 +319,48 @@ class stock(object):
 
         return kline
 
+    def findUpKline(self):
+        kline = None
+        count=0
+        while True:
+            if self.stocks[self.cursor-count].low <=  self.stocks[self.cursor-count].dn:
+                kline = None
+                break
+            if self.stocks[self.cursor-count].high >= self.stocks[self.cursor-count].up:
+                kline=self.stocks[self.cursor-count];
+                break
+            count+=1
+
+        return kline
+
+    def upmiddle(self,indexTime):
+        flag = 0
+        count=0
+        while True:
+            if self.stocks[self.cursor-count].time <=  indexTime:
+                break
+            if self.stocks[self.cursor-count].high > self.stocks[self.cursor-count].boll:
+                flag += 1
+            count += 1
+
+        if flag>=1:
+            return True
+        return False
+
+    def downmiddle(self,indexTime):
+        flag = 0
+        count=0
+        while True:
+            if self.stocks[self.cursor-count].time <=  indexTime:
+                break
+            if self.stocks[self.cursor-count].low < self.stocks[self.cursor-count].boll:
+                flag += 1
+            count += 1
+
+        if flag>=1:
+            return True
+        return False
+
     def kdjUp(self,indexTime):
         flag = 0
         count=1
