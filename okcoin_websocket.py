@@ -1568,7 +1568,7 @@ def go4():
             kk15pos = None
             spec = None
         elif stock1Min.touchUpSell():
-            if current.time - buy1Time<3:
+            if current.time - buy1Time<4:
                 pass
             elif buyPrice1 > current.close:
                 return
