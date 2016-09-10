@@ -1484,7 +1484,7 @@ def go4():
 
     pricelogging.info("bpri=%s,time=%s,price=%s,preM1=%s,pre2M1=%s,preM5=%s,pre2M=%s,preM15=%s,pre2M15=%s,k1=%s,k5=%s,k15=%s" % (buyPrice1,time.ctime(current.time),current.close,prelast1diff,pre2last1diff,prelast5diff,pre2last5diff,prelast15diff,pre2last15diff,k1pos,k5pos,k15pos))
 
-    if buyPrice1==None and (k15pos==1 or k15pos==2):
+    if buyPrice1==None:
         if (k5pos == 1  or k5pos == 4) and prelast5diff<0 and prelast5diff > pre2last5diff and prelastM5.close>pre2lastM5.close:
             if ((prelast1diff>0 and pre2last1diff<0) or (prelast1diff>0 and prelast1diff>pre2last1diff)) and (k1pos==1 or k1pos==4):
                 buy1Time = current.time
@@ -1523,8 +1523,8 @@ def go4():
                 kk1pos = k1pos
                 kk5pos = k5pos
                 kk15pos = k15pos
-                spec = 2
-                pricelogging.info("tbuy2-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
+                spec = 21
+                pricelogging.info("tbuy21-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
         elif k5pos ==2 and prelast5diff>0 and pre2last5diff > 0:
             if prelast1diff>0 and pre2last1diff<0 and (k1pos==1 or k1pos==4):
                 buy1Time = current.time
@@ -1533,8 +1533,8 @@ def go4():
                 kk1pos = k1pos
                 kk5pos = k5pos
                 kk15pos = k15pos
-                spec = 3
-                pricelogging.info("tbuy2-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
+                spec = 22
+                pricelogging.info("tbuy22-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
         elif k5pos == 3 and (k15pos == 2 or k15pos==1) and lastM15.j-lastM15.k>0 and prelast5diff > pre2last5diff:
             if prelast1diff>0 and pre2last1diff<0 and (k1pos==1 or k1pos==4):
                 buy1Time = current.time
@@ -1543,11 +1543,19 @@ def go4():
                 kk1pos = k1pos
                 kk5pos = k5pos
                 kk15pos = k15pos
-                spec = 4
-                pricelogging.info("tbuy2-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
-
+                spec = 24
+                pricelogging.info("tbuy24-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
+        elif k5pos==1 and ((pre2last5diff<0 and prelast5diff>0 and prelastM5.close > pre2lastM5.close)):
+            buy1Time = current.time
+            buy2Time = lastM5.time
+            buyPrice1 = current.close
+            kk1pos = k1pos
+            kk5pos = k5pos
+            kk15pos = k15pos
+            spec = 25
+            pricelogging.info("tbuy25-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
     if buyPrice1!=None:
-        if lastM5.time-buy2Time==5*60 and prelast5diff<pre2last5diff and (spec==1 or spec==2):
+        if lastM5.time-buy2Time==5*60 and prelast5diff<pre2last5diff and (spec==1):
             pricelogging.info("tbuy2-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buy1Time = None
             buy2Time = None
