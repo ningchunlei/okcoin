@@ -1623,6 +1623,73 @@ def go4():
             spec = None
 
 
+def go5():
+    global buyPrice1,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos
+    m5up,m5down,m5next = stock5Min.forecastClose()
+    m1up,m1down,m1next = stock1Min.forecastClose()
+    lastM5 = stock5Min.lastKline()
+    prelastM5 = stock5Min.preLastKline()
+    pre2lastM5 = stock5Min.pre2LastKline()
+    current = stock1Min.lastKline()
+    lastm1 = stock1Min.preLastKline()
+    prelastm1 = stock1Min.pre2LastKline()
+    lastM15 = stock15Min.lastKline()
+
+    lastM15 = stock15Min.lastKline()
+    prelastM15 = stock15Min.preLastKline()
+    pre2lastM15 = stock15Min.pre2LastKline()
+
+
+    if current.time-lastM5.time>=5*60:
+        return
+
+    prelast5diff = prelastM5.j-prelastM5.k
+    pre2last5diff = pre2lastM5.j - pre2lastM5.k
+
+    prelast1diff = lastm1.j-lastm1.k
+    pre2last1diff = prelastm1.j - prelastm1.k
+
+    prelast15diff = prelastM15.j - prelastM15.k
+    pre2last15diff = pre2lastM15.j - pre2lastM15.k
+
+    pricelogging.info("time=%s,price=%s,preM1=%s,pre2M1=%s,preM5=%s,pre2M=%s,preM15=%s,pre2M15=%s,m5up=%s,m1up=%s,m5zero=%s,m1zero=%s" % \
+                      (time.ctime(current.time),current.close,prelast1diff,pre2last1diff,prelast5diff,pre2last5diff,prelast15diff,pre2last15diff,m5up,m1up,m5down,m1down))
+
+    def pos(kk):
+        if kk.downToUp() and kk.upmiddle(kk.findDownKline().time)==True:
+            return 2
+        elif kk.downToUp() and kk.upmiddle(kk.findDownKline().time)==False:
+            return 1
+        elif kk.downToUp()==False and kk.downmiddle(kk.findUpKline().time)==False:
+            return 3
+        elif kk.downToUp()==False and kk.downmiddle(kk.findUpKline().time)==True:
+            return 4
+
+    k1pos = pos(stock1Min)
+    k5pos = pos(stock5Min)
+    k15pos = pos(stock15Min)
+
+    pricelogging.info("bpri=%s,time=%s,price=%s,preM1=%s,pre2M1=%s,preM5=%s,pre2M=%s,preM15=%s,pre2M15=%s,k1=%s,k5=%s,k15=%s" % (buyPrice1,time.ctime(current.time),current.close,prelast1diff,pre2last1diff,prelast5diff,pre2last5diff,prelast15diff,pre2last15diff,k1pos,k5pos,k15pos))
+
+    if prelast1diff > pre2last1diff and  pre2last1diff<0 and lastm1.macd >= prelastm1.macd and current.j<40:
+        if prelast5diff>0 and stock5Min.kdjUpDontTouchMax(stock5Min.findKDJKline().time)==False and lastM5.j-lastM5.k<5:
+            return
+        if prelast15diff>0 and stock15Min.kdjUpDontTouchMax(stock15Min.findKDJKline().time)==False and lastM15.j-lastM15.k<5:
+            return
+        buy1Time = current.time
+        buy2Time = lastM5.time
+        buyPrice1 = current.close
+        kk1pos = k1pos
+        kk5pos = k5pos
+        kk15pos = k15pos
+        spec = 1
+        pricelogging.info("tbuy1-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
+
+    if buyPrice1!=None and prelast1diff < pre2last1diff and pre2last1diff>0 and current.j>70 and lastm1.macd <= prelastm1.macd:
+        pricelogging.info("tbuy38-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+        buyPrice1 = None
+
+
 def on_message(self,evt):
     global last_time
     global buyPrice
