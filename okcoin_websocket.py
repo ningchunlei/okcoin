@@ -1673,8 +1673,10 @@ def go5():
 
     if buyPrice1==None and  prelast1diff > pre2last1diff and  pre2last1diff<0 and lastm1.macd >= prelastm1.macd and current.j<40:
         if prelast5diff>0 and stock5Min.kdjUpDontTouchMax(stock5Min.findKDJKline().time)==False and lastM5.j-lastM5.k<5:
+            pricelogging.info("tbuy56")
             return
         if prelast15diff>0 and stock15Min.kdjUpDontTouchMax(stock15Min.findKDJKline().time)==False and lastM15.j-lastM15.k<5:
+            pricelogging.info("tbuy156")
             return
         buy1Time = current.time
         buy2Time = lastM5.time
