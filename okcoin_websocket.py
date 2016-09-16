@@ -1693,7 +1693,7 @@ def go5():
             pricelogging.info("disable tbuy 5macd")
             return
 
-        if prelastM5.macd>0 and  pre2lastM5.macd>0 and pre2lastM5>prelastM5:
+        if prelastM5.macd>0 and  pre2lastM5.macd>0 and pre2lastM5.macd>prelastM5.macd:
             pricelogging.info("disable tbuy 5macd1")
             return
 
