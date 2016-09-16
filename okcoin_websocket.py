@@ -1674,27 +1674,27 @@ def go5():
     if buyPrice1==None and prelast1diff > pre2last1diff and  pre2last1diff<0 and lastm1.macd > prelastm1.macd and prelastm1.macd<0:
         #chaomai
         if lastM5.j > 80:
-            pricelogging.info("disable tbuy 5Min")
+            pricelogging.info("disable tbuy 5Min %s " % time.ctime(current.time))
             return
         #chaomai
         if lastM15.j > 80:
-            pricelogging.info("disable tbuy 15Min")
+            pricelogging.info("disable tbuy 15Min %s " % time.ctime(current.time))
             return
 
         if prelast15diff<0 and pre2last5diff>0 :
-            pricelogging.info("disable tbuy 5kdj")
+            pricelogging.info("disable tbuy 5kdj %s" % time.ctime(current.time))
             return
 
         if prelast15diff>0 and pre2last5diff>0 and pre2last5diff>prelast15diff and prelast15diff<8:
-            pricelogging.info("disable tbuy 5kdj")
+            pricelogging.info("disable tbuy 5kdj %s " % time.ctime(current.time))
             return
 
         if prelastM5.macd<0 and  pre2lastM5.macd>0:
-            pricelogging.info("disable tbuy 5macd")
+            pricelogging.info("disable tbuy 5macd %s " % time.ctime(current.time))
             return
 
         if prelastM5.macd>0 and  pre2lastM5.macd>0 and pre2lastM5.macd>prelastM5.macd:
-            pricelogging.info("disable tbuy 5macd1")
+            pricelogging.info("disable tbuy 5macd1 %s " % time.ctime(current.time))
             return
 
 
@@ -1712,7 +1712,7 @@ def go5():
 
     if buyPrice1!=None and prelast1diff < pre2last1diff and pre2last1diff>0 and lastm1.macd <= prelastm1.macd:
         if stock1Min.lastKline().open-buyPrice1 < 1:
-            pricelogging.info("disable tbuy sell")
+            pricelogging.info("disable tbuy sell %s " % time.ctime(current.time))
             return
         pricelogging.info("tbuyb38-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
         buyPrice1 = None
