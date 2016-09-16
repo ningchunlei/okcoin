@@ -1671,12 +1671,22 @@ def go5():
 
     pricelogging.info("bpri=%s,time=%s,price=%s,preM1=%s,pre2M1=%s,preM5=%s,pre2M=%s,preM15=%s,pre2M15=%s,k1=%s,k5=%s,k15=%s" % (buyPrice1,time.ctime(current.time),current.close,prelast1diff,pre2last1diff,prelast5diff,pre2last5diff,prelast15diff,pre2last15diff,k1pos,k5pos,k15pos))
 
-    if buyPrice1==None and  prelast1diff > pre2last1diff and  pre2last1diff<0 and lastm1.macd >= prelastm1.macd:
-        if prelast5diff>0 and stock5Min.kdjUpDontTouchMax(stock5Min.findKDJKline().time)==False and lastM5.j-lastM5.k<5:
-            pricelogging.info("tbuy56")
+    if buyPrice1==None and prelast1diff > pre2last1diff and  pre2last1diff<0 and lastm1.macd > prelastm1.macd and prelastm1.macd<0:
+        #chaomai
+        if lastM5.j > 80:
+            pricelogging.info("disable tbuy 5Min")
+            return
+        #chaomai
+        if lastM15.j > 80:
+            pricelogging.info("disable tbuy 15Min")
+            return
 
-        if prelast15diff>0 and stock15Min.kdjUpDontTouchMax(stock15Min.findKDJKline().time)==False and lastM15.j-lastM15.k<5:
-            pricelogging.info("tbuy156")
+        if prelast15diff<0 and pre2last5diff>0 :
+            pricelogging.info("disable tbuy 5kdj")
+            return
+
+        if stock1Min.touchDown():
+            pricelogging.info("touchDown tbuy 1Min")
 
         buy1Time = current.time
         buy2Time = lastM5.time
@@ -1688,7 +1698,10 @@ def go5():
         pricelogging.info("tbuy1-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
 
     if buyPrice1!=None and prelast1diff < pre2last1diff and pre2last1diff>0 and lastm1.macd <= prelastm1.macd:
-        pricelogging.info("tbuy38-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+        if stock1Min.lastKline().open-buyPrice1 < 1:
+            pricelogging.info("disable tbuy sell")
+            return
+        pricelogging.info("tbuy38-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
         buyPrice1 = None
 
 
