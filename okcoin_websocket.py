@@ -1730,6 +1730,7 @@ def go5():
         if lastM5.macd <0 and prelastM5.macd > 0:
             pricelogging.info("tbuyb38-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None
+            return
 
         if stock1Min.lastKline().open-buyPrice1 < 1:
             pricelogging.info("disable tbuy sell %s " % time.ctime(current.time))
