@@ -1739,7 +1739,8 @@ def go5():
 
         if lastM5.macd<0 and stock1Min.touchMiddle() and current.j-current.k < prelast1diff:
             if stock5Min.downToUp()==True and lastM5.macd > prelastM5.macd and stock1Min.lastKline().open-buyPrice1<0:
-                return 
+                pricelogging.info("disable tbuy100 sell %s " % time.ctime(current.time))
+                return
             pricelogging.info("tbuyb18-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None
             return
