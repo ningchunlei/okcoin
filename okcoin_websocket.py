@@ -1703,6 +1703,10 @@ def go5():
         if stock1Min.touchDown():
             pricelogging.info("touchDown tbuy 1Min")
 
+        if current.macd < lastm1.macd:
+            pricelogging.info("disable macd 1Min")
+            return
+
         buy1Time = current.time
         buy2Time = lastM5.time
         buyPrice1 = current.close
@@ -1726,6 +1730,11 @@ def go5():
         if stock1Min.lastKline().open-buyPrice1 < 1:
             pricelogging.info("disable tbuy sell %s " % time.ctime(current.time))
             return
+
+        if current.macd > lastm1.macd:
+            pricelogging.info("disable macd sell 1Min")
+            return
+
         pricelogging.info("tbuyb38-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
         buyPrice1 = None
 
