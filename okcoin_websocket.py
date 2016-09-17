@@ -1688,12 +1688,14 @@ def go5():
             return
 
         if prelast5diff>0 and pre2last5diff>0 and pre2last5diff>prelast5diff and prelast5diff<8:
-            pricelogging.info("disable tbuy 5kdj-3 %s " % time.ctime(current.time))
-            return
+            if not (prelastM5.macd>0 and pre2lastM5.macd>0 and pre2lastM5.macd<prelastM5.macd and lastM5.macd>0):
+                pricelogging.info("disable tbuy 5kdj-3 %s " % time.ctime(current.time))
+                return
 
         if prelast5diff>0 and pre2last5diff>0 and lastM5.j - lastM5.k<8:
-            pricelogging.info("disable tbuy 5kdj-4 %s " % time.ctime(current.time))
-            return
+            if not (prelastM5.macd>0 and pre2lastM5.macd>0 and pre2lastM5.macd<prelastM5.macd and lastM5.macd>0):
+                pricelogging.info("disable tbuy 5kdj-4 %s " % time.ctime(current.time))
+                return
 
         if prelastM5.macd<0 and  pre2lastM5.macd>0:
             pricelogging.info("disable tbuy 5macd %s " % time.ctime(current.time))
