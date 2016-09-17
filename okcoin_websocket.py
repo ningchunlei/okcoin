@@ -1682,6 +1682,7 @@ def go5():
             pricelogging.info("disable tbuy 5kdj-1 %s ,-kdj=%s,-kdjcount=%s" % (time.ctime(current.time),time.ctime(stock5Min.findKDJKline().time),stock5Min.findIsKdjUp80(stock5Min.findKDJKline().time)))
             return
 
+
         if prelast5diff<0 and pre2last5diff>0 :
             pricelogging.info("disable tbuy 5kdj-2 %s" % time.ctime(current.time))
             return
@@ -1690,18 +1691,18 @@ def go5():
             pricelogging.info("disable tbuy 5kdj-3 %s " % time.ctime(current.time))
             return
 
+        if prelast5diff>0 and pre2last5diff>0 and lastM5.j - lastM5.k<8:
+            pricelogging.info("disable tbuy 5kdj-4 %s " % time.ctime(current.time))
+            return
+
         if prelastM5.macd<0 and  pre2lastM5.macd>0:
             pricelogging.info("disable tbuy 5macd %s " % time.ctime(current.time))
             return
 
-        if prelastM5.macd>0 and pre2lastM5.macd>0 and pre2lastM5.macd>prelastM5.macd:
-            if stock1Min.touchDown()==False:
-                pricelogging.info("disable tbuy 5macd1 %s " % time.ctime(current.time))
-                return
-
         if prelastM5.macd<0 and pre2lastM5.macd<0 and prelastM5.macd<pre2lastM5.macd:
             pricelogging.info("disable tbuy down 5macd1 %s " % time.ctime(current.time))
             return
+
         if stock1Min.touchDown():
             pricelogging.info("touchDown tbuy 1Min")
 
@@ -1730,6 +1731,11 @@ def go5():
             return
 
         if lastM5.macd <0 and prelastM5.macd > 0:
+            pricelogging.info("tbuyb18-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+            buyPrice1 = None
+            return
+
+        if lastM5.macd<0 and stock1Min.touchMiddle() and current.j-current.k < prelast1diff:
             pricelogging.info("tbuyb18-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None
             return
