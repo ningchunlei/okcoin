@@ -1714,12 +1714,12 @@ def go5():
 
         buy1Time = current.time
         buy2Time = lastM5.time
-        buyPrice1 = current.close
+        buyPrice1 = current.open
         kk1pos = k1pos
         kk5pos = k5pos
         kk15pos = k15pos
         spec = 1
-        pricelogging.info("tbuyb1-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
+        pricelogging.info("tbuyb1-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().open,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
 
     if buyPrice1!=None and prelast1diff+4 < pre2last1diff and pre2last1diff>0 and lastm1.macd <= prelastm1.macd:
         if stock1Min.downToUp()==False and stock1Min.lastKline().open-buyPrice1>0:
