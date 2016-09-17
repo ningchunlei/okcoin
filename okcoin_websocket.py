@@ -1679,7 +1679,7 @@ def go5():
         #    return
 
         if k5pos==3 and stock5Min.findIsKdjUp80(stock5Min.findKDJKline().time)>0 and prelast5diff>0 and pre2last5diff>0 and pre2last5diff>prelast5diff:
-            pricelogging.info("disable tbuy 5kdj-1 %s ,-kdj=%s,-kdjcount=%s" % (time.ctime(current.time),stock5Min.findKDJKline().time,stock5Min.findIsKdjUp80(stock5Min.findKDJKline().time)))
+            pricelogging.info("disable tbuy 5kdj-1 %s ,-kdj=%s,-kdjcount=%s" % (time.ctime(current.time),time.ctime(stock5Min.findKDJKline().time),stock5Min.findIsKdjUp80(stock5Min.findKDJKline().time)))
             return
 
         if prelast5diff<0 and pre2last5diff>0 :

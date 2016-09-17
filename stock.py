@@ -340,7 +340,7 @@ class stock(object):
 
     def findIsKdjUp80(self,indexTime):
         flag = 0
-        count=0
+        count=1
         while True:
             if self.stocks[self.cursor-count].time <=  indexTime:
                 break
