@@ -1753,8 +1753,9 @@ def go5():
             return
 
         if stock1Min.lastKline().open-buyPrice1 < 1:
-            pricelogging.info("disable tbuy sell %s " % time.ctime(current.time))
-            return
+            if lastm1.macd>0:
+                pricelogging.info("disable tbuy sell %s " % time.ctime(current.time))
+                return
 
         if current.macd > lastm1.macd:
             pricelogging.info("disable macd sell 1Min")
