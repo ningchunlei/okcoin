@@ -1677,19 +1677,23 @@ def go5():
             pricelogging.info("disable tbuy 5Min %s " % time.ctime(current.time))
             return
 
-        if prelast15diff<0 and pre2last5diff>0 :
-            pricelogging.info("disable tbuy 5kdj %s" % time.ctime(current.time))
+        if k5pos==3 and stock5Min.findIsKdjUp80(stock5Min.findKDJKline().time)>0 and prelast5diff>0 and pre2last5diff>0 and pre2last5diff>prelast5diff:
+            pricelogging.info("disable tbuy 5kdj-1 %s " % time.ctime(current.time))
             return
 
-        if prelast15diff>0 and pre2last5diff>0 and pre2last5diff>prelast15diff and prelast15diff<8:
-            pricelogging.info("disable tbuy 5kdj %s " % time.ctime(current.time))
+        if prelast5diff<0 and pre2last5diff>0 :
+            pricelogging.info("disable tbuy 5kdj-2 %s" % time.ctime(current.time))
+            return
+
+        if prelast5diff>0 and pre2last5diff>0 and pre2last5diff>prelast5diff and prelast5diff<8:
+            pricelogging.info("disable tbuy 5kdj-3 %s " % time.ctime(current.time))
             return
 
         if prelastM5.macd<0 and  pre2lastM5.macd>0:
             pricelogging.info("disable tbuy 5macd %s " % time.ctime(current.time))
             return
 
-        if prelastM5.macd>0 and  pre2lastM5.macd>0 and pre2lastM5.macd>prelastM5.macd:
+        if prelastM5.macd>0 and pre2lastM5.macd>0 and pre2lastM5.macd>prelastM5.macd:
             pricelogging.info("disable tbuy 5macd1 %s " % time.ctime(current.time))
             return
 
@@ -1706,7 +1710,7 @@ def go5():
         spec = 1
         pricelogging.info("tbuyb1-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
 
-    if buyPrice1!=None and prelast1diff < pre2last1diff and pre2last1diff>0 and lastm1.macd <= prelastm1.macd:
+    if buyPrice1!=None and prelast1diff+4 < pre2last1diff and pre2last1diff>0 and lastm1.macd <= prelastm1.macd:
         if stock1Min.touchDown()==False and stock1Min.lastKline().open-buyPrice1>0:
             pricelogging.info("tbuyb48-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None

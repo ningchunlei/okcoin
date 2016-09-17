@@ -338,6 +338,20 @@ class stock(object):
 
         return kline
 
+    def findIsKdjUp80(self,indexTime):
+        flag = 0
+        count=0
+        while True:
+            if self.stocks[self.cursor-count].time <=  indexTime:
+                break
+            if self.stocks[self.cursor-count].j > 80:
+                flag += 1
+            count += 1
+
+        if flag>=1:
+            return True
+        return False
+
 
     def findUpKline(self):
         kline = None
