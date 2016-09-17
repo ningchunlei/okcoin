@@ -344,13 +344,11 @@ class stock(object):
         while True:
             if self.stocks[self.cursor-count].time <=  indexTime:
                 break
-            if self.stocks[self.cursor-count].j > 80:
+            if self.stocks[self.cursor-count].j>80:
                 flag += 1
             count += 1
 
-        if flag>=1:
-            return True
-        return False
+        return flag
 
 
     def findUpKline(self):
