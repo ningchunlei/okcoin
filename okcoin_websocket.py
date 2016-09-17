@@ -1673,9 +1673,10 @@ def go5():
 
     if buyPrice1==None and prelast1diff > pre2last1diff and  pre2last1diff<0 and lastm1.macd > prelastm1.macd :
         #chaomai
-        if lastM5.j > 80:
-            pricelogging.info("disable tbuy 5Min %s " % time.ctime(current.time))
-            return
+
+        #if lastM5.j > 80:
+        #    pricelogging.info("disable tbuy 5Min %s " % time.ctime(current.time))
+        #    return
 
         if k5pos==3 and stock5Min.findIsKdjUp80(stock5Min.findKDJKline().time)>0 and prelast5diff>0 and pre2last5diff>0 and pre2last5diff>prelast5diff:
             pricelogging.info("disable tbuy 5kdj-1 %s " % time.ctime(current.time))
