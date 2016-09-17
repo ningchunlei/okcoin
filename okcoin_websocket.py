@@ -1671,7 +1671,7 @@ def go5():
 
     pricelogging.info("bpri=%s,time=%s,price=%s,preM1=%s,pre2M1=%s,preM5=%s,pre2M=%s,preM15=%s,pre2M15=%s,k1=%s,k5=%s,k15=%s" % (buyPrice1,time.ctime(current.time),current.close,prelast1diff,pre2last1diff,prelast5diff,pre2last5diff,prelast15diff,pre2last15diff,k1pos,k5pos,k15pos))
 
-    if buyPrice1==None and prelast1diff > pre2last1diff and  pre2last1diff<0 and lastm1.macd > prelastm1.macd :
+    if buyPrice1==None and prelast1diff > pre2last1diff and current.j<80 and lastm1.macd > prelastm1.macd :
         #chaomai
 
         #if lastM5.j > 80:
