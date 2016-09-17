@@ -1695,7 +1695,7 @@ def go5():
             return
 
         if prelastM5.macd>0 and pre2lastM5.macd>0 and pre2lastM5.macd>prelastM5.macd:
-            if stock1Min.touchDownRange(1,3)==False:
+            if stock1Min.touchDown()==False:
                 pricelogging.info("disable tbuy 5macd1 %s " % time.ctime(current.time))
                 return
 
