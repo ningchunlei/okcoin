@@ -1718,6 +1718,11 @@ def go5():
             buyPrice1 = None
             return
 
+        if current.j > 80:
+            pricelogging.info("tbuyb48-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+            buyPrice1 = None
+            return
+
         if stock1Min.lastKline().open-buyPrice1 < 1:
             pricelogging.info("disable tbuy sell %s " % time.ctime(current.time))
             return
