@@ -1711,7 +1711,7 @@ def go5():
         pricelogging.info("tbuyb1-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
 
     if buyPrice1!=None and prelast1diff+4 < pre2last1diff and pre2last1diff>0 and lastm1.macd <= prelastm1.macd:
-        if stock1Min.touchDown()==False and stock1Min.lastKline().open-buyPrice1>0:
+        if stock1Min.downToUp()==False and stock1Min.lastKline().open-buyPrice1>0:
             pricelogging.info("tbuyb48-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None
             return
