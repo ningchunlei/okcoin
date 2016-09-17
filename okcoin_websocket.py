@@ -1721,14 +1721,15 @@ def go5():
 
     if buyPrice1!=None and prelast1diff+4 < pre2last1diff and pre2last1diff>0 and lastm1.macd <= prelastm1.macd:
         if stock1Min.downToUp()==False and stock1Min.lastKline().open-buyPrice1>0:
-            if stock5Min.downToUp()==True and prelast5diff>0 and current.j<80 and stock1Min.lastKline().open-buyPrice1<0.3:
+            if stock5Min.downToUp()==True and prelast5diff>0 and lastM5.j<80 and stock1Min.lastKline().open-buyPrice1<0.3:
                 pricelogging.info("disable tbuy101 sell %s " % time.ctime(current.time))
+                return
             pricelogging.info("tbuyb48-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None
             return
 
         if current.j>80 or (stock1Min.findIsKdjUp80(stock1Min.findKDJKline().time)>0 and prelast1diff>0):
-            if stock5Min.downToUp()==True and stock1Min.lastKline().open-buyPrice1<0:
+            if stock5Min.downToUp()==True and prelast5diff>0 and lastM5.j<80 and stock1Min.lastKline().open-buyPrice1<0.3:
                 return
             pricelogging.info("tbuyb28-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None
