@@ -665,6 +665,25 @@ class stock(object):
 
         return currentzhicheng,fanzhuanprice,nextprice
 
+    def forecastMacd(self):
+        close=[]
+        start = self.cursor-300
+        stop = self.cursor
+        for i in range(start,stop):
+            close.append(self.stocks[i].close)
+        closedp = pandas.Series(close)
+
+        closedp[0]=0
+        e12 = pandas.ewma(closedp,com=11/2,adjust=False)
+        e26 = pandas.ewma(closedp,com=25/2,adjust=False)
+
+        dif = e12 - e26
+        dea = pandas.ewma(dif,com=4,adjust=False)
+
+        def cx(x):
+            (x*5*13*27-e12[-1]*11*27*8+e26[-1]*25*13*8+dea[-1]*8*13*27)/822
+
+        return cx(self.stocks[self.cursor-1].macd),cx(0)
 
     def forecastKDJ(self):
         last = self.stocks[self.cursor]
