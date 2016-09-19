@@ -1819,12 +1819,16 @@ def go6():
 
     pricelogging.info("bpri=%s,time=%s,price=%s,preM1=%s,pre2M1=%s,preM5=%s,pre2M=%s,preM15=%s,pre2M15=%s,k1=%s,k5=%s,k15=%s" % (buyPrice1,time.ctime(current.time),current.close,prelast1diff,pre2last1diff,prelast5diff,pre2last5diff,prelast15diff,pre2last15diff,k1pos,k5pos,k15pos))
 
-    if buyPrice1==None and prelast1diff > pre2last1diff and  pre2last1diff<0 and lastm1.macd > prelastm1.macd :
+    if buyPrice1==None and prelast1diff > pre2last1diff and pre2last1diff<0 and lastm1.macd > prelastm1.macd :
         #chaomai
 
         #if lastM5.j > 80:
         #    pricelogging.info("disable tbuy 5Min %s " % time.ctime(current.time))
         #    return
+
+        if abs(prelastm1.j-pre2lastM5.j)<5 and (stock1Min.touchMiddle() or (current.close<current.boll and current.boll-current.close>current.close-current.bn)):
+            pricelogging.info("disable tbuy 1min kdj.j %s" % (time.ctime(current.time)))
+            return
 
         if k5pos==3 and stock5Min.findIsKdjUp80(stock5Min.findKDJKline().time)>0 and prelast5diff>0 and pre2last5diff>0 and pre2last5diff>prelast5diff:
             pricelogging.info("disable tbuy 5kdj-1 %s ,-kdj=%s,-kdjcount=%s" % (time.ctime(current.time),time.ctime(stock5Min.findKDJKline().time),stock5Min.findIsKdjUp80(stock5Min.findKDJKline().time)))
@@ -1873,7 +1877,15 @@ def go6():
         spec = 1
         pricelogging.info("tbuyb1-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().open,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
 
-    if buyPrice1!=None and prelast1diff+4 < pre2last1diff and pre2last1diff>0 and lastm1.macd <= prelastm1.macd:
+
+    if buyPrice1!=None:
+        if stock1Min.findIsKdjUp80(stock1Min.findKDJKline().time)>0 and abs(current.j-lastm1.j)<5:
+
+            pricelogging.info("tbuyb148-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+            buyPrice1 = None
+            return
+
+    if buyPrice1!=None and prelast1diff < pre2last1diff and lastm1.macd <= prelastm1.macd:
         if stock1Min.downToUp()==False and stock1Min.lastKline().open-buyPrice1>0:
             if stock5Min.downToUp()==True and ( (lastM5.macd > prelastM5.macd) or lastM5.j-lastM5.k>prelast5diff) and lastM5.j<80 and stock1Min.lastKline().open-buyPrice1<(lastm1.up - stock1Min.lastKline().open)/2:
                 pricelogging.info("disable tbuy101 sell %s " % time.ctime(current.time))
