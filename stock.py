@@ -291,6 +291,16 @@ class stock(object):
 
         return flag
 
+    def countBigmacd(self):
+        count=0
+        while True:
+            if self.stocks[self.cursor-count].macd<=0:
+                break
+            count+=1
+
+        return count;
+
+
     def downToUp(self):
         flag = False
         count=0
