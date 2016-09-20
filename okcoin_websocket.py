@@ -1826,7 +1826,7 @@ def go6():
         #if lastM5.j > 80:
         #    pricelogging.info("disable tbuy 5Min %s " % time.ctime(current.time))
         #    return
-        if prelastM5.macd>pre2lastM5.macd and prelastM5.j>pre2lastM5.j and prelastM5<80 and stock5Min.touchDown():
+        if prelastM5.macd>pre2lastM5.macd and lastM5.j>prelastM5.j and lastM5.j<80 and stock5Min.touchDown():
             buy1Time = current.time
             buy2Time = lastM5.time
             buyPrice1 = current.open
