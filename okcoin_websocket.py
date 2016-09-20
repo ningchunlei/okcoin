@@ -1893,10 +1893,6 @@ def go6():
             pricelogging.info("disable tbuy103 sell %s " % time.ctime(current.time))
             return
 
-        if stock5Min.countBigmacd()>=4 and prelastM5.macd>pre2lastM5.macd and prelastM5.j > pre2lastM5.j and prelastM5.j<80:
-            pricelogging.info("disable tbuy102 sell %s " % time.ctime(current.time))
-            return
-
         if stock1Min.findIsKdjUp80(stock1Min.findKDJKline().time)>0 and abs(current.j-lastm1.j)<5 and lastm1.macd < prelastm1.macd and abs(lastm1.macd-prelastm1.macd)>0.03:
             pricelogging.info("tbuyb148-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None
