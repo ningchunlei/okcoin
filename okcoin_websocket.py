@@ -1819,7 +1819,8 @@ def go6():
 
     pricelogging.info("bpri=%s,time=%s,price=%s,preM1=%s,pre2M1=%s,preM5=%s,pre2M=%s,preM15=%s,pre2M15=%s,k1=%s,k5=%s,k15=%s" % (buyPrice1,time.ctime(current.time),current.close,prelast1diff,pre2last1diff,prelast5diff,pre2last5diff,prelast15diff,pre2last15diff,k1pos,k5pos,k15pos))
 
-    if buyPrice1==None and prelast1diff > pre2last1diff and pre2last1diff<0 and lastm1.macd > prelastm1.macd :
+
+    if buyPrice1==None and prelast1diff > pre2last1diff and pre2last1diff<0 and abs(prelastm1.j-pre2lastM5.j)>5 and lastm1.macd > prelastm1.macd and abs(lastm1.macd-prelastm1.macd)>0.03:
         #chaomai
 
         #if lastM5.j > 80:
@@ -1879,13 +1880,17 @@ def go6():
 
 
     if buyPrice1!=None:
-        if stock1Min.findIsKdjUp80(stock1Min.findKDJKline().time)>0 and abs(current.j-lastm1.j)<5:
-
+        if stock1Min.findIsKdjUp80(stock1Min.findKDJKline().time)>0 and abs(current.j-lastm1.j)<5 and lastm1.macd < prelastm1.macd and abs(lastm1.macd-prelastm1.macd)>0.03:
             pricelogging.info("tbuyb148-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None
             return
 
-    if buyPrice1!=None and prelast1diff < pre2last1diff and lastm1.macd <= prelastm1.macd:
+    if buyPrice1!=None and prelast1diff < pre2last1diff and lastm1.macd <= prelastm1.macd and abs(lastm1.macd-prelastm1.macd)>0.03:
+
+        if stock5Min.countBigmacd()>4 and prelastM5.macd>pre2lastM5.macd and prelastM5.j > pre2lastM5.j and abs(prelastM5.j-pre2lastM5.j)>5:
+            pricelogging.info("disable tbuy102 sell %s " % time.ctime(current.time))
+            return
+
         if stock1Min.downToUp()==False and stock1Min.lastKline().open-buyPrice1>0:
             if stock5Min.downToUp()==True and ( (lastM5.macd > prelastM5.macd) or lastM5.j-lastM5.k>prelast5diff) and lastM5.j<80 and stock1Min.lastKline().open-buyPrice1<(lastm1.up - stock1Min.lastKline().open)/2:
                 pricelogging.info("disable tbuy101 sell %s " % time.ctime(current.time))
