@@ -1889,7 +1889,7 @@ def go6():
 
 
     if buyPrice1!=None:
-        if lastM5.macd < prelastM5.macd and spec==2:
+        if lastM5.macd > prelastM5.macd and spec==2:
             pricelogging.info("disable tbuy103 sell %s " % time.ctime(current.time))
             return
 
