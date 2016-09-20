@@ -1826,6 +1826,15 @@ def go6():
         #if lastM5.j > 80:
         #    pricelogging.info("disable tbuy 5Min %s " % time.ctime(current.time))
         #    return
+        if prelastM5.macd>pre2lastM5.macd and prelastM5.j>pre2lastM5.j and prelastM5<80 and stock5Min.touchDown():
+            buy1Time = current.time
+            buy2Time = lastM5.time
+            buyPrice1 = current.open
+            kk1pos = k1pos
+            kk5pos = k5pos
+            kk15pos = k15pos
+            spec = 2
+            pricelogging.info("tbuyb2-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().open,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
 
         if abs(prelastm1.j-pre2lastM5.j)<5 and (stock1Min.touchMiddle() or (current.close<current.boll and current.boll-current.close>current.close-current.bn)):
             pricelogging.info("disable tbuy 1min kdj.j %s" % (time.ctime(current.time)))
