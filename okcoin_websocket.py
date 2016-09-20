@@ -1904,10 +1904,6 @@ def go6():
 
     if buyPrice1!=None and prelast1diff < pre2last1diff and lastm1.macd <= prelastm1.macd and abs(lastm1.macd-prelastm1.macd)>0.03:
 
-        if stock5Min.countBigmacd()>=4 and prelastM5.macd>pre2lastM5.macd and prelastM5.j > pre2lastM5.j and prelastM5.j<80:
-            pricelogging.info("disable tbuy102 sell %s " % time.ctime(current.time))
-            return
-
         if stock1Min.downToUp()==False and stock1Min.lastKline().open-buyPrice1>0:
             if stock5Min.downToUp()==True and ( (lastM5.macd > prelastM5.macd) or lastM5.j-lastM5.k>prelast5diff) and lastM5.j<80 and stock1Min.lastKline().open-buyPrice1<(lastm1.up - stock1Min.lastKline().open)/2:
                 pricelogging.info("disable tbuy101 sell %s " % time.ctime(current.time))
