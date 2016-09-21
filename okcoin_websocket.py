@@ -1820,13 +1820,13 @@ def go6():
     pricelogging.info("bpri=%s,time=%s,price=%s,preM1=%s,pre2M1=%s,preM5=%s,pre2M=%s,preM15=%s,pre2M15=%s,k1=%s,k5=%s,k15=%s" % (buyPrice1,time.ctime(current.time),current.close,prelast1diff,pre2last1diff,prelast5diff,pre2last5diff,prelast15diff,pre2last15diff,k1pos,k5pos,k15pos))
 
 
-    if buyPrice1==None and (prelast1diff > pre2last1diff and pre2last1diff<5) and prelastm1.j>pre2lastM5.j and abs(prelastm1.j-pre2lastM5.j)>5 and lastm1.macd > prelastm1.macd and abs(lastm1.macd-prelastm1.macd)>0.03:
+    if buyPrice1==None and (prelast1diff > pre2last1diff and pre2last1diff<5) and lastm1.j>prelastm1.j and abs(lastm1.j-prelastm1.j)>5 and lastm1.macd > prelastm1.macd and abs(lastm1.macd-prelastm1.macd)>0.03:
         #chaomai
 
         #if lastM5.j > 80:
         #    pricelogging.info("disable tbuy 5Min %s " % time.ctime(current.time))
         #    return
-        if prelastM5.macd>pre2lastM5.macd and lastM5.j>prelastM5.j and lastM5.j<80 and stock5Min.touchDown():
+        if stock5Min.findIsKdjUp80(stock5Min.findKDJKline().time)<=0 and stock1Min.findIsKdjUp80(stock1Min.findKDJKline().time)<=0 and current.j<80 and prelastM5.macd>pre2lastM5.macd and lastM5.j>prelastM5.j and lastM5.j<80 and stock5Min.touchDown():
             buy1Time = current.time
             buy2Time = lastM5.time
             buyPrice1 = current.open
@@ -1835,8 +1835,9 @@ def go6():
             kk15pos = k15pos
             spec = 2
             pricelogging.info("tbuyb2-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().open,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
+            return
 
-        if abs(prelastm1.j-pre2lastM5.j)<5 and (stock1Min.touchMiddle() or (current.close<current.boll and current.boll-current.close>current.close-current.bn)):
+        if abs(prelastm1.j-lastm1.j)<5 and (stock1Min.touchMiddle() or (current.close<current.boll and current.boll-current.close>current.close-current.bn)):
             pricelogging.info("disable tbuy 1min kdj.j %s" % (time.ctime(current.time)))
             return
 
