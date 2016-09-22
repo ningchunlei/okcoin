@@ -1822,7 +1822,9 @@ def go6():
 
     if buyPrice1==None and (prelast1diff > pre2last1diff and pre2last1diff<5) and lastm1.j>prelastm1.j and abs(lastm1.j-prelastm1.j)>5 and lastm1.macd > prelastm1.macd and abs(lastm1.macd-prelastm1.macd)>0.03:
         #chaomai
-
+        if lastM5.macd<prelastM5.macd and prelast5diff < pre2last5diff and lastM5.j < prelastM5.j:
+            pricelogging.info("disable tbuyi900 %s",time.ctime(current.time))
+            return
         #if lastM5.j > 80:
         #    pricelogging.info("disable tbuy 5Min %s " % time.ctime(current.time))
         #    return
@@ -1841,7 +1843,7 @@ def go6():
             pricelogging.info("disable tbuy 1min kdj.j %s" % (time.ctime(current.time)))
             return
 
-        if k5pos==3 and stock5Min.findIsKdjUp80(stock5Min.findKDJKline().time)>0 and prelast5diff>0 and pre2last5diff>0 and pre2last5diff>prelast5diff:
+        if stock5Min.findIsKdjUp80(stock5Min.findKDJKline().time)>0 and prelast5diff>0 and pre2last5diff>0 and pre2last5diff>prelast5diff:
             pricelogging.info("disable tbuy 5kdj-1 %s ,-kdj=%s,-kdjcount=%s" % (time.ctime(current.time),time.ctime(stock5Min.findKDJKline().time),stock5Min.findIsKdjUp80(stock5Min.findKDJKline().time)))
             return
 
@@ -1949,6 +1951,13 @@ def go6():
 
         pricelogging.info("tbuyb38-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
         buyPrice1 = None
+        return
+    if buy2Time!=None:
+        pricelogging.info("last5Time=%s,buy2Time=%s,diff = %s" %  (time.ctime(lastM5.time),time.ctime(buy2Time),current.time-buy2Time))
+    if buyPrice1!=None and current.time-buy2Time == 5*60 and lastM5.j<prelastM5.j and lastM5.j-lastM5.k<0:
+        pricelogging.info("tbuybi538-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+        buyPrice1 = None
+        return
 
 def on_message(self,evt):
     global last_time
