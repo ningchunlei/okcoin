@@ -1826,7 +1826,7 @@ def go6():
             pricelogging.info("disable tbuyi900 %s",time.ctime(current.time))
             return
 
-        if abs(current.close - prelastm1.close)>10 and lastM5.j<prelastM15.j:
+        if abs(current.close - prelastm1.close)>10 and lastM15.j<prelastM15.j:
             pricelogging.info("disable tbuyi901 %s",time.ctime(current.time))
             return
 
