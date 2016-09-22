@@ -1822,7 +1822,9 @@ def go6():
 
     if buyPrice1==None and (prelast1diff > pre2last1diff and pre2last1diff<5) and lastm1.j>prelastm1.j and abs(lastm1.j-prelastm1.j)>5 and lastm1.macd > prelastm1.macd and abs(lastm1.macd-prelastm1.macd)>0.03:
         #chaomai
-
+        if lastM5.macd<prelastM5.macd and prelast5diff < pre2last5diff and lastM5.j < prelastM5.j:
+            pricelogging.info("disable tbuyi900 %s",time.ctime(current.time))
+            return
         #if lastM5.j > 80:
         #    pricelogging.info("disable tbuy 5Min %s " % time.ctime(current.time))
         #    return
@@ -1890,6 +1892,11 @@ def go6():
 
 
     if buyPrice1!=None:
+
+        if current.up-current.dn<3.5 and (stock5Min.findIsKdjUp80(stock5Min.findKDJKline().time)<=0 or (stock5Min.findIsKdjUp80(stock5Min.findKDJKline().time)>0 and lastM5.j>prelastM5.j)) and lastM5.j-lastM5.k>0 and lastM15.j-lastM15.k>5 and stock15Min.countCross(buy2Time)<=1 and stock5Min.countCross(buy2Time)<=1:
+            pricelogging.info("disable tbuy153 sell up5 %s " % time.ctime(current.time))
+            return
+
         if lastM5.macd > prelastM5.macd and spec==2:
             pricelogging.info("disable tbuy103 sell %s " % time.ctime(current.time))
             return
