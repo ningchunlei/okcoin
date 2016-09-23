@@ -2018,9 +2018,8 @@ def go7():
 
     pricelogging.info("bpri=%s,time=%s,price=%s,preM1=%s,pre2M1=%s,preM5=%s,pre2M=%s,preM15=%s,pre2M15=%s,k1=%s,k5=%s,k15=%s" % (buyPrice1,time.ctime(current.time),current.close,prelast1diff,pre2last1diff,prelast5diff,pre2last5diff,prelast15diff,pre2last15diff,k1pos,k5pos,k15pos))
 
-
     if prelastM5.j > pre2lastM5.j and prelastM5.j-prelastM5.k<0:
-        if lastm1.j > prelastm1.j and prelast1diff<0 and stock1Min.downToUp()==True:
+        if (pre2last1diff<0 and prelast1diff>0) or (pre2last1diff>=0 and prelast1diff>pre2last1diff and stock1Min.preMyLastKline(3).j- stock1Min.preMyLastKline(3).k < 0) and abs(current.up-current.dn)>3.6:
             buy1Time = current.time
             buy2Time = lastM5.time
             buyPrice1 = current.open
@@ -2029,7 +2028,6 @@ def go7():
             kk15pos = k15pos
             pricelogging.info("tbuyb2-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().open,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
             return
-
 
     if buyPrice1!=None and lastm1.j<prelastm1.j:
         if stock1Min.touchUp():
@@ -2040,15 +2038,6 @@ def go7():
             pricelogging.info("tbuyb150-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None
             return
-        if lastm1.j>80 and lastM5.j<prelastM5.j:
-            pricelogging.info("tbuyb151-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
-            buyPrice1 = None
-            return
-        if lastM5.j<prelastM5.j:
-            pricelogging.info("tbuyb152-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
-            buyPrice1 = None
-            return
-
 
 
 
