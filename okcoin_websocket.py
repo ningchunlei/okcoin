@@ -2019,9 +2019,9 @@ def go7():
     pricelogging.info("bpri=%s,time=%s,price=%s,preM1=%s,pre2M1=%s,preM5=%s,pre2M=%s,preM15=%s,pre2M15=%s,k1=%s,k5=%s,k15=%s" % (buyPrice1,time.ctime(current.time),current.close,prelast1diff,pre2last1diff,prelast5diff,pre2last5diff,prelast15diff,pre2last15diff,k1pos,k5pos,k15pos))
 
     if buyPrice1==None:
-        if lastM5.j-lastM5.k<=0 and xspec==1:
-            if lastM5.j > prelastM5.j:
-                xspec=2
+        if not (lastM5.j-lastM5.k<=0 and stock5Min.findKDJKlineDown()):
+            return
+
 
         if prelastm1.j<20 and lastm1.j > prelastm1.j and abs(lastm1.j-prelastm1.j) > 19:
             buy1Time = current.time
