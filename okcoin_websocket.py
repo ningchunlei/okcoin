@@ -2019,6 +2019,10 @@ def go7():
     pricelogging.info("bpri=%s,time=%s,price=%s,preM1=%s,pre2M1=%s,preM5=%s,pre2M=%s,preM15=%s,pre2M15=%s,k1=%s,k5=%s,k15=%s" % (buyPrice1,time.ctime(current.time),current.close,prelast1diff,pre2last1diff,prelast5diff,pre2last5diff,prelast15diff,pre2last15diff,k1pos,k5pos,k15pos))
 
     if buyPrice1==None:
+        if lastM5.j<prelastM5.j and lastM5.j-lastM5.k<0 and lastM5.j>40 and stock5Min.downToUp()==False:
+            pricelogging.info("disable tbuy sell %s " % time.ctime(current.time))
+            return
+
         if prelastm1.j<20 and lastm1.j > prelastm1.j and abs(lastm1.j-prelastm1.j) > 19:
             buy1Time = current.time
             buy2Time = lastM5.time
@@ -2062,7 +2066,7 @@ def go7():
 
         if spec==2:
             if lastM5.j<prelastM5.j:
-                pricelogging.info("tbuybi548-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+                pricelogging.info("tbuybi558-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
                 buyPrice1 = None
                 return
 
