@@ -2026,6 +2026,7 @@ def go7():
             kk1pos = k1pos
             kk5pos = k5pos
             kk15pos = k15pos
+            spec=1
             pricelogging.info("tbuyb2-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().open,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
             return
 
@@ -2036,6 +2037,7 @@ def go7():
             kk1pos = k1pos
             kk5pos = k5pos
             kk15pos = k15pos
+            spec=1
             pricelogging.info("tbuyb4-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().open,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
             return
 
@@ -2046,15 +2048,35 @@ def go7():
             kk1pos = k1pos
             kk5pos = k5pos
             kk15pos = k15pos
+            spec=1
             pricelogging.info("tbuyb3-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().open,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
             return
 
     if buyPrice1!=None:
+        if spec==2:
+            if prelastM5.j>80 and lastM5.j<prelastM5.j:
+                pricelogging.info("tbuybi548-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+                buyPrice1 = None
+                return
+
         if prelastm1.j>80 and lastm1.j < prelastm1.j:
             pricelogging.info("tbuybi538-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None
+            if lastM5.j>prelastM5.j:
+                spec=2
             return
 
+    if buyPrice1==None and spec==2:
+        if lastm1.j > prelastm1.j and lastM5.j>prelastM5.j and lastM5.j<80:
+            buy1Time = current.time
+            buy2Time = lastM5.time
+            buyPrice1 = current.open
+            kk1pos = k1pos
+            kk5pos = k5pos
+            kk15pos = k15pos
+            spec=2
+            pricelogging.info("tbuyb31-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().open,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
+            return
 
 
 def on_message(self,evt):
