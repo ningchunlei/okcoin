@@ -337,6 +337,20 @@ class stock(object):
             count+=1
         return count
 
+    def findKDJKlineDown(self):
+        flag = False
+        count=0
+        while True:
+            if self.stocks[self.cursor-count].j - self.stocks[self.cursor-count].k>=0:
+                break
+            count+=1
+            if self.stocks[self.cursor-count].j > self.stocks[self.cursor-count-1].j:
+                flag = True
+                break;
+
+        return flag
+
+
     def findKDJKline(self):
         kline = None
         count=1

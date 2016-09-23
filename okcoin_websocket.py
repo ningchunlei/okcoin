@@ -2022,7 +2022,6 @@ def go7():
         if not (lastM5.j-lastM5.k<=0 and stock5Min.findKDJKlineDown()):
             return
 
-
         if prelastm1.j<20 and lastm1.j > prelastm1.j and abs(lastm1.j-prelastm1.j) > 19:
             buy1Time = current.time
             buy2Time = lastM5.time
