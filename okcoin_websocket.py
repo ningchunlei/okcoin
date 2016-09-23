@@ -2054,7 +2054,7 @@ def go7():
 
     if buyPrice1!=None:
         if spec==2:
-            if prelastM5.j>80 and lastM5.j<prelastM5.j:
+            if lastM5.j<prelastM5.j:
                 pricelogging.info("tbuybi548-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
                 buyPrice1 = None
                 return
