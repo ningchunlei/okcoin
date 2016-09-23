@@ -2022,6 +2022,10 @@ def go7():
         if lastM5.j<prelastM5.j and lastM5.j-lastM5.k<0 and lastM5.j>40 and stock5Min.downToUp()==False:
             pricelogging.info("disable tbuy sell %s " % time.ctime(current.time))
             return
+        if stock5Min.kdjUpDontTouchMaxKline().low<lastM5.boll and stock5Min.kdjUpDontTouchMaxKline().high < lastM5.up and stock5Min.downToUp()==False and \
+                        lastM5.j<prelastM5.j:
+            pricelogging.info("disable tbuy sell12 %s " % time.ctime(current.time))
+            return
 
         if prelastm1.j<20 and lastm1.j > prelastm1.j and abs(lastm1.j-prelastm1.j) > 19:
             buy1Time = current.time

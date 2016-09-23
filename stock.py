@@ -493,6 +493,19 @@ class stock(object):
             return False
         return True
 
+    def kdjUpDontTouchMaxKline(self):
+        maxc = 0
+        count=1
+        kline = None
+        while True:
+            if self.stocks[self.cursor-count].j - self.stocks[self.cursor-count].k <=0:
+                break
+            if self.stocks[self.cursor-count].j> maxc:
+                maxc = self.stocks[self.cursor-count].j
+                kline = self.stocks[self.cursor-count];
+            count += 1
+        return kline
+
     def mayDown(self,indexTime):
         flag = False
         count=1
