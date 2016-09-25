@@ -2156,7 +2156,7 @@ def go8():
         if prelastm1.j<20 and lastm1.j > prelastm1.j and abs(lastm1.j-prelastm1.j) > 19:
             buy1Time = current.time
             buy2Time = lastM5.time
-            buyPrice1 = current.close+0.01
+            buyPrice1 = current.close
             kk1pos = k1pos
             kk5pos = k5pos
             kk15pos = k15pos
@@ -2167,7 +2167,7 @@ def go8():
         if prelastm1.j<20 and lastm1.j > prelastm1.j and lastm1.j-lastm1.k>0:
             buy1Time = current.time
             buy2Time = lastM5.time
-            buyPrice1 = current.close+0.01
+            buyPrice1 = current.close
             kk1pos = k1pos
             kk5pos = k5pos
             kk15pos = k15pos
@@ -2178,7 +2178,7 @@ def go8():
         if stock1Min.preMyLastKline(3).j<20 and prelastm1.j>stock1Min.preMyLastKline(3).j and lastm1.j > prelastm1.j:
             buy1Time = current.time
             buy2Time = lastM5.time
-            buyPrice1 = current.close+0.01
+            buyPrice1 = current.close
             kk1pos = k1pos
             kk5pos = k5pos
             kk15pos = k15pos
@@ -2190,13 +2190,13 @@ def go8():
 
     if buyPrice1!=None:
         if stock1Min.lastKline().open - buyPrice1 < -15:
-            pricelogging.info("tbuybi548-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(buyPrice1,stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+            pricelogging.info("tbuybi548-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None
             return
 
         if spec==2:
             if lastM5.j<prelastM5.j:
-                pricelogging.info("tbuybi558-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(buyPrice1,stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+                pricelogging.info("tbuybi558-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
                 buyPrice1 = None
                 return
 
@@ -2204,7 +2204,7 @@ def go8():
             if stock1Min.lastKline().open - buyPrice1<0 and ((lastM5.j-lastM5.k>0) or lastM5.j>prelastM5.j):
                 spec = 2
                 return
-            pricelogging.info("tbuybi538-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(buyPrice1,stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+            pricelogging.info("tbuybi538-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None
             if lastM5.j>prelastM5.j:
                 spec=2
@@ -2214,12 +2214,12 @@ def go8():
         if lastm1.j > prelastm1.j and lastM5.j>prelastM5.j and lastM5.j<80:
             buy1Time = current.time
             buy2Time = lastM5.time
-            buyPrice1 = current.close+0.01
+            buyPrice1 = current.close
             kk1pos = k1pos
             kk5pos = k5pos
             kk15pos = k15pos
             spec=2
-            pricelogging.info("tbuyb31-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().close+0.01,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
+            pricelogging.info("tbuyb31-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
             return
 
 def on_message(self,evt):
