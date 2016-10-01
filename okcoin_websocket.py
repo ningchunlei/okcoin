@@ -2547,7 +2547,7 @@ def go11():
     pricelogging.info("bpri=%s,time=%s,price=%s,preM1=%s,pre2M1=%s,preM5=%s,pre2M=%s,preM15=%s,pre2M15=%s,k1=%s,k5=%s,k15=%s" % (buyPrice1,time.ctime(current.time),current.close,prelast1diff,pre2last1diff,prelast5diff,pre2last5diff,prelast15diff,pre2last15diff,k1pos,k5pos,k15pos))
 
     if buyPrice1==None:
-        if sellSpec==True and prelastM5.macd > pre2lastM5.macd and prelastM5.j > pre2lastM5.j:
+        if sellSpec==True and prelastM5.macd > pre2lastM5.macd and prelastM5.j > pre2lastM5.j and lastm1.j<80:
             pricelogging.info("disable tbuy sell End %s " % time.ctime(current.time))
             spec =2
             sellSpec = None
@@ -2611,7 +2611,7 @@ def go11():
             return
 
         if spec==2:
-            if prelastM5.j<pre2lastM5.j and prelastM5.macd<pre2lastM5.macd:
+            if prelastM5.j<pre2lastM5.j:
                 pricelogging.info("tbuybi558-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
                 buyPrice1 = None
                 spec = None
