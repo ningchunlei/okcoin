@@ -2695,7 +2695,7 @@ def go11():
             pricelogging.info("tbuyb31-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().open,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
             return
 
-    if buyPrice1==None and prelastM5.j>pre2lastM5.j and prelastM5.j<20 and prelastM5.macd>pre2lastM5.macd:
+    if buyPrice1==None and lastM5.j>prelastM5.j and (prelastM5.j<20 or lastM5.j<20) and lastM5.macd>prelastM5.macd:
         buy1Time = current.time
         buy2Time = lastM5.time
         buyPrice1 = current.open
