@@ -2659,6 +2659,11 @@ def go11():
                 if prelastM5.macd>0.5 and prelastM5.macd > pre2lastM5.macd and stock1Min.lastKline().open - buyPrice1>0:
                     pricelogging.info("tbuybikk508-%s,disable,time=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time)))
                     return;
+
+                if prelastM5.macd<-0.8 and lastM5.macd>prelastM5.macd:
+                    pricelogging.info("tbuybikk548-%s,disable,time=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time)))
+                    return;
+
                 pricelogging.info("tbuybi558-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
                 buyPrice1 = None
                 spec = None
