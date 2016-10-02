@@ -2585,6 +2585,10 @@ def go11():
         if prelastm1.j<20 and lastm1.j > prelastm1.j and abs(lastm1.j-prelastm1.j) > 19:
             if lastM5.j < prelastM5.j:
                 return
+
+            if lastM5.j > prelastM5.j and prelastM5.macd < 0 and lastM5.macd < prelastM5.macd:
+                return
+
             buy1Time = current.time
             buy2Time = lastM5.time
             buyPrice1 = current.open
@@ -2597,6 +2601,8 @@ def go11():
 
         if prelastm1.j<20 and lastm1.j > prelastm1.j and lastm1.j-lastm1.k>0:
             if lastM5.j < prelastM5.j:
+                return
+            if lastM5.j > prelastM5.j and prelastM5.macd < 0 and lastM5.macd < prelastM5.macd:
                 return
             buy1Time = current.time
             buy2Time = lastM5.time
@@ -2611,6 +2617,10 @@ def go11():
         if stock1Min.preMyLastKline(3).j<20 and prelastm1.j>stock1Min.preMyLastKline(3).j and lastm1.j > prelastm1.j:
             if lastM5.j < prelastM5.j:
                 return
+
+            if lastM5.j > prelastM5.j and prelastM5.macd < 0 and lastM5.macd < prelastM5.macd:
+                return
+
             buy1Time = current.time
             buy2Time = lastM5.time
             buyPrice1 = current.open
