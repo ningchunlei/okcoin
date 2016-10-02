@@ -2553,7 +2553,7 @@ def go11():
     k5pos = pos(stock5Min)
     k15pos = pos(stock15Min)
 
-    pricelogging.info("bpri=%s,time=%s,price=%s,preM1=%s,pre2M1=%s,preM5=%s,pre2M=%s,preM15=%s,pre2M15=%s,k1=%s,k5=%s,k15=%s" % (buyPrice1,time.ctime(current.time),current.close,prelast1diff,pre2last1diff,prelast5diff,pre2last5diff,prelast15diff,pre2last15diff,k1pos,k5pos,k15pos))
+    pricelogging.info("bpri=%s,time=%s,lastM5.j=%s,lastM5.macd=%s" % (buyPrice1,time.ctime(current.time),lastM5.j,lastM5.macd))
 
     if buyPrice1==None:
         if sellSpec==True and prelastM5.macd > pre2lastM5.macd and prelastM5.j > pre2lastM5.j:
