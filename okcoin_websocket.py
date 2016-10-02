@@ -2650,7 +2650,7 @@ def go11():
             return
 
         if spec==2:
-            if prelastm1.j>80 and lastm1.j < prelastm1.j and abs(lastM5.macd)<2:
+            if prelastm1.j>80 and lastm1.j < prelastm1.j and abs(lastM5.macd)<0.2 and stock1Min.lastKline().open - buyPrice1<0:
                 pricelogging.info("tbuybi578-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
                 buyPrice1 = None
                 spec = 2
@@ -2675,7 +2675,7 @@ def go11():
                 spec=2
             return
 
-        if spec==1 and lastm1.j < prelastm1.j and lastM5.j<prelastM5.j:
+        if spec==1 and lastm1.j<80 and lastm1.j < prelastm1.j and lastM5.j<prelastM5.j:
             pricelogging.info("tbuybi668-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None
             spec = None
@@ -2694,6 +2694,16 @@ def go11():
             spec=2
             pricelogging.info("tbuyb31-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().open,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
             return
+
+    if buyPrice1==None and lastM5.j>prelastM5.j and lastM5.j<20 and lastM5.macd>prelastM5.macd:
+        buy1Time = current.time
+        buy2Time = lastM5.time
+        buyPrice1 = current.open
+        kk1pos = k1pos
+        kk5pos = k5pos
+        kk15pos = k15pos
+        spec=2
+        pricelogging.info("tbuyb4-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
 
 def on_message(self,evt):
     global last_time
