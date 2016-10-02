@@ -2424,7 +2424,7 @@ def go10():
                 pricelogging.info("tbuyb311-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
                 return
 
-        if sellSpec==None and lastM5.j-lastM5.k>0 and stock5Min.kdjUpDontTouchMaxKline()>80 and lastM5.j<prelastM5.j and lastM5.macd < prelastM5.macd:
+        if sellSpec==None and lastM5.j-lastM5.k>0 and stock5Min.kdjUpDontTouchMaxKline().j>80 and lastM5.j<prelastM5.j and lastM5.macd < prelastM5.macd:
             pricelogging.info("disable tbuy sell Start %s " % time.ctime(current.time))
             sellSpec=True
             return
