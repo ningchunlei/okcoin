@@ -2703,7 +2703,8 @@ def go11():
         kk5pos = k5pos
         kk15pos = k15pos
         spec=2
-        pricelogging.info("tbuyb4-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
+        pricelogging.info("tbuyb489-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
+        return
 
 def on_message(self,evt):
     global last_time
