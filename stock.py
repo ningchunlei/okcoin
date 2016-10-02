@@ -218,6 +218,28 @@ class stock(object):
     def preMyLastKline(self,count):
         return self.stocks[self.cursor-count]
 
+    def findLowestkdj(self):
+        kline = False
+        count=0
+        xcount=0
+        while True:
+            if self.stocks[self.cursor-count].j <20 :
+                kline = True
+                break
+            if xcount>=2:
+                kline = False
+                break;
+            if self.stocks[self.cursor-count].high >= self.stocks[self.cursor-count].up:
+                kline = False
+                break
+            if self.stocks[self.cursor-count].j < self.stocks[self.cursor-count-1].j:
+                xcount += 1;
+
+            if self.stocks[self.cursor-count].j > self.stocks[self.cursor-count-1].j:
+                xcount = 0;
+            count+=1
+        return kline
+
     def on_trade(self,trade):
         if self.baseTime == None:
             return
