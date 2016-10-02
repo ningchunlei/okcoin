@@ -2505,12 +2505,12 @@ def go10():
                 buyPrice1 = None
                 spec = 2
                 return
-            if lastM5.j<prelastM5.j:
-                if lastM5.macd>0.5 and lastM5.macd > prelastM5.macd and stock1Min.lastKline().close - buyPrice1>0:
+            if prelastM5.j<pre2lastM5.j:
+                if prelastM5.macd>0.5 and prelastM5.macd > pre2lastM5.macd and stock1Min.lastKline().close - buyPrice1>0:
                     pricelogging.info("tbuybikk508-%s,disable,time=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time)))
                     return;
 
-                if lastM5.macd<-0.8 and lastM5.macd>prelastM5.macd:
+                if prelastM5.macd<-0.8 and lastM5.macd>prelastM5.macd:
                     pricelogging.info("tbuybikk548-%s,disable,time=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time)))
                     return;
 
@@ -2518,7 +2518,6 @@ def go10():
                 buyPrice1 = None
                 spec = None
                 return
-
         if spec!=2 and prelastm1.j>80 and lastm1.j < prelastm1.j:
             if lastM5.macd < 0 and lastM5.j - lastM5.k<0:
                 pricelogging.info("tbuybi568-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
