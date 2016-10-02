@@ -2670,7 +2670,9 @@ def go11():
             return
 
     if buyPrice1==None and spec==2:
-        if lastm1.j > prelastm1.j and prelastM5.j>pre2lastM5.j and lastM5.macd>prelastM5.macd and prelastM5.j<80 and lastm1.j<80:
+        if lastm1.j > prelastm1.j and prelastM5.j>pre2lastM5.j and prelastM5.j<80 and lastm1.j<80:
+            if lastM5.macd <0 and lastM5.macd<prelastM5.macd:
+                return
             buy1Time = current.time
             buy2Time = lastM5.time
             buyPrice1 = current.open
