@@ -2403,21 +2403,24 @@ def go10():
     k5pos = pos(stock5Min)
     k15pos = pos(stock15Min)
 
-    pricelogging.info("bpri=%s,time=%s,price=%s,preM1=%s,pre2M1=%s,preM5=%s,pre2M=%s,preM15=%s,pre2M15=%s,k1=%s,k5=%s,k15=%s" % (buyPrice1,time.ctime(current.time),current.close,prelast1diff,pre2last1diff,prelast5diff,pre2last5diff,prelast15diff,pre2last15diff,k1pos,k5pos,k15pos))
+    pricelogging.info("bpri=%s,time=%s,lastM5.j=%s,lastM5.macd=%s" % (buyPrice1,time.ctime(current.time),lastM5.j,lastM5.macd))
 
     if buyPrice1==None:
-        if sellSpec==True and lastM5.macd > prelastM5.macd and lastM5.j > prelastM5.j:
+        if sellSpec==True and lastM5.macd > prelastM5.macd+0.02 and lastM5.j > prelastM5.j+3:
             pricelogging.info("disable tbuy sell End %s " % time.ctime(current.time))
             spec =2
             sellSpec = None
-            buy1Time = current.time
-            buy2Time = lastM5.time
-            buyPrice1 = current.close
-            kk1pos = k1pos
-            kk5pos = k5pos
-            kk15pos = k15pos
-            pricelogging.info("tbuyb311-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
-            return
+            if lastm1.j < prelastm1.j:
+                return
+            if lastm1.j<80:
+                buy1Time = current.time
+                buy2Time = lastM5.time
+                buyPrice1 = current.close
+                kk1pos = k1pos
+                kk5pos = k5pos
+                kk15pos = k15pos
+                pricelogging.info("tbuyb311-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (stock1Min.lastKline().close,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
+                return
 
         if sellSpec==None and lastM5.j-lastM5.k>0 and stock5Min.kdjUpDontTouchMaxKline()>80 and lastM5.j<prelastM5.j and lastM5.macd < prelastM5.macd:
             pricelogging.info("disable tbuy sell Start %s " % time.ctime(current.time))
@@ -2429,7 +2432,7 @@ def go10():
             return
 
         if prelastm1.j<20 and lastm1.j > prelastm1.j and abs(lastm1.j-prelastm1.j) > 19:
-            if lastM5.j < prelastM5.j:
+            if lastM5.j < prelastM5.j+3:
                 return
             buy1Time = current.time
             buy2Time = lastM5.time
@@ -2442,7 +2445,7 @@ def go10():
             return
 
         if prelastm1.j<20 and lastm1.j > prelastm1.j and lastm1.j-lastm1.k>0:
-            if lastM5.j < prelastM5.j:
+            if lastM5.j < prelastM5.j+3:
                 return
             buy1Time = current.time
             buy2Time = lastM5.time
@@ -2455,7 +2458,7 @@ def go10():
             return
 
         if stock1Min.preMyLastKline(3).j<20 and prelastm1.j>stock1Min.preMyLastKline(3).j and lastm1.j > prelastm1.j:
-            if lastM5.j < prelastM5.j:
+            if lastM5.j < prelastM5.j+3:
                 return
             buy1Time = current.time
             buy2Time = lastM5.time
