@@ -2659,7 +2659,6 @@ def go11():
             if lastM5.macd < 0 and lastM5.j - lastM5.k<0:
                 pricelogging.info("tbuybi568-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
                 buyPrice1 = None
-                spec = 2
                 return
             if stock1Min.lastKline().open - buyPrice1<0 and ((prelastM5.j-prelastM5.k>0) or prelastM5.j>pre2lastM5.j):
                 spec = 2
@@ -2671,7 +2670,7 @@ def go11():
             return
 
     if buyPrice1==None and spec==2:
-        if lastm1.j > prelastm1.j and prelastM5.j>pre2lastM5.j and prelastM5.j<80 and lastm1.j<80:
+        if lastm1.j > prelastm1.j and prelastM5.j>pre2lastM5.j and lastM5.macd>prelastM5.macd and prelastM5.j<80 and lastm1.j<80:
             buy1Time = current.time
             buy2Time = lastM5.time
             buyPrice1 = current.open
