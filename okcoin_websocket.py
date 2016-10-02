@@ -2633,14 +2633,13 @@ def go11():
 
 
     if buyPrice1!=None:
-        if spec == 3 and current.time - buy1Time == 60:
+        if spec == 3:
             if lastm1.j < prelastm1.j:
                 pricelogging.info("tbuybi568-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
                 buyPrice1 = None
                 spec = None
-            else:
-                spec = 2;
-
+            elif lastm1.j>=80:
+                spec = 1;
             return
 
         if stock1Min.lastKline().open - buyPrice1 < -15:
