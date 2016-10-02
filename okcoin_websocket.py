@@ -2709,6 +2709,17 @@ def go11():
         pricelogging.info("tbuyb489-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
         return
 
+    if buyPrice1 == None and lastM5.j>prelastM5.j and lastM5.macd>prelastM5.macd and lastM5.macd>0.5 and lastM5.j<80 and lastM15.j-lastM15.k>0 and lastM15.macd>0.5:
+        buy1Time = current.time
+        buy2Time = lastM5.time
+        buyPrice1 = current.open
+        kk1pos = k1pos
+        kk5pos = k5pos
+        kk15pos = k15pos
+        spec=2
+        pricelogging.info("tbuyb4189-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
+        return
+
 def on_message(self,evt):
     global last_time
     global buyPrice
