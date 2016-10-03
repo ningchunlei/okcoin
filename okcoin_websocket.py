@@ -2599,7 +2599,8 @@ def go10():
         return
 
     if buyPrice1==None and prelastM5.j>pre2lastM5.j and pre2lastM5.j > stock5Min.preMyLastKline(3).j and prelastM5.macd > pre2lastM5.macd and \
-        lastM5.j>prelastM5.j and lastM5.macd>prelastM5.macd and current.high < lastM5.up and lastM15.j>prelastM15.j and lastM15.macd>prelastM15.macd and lastM5.macd>0:
+                    lastM5.j>prelastM5.j and lastM5.macd>prelastM5.macd and current.high < lastM5.up and lastM15.j>prelastM15.j and lastM15.macd>prelastM15.macd \
+            and prelastM15.j>pre2lastM15.j and prelastM15.macd > pre2lastM5.macd and lastM5.macd>0:
         buy1Time = current.time
         buy2Time = lastM5.time
         buyPrice1 = current.close
@@ -2853,7 +2854,8 @@ def go11():
         return
 
     if buyPrice1==None and prelastM5.j>pre2lastM5.j and pre2lastM5.j > stock5Min.preMyLastKline(3).j and prelastM5.macd > pre2lastM5.macd and \
-                    lastM5.j>prelastM5.j and lastM5.macd>prelastM5.macd and current.high < lastM5.up and lastM15.j>prelastM15.j and lastM15.macd>prelastM15.macd and lastM5.macd>0:
+                    lastM5.j>prelastM5.j and lastM5.macd>prelastM5.macd and current.high < lastM5.up and lastM15.j>prelastM15.j and lastM15.macd>prelastM15.macd \
+            and prelastM15.j>pre2lastM15.j and prelastM15.macd > pre2lastM5.macd and lastM5.macd>0:
         buy1Time = current.time
         buy2Time = lastM5.time
         buyPrice1 = current.close
