@@ -2598,6 +2598,20 @@ def go10():
         pricelogging.info("tbuyb4489-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
         return
 
+    if buyPrice1==None and prelastM5.j>pre2lastM5.j and pre2lastM5.j > stock5Min.preMyLastKline(3).j and prelastM5.macd > pre2lastM5.macd and \
+        lastM5.j>prelastM5.j and lastM5.macd>prelastM5.macd and current.high < lastM5.up and lastM15.j>prelastM15.j and lastM15.macd>prelastM15.macd and lastM5.macd>0:
+        buy1Time = current.time
+        buy2Time = lastM5.time
+        buyPrice1 = current.close
+        kk1pos = k1pos
+        kk5pos = k5pos
+        kk15pos = k15pos
+        spec=2
+        pricelogging.info("tbuyb4789-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
+        return
+
+
+
 def go11():
     global buyPrice1,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos
     m5up,m5down,m5next = stock5Min.forecastClose()
@@ -2836,6 +2850,18 @@ def go11():
         kk15pos = k15pos
         spec=2
         pricelogging.info("tbuyb4489-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
+        return
+
+    if buyPrice1==None and prelastM5.j>pre2lastM5.j and pre2lastM5.j > stock5Min.preMyLastKline(3).j and prelastM5.macd > pre2lastM5.macd and \
+                    lastM5.j>prelastM5.j and lastM5.macd>prelastM5.macd and current.high < lastM5.up and lastM15.j>prelastM15.j and lastM15.macd>prelastM15.macd and lastM5.macd>0:
+        buy1Time = current.time
+        buy2Time = lastM5.time
+        buyPrice1 = current.close
+        kk1pos = k1pos
+        kk5pos = k5pos
+        kk15pos = k15pos
+        spec=2
+        pricelogging.info("tbuyb4789-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
         return
 
 def on_message(self,evt):
