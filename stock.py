@@ -271,7 +271,7 @@ class stock(object):
             self.on_kline(kline)
         self.cursor = int((kline.time-self.baseTime)/self._interval)
         self.stocks[self.cursor] = kline;
-        self.macd(self.cursor,60)
+        self.macd(self.cursor,300)
         self.kdj(self.cursor-300,self.cursor+1)
         self.boll(self.cursor-300,self.cursor+1)
 
@@ -778,13 +778,40 @@ class stock(object):
             self.stocks[i].dn = dn[i-start]
 
 
+    def macd2(self,start,length):
+        close =[]
+        for i in range(length):
+            close.append(self.stocks[start-i].close)
+
+        close.reverse()
+
+        closedp = pandas.Series(close)
+
+        closedp[0]=0
+
+        e12 = pandas.ewma(closedp,span=12,adjust=False)
+        e26 = pandas.ewma(closedp,span=26,adjust=False)
+
+        dif = e12 - e26
+        dea = pandas.ewma(dif,span=9,adjust=False)
+
+        macd=(dif-dea)*2
+
+        for i in range(length):
+            self.stocks[start-i].dif=dif[len(dif)-i-1]
+            self.stocks[start-i].dea = dea[len(dea)-i-1]
+            self.stocks[start-i].macd = macd[len(macd)-i-1]
+
+
+
     def macd(self,start,length):
+        '''
         close =[]
         for i in range(length):
             close.append(self.stocks[start-i].close)
         close.reverse()
         DIF, DEA, MACD = talib.MACD(np.array(close), fastperiod=12, slowperiod=26, signalperiod=9)
-        '''
+
         tmp = []
         for i in range(10):
             if(MACD[-1]<0):
@@ -800,10 +827,11 @@ class stock(object):
                 print  (close[-1],xMACD[-1])
 
         #print tmp;
-        '''
+
         for i in range(length):
             self.stocks[start-i].dif=DIF[length-i-1]
             self.stocks[start-i].dea = DEA[length-i-1]
             self.stocks[start-i].macd = MACD[length-i-1]*2
-
+        '''
+        self.macd2(start,length)
 

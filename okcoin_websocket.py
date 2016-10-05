@@ -2991,7 +2991,7 @@ def go12():
     prelastm5_datetime = datetime.fromtimestamp(prelastM5.time)
 
     if buyPrice1 == None:
-        if lastm1_datetime.minute % 5 > prelastm1_datetime.minute % 5 and lastm1.macd>prelastm1.macd and prelastm1.macd>pre2lastm1.macd:
+        if lastm1_datetime.minute % 5 > prelastm1_datetime.minute % 5 and lastm1.macd>prelastm1.macd and prelastm1.macd>stock1Min.preMyLastKline(3).macd:
             if lastm1.open < lastm1.close and prelastm1.open < prelastm1.close:
                 return
 
