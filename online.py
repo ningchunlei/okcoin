@@ -9,6 +9,7 @@ from datetime import datetime,timedelta
 import okcoin_websocket
 from stock import stock,KLine
 import logging
+import traceback
 
 kline5 = None
 kline15 = None
@@ -63,7 +64,8 @@ while True:
         stock1Min.on_kline(k1)
         stock5Min.on_kline(k5)
         stock15Min.on_kline(k15)
-        okcoin_websocket.go8()
+        okcoin_websocket.go12()
         time.sleep(2)
     except Exception as e:
-        logging.error(e)
+        exstr = traceback.format_exc()
+        print exstr

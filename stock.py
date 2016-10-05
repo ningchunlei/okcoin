@@ -730,17 +730,19 @@ class stock(object):
         stop = self.cursor
         for i in range(start,stop):
             close.append(self.stocks[i].close)
+
         closedp = pandas.Series(close)
 
         closedp[0]=0
-        e12 = pandas.ewma(closedp,com=11/2,adjust=False)
-        e26 = pandas.ewma(closedp,com=25/2,adjust=False)
+
+        e12 = pandas.ewma(closedp,span=12,adjust=False)
+        e26 = pandas.ewma(closedp,span=26,adjust=False)
 
         dif = e12 - e26
-        dea = pandas.ewma(dif,com=4,adjust=False)
+        dea = pandas.ewma(dif,span=9,adjust=False)
 
         def cx(x):
-            (x*5*13*27-e12[-1]*11*27*8+e26[-1]*25*13*8+dea[-1]*8*13*27)/822
+            return (x*(5.0/8.0) + dea[len(dea)-1] - e12[len(e12)-1]*(11.0/13.0) + e26[len(e26)-1] * (25.0/27.0)) / (2.0/13.0-2.0/27.0)
 
         return cx(self.stocks[self.cursor-1].macd),cx(0)
 
