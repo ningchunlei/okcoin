@@ -2994,6 +2994,7 @@ def go12():
         if lastm1_datetime.minute % 5 > prelastm1_datetime.minute % 5 and lastm1.macd>prelastm1.macd and prelastm1.macd>pre2lastm1.macd:
             if lastm1.open < lastm1.close and prelastm1.open < prelastm1.close:
                 return
+
             buy1Time = current.time
             buy2Time = lastM5.time
             buyPrice1 = current.close
@@ -3014,6 +3015,12 @@ def go12():
                 pricelogging.info("tbuybi678-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
                 buyPrice1 = None
                 return
+
+            if lastm1_datetime.minute % 5 !=4 and lastm1.macd < prelastm1.macd:
+                pricelogging.info("tbuybi788-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+                buyPrice1 = None
+                return
+
 
 
 
