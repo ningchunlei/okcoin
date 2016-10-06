@@ -3021,7 +3021,7 @@ def go12():
     if buyPrice1!= None:
         if prelastM5.time == buy2Time and prelastM5.macd<pre2lastM5.macd:
             if lastm1.macd > prelastm1.macd and prelastm1.macd>stock1Min.preMyLastKline(3).macd and stock1Min.preMyLastKline(3).macd > stock1Min.preMyLastKline(4).macd \
-                and prelastM5.j > pre2lastM5.j:
+                and prelastM5.j > pre2lastM5.j and lastm1.j>prelastm1.j:
                 return
             pricelogging.info("tbuybi668-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None
