@@ -3065,7 +3065,6 @@ def go12():
         if prelastM5.time>buy2Time:
             if prelastM5.macd > pre2lastM5.macd and prelastM5.j>pre2lastM5.j:
                 return
-
             if lastm1.macd < prelastm1.macd:
                 pricelogging.info("tbuybi788-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
                 buyPrice1 = None
