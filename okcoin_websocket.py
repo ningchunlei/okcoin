@@ -2990,6 +2990,8 @@ def go12():
 
     prelastm5_datetime = datetime.fromtimestamp(prelastM5.time)
 
+    pricelogging.info("ltime=%s,ptime=%s,ppmacd=%s,lastm1_datetime=%s,prelastm1_datetime=%s" % (lastm1_datetime.minute % 5,prelastm1_datetime.minute % 5,stock1Min.preMyLastKline(3).macd,lastm1_datetime,prelastm1_datetime) )
+
     if buyPrice1 == None:
         if lastm1_datetime.minute % 5 > prelastm1_datetime.minute % 5 and lastm1.macd>prelastm1.macd and prelastm1.macd>stock1Min.preMyLastKline(3).macd:
             if lastm1.open < lastm1.close and prelastm1.open < prelastm1.close:
