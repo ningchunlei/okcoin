@@ -3038,7 +3038,7 @@ def go12():
             spec = None
             return
 
-        if prelastM5.time == buy2Time and current.time-buy2Time<=5*60 and prelastM5.macd<pre2lastM5.macd:
+        if prelastM5.time == buy2Time and prelastM5.macd<pre2lastM5.macd:
             pricelogging.info("xdd,t=%s,t1=%s,t2=%s" % ((buy1Time <= stock1Min.preMyLastKline(4).time),(lastm1.macd > prelastm1.macd and prelastm1.macd>stock1Min.preMyLastKline(3).macd and stock1Min.preMyLastKline(3).macd > stock1Min.preMyLastKline(4).macd \
                                                                                                   and prelastM5.j > pre2lastM5.j and lastm1.j>prelastm1.j),(lastm1.macd > prelastm1.macd and prelastm1.macd>stock1Min.preMyLastKline(3).macd and prelastM5.j<20 and lastm1.j > prelastm1.j and lastm1.j-lastm1.k>0)) )
 
