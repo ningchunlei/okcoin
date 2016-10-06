@@ -3067,7 +3067,7 @@ def go12():
 
         if prelastM5.time>buy2Time:
             pricelogging.info("prem5.macd=%s,pre2m5.macd=%s,m5j=%s,p2m5j=%s,touchup=%s" % (prelastM5.macd,pre2lastM5.macd,prelastM5.j,pre2lastM5.j,stock5Min.touchUpMyShort()))
-            if prelastM5.macd > pre2lastM5.macd and prelastM5.j>pre2lastM5.j:
+            if prelastM5.macd > pre2lastM5.macd and prelastM5.j>pre2lastM5.j and lastM5.j<80:
                 return
             if lastm1.macd < prelastm1.macd:
                 pricelogging.info("tbuybi788-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
