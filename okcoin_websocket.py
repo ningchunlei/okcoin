@@ -2954,6 +2954,9 @@ def go12():
     if current.time-lastM5.time>=5*60:
         return
 
+    if current.time == buy1Time:
+        return
+
     prelast5diff = prelastM5.j-prelastM5.k
     pre2last5diff = pre2lastM5.j - pre2lastM5.k
 
@@ -3009,6 +3012,9 @@ def go12():
             if prelastM5.open>prelastM5.close and prelastM5.j < pre2lastM5.j and not (lastm1.open < lastm1.close and prelastm1.open < prelastm1.close):
                 return
 
+            if lastm1.j>80 and stock1Min.touchUp():
+                return
+
             buy1Time = current.time
             buy2Time = lastM5.time
             buyPrice1 = current.close
@@ -3019,10 +3025,29 @@ def go12():
             return
 
     if buyPrice1!= None:
+        if stock1Min.lastKline().close - buyPrice1 < -15:
+            pricelogging.info("tbuybi548-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+            buyPrice1 = None
+            spec = None
+            return
+
+        if prelastM5.macd < 0 and buy1Time == lastm1.time and lastm1.close < lastm1.open and lastm1.j < prelastm1.j and \
+                ((lastm1.macd>prelastm1.macd and abs(lastm1.macd - prelastm1.macd)<0.03) or (lastm1.macd < prelastm1.macd) ):
+            pricelogging.info("tbuybi588-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+            buyPrice1 = None
+            spec = None
+            return
+
         if prelastM5.time == buy2Time and prelastM5.macd<pre2lastM5.macd:
-            if lastm1.macd > prelastm1.macd and prelastm1.macd>stock1Min.preMyLastKline(3).macd and stock1Min.preMyLastKline(3).macd > stock1Min.preMyLastKline(4).macd \
-                and prelastM5.j > pre2lastM5.j and lastm1.j>prelastm1.j:
-                return
+            if buy1Time <= stock1Min.preMyLastKline(4).macd:
+                if lastm1.macd > prelastm1.macd and prelastm1.macd>stock1Min.preMyLastKline(3).macd and stock1Min.preMyLastKline(3).macd > stock1Min.preMyLastKline(4).macd \
+                    and prelastM5.j > pre2lastM5.j and lastm1.j>prelastm1.j:
+                    return
+            else:
+                if lastm1.macd > prelastm1.macd and prelastm1.macd>stock1Min.preMyLastKline(3).macd and prelastM5.j<20 and lastm1.j > prelastm1.j and lastm1.j-lastm1.k>0:
+                    return
+
+
             pricelogging.info("tbuybi668-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None
             return
