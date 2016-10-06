@@ -3063,6 +3063,7 @@ def go12():
             return
 
         if prelastM5.time>buy2Time:
+            pricelogging.info("prem5.macd=%s,pre2m5.macd=%s,m5j=%s,p2m5j=%s,touchup=%s" % (prelastM5.macd,pre2lastM5.macd,prelastM5.j,pre2lastM5.j,stock5Min.touchUp()))
             if prelastM5.macd > pre2lastM5.macd and prelastM5.j>pre2lastM5.j and stock5Min.touchUp()==False:
                 return
             if lastm1.macd < prelastm1.macd:
