@@ -2983,7 +2983,7 @@ def go12():
     pricelogging.info("bpri=%s,time=%s,lastM5.j=%s,lastM5.macd=%s,m1.up=%s,m1.boll=%s,m1.down=%s,m5.up=%s,m5.boll=%s,m5.down=%s" % (buyPrice1,time.ctime(current.time),lastM5.j,lastM5.macd,
                                                                                                                                     lastm1.up,lastm1.boll,lastm1.dn,prelastM5.up,prelastM5.boll,prelastM5.dn))
     pricelogging.info("%s,macd-1=%s,macd-5=%s" % (time.ctime(lastm1.time),stock1Min.forecastMacd(),stock5Min.forecastMacd()))
-    pricelogging.info("tt,lopen=%s,lclose=%s,popen=%s,pclose=%s" % (lastm1.open,lastm1.close,prelastm1.open,prelastm1.close))
+    pricelogging.info("tt,lopen=%s,lclose=%s,lmacd=%s,popen=%s,pclose=%s,pmacd=%s" % (lastm1.open,lastm1.close,lastm1.close,prelastm1.open,prelastm1.close,prelastm1.macd))
 
     lastm1_datetime = datetime.fromtimestamp(lastm1.time)
     prelastm1_datetime = datetime.fromtimestamp(prelastm1.time)
