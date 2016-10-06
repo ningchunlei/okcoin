@@ -3003,7 +3003,7 @@ def go12():
             if lastM5.macd<0 and not (lastm1.open < lastm1.close and prelastm1.open < prelastm1.close):
                 return
 
-            if lastM5.open<lastM5.close and lastM5.j < prelastM5.j and   not (lastm1.open < lastm1.close and prelastm1.open < prelastm1.close):
+            if lastM5.open>lastM5.close and lastM5.j < prelastM5.j and   not (lastm1.open < lastm1.close and prelastm1.open < prelastm1.close):
                 return
 
             buy1Time = current.time
