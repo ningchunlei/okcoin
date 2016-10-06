@@ -3063,8 +3063,7 @@ def go12():
             return
 
         if prelastM5.time>buy2Time:
-            if prelastM5.macd > pre2lastM5.macd and prelastM5.j>pre2lastM5.j and prelastM5.close > prelastM5.open and pre2lastM5.close > pre2lastM5.open\
-                and pre2lastM5.j<40:
+            if prelastM5.macd > pre2lastM5.macd and prelastM5.j>pre2lastM5.j:
                 return
 
             if lastm1.macd < prelastm1.macd:
