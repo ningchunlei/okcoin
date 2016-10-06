@@ -3039,7 +3039,7 @@ def go12():
             return
 
         if prelastM5.time == buy2Time and prelastM5.macd<pre2lastM5.macd:
-            if buy1Time <= stock1Min.preMyLastKline(4).macd:
+            if buy1Time <= stock1Min.preMyLastKline(4).time:
                 if lastm1.macd > prelastm1.macd and prelastm1.macd>stock1Min.preMyLastKline(3).macd and stock1Min.preMyLastKline(3).macd > stock1Min.preMyLastKline(4).macd \
                     and prelastM5.j > pre2lastM5.j and lastm1.j>prelastm1.j:
                     return
