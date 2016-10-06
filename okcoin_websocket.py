@@ -3015,6 +3015,9 @@ def go12():
             if lastm1.j>80 and stock1Min.touchUp():
                 return
 
+            if lastm1.j-lastm1.k<0 and stock1Min.touchUpMyShort()==True:
+                return
+
             buy1Time = current.time
             buy2Time = lastM5.time
             buyPrice1 = current.close
