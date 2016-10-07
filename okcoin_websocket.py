@@ -3002,16 +3002,6 @@ def go12():
 
 
     if buyPrice1 == None:
-        if lastm1.close>lastm1.open and prelastM5.j<80 and (stock5Min.touchUpShort()==False and prelastM5.high+0.3<prelastM5.up) and stock5Min.downToUp()==True and prelastM5.macd>pre2lastM5.macd:
-            buy1Time = current.time
-            buy2Time = lastM5.time
-            buyPrice1 = current.close
-            kk1pos = k1pos
-            kk5pos = k5pos
-            kk15pos = k15pos
-            pricelogging.info("tbuyb11-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
-            return
-
         if lastm1_datetime.minute % 5 > prelastm1_datetime.minute % 5 and lastm1.macd>prelastm1.macd and prelastm1.macd>stock1Min.preMyLastKline(3).macd:
             if lastm1.open > lastm1.close and prelastm1.open > prelastm1.close:
                 return
