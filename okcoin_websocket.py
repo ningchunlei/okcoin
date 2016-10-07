@@ -3018,6 +3018,12 @@ def go12():
             if lastm1.j-lastm1.k<0 and stock1Min.touchUpMyShort()==True:
                 return
 
+            if prelastM5.macd<0 and stock5Min.touchShortDown()==False:
+                return
+
+            if prelastM5.macd<0 and stock1Min.touchDown()==False:
+                return
+
             buy1Time = current.time
             buy2Time = lastM5.time
             buyPrice1 = current.close
@@ -3033,6 +3039,21 @@ def go12():
             buyPrice1 = None
             spec = None
             return
+
+        #1
+        if abs(lastm1.close-lastm1.open)<=0.03 and prelastM5.macd < pre2lastM5.macd:
+            pricelogging.info("tbuybi618-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+            buyPrice1 = None
+            spec = None
+            return
+
+        #2
+        if abs(stock1Min.preMyLastKline(3).high-stock1Min.preMyLastKline(3).up)<=0.3 and  prelastm1.j > lastm1.j:
+            pricelogging.info("tbuybi628-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+            buyPrice1 = None
+            spec = None
+            return
+
 
         if prelastM5.macd < 0 and buy1Time == lastm1.time and lastm1.close < lastm1.open and lastm1.j < prelastm1.j and \
                 ((lastm1.macd>prelastm1.macd and abs(lastm1.macd - prelastm1.macd)<0.03) or (lastm1.macd < prelastm1.macd) ):
