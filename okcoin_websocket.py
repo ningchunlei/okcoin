@@ -3027,6 +3027,9 @@ def go12():
             if prelastM5.j>80 and prelastM5.high+0.3>prelastM5.up and lastm1.high+0.3 > lastm1.up:
                 return
 
+            if prelastM5.open>prelastM5.close and prelastM5.macd>0 and prelastM5.macd<0.1 and prelastM5.j < pre2lastM5.j:
+                return
+
             buy1Time = current.time
             buy2Time = lastM5.time
             buyPrice1 = current.close
@@ -3059,6 +3062,8 @@ def go12():
 
         #3
         if stock1Min.preMyLastKline(3).high+0.3 > stock1Min.preMyLastKline(3).boll and prelastm1.j > lastm1.j:
+            if lastm1.low < lastm1.dn and lastM5.open<lastM5.close:
+                return
             pricelogging.info("tbuybi638-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None
             spec = None
