@@ -2999,8 +2999,6 @@ def go12():
     pricelogging.info("tx=%s,tddx=%s,5open=%s,5close=%s" % ((lastm1.open < lastm1.close and prelastm1.open < prelastm1.close),( prelastM5.open>prelastM5.close and prelastM5.j < pre2lastM5.j),prelastM5.open,prelastM5.close) )
 
 
-
-
     if buyPrice1 == None:
         if lastm1_datetime.minute % 5 > prelastm1_datetime.minute % 5 and lastm1.macd>prelastm1.macd and prelastm1.macd>stock1Min.preMyLastKline(3).macd:
             if lastm1.open > lastm1.close and prelastm1.open > prelastm1.close:
@@ -3012,10 +3010,7 @@ def go12():
             if prelastM5.open>prelastM5.close and prelastM5.j < pre2lastM5.j and not (lastm1.open < lastm1.close and prelastm1.open < prelastm1.close):
                 return
 
-            if lastm1.j>80 and stock1Min.touchUp():
-                return
-
-            if lastm1.j-lastm1.k<0 and stock1Min.touchUpMyShort()==True:
+            if lastm1.high>lastm1.up:
                 return
 
             if prelastM5.macd<0 and stock5Min.touchShortDown()==False:
@@ -3036,6 +3031,7 @@ def go12():
             kk1pos = k1pos
             kk5pos = k5pos
             kk15pos = k15pos
+            spec = 1
             pricelogging.info("tbuyb1-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
             return
 
@@ -3061,7 +3057,7 @@ def go12():
             return
 
         #3
-        if prelastm1.high+0.3 > prelastm1.boll and  (abs(prelastm1.high-prelastm1.boll) < abs(prelastm1.high-prelastm1.up))  and prelastm1.j > lastm1.j:
+        if prelastm1.high+0.3 > prelastm1.boll and  (abs(prelastm1.high-prelastm1.boll) < abs(prelastm1.high-prelastm1.up))  and prelastm1.j > lastm1.j and lastm1.up - lastm1.dn > 3:
             if lastm1.macd>0.1 and not (prelastm1.macd<stock1Min.preMyLastKline(3).macd and lastm1.macd<prelastm1.macd):
                 return
             pricelogging.info("tbuybi638-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
