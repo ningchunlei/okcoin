@@ -3177,8 +3177,35 @@ def go13():
 
 
     if buyPrice1 == None:
+        fdata = stock1Min.findInFiveData()
+        if stock1Min.touchSimlarRangeDown(start=0,end=5) and stock5Min.touchSimlarRangeDown():
+            xMinvalue = fdata[0]
+            fp = 0
+            for i,xdata in enumerate(fdata):
+                if xMinvalue.close >= xdata.close:
+                    xMinvalue = xdata
+                    fp = i
 
-        if
+            if fp==len(fdata)-1:
+                return
+
+            if fp<=len(fdata)-3 and lastm1.j<80 and prelastm1.j<80 and lastm1.close+0.09>lastm1.open and prelastm1.close+0.09>prelastm1.close:
+                if (lastm1.j > prelastm1.j) or (lastm1.j<10):
+                    pass
+
+
+
+
+
+            if lastm1.close > xMinvalue and prelastm1.close>xMinvalue and (lastm1.close+0.03>lastm1.open and prelastm1.close>prelastm1.open)
+
+
+            if prelastm1.close>lastm1.open and lastm1.close > lastm1.open and lastm1.j>prelastm1.j
+
+
+
+
+        if stock5Min.touchSimlarRangeDown() and
 
         if lastm1_datetime.minute % 5 > prelastm1_datetime.minute % 5 and lastm1.macd>prelastm1.macd and prelastm1.macd>stock1Min.preMyLastKline(3).macd:
             if lastm1.open > lastm1.close and prelastm1.open > prelastm1.close:

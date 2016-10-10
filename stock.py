@@ -569,13 +569,15 @@ class stock(object):
         data=[]
         count=1
         x1 = datetime.fromtimestamp(self.stocks[self.cursor].time).minute % 5
-        data.append()
+        data.append(self.stocks[self.cursor])
         while True:
             if datetime.fromtimestamp(self.stocks[self.cursor-count].time).minute % 5 >= x1:
                 break
             else:
                 data.append(self.stocks[self.cursor-count])
             count += 1
+        data.reverse()
+        return data
 
     def touchSimlarDown(self,end):
         flag = False
