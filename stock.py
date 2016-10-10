@@ -539,12 +539,43 @@ class stock(object):
             count += 1
         return flag
 
+
+
     def touchShortDown(self):
         flag = False
         for i in range(1,3):
             if int(self.stocks[self.cursor-i].low) <= int(self.stocks[self.cursor-i].dn):
                 flag = True
         return flag
+
+    def touchSimlarRangeDown(self,start=0,end=2):
+        flag = False
+        for i in range(start,end):
+            if self.stocks[self.cursor-i].low-0.3<self.stocks[self.cursor-i].dn and self.stocks[self.cursor-i].close<self.stocks[self.cursor-i].boll:
+                flag = True
+
+        return flag
+
+
+    def touchSimlarRangeUp(self,start=0,end=2):
+        flag = False
+        for i in range(start,end):
+            if self.stocks[self.cursor-i].high+0.3>self.stocks[self.cursor-i].up and self.stocks[self.cursor-i].close>self.stocks[self.cursor-i].boll:
+                flag = True
+
+        return flag
+
+    def findInFiveData(self):
+        data=[]
+        count=1
+        x1 = datetime.fromtimestamp(self.stocks[self.cursor].time).minute % 5
+        data.append()
+        while True:
+            if datetime.fromtimestamp(self.stocks[self.cursor-count].time).minute % 5 >= x1:
+                break
+            else:
+                data.append(self.stocks[self.cursor-count])
+            count += 1
 
     def touchSimlarDown(self,end):
         flag = False
