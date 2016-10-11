@@ -3178,20 +3178,22 @@ def go13():
 
     if buyPrice1 == None:
         fdata = stock1Min.findInFiveData()
-        if stock1Min.touchSimlarRangeDown(start=0,end=5) and stock5Min.touchSimlarRangeDown():
-            xMinvalue = fdata[0]
-            fp = 0
-            for i,xdata in enumerate(fdata):
-                if xMinvalue.close >= xdata.close:
-                    xMinvalue = xdata
-                    fp = i
 
-            if fp==len(fdata)-1:
-                pricelogging.info("tbuy-711")
+        if spec == 2
+
+        if prelastm1.low-0.3<prelastm1.dn and prelastm1.low<prelastm1.close-0.4 and lastm1.close > lastm1.open and lastm1.j<20 and lastm1.j>prelastm1.j and stock5Min.touchSimlarRangeDown():
+            if lastm1_datetime.minute % 5 == 4 and lastm1.close-0.3 > lastm1.open:
+                buy1Time = current.time
+                buy2Time = lastM5.time
+                buyPrice1 = current.close
+                kk1pos = k1pos
+                kk5pos = k5pos
+                kk15pos = k15pos
+                spec = 1
+                pricelogging.info("tbuyb1-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
                 return
-
-            if fp<=len(fdata)-3 and lastm1.j<80 and prelastm1.j<80 and lastm1.close+0.09>lastm1.open and prelastm1.close+0.09>prelastm1.close:
-                if (lastm1.j > prelastm1.j) or (lastm1.j<10):
+            if lastm1_datetime.minute % 5 >0 and lastm1_datetime.minute % 5 <=3:
+                if abs(fdata[0].open-lastm1.close)<0.9:
                     buy1Time = current.time
                     buy2Time = lastM5.time
                     buyPrice1 = current.close
@@ -3199,10 +3201,38 @@ def go13():
                     kk5pos = k5pos
                     kk15pos = k15pos
                     spec = 1
-                    pricelogging.info("tbuyb1-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
+                    pricelogging.info("tbuyb2-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
                     return
 
+            if lastm1_datetime.minute % 5 == 0 and lastm1.close-0.3 > lastm1.open:
+                buy1Time = current.time
+                buy2Time = lastM5.time
+                buyPrice1 = current.close
+                kk1pos = k1pos
+                kk5pos = k5pos
+                kk15pos = k15pos
+                spec = 1
+                pricelogging.info("tbuyb3-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
+                return
+
     if buyPrice1!=None:
+        if spec == 1:
+            if lastM5.time == buy2Time :
+                if buy1Time == lastm1.time and lastm1.close<lastm1.open and abs(lastm1.close-lastm1.open)>0.4:
+                    pricelogging.info("tbuybi668-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+                    buyPrice1 = None
+                    spec = None
+                    return
+
+            if abs(lastm1.close-lastm1.open)<0.3 and abs(lastm1.close-lastm1.boll) < abs(lastm1.close-lastm1.dn) and abs(lastm1.close-lastm1.boll) < abs(lastm1.close-lastm1.up):
+                pricelogging.info("tbuybi669-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+                buyPrice1 = None
+                spec = 2
+                buyTriggerTime = current.time
+                return
+
+
+
         if spec == 1 and buy2Time == prelastM5.time:
             if prelastM5.close>prelastM5.open or (abs(prelastM5.close-prelastM5.open)<0.9):
                 spec = 2
