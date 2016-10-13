@@ -3179,7 +3179,8 @@ def go13():
     if buyPrice1 == None:
         fdata = stock1Min.findInFiveData()
 
-        if spec == 2
+        if lastm1_datetime.minute % 5 == 4 and lastm1.close-0.3 > lastm1.open:
+
 
         if prelastm1.low-0.3<prelastm1.dn and prelastm1.low<prelastm1.close-0.4 and lastm1.close > lastm1.open and lastm1.j<20 and lastm1.j>prelastm1.j and stock5Min.touchSimlarRangeDown():
             if lastm1_datetime.minute % 5 == 4 and lastm1.close-0.3 > lastm1.open:
@@ -3230,6 +3231,15 @@ def go13():
                 spec = 2
                 buyTriggerTime = current.time
                 return
+
+            if abs(lastm1.close-lastm1.open)<0.3 and stock1Min.touchSimlarRangeUp():
+                pricelogging.info("tbuybi669-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+                buyPrice1 = None
+                spec = 2
+                buyTriggerTime = current.time
+                return
+
+
 
 
 

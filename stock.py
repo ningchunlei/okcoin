@@ -565,6 +565,37 @@ class stock(object):
 
         return flag
 
+    def iscrossKline(self):
+        if abs(self.stocks[self.cursor-1].close-self.stocks[self.cursor-1].open)<=0.4:
+            return True
+        else:
+            return False
+
+    def isUpOrDownKline(self):
+        if self.stocks[self.cursor-1].close >= self.stocks[self.cursor-1].open:
+            return True
+        else:
+            return False
+
+    def isMoreUpKline(self):
+        if self.stocks[self.cursor-1].close -0.3 >= self.stocks[self.cursor-1].open:
+            return True
+        else:
+            return False
+
+    def isUpOrDownCross(self):
+        if self.isUpOrDownKline():
+            if abs(self.stocks[self.cursor-1].high - self.stocks[self.cursor-1].close) >  abs(self.stocks[self.cursor-1].low - self.stocks[self.cursor-1].open)+0.3:
+                return 1
+            elif abs(self.stocks[self.cursor-1].high - self.stocks[self.cursor-1].close)+0.3 <  abs(self.stocks[self.cursor-1].low - self.stocks[self.cursor-1].open):
+                return 2
+        else:
+            if abs(self.stocks[self.cursor-1].high - self.stocks[self.cursor-1].open) >  abs(self.stocks[self.cursor-1].low - self.stocks[self.cursor-1].close)+0.3:
+                return 1
+            elif abs(self.stocks[self.cursor-1].high - self.stocks[self.cursor-1].open)+0.3 > abs(self.stocks[self.cursor-1].low - self.stocks[self.cursor-1].close):
+                return 2
+        return 0
+
     def findInFiveData(self):
         data=[]
         count=1
