@@ -3193,6 +3193,13 @@ def go13():
     kk5UpToBoll = stock5Min.touchSimlarTimeBetweenUpAndBoll(lauchKline5.time,0)
 
 
+    pricelogging.info("xping1=%s,updown1=%s,lauchkline1=%s,xping5=%s,updown5=%s,lauchKline5=%s" % (xping1,updown1,lauchKline1,xping5,updown5,lauchKline5))
+
+    pricelogging.info("kk1down=%s,up=%s,boll=%s,downtoboll=%s,uptoboll=%s" % (kk1Down,kk1Up,kk1Boll,kk1DownToBoll,kk1UpToBoll))
+
+    pricelogging.info("kk5down=%s,up=%s,boll=%s,downtoboll=%s,uptoboll=%s" % (kk5Down,kk5Up,kk5Boll,kk5DownToBoll,kk5UpToBoll))
+
+
 
     if buyPrice1 == None:
         fdata = stock1Min.findInFiveData()
