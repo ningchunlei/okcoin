@@ -631,8 +631,8 @@ class stock(object):
         else:
             return False
 
-    def isUpOrDownKline(self):
-        if self.stocks[self.cursor-1].close >= self.stocks[self.cursor-1].open:
+    def isUpOrDownKline(self,count=1):
+        if self.stocks[self.cursor-count].close >= self.stocks[self.cursor-count].open:
             return True
         else:
             return False
