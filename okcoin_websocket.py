@@ -3199,7 +3199,7 @@ def go13():
 
     pricelogging.info("kk5down=%s,up=%s,boll=%s,downtoboll=%s,uptoboll=%s" % (kk5Down,kk5Up,kk5Boll,kk5DownToBoll,kk5UpToBoll))
 
-    pricelogging.info("k1iscross=%s,k5icross=%s,isupordownline1=%s,isupordownline5" % (stock1Min.iscrossKline(),stock5Min.iscrossKline(),stock1Min.isUpOrDownKline(),stock5Min.isUpOrDownKline()) )
+    pricelogging.info("k1iscross=%s,k5icross=%s,isupordownline1=%s,isupordownline5=%s" % (stock1Min.iscrossKline(),stock5Min.iscrossKline(),stock1Min.isUpOrDownKline(),stock5Min.isUpOrDownKline()) )
 
     if buyPrice1 == None:
         fdata = stock1Min.findInFiveData()
