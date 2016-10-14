@@ -736,21 +736,33 @@ class stock(object):
 
 
     def goUpOrDown(self):
-        flag = False
+        flag = None
         count=1
         xping = False
         tkline = None
         while True:
-            if abs(self.stocks[self.cursor-count].mean-self.stocks[self.cursor-count-1].mean)<0.1:
-                xping = True
-            elif self.stocks[self.cursor-count].mean>self.stocks[self.cursor-count-1].mean + 0.1:
-                flag = True
+
+            if flag==None:
+                if abs(self.stocks[self.cursor-count].mean-self.stocks[self.cursor-count-1].mean)<0.1:
+                    xping = True
+                elif self.stocks[self.cursor-count].mean>self.stocks[self.cursor-count-1].mean + 0.1:
+                    flag = True
+                    continue
+                    #tkline = self.stocks[self.cursor-count]
+                    #break
+                elif self.stocks[self.cursor-count].mean+0.1<self.stocks[self.cursor-count-1].mean:
+                    flag = False
+                    continue
+                    #tkline = self.stocks[self.cursor-count]
+                    #break
+
+            if flag==True and self.stocks[self.cursor-count].mean+0.1<self.stocks[self.cursor-count-1].mean:
                 tkline = self.stocks[self.cursor-count]
                 break
-            elif self.stocks[self.cursor-count].mean+0.1<self.stocks[self.cursor-count-1].mean:
-                flag = False
+            elif flag==False and self.stocks[self.cursor-count].mean>self.stocks[self.cursor-count-1].mean + 0.1:
                 tkline = self.stocks[self.cursor-count]
                 break
+
             count += 1
         return xping,flag,tkline
 
