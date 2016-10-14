@@ -48,6 +48,7 @@ class KLine(object):
         self.boll = 0;
         self.up = 0;
         self.dn = 0;
+        self.mean = 0;
 
     def __str__(self):
         return "%s;close=%f;high=%f;low=%s;vol=%s;macd=%f;k=%f;j=%f,boll=%f," \
@@ -256,6 +257,7 @@ class stock(object):
         self.trades=[0]*2*self._maxLength
         self.baseTime = klines[0].time
         self.macd(len(klines)-1,len(klines))
+        self.mean(len(klines)-1,len(klines))
 
     def fetchTradeLine(self):
         klines = Client.fetchTrade(self._symbol)
@@ -264,6 +266,7 @@ class stock(object):
         self.trades=[0]*2*self._maxLength
         self.baseTime = klines[0].time
         self.macd(len(klines)-1,len(klines))
+        self.mean(len(klines)-1,len(klines))
 
     def updateKLine(self,kline):
         if (kline.time-self.baseTime)/self._interval >= len(self.stocks):
@@ -272,6 +275,7 @@ class stock(object):
         self.cursor = int((kline.time-self.baseTime)/self._interval)
         self.stocks[self.cursor] = kline;
         self.macd(self.cursor,300)
+        self.mean(self.cursor,300)
         self.kdj(self.cursor-300,self.cursor+1)
         self.boll(self.cursor-300,self.cursor+1)
 
@@ -548,10 +552,64 @@ class stock(object):
                 flag = True
         return flag
 
+    def touchSimlarTimeDown(self,indexTime,count=1):
+        flag = False
+        while True:
+            if self.stocks[self.cursor-count].time <= indexTime:
+                break
+            if self.stocks[self.cursor-count].low-0.3<self.stocks[self.cursor-count].dn and self.stocks[self.cursor-count].close<self.stocks[self.cursor-count].boll:
+                flag = True
+            count += 1
+        return flag
+
+
+    def touchSimlarTimeUp(self,indexTime,count=1):
+        flag = False
+        while True:
+            if self.stocks[self.cursor-count].time <= indexTime:
+                break
+            if self.stocks[self.cursor-count].low-0.3<self.stocks[self.cursor-count].dn and self.stocks[self.cursor-count].close<self.stocks[self.cursor-count].boll:
+                flag = True
+            count += 1
+        return flag
+
+    def touchSimlarTimeBoll(self,indexTime,count=1):
+        flag = False
+        while True:
+            if self.stocks[self.cursor-count].time <= indexTime:
+                break
+            if self.stocks[self.cursor-count].low<self.stocks[self.cursor-count].boll and self.stocks[self.cursor-count].high>self.stocks[self.cursor-count].boll:
+                flag = True
+            count += 1
+        return flag
+
+
+    def touchSimlarTimeBetweenDownAndBoll(self,indexTime,count=1):
+        flag = False
+        while True:
+            if self.stocks[self.cursor-count].time <= indexTime:
+                break
+            if self.stocks[self.cursor-count].high<self.stocks[self.cursor-count].boll and self.stocks[self.cursor-count].low>self.stocks[self.cursor-count].dn:
+                flag = True
+            count += 1
+        return flag
+
+    def touchSimlarTimeBetweenUpAndBoll(self,indexTime,count=1):
+        flag = False
+
+        while True:
+            if self.stocks[self.cursor-count].time <= indexTime:
+                break
+            if self.stocks[self.cursor-count].high<self.stocks[self.cursor-count].up and self.stocks[self.cursor-count].low>self.stocks[self.cursor-count].boll:
+                flag = True
+            count += 1
+        return flag
+
+
     def touchSimlarRangeDown(self,start=0,end=2):
         flag = False
         for i in range(start,end):
-            if self.stocks[self.cursor-i].low-0.3<self.stocks[self.cursor-i].dn and self.stocks[self.cursor-i].close<self.stocks[self.cursor-i].boll:
+            if self.stocks[self.cursor-i].high+0.3>self.stocks[self.cursor-i].up and self.stocks[self.cursor-i].close>self.stocks[self.cursor-i].boll:
                 flag = True
 
         return flag
@@ -564,6 +622,8 @@ class stock(object):
                 flag = True
 
         return flag
+
+
 
     def iscrossKline(self):
         if abs(self.stocks[self.cursor-1].close-self.stocks[self.cursor-1].open)<=0.4:
@@ -673,6 +733,27 @@ class stock(object):
         if count>=3:
             return True
         return False
+
+
+    def goUpOrDown(self):
+        flag = False
+        count=1
+        xping = False
+        tkline = None
+        while True:
+            if abs(self.stocks[self.cursor-count].mean-self.stocks[self.cursor-count-1].mean)<0.1:
+                xping = True
+            elif self.stocks[self.cursor-count].mean>self.stocks[self.cursor-count-1].mean + 0.1:
+                flag = True
+                tkline = self.stocks[self.cursor-count]
+                break
+            elif self.stocks[self.cursor-count].mean+0.1<self.stocks[self.cursor-count-1].mean:
+                flag = False
+                tkline = self.stocks[self.cursor-count]
+                break
+            count += 1
+        return xping,flag,tkline
+
 
 
 
@@ -866,7 +947,19 @@ class stock(object):
             self.stocks[start-i].dea = dea[len(dea)-i-1]
             self.stocks[start-i].macd = macd[len(macd)-i-1]
 
+    def mean(self,start,length):
+        close =[]
+        for i in range(length):
+            close.append(self.stocks[start-i].close)
 
+        close.reverse()
+
+        closedp = pandas.Series(close)
+
+        mean = pandas.rolling_mean(closedp,5)
+
+        for i in range(length):
+            self.stocks[start-i].mean=mean[len(mean)-i-1]
 
     def macd(self,start,length):
         '''
