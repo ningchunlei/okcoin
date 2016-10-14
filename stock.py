@@ -568,7 +568,7 @@ class stock(object):
         while True:
             if self.stocks[self.cursor-count].time <= indexTime:
                 break
-            if self.stocks[self.cursor-count].low-0.3<self.stocks[self.cursor-count].dn and self.stocks[self.cursor-count].close<self.stocks[self.cursor-count].boll:
+            if self.stocks[self.cursor-count].high+0.3>self.stocks[self.cursor-count].up and self.stocks[self.cursor-count].close>self.stocks[self.cursor-count].boll:
                 flag = True
             count += 1
         return flag
