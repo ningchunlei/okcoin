@@ -796,9 +796,6 @@ class stock(object):
         return xping,flag,tkline
 
 
-    def goUpOrDown2
-
-
 
     def touchUp(self):
         flag = False
