@@ -3230,7 +3230,7 @@ def go13():
                 if lastM5.macd>0 and lastM5.macd<0.16:
                     return
 
-                if kk5Up and not kk5Down and lastm1.macd<0 and fdata[0].open>lastm1.close and:
+                if kk5Up and not kk5Down and lastm1.macd<0 and fdata[0].open>lastm1.close:
                     return
 
                 buy1Time = current.time
