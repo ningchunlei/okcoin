@@ -3236,6 +3236,9 @@ def go13():
                 if lastm1.macd < prelastm1.macd and lastm1.macd<0 and lastm1.macd>0:
                     return
 
+                if prelastM5.macd < pre2lastM5.macd and prelastM5.macd <0 and pre2lastM5.macd >0:
+                    return
+
                 buy1Time = current.time
                 buy2Time = lastM5.time
                 buyPrice1 = current.close
