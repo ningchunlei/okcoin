@@ -3233,6 +3233,9 @@ def go13():
                 if kk5Up and not kk5Down and lastm1.macd<0 and fdata[0].open>lastm1.close:
                     return
 
+                if lastm1.macd < prelastm1.macd and lastm1.macd<0 and lastm1.macd>0:
+                    return
+
                 buy1Time = current.time
                 buy2Time = lastM5.time
                 buyPrice1 = current.close
