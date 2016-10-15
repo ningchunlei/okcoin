@@ -3267,7 +3267,7 @@ def go13():
                 pricelogging.info("tbuyb3-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
                 return
         if stock1Min.isMoreUpKline():
-            if kk1Down and kk5Down:
+            if kk1Down and kk5Down and not kk5Boll:
                 buy1Time = current.time
                 buy2Time = lastM5.time
                 buyPrice1 = current.close
