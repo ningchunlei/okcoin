@@ -342,7 +342,7 @@ class stock(object):
         return flag
 
 
-    def findTouchUpKLine(self,indexTime):
+    def findSearchTouchKLine(self,indexTime):
         flag = False
         count=0
         while True:
@@ -352,10 +352,12 @@ class stock(object):
 
         while True:
             if self.stocks[self.cursor-count].high + 0.3 >= self.stocks[self.cursor-count].up:
-                return self.stocks[self.cursor-count]
+                return self.stocks[self.cursor-count],False
+            if self.stocks[self.cursor-count].low -0.3 <= self.stocks[self.cursor-count].dn:
+                return self.stocks[self.cursor-count],True
             count+=1
 
-        return None
+        return None,None
 
     def findMacdUpKLine(self):
         flag = None
@@ -794,6 +796,7 @@ class stock(object):
         return xping,flag,tkline
 
 
+    def goUpOrDown2
 
 
 

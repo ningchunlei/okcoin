@@ -3178,6 +3178,13 @@ def go13():
     xping1,updown1,lauchKline1 = stock1Min.goUpOrDown()
     xping5,updown5,lauchKline5 = stock5Min.goUpOrDown()
 
+    xp5,xp5_b = stock5Min.findSearchTouchKLine(lauchKline5.time)
+    xp5_2,xp5_2_b = stock5Min.findSearchTouchKLine(lastM5.time)
+
+    if xp5.time == xp5_2.time:
+        updown5 = xp5_b
+        lauchKline5 = xp5
+
 
     kk1Down = stock1Min.touchSimlarTimeDown(lauchKline1.time)
     kk1Up = stock1Min.touchSimlarTimeUp(lauchKline1.time)
@@ -3242,12 +3249,6 @@ def go13():
 
                 if prelastM5.macd < pre2lastM5.macd and prelastM5.macd <0 and pre2lastM5.macd >0:
                     return
-
-
-                if stock1Min.findMacdUpKLine().close < lastm1.close:
-                    if abs(lauchKline5.close-lauchKline5.boll)<abs(lauchKline5.close-lauchKline5.up) and abs(lauchKline5.close-lauchKline5.boll)<abs(lauchKline5.close-lauchKline5.dn) and (kk5Boll or kk5UpToBoll):
-                        if stock5Min.findTouchUpKLine(lauchKline5.time).time == stock5Min.findTouchUpKLine(lastM5.time).time:
-                            return
 
                 buy1Time = current.time
                 buy2Time = lastM5.time
