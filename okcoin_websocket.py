@@ -3279,7 +3279,7 @@ def go13():
             if lastm1.macd>0 and prelastm1.macd<0:
                 return
 
-            if lastm1.macd>0 and prelastm1.macd>0 and lastm1.macd>prelastm1.macd and lastm1.macd>0.5:
+            if lastm1.macd>0 and prelastm1.macd>0 and lastm1.macd>prelastm1.macd and lastm1.macd>1:
                 return
 
             if kk1Boll and not kk1Down and xping1==True and (prelastM5.macd<pre2lastM5.macd and prelastM5.macd<0.2) and (kk5Up or kk5UpToBoll):
