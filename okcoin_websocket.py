@@ -3233,11 +3233,17 @@ def go13():
                 if kk5Up and not kk5Down and lastm1.macd<0 and fdata[0].open>lastm1.close:
                     return
 
-                if lastm1.macd < prelastm1.macd and lastm1.macd<0 and lastm1.macd>0:
+                if lastm1.macd < prelastm1.macd and lastm1.macd<0 and prelastm1.macd>0:
                     return
 
                 if prelastM5.macd < pre2lastM5.macd and prelastM5.macd <0 and pre2lastM5.macd >0:
                     return
+
+
+                if lastm1.close > prelastm1.close:
+                    if abs(lauchKline5.close-lauchKline5.boll)<abs(lauchKline5.close-lauchKline5.up) and abs(lauchKline5.close-lauchKline5.boll)<abs(lauchKline5.close-lauchKline5.dn):
+                        if stock5Min.findTouchUpKLine(lauchKline5.time).time == stock5Min.findTouchUpKLine(lastM5.time).time:
+                            return
 
                 buy1Time = current.time
                 buy2Time = lastM5.time

@@ -341,6 +341,24 @@ class stock(object):
 
         return flag
 
+
+    def findTouchUpKLine(self,indexTime):
+        flag = False
+        count=0
+        while True:
+            if self.stocks[self.cursor-count].time >=  indexTime:
+                continue
+            else:
+                break
+            count+=1
+
+        while True:
+            if self.stocks[self.cursor-count].high + 0.3 >= self.stocks[self.cursor-count].up:
+                return self.stocks[self.cursor-count]
+            count+=1
+
+        return None
+
     def findDownKline(self):
         kline = None
         count=0
