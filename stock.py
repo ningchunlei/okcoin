@@ -574,6 +574,44 @@ class stock(object):
         return flag
 
 
+    def mkposition(self,count=1):
+        down1 = self.touchSimlarTimeDownByCount(count=count);
+        up1 = self.touchSimlarTimeUpByCount(count=count)
+        boll1 = self.touchSimlarTimeBollByCount(count=count)
+        downBoll1 = self.touchSimlarTimeBetweenDownAndBollByCount(count=count)
+        upboll1 = self.touchSimlarTimeBetweenUpAndBollByCount(count=count)
+
+        dp = []
+
+        if down1:
+            dp.append((1,down1))
+        else:
+            dp.append((0,None))
+
+
+        if downBoll1:
+            dp.append((2,self.touchSimlarTimeDownFrom(count)))
+        else:
+            dp.append((0,None))
+
+
+        if boll1:
+            dp.append((3,self.touchSimlarTimeBetweenFrom(count)))
+        else:
+            dp.append((0,None))
+
+        if upboll1:
+            dp.append((4,self.touchSimlarTimeUpFrom(count)))
+        else:
+            dp.append((0,None))
+
+        if up1:
+            dp.append((5,up1))
+        else:
+            dp.append((0,None))
+
+        return dp
+
 
     def touchShortDown(self):
         flag = False
@@ -593,6 +631,49 @@ class stock(object):
         return flag
 
 
+    def touchSimlarTimeDownFrom(self,count=1):
+        flag = False
+        while True:
+            if not (self.stocks[self.cursor-count].high<self.stocks[self.cursor-count].boll and self.stocks[self.cursor-count].low>self.stocks[self.cursor-count].dn):
+                if self.stocks[self.cursor-count].low-0.3<self.stocks[self.cursor-count].dn and self.stocks[self.cursor-count].close<self.stocks[self.cursor-count].boll:
+                    #from down
+                    return True
+                else:
+                    return False
+            count += 1
+        return flag
+
+    def touchSimlarTimeUpFrom(self,count=1):
+        flag = False
+        while True:
+            if not (self.stocks[self.cursor-count].high<self.stocks[self.cursor-count].up and self.stocks[self.cursor-count].low>self.stocks[self.cursor-count].boll):
+                if self.stocks[self.cursor-count].high+0.3>self.stocks[self.cursor-count].up and self.stocks[self.cursor-count].close>self.stocks[self.cursor-count].boll:
+                    #from up
+                    return False
+                else:
+                    return True
+            count += 1
+        return flag
+
+    def touchSimlarTimeBetweenFrom(self,count=1):
+        flag = False
+        while True:
+            if not (self.stocks[self.cursor-count].low<self.stocks[self.cursor-count].boll and self.stocks[self.cursor-count].high>self.stocks[self.cursor-count].boll):
+                if self.stocks[self.cursor-count].high+0.3>self.stocks[self.cursor-count].up and self.stocks[self.cursor-count].close>self.stocks[self.cursor-count].boll \
+                        or self.stocks[self.cursor-count].high<self.stocks[self.cursor-count].up and self.stocks[self.cursor-count].low>self.stocks[self.cursor-count].boll:
+                    #from up
+                    return False
+                else:
+                    return True
+            count += 1
+        return flag
+
+
+    def touchSimlarTimeDownByCount(self,count=1):
+        if self.stocks[self.cursor-count].low-0.3<self.stocks[self.cursor-count].dn and self.stocks[self.cursor-count].close<self.stocks[self.cursor-count].boll:
+            return True
+        return False
+
     def touchSimlarTimeUp(self,indexTime,count=1):
         flag = False
         while True:
@@ -603,6 +684,12 @@ class stock(object):
             count += 1
         return flag
 
+
+    def touchSimlarTimeUpByCount(self,count=1):
+        if self.stocks[self.cursor-count].high+0.3>self.stocks[self.cursor-count].up and self.stocks[self.cursor-count].close>self.stocks[self.cursor-count].boll:
+            return True
+        return False
+
     def touchSimlarTimeBoll(self,indexTime,count=1):
         flag = False
         while True:
@@ -612,6 +699,11 @@ class stock(object):
                 flag = True
             count += 1
         return flag
+
+    def touchSimlarTimeBollByCount(self,count=1):
+        if self.stocks[self.cursor-count].low<self.stocks[self.cursor-count].boll and self.stocks[self.cursor-count].high>self.stocks[self.cursor-count].boll:
+            return True
+        return False
 
 
     def touchSimlarTimeBetweenDownAndBoll(self,indexTime,count=1):
@@ -624,6 +716,12 @@ class stock(object):
             count += 1
         return flag
 
+    def touchSimlarTimeBetweenDownAndBollByCount(self,count=1):
+        if self.stocks[self.cursor-count].high<self.stocks[self.cursor-count].boll and self.stocks[self.cursor-count].low>self.stocks[self.cursor-count].dn:
+            return True
+        return False
+
+
     def touchSimlarTimeBetweenUpAndBoll(self,indexTime,count=1):
         flag = False
 
@@ -634,6 +732,11 @@ class stock(object):
                 flag = True
             count += 1
         return flag
+
+    def touchSimlarTimeBetweenUpAndBollByCount(self,count=1):
+        if self.stocks[self.cursor-count].high<self.stocks[self.cursor-count].up and self.stocks[self.cursor-count].low>self.stocks[self.cursor-count].boll:
+            return True
+        return False
 
     def touchSimlarRangeDown(self,start=0,end=2):
         flag = False

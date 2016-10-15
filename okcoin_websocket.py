@@ -60,7 +60,6 @@ kk5pos = None
 kk15pos = None
 m5data=None
 
-
 #business
 def buildMySign(params,secretKey):
     sign = ''
@@ -3175,6 +3174,8 @@ def go13():
     pricelogging.info("tboll=%s"  % (lastm1_datetime.minute % 5 > prelastm1_datetime.minute % 5 and lastm1.macd>prelastm1.macd and prelastm1.macd>stock1Min.preMyLastKline(3).macd))
     pricelogging.info("tx=%s,tddx=%s,5open=%s,5close=%s" % ((lastm1.open < lastm1.close and prelastm1.open < prelastm1.close),( prelastM5.open>prelastM5.close and prelastM5.j < pre2lastM5.j),prelastM5.open,prelastM5.close) )
 
+
+    '''
     xping1,updown1,lauchKline1 = stock1Min.goUpOrDown()
     xping5,updown5,lauchKline5 = stock5Min.goUpOrDown()
 
@@ -3184,6 +3185,7 @@ def go13():
     if xp5.time == xp5_2.time:
         updown5 = xp5_b
         lauchKline5 = xp5
+
 
 
     kk1Down = stock1Min.touchSimlarTimeDown(lauchKline1.time)
@@ -3198,24 +3200,66 @@ def go13():
     kk5Boll = stock5Min.touchSimlarTimeBoll(lauchKline5.time,0)
     kk5DownToBoll = stock5Min.touchSimlarTimeBetweenDownAndBoll(lauchKline5.time,0)
     kk5UpToBoll = stock5Min.touchSimlarTimeBetweenUpAndBoll(lauchKline5.time,0)
+    '''
+
+    f1po = stock1Min.mkposition()
+    f5po = stock5Min.mkposition(count=0)
+
+    kk1Down = False
+    kk1Up = False
+    kk1Boll = False
+    kk1DownToBoll = False
+    kk1UpToBOll = False
+
+    kk5Down = False
+    kk5Up = False
+    kk5Boll = False
+    kk5DownToBoll = False
+    kk5UpToBoll = False
 
 
-    pricelogging.info("xping1=%s,updown1=%s,lauchkline1=%s,xping5=%s,updown5=%s,lauchKline5=%s" % (xping1,updown1,lauchKline1,xping5,updown5,lauchKline5))
+    if f1po[0][0] == 1 :
+        kk1Down = True
 
-    pricelogging.info("kk1down=%s,up=%s,boll=%s,downtoboll=%s,uptoboll=%s" % (kk1Down,kk1Up,kk1Boll,kk1DownToBoll,kk1UpToBoll))
+    if f1po[1][0] == 1 :
+        kk1DownToBoll = True
 
-    pricelogging.info("kk5down=%s,up=%s,boll=%s,downtoboll=%s,uptoboll=%s" % (kk5Down,kk5Up,kk5Boll,kk5DownToBoll,kk5UpToBoll))
+    if f1po[2][0] == 1 :
+        kk1Boll = True
 
+    if f1po[3][0] == 1 :
+        kk1UpToBOll = True
+
+    if f1po[4][0] == 1 :
+        kk1Up = True
+
+
+    if f5po[0][0] == 1 :
+        kk5Down = True
+
+    if f5po[1][0] == 1 :
+        kk5DownToBoll = True
+
+    if f5po[2][0] == 1 :
+        kk5Boll = True
+
+    if f5po[3][0] == 1 :
+        kk5UpToBOll = True
+
+    if f5po[4][0] == 1 :
+        kk5Up = True
+
+
+    pricelogging.info("fx1=%s,fx5=%s" % (f1po,f5po))
     pricelogging.info("k1iscross=%s,k5icross=%s,isupordownline1=%s,isupordownline5=%s" % (stock1Min.iscrossKline(),stock5Min.iscrossKline(),stock1Min.isUpOrDownKline(),stock5Min.isUpOrDownKline()) )
-
 
     if buyPrice1 == None:
         fdata = stock1Min.findInFiveData()
 
-        if kk5Down and lastM5.macd<0 and lastM5.macd<-0.6 and lastM5.macd < prelastM5.macd:
+        if lastM5.macd<0 and lastM5.macd<-0.6 and lastM5.macd < prelastM5.macd:
             return
 
-        if stock5Min.iscrossKline() and stock5Min.isUpOrDownKline() and lastm1.macd>prelastm1.macd and lastM5.macd>0.2 and kk1Boll and updown1==False and updown5==True and lastm1.macd<0 and lastm1.macd>-0.2:
+        if stock5Min.iscrossKline() and stock5Min.isUpOrDownKline() and lastm1.macd>prelastm1.macd and lastM5.macd>0.2 and lastm1.macd<0 and lastm1.macd>-0.2:
             buy1Time = current.time
             buy2Time = lastM5.time
             buyPrice1 = current.close
@@ -3227,7 +3271,7 @@ def go13():
             return
 
         if stock1Min.iscrossKline():
-            if kk1Down and kk5Down and not kk5Boll:
+            if (kk1Down or (kk1DownToBoll and f1po[1][1]==True) ) and kk5Down and not kk5Boll:
                 buy1Time = current.time
                 buy2Time = lastM5.time
                 buyPrice1 = current.close
@@ -3237,7 +3281,7 @@ def go13():
                 spec = 1
                 pricelogging.info("tbuyb1-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
                 return
-            elif kk1Boll and updown1==False and updown5==True and not (stock5Min.iscrossKline() and stock5Min.isUpOrDownKline()==False) and (lastm1.j<20 or (lastm1.macd<0 and lastm1.macd>-0.16)):
+            elif kk1Boll and not (stock5Min.iscrossKline() and stock5Min.isUpOrDownKline()==False) and (lastm1.j<20 or (lastm1.macd<0 and lastm1.macd>-0.16)):
                 if lastM5.macd>0 and lastM5.macd<0.16:
                     return
 
@@ -3299,7 +3343,7 @@ def go13():
             if lastm1.macd>0 and prelastm1.macd>0 and lastm1.macd>prelastm1.macd and lastm1.macd>1:
                 return
 
-            if kk1Boll and not kk1Down and xping1==True and (prelastM5.macd<pre2lastM5.macd and prelastM5.macd<0.2) and (kk5Up or kk5UpToBoll):
+            if kk1Boll and not kk1Down and (prelastM5.macd<pre2lastM5.macd and prelastM5.macd<0.2) and (kk5Up or kk5UpToBoll):
                 if lastm1.macd>prelastm1.macd and lastm1.macd<0.17:
                     return
                 pricelogging.info("tbuybi8980-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
