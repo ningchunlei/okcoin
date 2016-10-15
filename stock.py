@@ -605,7 +605,6 @@ class stock(object):
             count += 1
         return flag
 
-
     def touchSimlarRangeDown(self,start=0,end=2):
         flag = False
         for i in range(start,end):
