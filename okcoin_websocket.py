@@ -3205,7 +3205,7 @@ def go13():
     if buyPrice1 == None:
         fdata = stock1Min.findInFiveData()
 
-        if kk5Down and lastM5.macd<0 and lastM5<-0.6 and lastM5.macd < prelastM5.macd:
+        if kk5Down and lastM5.macd<0 and lastM5.macd<-0.6 and lastM5.macd < prelastM5.macd:
             return
 
         if stock5Min.iscrossKline() and stock5Min.isUpOrDownKline() and lastm1.macd>prelastm1.macd and lastM5.macd>0.2 and kk1Boll and updown1==False and updown5==True and lastm1.macd<0 and lastm1.macd>-0.2:
