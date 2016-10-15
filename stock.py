@@ -346,9 +346,7 @@ class stock(object):
         flag = False
         count=0
         while True:
-            if self.stocks[self.cursor-count].time >=  indexTime:
-                continue
-            else:
+            if self.stocks[self.cursor-count].time < indexTime:
                 break
             count+=1
 
