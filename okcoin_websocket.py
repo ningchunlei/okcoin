@@ -3203,6 +3203,18 @@ def go13():
 
     if buyPrice1 == None:
         fdata = stock1Min.findInFiveData()
+
+        if stock5Min.iscrossKline() and stock5Min.isUpOrDownKline() and lastm1.macd>prelastM5.macd and kk1boll and updown1==False and updown5==True and lastm1.macd<0 and lastm1.macd>-0.2:
+            buy1Time = current.time
+            buy2Time = lastM5.time
+            buyPrice1 = current.close
+            kk1pos = k1pos
+            kk5pos = k5pos
+            kk15pos = k15pos
+            spec = 2
+            pricelogging.info("tbuyb1-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
+            return
+
         if stock1Min.iscrossKline():
             if kk1Down and kk5Down:
                 buy1Time = current.time
@@ -3218,7 +3230,7 @@ def go13():
                 if lastM5.macd>0 and lastM5.macd<0.16:
                     return
 
-                if kk5Up and not kk5Down and lastm1.macd<0 and fdata[0].open>lastm1.close:
+                if kk5Up and not kk5Down and lastm1.macd<0 and fdata[0].open>lastm1.close and:
                     return
 
                 buy1Time = current.time
