@@ -3240,10 +3240,10 @@ def go13():
                     return
 
 
-                if lastm1.close > prelastm1.close:
-                    if abs(lauchKline5.close-lauchKline5.boll)<abs(lauchKline5.close-lauchKline5.up) and abs(lauchKline5.close-lauchKline5.boll)<abs(lauchKline5.close-lauchKline5.dn):
-                        if stock5Min.findTouchUpKLine(lauchKline5.time).time == stock5Min.findTouchUpKLine(lastM5.time).time:
-                            return
+
+                if abs(lauchKline5.close-lauchKline5.boll)<abs(lauchKline5.close-lauchKline5.up) and abs(lauchKline5.close-lauchKline5.boll)<abs(lauchKline5.close-lauchKline5.dn) and (kk5Boll or kk5UpToBoll):
+                    if stock5Min.findTouchUpKLine(lauchKline5.time).time == stock5Min.findTouchUpKLine(lastM5.time).time:
+                        return
 
                 buy1Time = current.time
                 buy2Time = lastM5.time
