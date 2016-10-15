@@ -3217,6 +3217,10 @@ def go13():
             elif kk1Boll and updown1==False and updown5==True and not (stock5Min.iscrossKline() and stock5Min.isUpOrDownKline()==False) and (lastm1.j<20 or (lastm1.macd<0 and lastm1.macd>-0.16)):
                 if lastM5.macd>0 and lastM5.macd<0.16:
                     return
+
+                if kk5Up and not kk5Down and lastm1.macd<0 and fdata[0].open>lastm1.close:
+                    return
+
                 buy1Time = current.time
                 buy2Time = lastM5.time
                 buyPrice1 = current.close
