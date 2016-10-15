@@ -3201,8 +3201,12 @@ def go13():
 
     pricelogging.info("k1iscross=%s,k5icross=%s,isupordownline1=%s,isupordownline5=%s" % (stock1Min.iscrossKline(),stock5Min.iscrossKline(),stock1Min.isUpOrDownKline(),stock5Min.isUpOrDownKline()) )
 
+
     if buyPrice1 == None:
         fdata = stock1Min.findInFiveData()
+
+        if kk5Down and lastM5.macd<0 and lastM5<-0.6 and lastM5.macd < prelastM5.macd:
+            return
 
         if stock5Min.iscrossKline() and stock5Min.isUpOrDownKline() and lastm1.macd>prelastm1.macd and lastM5.macd>0.2 and kk1Boll and updown1==False and updown5==True and lastm1.macd<0 and lastm1.macd>-0.2:
             buy1Time = current.time
