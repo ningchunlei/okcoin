@@ -3305,7 +3305,7 @@ def go13():
                 pricelogging.info("tbuybi898-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
                 buyPrice1 = None
                 return
-            elif (kk1Up and lastm1.j>80) or (kk1Up and lastm1.macd<prelastm1.macd) :
+            elif (kk1Up and not kk1Down and lastm1.j>80) or (kk1Up and not kk1Down and lastm1.macd<prelastm1.macd) :
                 pricelogging.info("tbuybi890-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
                 buyPrice1 = None
                 return
