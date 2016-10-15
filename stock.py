@@ -357,6 +357,18 @@ class stock(object):
 
         return None
 
+    def findMacdUpKLine(self):
+        flag = None
+        count=0
+        while True:
+            if self.stocks[self.cursor-count].macd < self.stocks[self.cursor-count-1].macd:
+                flag = self.stocks[self.cursor-count]
+                break
+            count+=1
+
+        return flag
+
+
     def findDownKline(self):
         kline = None
         count=0
