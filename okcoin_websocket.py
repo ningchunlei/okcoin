@@ -3220,7 +3220,7 @@ def go13():
             return
 
         if stock1Min.iscrossKline():
-            if kk1Down and kk5Down:
+            if kk1Down and kk5Down and not kk5Boll:
                 buy1Time = current.time
                 buy2Time = lastM5.time
                 buyPrice1 = current.close
