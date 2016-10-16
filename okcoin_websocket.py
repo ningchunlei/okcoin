@@ -3221,32 +3221,32 @@ def go13():
     if f1po[0][0] == 1 :
         kk1Down = True
 
-    if f1po[1][0] == 1 :
+    if f1po[1][0] == 2 :
         kk1DownToBoll = True
 
-    if f1po[2][0] == 1 :
+    if f1po[2][0] == 3 :
         kk1Boll = True
 
-    if f1po[3][0] == 1 :
+    if f1po[3][0] == 4 :
         kk1UpToBoll = True
 
-    if f1po[4][0] == 1 :
+    if f1po[4][0] == 5 :
         kk1Up = True
 
 
     if f5po[0][0] == 1 :
         kk5Down = True
 
-    if f5po[1][0] == 1 :
+    if f5po[1][0] == 2 :
         kk5DownToBoll = True
 
-    if f5po[2][0] == 1 :
+    if f5po[2][0] == 3 :
         kk5Boll = True
 
-    if f5po[3][0] == 1 :
+    if f5po[3][0] == 4 :
         kk5UpToBOll = True
 
-    if f5po[4][0] == 1 :
+    if f5po[4][0] == 5 :
         kk5Up = True
 
 
