@@ -3251,6 +3251,11 @@ def go13():
 
 
     pricelogging.info("fx1=%s,fx5=%s" % (f1po,f5po))
+
+    pricelogging.info("kk1down=%s,up=%s,boll=%s,downtoboll=%s,uptoboll=%s" % (kk1Down,kk1Up,kk1Boll,kk1DownToBoll,kk1UpToBoll))
+
+    pricelogging.info("kk5down=%s,up=%s,boll=%s,downtoboll=%s,uptoboll=%s" % (kk5Down,kk5Up,kk5Boll,kk5DownToBoll,kk5UpToBoll))
+
     pricelogging.info("k1iscross=%s,k5icross=%s,isupordownline1=%s,isupordownline5=%s" % (stock1Min.iscrossKline(),stock5Min.iscrossKline(),stock1Min.isUpOrDownKline(),stock5Min.isUpOrDownKline()) )
 
     if buyPrice1 == None:
