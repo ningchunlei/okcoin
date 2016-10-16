@@ -3374,7 +3374,7 @@ def go13():
             buyPrice1 = None
             return
 
-        if spec==11 and lastM5.macd<prelastM5.macd and (kk5Up or kk5UpToBoll):
+        if spec==11 and prelastM5.macd<pre2lastM5.macd and (kk5Up or kk5UpToBoll):
             if stock5Min.iscrossKline():
                 spec = 2
                 pricelogging.info("tbuy disable to 2,5time=%s,1time=%s" % (time.ctime(lastM5.time),time.ctime(lastm1.time)))
