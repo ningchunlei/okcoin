@@ -3382,6 +3382,11 @@ def go13():
                 spec = 2
                 pricelogging.info("tbuy disable to 21,5time=%s,1time=%s" % (time.ctime(lastM5.time),time.ctime(lastm1.time)))
 
+        if spec==11 and kk5up and (lastM5.macd<prelastM5.macd or lastM5.k-lastM5.j<0):
+            pricelogging.info("tbuybi8981-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+            buyPrice1 = None
+            return
+
         kkk1up = kk1Up
         if not kkk1up :
             if kk1UpToBoll and f5po[3][1]:
