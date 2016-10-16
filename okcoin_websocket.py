@@ -3368,11 +3368,15 @@ def go13():
 
     if buyPrice1 != None:
         if stock5Min.iscrossKline() and prelastM5.macd>0 and prelastM5.macd<0.17 and prelastM5.macd<pre2lastM5.macd and (kk5Up or kk5UpToBoll):
-            if lastm1.macd>prelastm1.macd and lastm1.macd<0.17 and spec!=11:
+            if lastm1.macd>prelastm1.macd and lastm1.macd<0.17:
                 return
             pricelogging.info("tbuybi8981-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None
             return
+
+        if spec==11 and prelastM5.macd<pre2lastM5.macd and (kk5Up or kk5UpToBoll):
+            if stock5Min.iscrossKline():
+                spec == 2 
 
         kkk1up = kk1Up
         if not kkk1up :
