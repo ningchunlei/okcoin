@@ -3349,6 +3349,11 @@ def go13():
             buyPrice1 = None
             return
 
+        kkk1up = kk1Up
+        if not kkk1up :
+            if kk1UpToBOll and f5po[3][1]:
+                kkk1up = True
+
         if stock1Min.iscrossKline() or stock1Min.isUpOrDownKline()==False:
             if lastm1.macd>0 and prelastm1.macd<0:
                 return
