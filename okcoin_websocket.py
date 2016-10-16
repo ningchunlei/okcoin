@@ -3376,7 +3376,8 @@ def go13():
 
         if spec==11 and prelastM5.macd<pre2lastM5.macd and (kk5Up or kk5UpToBoll):
             if stock5Min.iscrossKline():
-                spec == 2 
+                spec == 2
+            
 
         kkk1up = kk1Up
         if not kkk1up :
