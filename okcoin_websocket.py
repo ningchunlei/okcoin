@@ -3275,6 +3275,9 @@ def go13():
             pricelogging.info("tbuyb11-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
             return
 
+        if prelastM5.macd<pre2lastM5.macd and (kk5Up or (kk5UpToBoll or f5po[3][1]==False)):
+            return
+
         if stock1Min.iscrossKline():
             if (kk1Down or (kk1DownToBoll and f1po[1][1]==True) ):
                 if kk5Down and not kk5Boll:
