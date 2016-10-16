@@ -3271,17 +3271,30 @@ def go13():
             return
 
         if stock1Min.iscrossKline():
-            if (kk1Down or (kk1DownToBoll and f1po[1][1]==True) ) and kk5Down and not kk5Boll:
-                buy1Time = current.time
-                buy2Time = lastM5.time
-                buyPrice1 = current.close
-                kk1pos = k1pos
-                kk5pos = k5pos
-                kk15pos = k15pos
-                spec = 1
-                pricelogging.info("tbuyb1-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
-                return
-            elif kk1Boll and not (stock5Min.iscrossKline() and stock5Min.isUpOrDownKline()==False) and (lastm1.j<20 or (lastm1.macd<0 and lastm1.macd>-0.16)):
+            if (kk1Down or (kk1DownToBoll and f1po[1][1]==True) ):
+                if kk5Down and not kk5Boll:
+                    buy1Time = current.time
+                    buy2Time = lastM5.time
+                    buyPrice1 = current.close
+                    kk1pos = k1pos
+                    kk5pos = k5pos
+                    kk15pos = k15pos
+                    spec = 1
+                    pricelogging.info("tbuyb1-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
+                    return
+                if lastM5.macd > 0.3 and kk5UpToBoll:
+                    if lastm1.macd < prelastm1.macd and lastm1.macd<0 and prelastm1.macd>0:
+                        return
+                    buy1Time = current.time
+                    buy2Time = lastM5.time
+                    buyPrice1 = current.close
+                    kk1pos = k1pos
+                    kk5pos = k5pos
+                    kk15pos = k15pos
+                    spec = 1
+                    pricelogging.info("tbuyb13-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
+                    return
+            elif kk1Boll and ((kk5Boll and f1po[2][1]==True) or (kk5UpToBOll and f1po[3][1]==True)) and (lastm1.j<20 or (lastm1.macd<0 and lastm1.macd>-0.16)):
                 if lastM5.macd>0 and lastM5.macd<0.16:
                     return
 
