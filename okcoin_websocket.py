@@ -3209,7 +3209,7 @@ def go13():
     kk1Up = False
     kk1Boll = False
     kk1DownToBoll = False
-    kk1UpToBOll = False
+    kk1UpToBoll = False
 
     kk5Down = False
     kk5Up = False
@@ -3228,7 +3228,7 @@ def go13():
         kk1Boll = True
 
     if f1po[3][0] == 1 :
-        kk1UpToBOll = True
+        kk1UpToBoll = True
 
     if f1po[4][0] == 1 :
         kk1Up = True
@@ -3356,7 +3356,7 @@ def go13():
 
         kkk1up = kk1Up
         if not kkk1up :
-            if kk1UpToBOll and f5po[3][1]:
+            if kk1UpToBoll and f5po[3][1]:
                 kkk1up = True
 
         if stock1Min.iscrossKline() or stock1Min.isUpOrDownKline()==False:
