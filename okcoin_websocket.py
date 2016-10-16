@@ -3322,7 +3322,7 @@ def go13():
                 pricelogging.info("tbuyb2-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
                 return
             elif ((kk1Boll and f1po[2][1]==False) or (kk1UpToBoll and f1po[3][1]==False)) \
-                and ( (((kk5Boll and f1po[2][1]==True) or (kk5UpToBoll and f1po[3][1]==True)) and (lastM5.macd>0) )  or ( (kk5DownToBoll and f5po[1][1]==True) and ( (lastM5.macd>0 and prelastM5.macd<0) or (lastM5.macd <0 and lastM5.macd> -0.1)  ) ) ) \
+                and ( (((kk5Boll and f1po[2][1]==True) or (kk5UpToBoll and f1po[3][1]==True)) and (lastM5.macd>0 and lastM5.macd>prelastM5.macd) )  or ( (kk5DownToBoll and f5po[1][1]==True) and ( (lastM5.macd>0 and prelastM5.macd<0) or (lastM5.macd <0 and lastM5.macd> -0.1)  ) ) ) \
                     and not kk5Up and stock1Min.isUpOrDownKline() and lastm1.j<90:
 
                 if lastm1.macd < prelastm1.macd and lastm1.macd<0 and prelastm1.macd>0:
