@@ -3377,8 +3377,10 @@ def go13():
         if spec==11 and lastM5.macd<prelastM5.macd and (kk5Up or kk5UpToBoll):
             if stock5Min.iscrossKline():
                 spec = 2
+                pricelogging.info("tbuy disable to 2")
             if lastM5.macd < 0.2:
                 spec = 2
+                pricelogging.info("tbuy disable to 2")
 
         kkk1up = kk1Up
         if not kkk1up :
