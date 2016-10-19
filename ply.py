@@ -1,13 +1,5 @@
-import websocket
 import time
-import sys
-import json
-import hashlib
-import zlib
-import base64
-import threading
 from datetime import datetime
-from stock import stock,KLine,Trade
 import logging
 
 logging.basicConfig(level=logging.DEBUG,
@@ -45,68 +37,16 @@ def pl(level1Stock,level2Stock,l1tag,l2tag,difftime):
     l2_pre_pre_kdj = l2_pre_pre.j-l2_pre_pre.k
 
 
-    pricelogging.info("time=%s,price=%s,1j=%s,1k=%s,5j=%s,5k=%s,15j=%s,15k=%s,1macd=%s,5macd=%s,15macd=%s" % \
-                      (time.ctime(current.time),current.close,lastm1.j,lastm1.k,prelastM5.j,prelastM5.k,prelastM15.j,prelastM15.k,lastm1.macd,prelastM5.macd,prelastM15.macd))
-
-    def pos(kk):
-        if kk.downToUp() and kk.upmiddle(kk.findDownKline().time)==True:
-            return 2
-        elif kk.downToUp() and kk.upmiddle(kk.findDownKline().time)==False:
-            return 1
-        elif kk.downToUp()==False and kk.downmiddle(kk.findUpKline().time)==False:
-            return 3
-        elif kk.downToUp()==False and kk.downmiddle(kk.findUpKline().time)==True:
-            return 4
-
-    k1pos = pos(stock1Min)
-    k5pos = pos(stock5Min)
-    k15pos = pos(stock15Min)
-
-    pricelogging.info("bpri=%s,time=%s,lastM5.j=%s,lastM5.macd=%s,m1.up=%s,m1.boll=%s,m1.down=%s,m5.up=%s,m5.boll=%s,m5.down=%s" % (buyPrice1,time.ctime(current.time),lastM5.j,lastM5.macd,
-                                                                                                                                    lastm1.up,lastm1.boll,lastm1.dn,prelastM5.up,prelastM5.boll,prelastM5.dn))
-    pricelogging.info("%s,macd-1=%s,macd-5=%s" % (time.ctime(lastm1.time),stock1Min.forecastMacd(),stock5Min.forecastMacd()))
-    pricelogging.info("tt,lopen=%s,lclose=%s,lmacd=%s,popen=%s,pclose=%s,pmacd=%s" % (lastm1.open,lastm1.close,lastm1.macd,prelastm1.open,prelastm1.close,prelastm1.macd))
-
-    lastm1_datetime = datetime.fromtimestamp(lastm1.time)
-    prelastm1_datetime = datetime.fromtimestamp(prelastm1.time)
-
-    prelastm5_datetime = datetime.fromtimestamp(prelastM5.time)
-
-    pricelogging.info("ltime=%s,ptime=%s,ppmacd=%s,lastm1_datetime=%s,prelastm1_datetime=%s" % (lastm1_datetime.minute % 5,prelastm1_datetime.minute % 5,stock1Min.preMyLastKline(3).macd,lastm1_datetime,prelastm1_datetime) )
-
-    pricelogging.info("tboll=%s"  % (lastm1_datetime.minute % 5 > prelastm1_datetime.minute % 5 and lastm1.macd>prelastm1.macd and prelastm1.macd>stock1Min.preMyLastKline(3).macd))
-    pricelogging.info("tx=%s,tddx=%s,5open=%s,5close=%s" % ((lastm1.open < lastm1.close and prelastm1.open < prelastm1.close),( prelastM5.open>prelastM5.close and prelastM5.j < pre2lastM5.j),prelastM5.open,prelastM5.close) )
+    pricelogging.info("level=%s,time=%s,j=%s,k=%s,macd=%s,up=%s,dn=%s,boll=%s,open=%s,close=%s" % (l1tag,time.ctime(l1_pre.time),l1_pre.j,l1_pre.k,l1_pre.macd,l1_pre.up,l1_pre.dn,l1_pre.boll,l1_pre.open,l1_pre.close))
+    pricelogging.info("level=%s,time=%s,j=%s,k=%s,macd=%s,up=%s,dn=%s,boll=%s,open=%s,close=%s" % (l2tag,time.ctime(l2_pre.time),l2_pre.j,l2_pre.k,l2_pre.macd,l2_pre.up,l2_pre.dn,l2_pre.boll,l2_pre.open,l2_pre.close))
 
 
-    '''
-    xping1,updown1,lauchKline1 = stock1Min.goUpOrDown()
-    xping5,updown5,lauchKline5 = stock5Min.goUpOrDown()
-
-    xp5,xp5_b = stock5Min.findSearchTouchKLine(lauchKline5.time)
-    xp5_2,xp5_2_b = stock5Min.findSearchTouchKLine(lastM5.time)
-
-    if xp5.time == xp5_2.time:
-        updown5 = xp5_b
-        lauchKline5 = xp5
+    pricelogging.info("clevel=%s,time=%s,j=%s,k=%s,macd=%s,up=%s,dn=%s,boll=%s,open=%s,close=%s" % (l1tag,time.ctime(l1_last.time),l1_last.j,l1_last.k,l1_last.macd,l1_last.up,l1_last.dn,l1_last.boll,l1_last.open,l1_last.close))
+    pricelogging.info("clevel=%s,time=%s,j=%s,k=%s,macd=%s,up=%s,dn=%s,boll=%s,open=%s,close=%s" % (l2tag,time.ctime(l2_last.time),l2_last.j,l2_last.k,l2_last.macd,l2_last.up,l2_last.dn,l2_last.boll,l2_last.open,l2_last.close))
 
 
-
-    kk1Down = stock1Min.touchSimlarTimeDown(lauchKline1.time)
-    kk1Up = stock1Min.touchSimlarTimeUp(lauchKline1.time)
-    kk1Boll = stock1Min.touchSimlarTimeBoll(lauchKline1.time)
-    kk1DownToBoll = stock1Min.touchSimlarTimeBetweenDownAndBoll(lauchKline1.time)
-    kk1UpToBoll = stock1Min.touchSimlarTimeBetweenUpAndBoll(lauchKline1.time)
-
-
-    kk5Down = stock5Min.touchSimlarTimeDown(lauchKline5.time,0)
-    kk5Up = stock5Min.touchSimlarTimeUp(lauchKline5.time,0)
-    kk5Boll = stock5Min.touchSimlarTimeBoll(lauchKline5.time,0)
-    kk5DownToBoll = stock5Min.touchSimlarTimeBetweenDownAndBoll(lauchKline5.time,0)
-    kk5UpToBoll = stock5Min.touchSimlarTimeBetweenUpAndBoll(lauchKline5.time,0)
-    '''
-
-    f1po = stock1Min.mkposition()
-    f5po = stock5Min.mkposition(count=0)
+    f1po = level1Stock.mkposition()
+    f5po = level2Stock.mkposition(count=0)
 
     kk1Down = False
     kk1Up = False
@@ -159,14 +99,20 @@ def pl(level1Stock,level2Stock,l1tag,l2tag,difftime):
 
     pricelogging.info("kk5down=%s,up=%s,boll=%s,downtoboll=%s,uptoboll=%s" % (kk5Down,kk5Up,kk5Boll,kk5DownToBoll,kk5UpToBoll))
 
-    pricelogging.info("k1iscross=%s,k5icross=%s,isupordownline1=%s,isupordownline5=%s" % (stock1Min.iscrossKline(),stock5Min.iscrossKline(),stock1Min.isUpOrDownKline(),stock5Min.isUpOrDownKline()) )
+    pricelogging.info("k1iscross=%s,k5icross=%s,isupordownline1=%s,isupordownline5=%s" % (level1Stock.iscrossKline(),level2Stock.iscrossKline(),level1Stock.isUpOrDownKline(),level1Stock.isUpOrDownKline()) )
+
+
+    def canbuy():
+        if l1_last.macd<-0.6 and l1_last.macd < l1_pre.macd:
+            return False
+
+
+
 
     if buyPrice1 == None:
         fdata = stock1Min.findInFiveData()
-
         if lastM5.macd<0 and lastM5.macd<-0.6 and lastM5.macd < prelastM5.macd:
             return
-
         if stock5Min.iscrossKline() and stock5Min.isUpOrDownKline() and lastm1.macd>prelastm1.macd and lastM5.macd>0.2 and lastm1.macd<0 and lastm1.macd>-0.2:
             buy1Time = current.time
             buy2Time = lastM5.time
