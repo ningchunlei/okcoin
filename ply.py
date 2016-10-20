@@ -48,6 +48,8 @@ def pl(level1Stock,level2Stock,l1tag,l2tag,difftime):
     f1po = level1Stock.mkposition()
     f5po = level2Stock.mkposition(count=0)
 
+
+
     kk1Down = False
     kk1Up = False
     kk1Boll = False
@@ -103,10 +105,14 @@ def pl(level1Stock,level2Stock,l1tag,l2tag,difftime):
 
 
     def canbuy():
+        fdata = level1Stock.findInFiveData()
         if l1_last.macd<-0.6 and l1_last.macd < l1_pre.macd:
             return False
 
-
+        if level1Stock.iscrossKline():
+            if kk1Down:
+                if kk5Down and not kk5Boll:
+                    if fdata[0].open > fdata[len(fdata)-1].close:
 
 
     if buyPrice1 == None:

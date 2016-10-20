@@ -49,6 +49,7 @@ class KLine(object):
         self.up = 0;
         self.dn = 0;
         self.mean = 0;
+        self.po = None;
 
     def __str__(self):
         return "%s;close=%f;high=%f;low=%s;vol=%s;macd=%f;k=%f;j=%f,boll=%f," \
@@ -584,7 +585,7 @@ class stock(object):
         dp = []
 
         if down1:
-            dp.append((1,down1))
+            dp.append((1,1))
         else:
             dp.append((0,None))
 
@@ -606,12 +607,24 @@ class stock(object):
             dp.append((0,None))
 
         if up1:
-            dp.append((5,up1))
+            dp.append((5,1))
         else:
             dp.append((0,None))
 
+        self.stocks[self.cursor-count].po = dp
+
         return dp
 
+
+    def poly(self):
+        count=1
+        while True:
+            if self.stocks[self.cursor-count].time <= indexTime:
+                break
+            if self.stocks[self.cursor-count].low-0.3<self.stocks[self.cursor-count].dn and self.stocks[self.cursor-count].close<self.stocks[self.cursor-count].boll:
+                flag = True
+            count += 1
+        return flag
 
     def touchShortDown(self):
         flag = False
@@ -632,39 +645,78 @@ class stock(object):
 
 
     def touchSimlarTimeDownFrom(self,count=1):
-        flag = False
+        flag = 0
+        tmax = self.stocks[self.cursor-count].close
+        xcount = count
+        tc = count
         while True:
             if not (self.stocks[self.cursor-count].high<self.stocks[self.cursor-count].boll and self.stocks[self.cursor-count].low>self.stocks[self.cursor-count].dn):
                 if self.stocks[self.cursor-count].low-0.3<self.stocks[self.cursor-count].dn and self.stocks[self.cursor-count].close<self.stocks[self.cursor-count].boll:
                     #from down
-                    return True
+                    flag = 1
                 else:
-                    return False
+                    flag = 0
+                break
+            else:
+                if tmax < self.stocks[self.cursor-count].close :
+                    tmax = self.stocks[self.cursor-count].close
+                    tc = count;
             count += 1
+
+        tdown = True
+        if self.stocks[self.cursor-tc].j -self.stocks[self.cursor-tc].k > 0 and self.stocks[self.cursor-xcount].j - self.stocks[self.cursor-xcount].k<0:
+            tdown=False
+        if self.stocks[self.cursor-tc].macd > 0 and self.stocks[self.cursor-xcount].macd <0:
+            tdown=False
+
+        if flag==1 and tdown==False:
+            return 3
+
         return flag
 
     def touchSimlarTimeUpFrom(self,count=1):
-        flag = False
+        flag = 0
+
+        tmax = self.stocks[self.cursor-count].close
+        xcount = count
+        tc = count
+
         while True:
             if not (self.stocks[self.cursor-count].high<self.stocks[self.cursor-count].up and self.stocks[self.cursor-count].low>self.stocks[self.cursor-count].boll):
                 if self.stocks[self.cursor-count].high+0.3>self.stocks[self.cursor-count].up and self.stocks[self.cursor-count].close>self.stocks[self.cursor-count].boll:
                     #from up
-                    return False
+                    flag = 0
+                    break
                 else:
-                    return True
+                    flag = 1
+                    break
+            else:
+                if tmax < self.stocks[self.cursor-count].close :
+                    tmax = self.stocks[self.cursor-count].close
+                    tc = count;
             count += 1
+
+        tdown = True
+        if self.stocks[self.cursor-tc].j -self.stocks[self.cursor-tc].k > 0 and self.stocks[self.cursor-xcount].j - self.stocks[self.cursor-xcount].k<0:
+            tdown=False
+        if self.stocks[self.cursor-tc].macd > 0 and self.stocks[self.cursor-xcount].macd <0:
+            tdown=False
+
+        if flag==1 and tdown==False:
+            flag = 3
+
         return flag
 
     def touchSimlarTimeBetweenFrom(self,count=1):
-        flag = False
+        flag = 0
         while True:
             if not (self.stocks[self.cursor-count].low<self.stocks[self.cursor-count].boll and self.stocks[self.cursor-count].high>self.stocks[self.cursor-count].boll):
                 if self.stocks[self.cursor-count].high+0.3>self.stocks[self.cursor-count].up and self.stocks[self.cursor-count].close>self.stocks[self.cursor-count].boll \
                         or self.stocks[self.cursor-count].high<self.stocks[self.cursor-count].up and self.stocks[self.cursor-count].low>self.stocks[self.cursor-count].boll:
                     #from up
-                    return False
+                    return 0
                 else:
-                    return True
+                    return 1
             count += 1
         return flag
 
