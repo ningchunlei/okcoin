@@ -7,10 +7,7 @@ logging.basicConfig(level=logging.DEBUG,
                     datefmt='%a, %d %b %Y %H:%M:%S'
                     )
 pricelogging = logging.getLogger("price")
-pricelogging.addHandler(logging.FileHandler("price.log"))
-
 tradelogging = logging.getLogger("trade")
-tradelogging.addHandler(logging.FileHandler("trade.log"))
 
 
 def canbuybymacd(k1,k2):

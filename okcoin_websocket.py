@@ -3475,8 +3475,6 @@ def go14():
         elif fpp2[0] == "buy":
             xfg = "sell-buy"
 
-
-
     if xfg == "buy" :
         if bymacd1==0:
             pricelogging.info("disable by macd 1111");
