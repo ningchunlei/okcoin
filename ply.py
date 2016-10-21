@@ -104,176 +104,313 @@ def pl(level1Stock,level2Stock,l1tag,l2tag,difftime):
     pricelogging.info("k1iscross=%s,k5icross=%s,isupordownline1=%s,isupordownline5=%s" % (level1Stock.iscrossKline(),level2Stock.iscrossKline(),level1Stock.isUpOrDownKline(),level1Stock.isUpOrDownKline()) )
 
 
-    def canbuy():
-        fdata = level1Stock.findInFiveData()
-        if l1_last.macd<-0.6 and l1_last.macd < l1_pre.macd:
-            return False
-
+    def canbuybypo():
         if level1Stock.iscrossKline():
             if kk1Down:
                 if kk5Down and not kk5Boll:
-                    if fdata[0].open > fdata[len(fdata)-1].close:
-
-
-    if buyPrice1 == None:
-        fdata = stock1Min.findInFiveData()
-        if lastM5.macd<0 and lastM5.macd<-0.6 and lastM5.macd < prelastM5.macd:
-            return
-        if stock5Min.iscrossKline() and stock5Min.isUpOrDownKline() and lastm1.macd>prelastm1.macd and lastM5.macd>0.2 and lastm1.macd<0 and lastm1.macd>-0.2:
-            buy1Time = current.time
-            buy2Time = lastM5.time
-            buyPrice1 = current.close
-            kk1pos = k1pos
-            kk5pos = k5pos
-            kk15pos = k15pos
-            spec = 2
-            pricelogging.info("tbuyb11-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
-            return
-
-        if prelastM5.macd<pre2lastM5.macd and (kk5Up or (kk5UpToBoll and f5po[3][1]==False) or (kk5Boll and f5po[2][1]==False) ):
-            return
-
-        if stock1Min.iscrossKline():
-            if (kk1Down or (kk1DownToBoll and f1po[1][1]==True) ):
+                    return "buy-down-1-down-1"
+                elif kk5DownToBoll and f5po[1][1]==0:
+                    return "sell-down-1-downtoboll-0"
+                elif kk5DownToBoll and f5po[1][1]==1:
+                    return "buy-down-1-downtoboll-1"
+                elif kk5DownToBoll and f5po[1][1]==3:
+                    return "sell-down-1-downtoboll-3"
+                elif kk5Boll and f5po[2][1]==0:
+                    return "buy-down-1-boll-0"
+                elif kk5Boll and f5po[2][1]==1:
+                    return "buy-down-1-boll-1"
+                elif kk5Boll and f5po[2][1]==3:
+                    return "sell-down-1-boll-3"
+                elif kk5UpToBoll and f5po[3][1]==0:
+                    return "sell-down-1-uptoboll-0"
+                elif kk5UpToBoll and f5po[3][1]==1:
+                    return "buy-down-1-uptoboll-1"
+                elif kk5UpToBoll and f5po[3][1]==3:
+                    return "sell-down-1-uptoboll-3"
+                elif kk5Up and not kk5Boll:
+                    return "sell-down-1-up-0"
+            elif kk1DownToBoll and f1po[1][1] == 0 :
                 if kk5Down and not kk5Boll:
-                    buy1Time = current.time
-                    buy2Time = lastM5.time
-                    buyPrice1 = current.close
-                    kk1pos = k1pos
-                    kk5pos = k5pos
-                    kk15pos = k15pos
-                    spec = 1
-                    pricelogging.info("tbuyb1-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
-                    return
-                if lastM5.macd > 0.3 and kk5UpToBoll:
-                    if lastm1.macd < prelastm1.macd and lastm1.macd<0 and prelastm1.macd>0:
-                        return
-                    buy1Time = current.time
-                    buy2Time = lastM5.time
-                    buyPrice1 = current.close
-                    kk1pos = k1pos
-                    kk5pos = k5pos
-                    kk15pos = k15pos
-                    spec = 1
-                    pricelogging.info("tbuyb13-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
-                    return
-            elif (kk1Boll and f1po[2][1]==True) and ((kk5DownToBoll and f5po[1][1]==True) or (kk5Boll and f1po[2][1]==True) or (kk5UpToBoll and f1po[3][1]==True)) and not kk5Up and (lastm1.j<20 or (lastm1.macd<0 and lastm1.macd>-0.16)):
-                if lastM5.macd>0 and lastM5.macd<0.16:
-                    return
+                    return "sell-downtoboll-0-down-1"
+                elif kk5DownToBoll and f5po[1][1]==0:
+                    return "sell-downtoboll-0-downtoboll-0"
+                elif kk5DownToBoll and f5po[1][1]==1:
+                    return "sell-downtoboll-0-downtoboll-1"
+                elif kk5DownToBoll and f5po[1][1]==3:
+                    return "sell-downtoboll-0-downtoboll-3"
+                elif kk5Boll and f5po[2][1]==0:
+                    return "sell-downtoboll-0-boll-0"
+                elif kk5Boll and f5po[2][1]==1:
+                    return "sell-downtoboll-0-boll-1"
+                elif kk5Boll and f5po[2][1]==3:
+                    return "sell-downtoboll-0-boll-3"
+                elif kk5UpToBoll and f5po[3][1]==0:
+                    return "sell-downtoboll-0-uptoboll-0"
+                elif kk5UpToBoll and f5po[3][1]==1:
+                    return "sell-downtoboll-0-uptoboll-1"
+                elif kk5UpToBoll and f5po[3][1]==3:
+                    return "sell-downtoboll-0-uptoboll-3"
+                elif kk5Up and not kk5Boll:
+                    return "sell-downtoboll-0-up-0"
+            elif kk1DownToBoll and f1po[1][1] == 1 :
+                if kk5Down and not kk5Boll:
+                    return "buy-downtoboll-1-down-1"
+                elif kk5DownToBoll and f5po[1][1]==0:
+                    return "sell-downtoboll-1-downtoboll-0"
+                elif kk5DownToBoll and f5po[1][1]==1:
+                    return "buy-downtoboll-1-downtoboll-1"
+                elif kk5DownToBoll and f5po[1][1]==3:
+                    return "buy-downtoboll-1-downtoboll-3"
+                elif kk5Boll and f5po[2][1]==0:
+                    return "sell-downtoboll-1-boll-0"
+                elif kk5Boll and f5po[2][1]==1:
+                    return "buy-downtoboll-1-boll-1"
+                elif kk5Boll and f5po[2][1]==3:
+                    return "sell-downtoboll-1-boll-3"
+                elif kk5UpToBoll and f5po[3][1]==0:
+                    return "sell-downtoboll-1-uptoboll-0"
+                elif kk5UpToBoll and f5po[3][1]==1:
+                    return "buy-downtoboll-1-uptoboll-1"
+                elif kk5UpToBoll and f5po[3][1]==3:
+                    return "sell-downtoboll-1-uptoboll-3"
+                elif kk5Up and not kk5Boll:
+                    return "sell-downtoboll-1-up-0"
+            elif kk1DownToBoll and f1po[1][1] == 3 :
+                if kk5Down and not kk5Boll:
+                    return "sell-downtoboll-3-down-1"
+                elif kk5DownToBoll and f5po[1][1]==0:
+                    return "sell-downtoboll-3-downtoboll-0"
+                elif kk5DownToBoll and f5po[1][1]==1:
+                    return "buy-downtoboll-3-downtoboll-1"
+                elif kk5DownToBoll and f5po[1][1]==3:
+                    return "sell-downtoboll-3-downtoboll-3"
+                elif kk5Boll and f5po[2][1]==0:
+                    return "sell-downtoboll-3-boll-0"
+                elif kk5Boll and f5po[2][1]==1:
+                    return "buy-downtoboll-3-boll-1"
+                elif kk5Boll and f5po[2][1]==3:
+                    return "sell-downtoboll-3-boll-3"
+                elif kk5UpToBoll and f5po[3][1]==0:
+                    return "sell-downtoboll-3-uptoboll-0"
+                elif kk5UpToBoll and f5po[3][1]==1:
+                    return "buy-downtoboll-3-uptoboll-1"
+                elif kk5UpToBoll and f5po[3][1]==3:
+                    return "sell-downtoboll-3-uptoboll-3"
+                elif kk5Up and not kk5Boll:
+                    return "sell-downtoboll-3-up-0"
+            elif kk1Boll and f1po[2][1] == 0 :
 
-                if kk5Up and not kk5Down and lastm1.macd<0 and fdata[0].open>lastm1.close:
-                    return
+                if kk5Down and not kk5Boll:
+                    return "sell-boll-0-down-1"
+                elif kk5DownToBoll and f5po[1][1]==0:
+                    return "sell-boll-0-downtoboll-0"
+                elif kk5DownToBoll and f5po[1][1]==1:
+                    return "buy-boll-0-downtoboll-1"
+                elif kk5DownToBoll and f5po[1][1]==3:
+                    return "sell-boll-0-downtoboll-3"
+                elif kk5Boll and f5po[2][1]==0:
+                    return "sell-boll-0-boll-0"
+                elif kk5Boll and f5po[2][1]==1:
+                    return "buy-boll-0-boll-1"
+                elif kk5Boll and f5po[2][1]==3:
+                    return "sell-boll-3-boll-3"
+                elif kk5UpToBoll and f5po[3][1]==0:
+                    return "sell-boll-0-uptoboll-0"
+                elif kk5UpToBoll and f5po[3][1]==1:
+                    return "buy-boll-0-uptoboll-1"
+                elif kk5UpToBoll and f5po[3][1]==3:
+                    return "sell-boll-0-uptoboll-3"
+                elif kk5Up and not kk5Boll:
+                    return "sell-boll-0-up-0"
 
-                if lastm1.macd < prelastm1.macd and lastm1.macd<0 and prelastm1.macd>0:
-                    return
+            elif kk1Boll and f1po[2][1] == 1 :
 
-                if prelastM5.macd < pre2lastM5.macd and prelastM5.macd <0 and pre2lastM5.macd >0:
-                    return
+                if kk5Down and not kk5Boll:
+                    return "sell-boll-1-down-1"
+                elif kk5DownToBoll and f5po[1][1]==0:
+                    return "sell-boll-1-downtoboll-0"
+                elif kk5DownToBoll and f5po[1][1]==1:
+                    return "sell-boll-1-downtoboll-1"
+                elif kk5DownToBoll and f5po[1][1]==3:
+                    return "sell-boll-1-downtoboll-3"
+                elif kk5Boll and f5po[2][1]==0:
+                    return "sell-boll-1-boll-0"
+                elif kk5Boll and f5po[2][1]==1:
+                    return "sell-boll-1-boll-1"
+                elif kk5Boll and f5po[2][1]==3:
+                    return "sell-boll-1-boll-3"
+                elif kk5UpToBoll and f5po[3][1]==0:
+                    return "sell-boll-1-uptoboll-0"
+                elif kk5UpToBoll and f5po[3][1]==1:
+                    return "sell-boll-1-uptoboll-1"
+                elif kk5UpToBoll and f5po[3][1]==3:
+                    return "sell-boll-1-uptoboll-3"
+                elif kk5Up and not kk5Boll:
+                    return "sell-boll-1-up-0"
 
-                buy1Time = current.time
-                buy2Time = lastM5.time
-                buyPrice1 = current.close
-                kk1pos = k1pos
-                kk5pos = k5pos
-                kk15pos = k15pos
-                spec = 2
-                pricelogging.info("tbuyb2-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
-                return
-            elif ((kk1Boll and f1po[2][1]==False) or (kk1UpToBoll and f1po[3][1]==False)) \
-                    and ( (((kk5Boll and f5po[2][1]==True) or (kk5UpToBoll and f5po[3][1]==True)) and (lastM5.macd>0 and lastM5.macd>prelastM5.macd) )  or ( (kk5DownToBoll and f5po[1][1]==True) and ( (lastM5.macd>0 and prelastM5.macd<0) or (lastM5.macd <0 and lastM5.macd> -0.1)  ) ) ) \
-                    and not kk5Up and stock1Min.isUpOrDownKline() and lastm1.j<90:
+            elif kk1Boll and f1po[2][1] == 3 :
 
-                if lastm1.macd < prelastm1.macd and lastm1.macd<0 and prelastm1.macd>0:
-                    return
+                if kk5Down and not kk5Boll:
+                    return "sell-boll-3-down-1"
+                elif kk5DownToBoll and f5po[1][1]==0:
+                    return "sell-boll-3-downtoboll-0"
+                elif kk5DownToBoll and f5po[1][1]==1:
+                    return "sell-boll-3-downtoboll-1"
+                elif kk5DownToBoll and f5po[1][1]==3:
+                    return "sell-boll-3-downtoboll-3"
+                elif kk5Boll and f5po[2][1]==0:
+                    return "sell-boll-3-boll-0"
+                elif kk5Boll and f5po[2][1]==1:
+                    return "sell-boll-3-boll-1"
+                elif kk5Boll and f5po[2][1]==3:
+                    return "sell-boll-3-boll-3"
+                elif kk5UpToBoll and f5po[3][1]==0:
+                    return "sell-boll-3-uptoboll-0"
+                elif kk5UpToBoll and f5po[3][1]==1:
+                    return "sell-boll-3-uptoboll-1"
+                elif kk5UpToBoll and f5po[3][1]==3:
+                    return "sell-boll-3-uptoboll-3"
+                elif kk5Up and not kk5Boll:
+                    return "sell-boll-3-up-0"
 
-                if prelastM5.macd < pre2lastM5.macd and prelastM5.macd <0 and pre2lastM5.macd >0:
-                    return
+            elif kk1UpToBoll and f1po[3][1] == 0 :
 
-                buy1Time = current.time
-                buy2Time = lastM5.time
-                buyPrice1 = current.close
-                kk1pos = k1pos
-                kk5pos = k5pos
-                kk15pos = k15pos
-                spec = 11
-                pricelogging.info("tbuyb24-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
-                return
+                if kk5Down and not kk5Boll:
+                    return "sell-uptoboll-0-down-1"
+                elif kk5DownToBoll and f5po[1][1]==0:
+                    return "sell-uptoboll-0-downtoboll-0"
+                elif kk5DownToBoll and f5po[1][1]==1:
+                    return "buy-uptoboll-0-downtoboll-1"
+                elif kk5DownToBoll and f5po[1][1]==3:
+                    return "sell-uptoboll-0-downtoboll-3"
+                elif kk5Boll and f5po[2][1]==0:
+                    return "sell-uptoboll-0-boll-0"
+                elif kk5Boll and f5po[2][1]==1:
+                    return "buy-uptoboll-0-boll-1"
+                elif kk5Boll and f5po[2][1]==3:
+                    return "sell-uptoboll-0-boll-3"
+                elif kk5UpToBoll and f5po[3][1]==0:
+                    return "sell-uptoboll-0-uptoboll-0"
+                elif kk5UpToBoll and f5po[3][1]==1:
+                    return "buy-uptoboll-0-uptoboll-1"
+                elif kk5UpToBoll and f5po[3][1]==3:
+                    return "sell-uptoboll-0-uptoboll-3"
+                elif kk5Up and not kk5Boll:
+                    return "sell-uptoboll-0-up-0"
 
-            elif kk1Down and kk5Boll and lastM5.j<20:
-                if stock1Min.isUpOrDownKline(1)==False and stock1Min.isUpOrDownKline(2)==False and stock1Min.isUpOrDownKline(3)==False:
-                    return
-                buy1Time = current.time
-                buy2Time = lastM5.time
-                buyPrice1 = current.close
-                kk1pos = k1pos
-                kk5pos = k5pos
-                kk15pos = k15pos
-                spec = 3
-                pricelogging.info("tbuyb3-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
-                return
-        if stock1Min.isMoreUpKline():
-            if kk1Down and kk5Down and not kk5Boll:
-                buy1Time = current.time
-                buy2Time = lastM5.time
-                buyPrice1 = current.close
-                kk1pos = k1pos
-                kk5pos = k5pos
-                kk15pos = k15pos
-                spec = 4
-                pricelogging.info("tbuyb4-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),k5pos,k1pos,k15pos,spec))
-                return
+            elif kk1UpToBoll and f1po[3][1] == 1 :
 
+                if kk5Down and not kk5Boll:
+                    return "sell-uptoboll-1-down-1"
+                elif kk5DownToBoll and f5po[1][1]==0:
+                    return "sell-uptoboll-1-downtoboll-0"
+                elif kk5DownToBoll and f5po[1][1]==1:
+                    return "sell-uptoboll-1-downtoboll-1"
+                elif kk5DownToBoll and f5po[1][1]==3:
+                    return "sell-uptoboll-1-downtoboll-3"
+                elif kk5Boll and f5po[2][1]==0:
+                    return "sell-uptoboll-1-boll-0"
+                elif kk5Boll and f5po[2][1]==1:
+                    return "buy-uptoboll-1-boll-1"
+                elif kk5Boll and f5po[2][1]==3:
+                    return "sell-uptoboll-1-boll-3"
+                elif kk5UpToBoll and f5po[3][1]==0:
+                    return "sell-uptoboll-1-uptoboll-0"
+                elif kk5UpToBoll and f5po[3][1]==1:
+                    return "sell-uptoboll-1-uptoboll-1"
+                elif kk5UpToBoll and f5po[3][1]==3:
+                    return "sell-uptoboll-1-uptoboll-3"
+                elif kk5Up and not kk5Boll:
+                    return "sell-uptoboll-1-up-0"
 
-    if buyPrice1 != None:
-        if stock5Min.iscrossKline() and prelastM5.macd>0 and prelastM5.macd<0.17 and prelastM5.macd<pre2lastM5.macd and (kk5Up or kk5UpToBoll):
-            if lastm1.macd>prelastm1.macd and lastm1.macd<0.17:
-                return
-            pricelogging.info("tbuybi8981-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
-            buyPrice1 = None
-            return
+            elif kk1UpToBoll and f1po[3][1] == 3 :
 
-        if spec==11 and prelastM5.macd<pre2lastM5.macd and (kk5Up or kk5UpToBoll):
-            if stock5Min.iscrossKline():
-                spec = 2
-                pricelogging.info("tbuy disable to 2,5time=%s,1time=%s" % (time.ctime(lastM5.time),time.ctime(lastm1.time)))
-            if lastM5.macd < 0.2:
-                spec = 2
-                pricelogging.info("tbuy disable to 21,5time=%s,1time=%s" % (time.ctime(lastM5.time),time.ctime(lastm1.time)))
+                if kk5Down and not kk5Boll:
+                    return "sell-uptoboll-3-down-1"
+                elif kk5DownToBoll and f5po[1][1]==0:
+                    return "sell-uptoboll-3-downtoboll-0"
+                elif kk5DownToBoll and f5po[1][1]==1:
+                    return "sell-uptoboll-3-downtoboll-1"
+                elif kk5DownToBoll and f5po[1][1]==3:
+                    return "sell-uptoboll-3-downtoboll-3"
+                elif kk5Boll and f5po[2][1]==0:
+                    return "sell-uptoboll-3-boll-0"
+                elif kk5Boll and f5po[2][1]==1:
+                    return "sell-uptoboll-3-boll-1"
+                elif kk5Boll and f5po[2][1]==3:
+                    return "sell-uptoboll-3-boll-3"
+                elif kk5UpToBoll and f5po[3][1]==0:
+                    return "sell-uptoboll-3-uptoboll-0"
+                elif kk5UpToBoll and f5po[3][1]==1:
+                    return "sell-uptoboll-3-uptoboll-1"
+                elif kk5UpToBoll and f5po[3][1]==3:
+                    return "sell-uptoboll-3-uptoboll-3"
+                elif kk5Up and not kk5Boll:
+                    return "sell-uptoboll-3-up-0"
 
-        if spec==11 and kk5Up and (lastM5.macd<prelastM5.macd or lastM5.k-lastM5.j<0):
-            pricelogging.info("tbuybi8981-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
-            buyPrice1 = None
-            return
+            elif kk1Up:
+                if kk5Down and not kk5Boll:
+                    return "sell-up-1-down-1"
+                elif kk5DownToBoll and f5po[1][1]==0:
+                    return "sell-up-1-downtoboll-0"
+                elif kk5DownToBoll and f5po[1][1]==1:
+                    return "sell-up-1-downtoboll-1"
+                elif kk5DownToBoll and f5po[1][1]==3:
+                    return "sell-up-1-downtoboll-3"
+                elif kk5Boll and f5po[2][1]==0:
+                    return "sell-up-1-boll-0"
+                elif kk5Boll and f5po[2][1]==1:
+                    return "sell-up-1-boll-1"
+                elif kk5Boll and f5po[2][1]==3:
+                    return "sell-up-1-boll-3"
+                elif kk5UpToBoll and f5po[3][1]==0:
+                    return "sell-up-1-uptoboll-0"
+                elif kk5UpToBoll and f5po[3][1]==1:
+                    return "sell-up-1-uptoboll-1"
+                elif kk5UpToBoll and f5po[3][1]==3:
+                    return "sell-up-1-uptoboll-3"
+                elif kk5Up and not kk5Boll:
+                    return "sell-up-1-up-0"
 
-        kkk1up = kk1Up
-        if not kkk1up :
-            if kk1UpToBoll and f5po[3][1]:
-                kkk1up = True
+        return None
 
-        if stock1Min.iscrossKline() or stock1Min.isUpOrDownKline()==False:
-            if spec==11:
-                return
+    def canbuybymacd(k1,k2):
+        if k1.macd < -0.6 and k1.macd < k2.macd:
+            return 0
+        if k1.macd < 0 and k2.macd > 0:
+            return 0
+        if k1.macd >0 and k2.macd>0 and k1.macd < k2.macd and k1.macd < 0.2:
+            return 0
+        if k1.macd >0.6 and k1.macd > k2.macd:
+            return 1
+        if k1.macd>0 and k2.macd<0:
+            return 1
+        if k1.macd <0 and k2.macd<0 and k1.macd>k2.macd and k1.macd>-0.1:
+            return 1
 
-            if lastm1.macd>0 and prelastm1.macd<0:
-                return
+        return 3
 
-            if lastm1.macd>0 and prelastm1.macd>0 and lastm1.macd>prelastm1.macd and lastm1.macd>1:
-                return
+    def canbuybykdj(k1,k2):
+        if k1.j-k1.k>0 and k2.j-k2.k<0:
+            return 1
 
-            if kk1Boll and not kk1Down and (prelastM5.macd<pre2lastM5.macd and prelastM5.macd<0.2) and (kk5Up or kk5UpToBoll):
-                if lastm1.macd>prelastm1.macd and lastm1.macd<0.17:
-                    return
-                pricelogging.info("tbuybi8980-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
-                buyPrice1 = None
-                return
+        if k1.j-k1.k<0 and k2.j-k2.k>0:
+            return 0
 
-            if kk1Boll and (kk5Down or kk5DownToBoll) and lastm1.j>80 and (spec==1 or spec==3 or spec==4) and lastm1.macd<-0.1:
-                pricelogging.info("tbuybi898-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
-                buyPrice1 = None
-                return
-            elif (kk1Up and not kk1Down and lastm1.j>80) or (kk1Up and not kk1Down and lastm1.macd<prelastm1.macd) :
-                pricelogging.info("tbuybi890-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
-                buyPrice1 = None
-                return
+        if k1.j < 20 and k1.j > k2.j:
+            return 1
 
+        if k1.j > 80 and k1.j < k2.j:
+            return 0
 
+        return 3
+
+    po=canbuybypo()
+    bymacd = None
+    bykdj = None
+    if l1tag=="1":
+        bymacd = canbuybymacd(l1_pre,l1_pre_pre)
+        bykdj = canbuybykdj(l1_pre,l1_pre_pre)
+    else:
+        bymacd = canbuybymacd(l1_last,l1_pre)
+        bykdj = canbuybykdj(l1_last,l1_pre)
