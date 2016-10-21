@@ -13,6 +13,36 @@ tradelogging = logging.getLogger("trade")
 tradelogging.addHandler(logging.FileHandler("trade.log"))
 
 
+def canbuybymacd(k1,k2):
+    if k1.macd < -0.6 and k1.macd < k2.macd:
+        return 0
+    if k1.macd < 0 and k2.macd > 0:
+        return 0
+    if k1.macd >0 and k2.macd>0 and k1.macd < k2.macd and k1.macd < 0.2:
+        return 0
+    if k1.macd >0.6 and k1.macd > k2.macd:
+        return 1
+    if k1.macd>0 and k2.macd<0:
+        return 1
+    if k1.macd <0 and k2.macd<0 and k1.macd>k2.macd and k1.macd>-0.1:
+        return 1
+
+    return 3
+
+def canbuybykdj(k1,k2):
+    if k1.j-k1.k>0 and k2.j-k2.k<0:
+        return 1
+
+    if k1.j-k1.k<0 and k2.j-k2.k>0:
+        return 0
+
+    if k1.j < 20 and k1.j > k2.j:
+        return 1
+
+    if k1.j > 80 and k1.j < k2.j:
+        return 0
+
+    return 3
 
 def pl(level1Stock,level2Stock,l1tag,l2tag,difftime):
 
@@ -105,312 +135,274 @@ def pl(level1Stock,level2Stock,l1tag,l2tag,difftime):
 
 
     def canbuybypo():
-        if level1Stock.iscrossKline():
-            if kk1Down:
-                if kk5Down and not kk5Boll:
-                    return "buy-down-1-down-1"
-                elif kk5DownToBoll and f5po[1][1]==0:
-                    return "sell-down-1-downtoboll-0"
-                elif kk5DownToBoll and f5po[1][1]==1:
-                    return "buy-down-1-downtoboll-1"
-                elif kk5DownToBoll and f5po[1][1]==3:
-                    return "sell-down-1-downtoboll-3"
-                elif kk5Boll and f5po[2][1]==0:
-                    return "buy-down-1-boll-0"
-                elif kk5Boll and f5po[2][1]==1:
-                    return "buy-down-1-boll-1"
-                elif kk5Boll and f5po[2][1]==3:
-                    return "sell-down-1-boll-3"
-                elif kk5UpToBoll and f5po[3][1]==0:
-                    return "sell-down-1-uptoboll-0"
-                elif kk5UpToBoll and f5po[3][1]==1:
-                    return "buy-down-1-uptoboll-1"
-                elif kk5UpToBoll and f5po[3][1]==3:
-                    return "sell-down-1-uptoboll-3"
-                elif kk5Up and not kk5Boll:
-                    return "sell-down-1-up-0"
-            elif kk1DownToBoll and f1po[1][1] == 0 :
-                if kk5Down and not kk5Boll:
-                    return "sell-downtoboll-0-down-1"
-                elif kk5DownToBoll and f5po[1][1]==0:
-                    return "sell-downtoboll-0-downtoboll-0"
-                elif kk5DownToBoll and f5po[1][1]==1:
-                    return "sell-downtoboll-0-downtoboll-1"
-                elif kk5DownToBoll and f5po[1][1]==3:
-                    return "sell-downtoboll-0-downtoboll-3"
-                elif kk5Boll and f5po[2][1]==0:
-                    return "sell-downtoboll-0-boll-0"
-                elif kk5Boll and f5po[2][1]==1:
-                    return "sell-downtoboll-0-boll-1"
-                elif kk5Boll and f5po[2][1]==3:
-                    return "sell-downtoboll-0-boll-3"
-                elif kk5UpToBoll and f5po[3][1]==0:
-                    return "sell-downtoboll-0-uptoboll-0"
-                elif kk5UpToBoll and f5po[3][1]==1:
-                    return "sell-downtoboll-0-uptoboll-1"
-                elif kk5UpToBoll and f5po[3][1]==3:
-                    return "sell-downtoboll-0-uptoboll-3"
-                elif kk5Up and not kk5Boll:
-                    return "sell-downtoboll-0-up-0"
-            elif kk1DownToBoll and f1po[1][1] == 1 :
-                if kk5Down and not kk5Boll:
-                    return "buy-downtoboll-1-down-1"
-                elif kk5DownToBoll and f5po[1][1]==0:
-                    return "sell-downtoboll-1-downtoboll-0"
-                elif kk5DownToBoll and f5po[1][1]==1:
-                    return "buy-downtoboll-1-downtoboll-1"
-                elif kk5DownToBoll and f5po[1][1]==3:
-                    return "buy-downtoboll-1-downtoboll-3"
-                elif kk5Boll and f5po[2][1]==0:
-                    return "sell-downtoboll-1-boll-0"
-                elif kk5Boll and f5po[2][1]==1:
-                    return "buy-downtoboll-1-boll-1"
-                elif kk5Boll and f5po[2][1]==3:
-                    return "sell-downtoboll-1-boll-3"
-                elif kk5UpToBoll and f5po[3][1]==0:
-                    return "sell-downtoboll-1-uptoboll-0"
-                elif kk5UpToBoll and f5po[3][1]==1:
-                    return "buy-downtoboll-1-uptoboll-1"
-                elif kk5UpToBoll and f5po[3][1]==3:
-                    return "sell-downtoboll-1-uptoboll-3"
-                elif kk5Up and not kk5Boll:
-                    return "sell-downtoboll-1-up-0"
-            elif kk1DownToBoll and f1po[1][1] == 3 :
-                if kk5Down and not kk5Boll:
-                    return "sell-downtoboll-3-down-1"
-                elif kk5DownToBoll and f5po[1][1]==0:
-                    return "sell-downtoboll-3-downtoboll-0"
-                elif kk5DownToBoll and f5po[1][1]==1:
-                    return "buy-downtoboll-3-downtoboll-1"
-                elif kk5DownToBoll and f5po[1][1]==3:
-                    return "sell-downtoboll-3-downtoboll-3"
-                elif kk5Boll and f5po[2][1]==0:
-                    return "sell-downtoboll-3-boll-0"
-                elif kk5Boll and f5po[2][1]==1:
-                    return "buy-downtoboll-3-boll-1"
-                elif kk5Boll and f5po[2][1]==3:
-                    return "sell-downtoboll-3-boll-3"
-                elif kk5UpToBoll and f5po[3][1]==0:
-                    return "sell-downtoboll-3-uptoboll-0"
-                elif kk5UpToBoll and f5po[3][1]==1:
-                    return "buy-downtoboll-3-uptoboll-1"
-                elif kk5UpToBoll and f5po[3][1]==3:
-                    return "sell-downtoboll-3-uptoboll-3"
-                elif kk5Up and not kk5Boll:
-                    return "sell-downtoboll-3-up-0"
-            elif kk1Boll and f1po[2][1] == 0 :
 
-                if kk5Down and not kk5Boll:
-                    return "sell-boll-0-down-1"
-                elif kk5DownToBoll and f5po[1][1]==0:
-                    return "sell-boll-0-downtoboll-0"
-                elif kk5DownToBoll and f5po[1][1]==1:
-                    return "buy-boll-0-downtoboll-1"
-                elif kk5DownToBoll and f5po[1][1]==3:
-                    return "sell-boll-0-downtoboll-3"
-                elif kk5Boll and f5po[2][1]==0:
-                    return "sell-boll-0-boll-0"
-                elif kk5Boll and f5po[2][1]==1:
-                    return "buy-boll-0-boll-1"
-                elif kk5Boll and f5po[2][1]==3:
-                    return "sell-boll-3-boll-3"
-                elif kk5UpToBoll and f5po[3][1]==0:
-                    return "sell-boll-0-uptoboll-0"
-                elif kk5UpToBoll and f5po[3][1]==1:
-                    return "buy-boll-0-uptoboll-1"
-                elif kk5UpToBoll and f5po[3][1]==3:
-                    return "sell-boll-0-uptoboll-3"
-                elif kk5Up and not kk5Boll:
-                    return "sell-boll-0-up-0"
+        if kk1Down:
+            if kk5Down and not kk5Boll:
+                return "buy-down-1-down-1"
+            elif kk5DownToBoll and f5po[1][1]==0:
+                return "sell-down-1-downtoboll-0"
+            elif kk5DownToBoll and f5po[1][1]==1:
+                return "buy-down-1-downtoboll-1"
+            elif kk5DownToBoll and f5po[1][1]==3:
+                return "sell-down-1-downtoboll-3"
+            elif kk5Boll and f5po[2][1]==0:
+                return "buy-down-1-boll-0"
+            elif kk5Boll and f5po[2][1]==1:
+                return "buy-down-1-boll-1"
+            elif kk5Boll and f5po[2][1]==3:
+                return "sell-down-1-boll-3"
+            elif kk5UpToBoll and f5po[3][1]==0:
+                return "sell-down-1-uptoboll-0"
+            elif kk5UpToBoll and f5po[3][1]==1:
+                return "buy-down-1-uptoboll-1"
+            elif kk5UpToBoll and f5po[3][1]==3:
+                return "sell-down-1-uptoboll-3"
+            elif kk5Up and not kk5Boll:
+                return "sell-down-1-up-0"
+        elif kk1DownToBoll and f1po[1][1] == 0 :
+            if kk5Down and not kk5Boll:
+                return "sell-downtoboll-0-down-1"
+            elif kk5DownToBoll and f5po[1][1]==0:
+                return "sell-downtoboll-0-downtoboll-0"
+            elif kk5DownToBoll and f5po[1][1]==1:
+                return "sell-downtoboll-0-downtoboll-1"
+            elif kk5DownToBoll and f5po[1][1]==3:
+                return "sell-downtoboll-0-downtoboll-3"
+            elif kk5Boll and f5po[2][1]==0:
+                return "sell-downtoboll-0-boll-0"
+            elif kk5Boll and f5po[2][1]==1:
+                return "sell-downtoboll-0-boll-1"
+            elif kk5Boll and f5po[2][1]==3:
+                return "sell-downtoboll-0-boll-3"
+            elif kk5UpToBoll and f5po[3][1]==0:
+                return "sell-downtoboll-0-uptoboll-0"
+            elif kk5UpToBoll and f5po[3][1]==1:
+                return "sell-downtoboll-0-uptoboll-1"
+            elif kk5UpToBoll and f5po[3][1]==3:
+                return "sell-downtoboll-0-uptoboll-3"
+            elif kk5Up and not kk5Boll:
+                return "sell-downtoboll-0-up-0"
+        elif kk1DownToBoll and f1po[1][1] == 1 :
+            if kk5Down and not kk5Boll:
+                return "buy-downtoboll-1-down-1"
+            elif kk5DownToBoll and f5po[1][1]==0:
+                return "sell-downtoboll-1-downtoboll-0"
+            elif kk5DownToBoll and f5po[1][1]==1:
+                return "buy-downtoboll-1-downtoboll-1"
+            elif kk5DownToBoll and f5po[1][1]==3:
+                return "buy-downtoboll-1-downtoboll-3"
+            elif kk5Boll and f5po[2][1]==0:
+                return "sell-downtoboll-1-boll-0"
+            elif kk5Boll and f5po[2][1]==1:
+                return "buy-downtoboll-1-boll-1"
+            elif kk5Boll and f5po[2][1]==3:
+                return "sell-downtoboll-1-boll-3"
+            elif kk5UpToBoll and f5po[3][1]==0:
+                return "sell-downtoboll-1-uptoboll-0"
+            elif kk5UpToBoll and f5po[3][1]==1:
+                return "buy-downtoboll-1-uptoboll-1"
+            elif kk5UpToBoll and f5po[3][1]==3:
+                return "sell-downtoboll-1-uptoboll-3"
+            elif kk5Up and not kk5Boll:
+                return "sell-downtoboll-1-up-0"
+        elif kk1DownToBoll and f1po[1][1] == 3 :
+            if kk5Down and not kk5Boll:
+                return "sell-downtoboll-3-down-1"
+            elif kk5DownToBoll and f5po[1][1]==0:
+                return "sell-downtoboll-3-downtoboll-0"
+            elif kk5DownToBoll and f5po[1][1]==1:
+                return "buy-downtoboll-3-downtoboll-1"
+            elif kk5DownToBoll and f5po[1][1]==3:
+                return "sell-downtoboll-3-downtoboll-3"
+            elif kk5Boll and f5po[2][1]==0:
+                return "sell-downtoboll-3-boll-0"
+            elif kk5Boll and f5po[2][1]==1:
+                return "buy-downtoboll-3-boll-1"
+            elif kk5Boll and f5po[2][1]==3:
+                return "sell-downtoboll-3-boll-3"
+            elif kk5UpToBoll and f5po[3][1]==0:
+                return "sell-downtoboll-3-uptoboll-0"
+            elif kk5UpToBoll and f5po[3][1]==1:
+                return "buy-downtoboll-3-uptoboll-1"
+            elif kk5UpToBoll and f5po[3][1]==3:
+                return "sell-downtoboll-3-uptoboll-3"
+            elif kk5Up and not kk5Boll:
+                return "sell-downtoboll-3-up-0"
+        elif kk1Boll and f1po[2][1] == 0 :
 
-            elif kk1Boll and f1po[2][1] == 1 :
+            if kk5Down and not kk5Boll:
+                return "sell-boll-0-down-1"
+            elif kk5DownToBoll and f5po[1][1]==0:
+                return "sell-boll-0-downtoboll-0"
+            elif kk5DownToBoll and f5po[1][1]==1:
+                return "buy-boll-0-downtoboll-1"
+            elif kk5DownToBoll and f5po[1][1]==3:
+                return "sell-boll-0-downtoboll-3"
+            elif kk5Boll and f5po[2][1]==0:
+                return "sell-boll-0-boll-0"
+            elif kk5Boll and f5po[2][1]==1:
+                return "buy-boll-0-boll-1"
+            elif kk5Boll and f5po[2][1]==3:
+                return "sell-boll-3-boll-3"
+            elif kk5UpToBoll and f5po[3][1]==0:
+                return "sell-boll-0-uptoboll-0"
+            elif kk5UpToBoll and f5po[3][1]==1:
+                return "buy-boll-0-uptoboll-1"
+            elif kk5UpToBoll and f5po[3][1]==3:
+                return "sell-boll-0-uptoboll-3"
+            elif kk5Up and not kk5Boll:
+                return "sell-boll-0-up-0"
 
-                if kk5Down and not kk5Boll:
-                    return "sell-boll-1-down-1"
-                elif kk5DownToBoll and f5po[1][1]==0:
-                    return "sell-boll-1-downtoboll-0"
-                elif kk5DownToBoll and f5po[1][1]==1:
-                    return "sell-boll-1-downtoboll-1"
-                elif kk5DownToBoll and f5po[1][1]==3:
-                    return "sell-boll-1-downtoboll-3"
-                elif kk5Boll and f5po[2][1]==0:
-                    return "sell-boll-1-boll-0"
-                elif kk5Boll and f5po[2][1]==1:
-                    return "sell-boll-1-boll-1"
-                elif kk5Boll and f5po[2][1]==3:
-                    return "sell-boll-1-boll-3"
-                elif kk5UpToBoll and f5po[3][1]==0:
-                    return "sell-boll-1-uptoboll-0"
-                elif kk5UpToBoll and f5po[3][1]==1:
-                    return "sell-boll-1-uptoboll-1"
-                elif kk5UpToBoll and f5po[3][1]==3:
-                    return "sell-boll-1-uptoboll-3"
-                elif kk5Up and not kk5Boll:
-                    return "sell-boll-1-up-0"
+        elif kk1Boll and f1po[2][1] == 1 :
 
-            elif kk1Boll and f1po[2][1] == 3 :
+            if kk5Down and not kk5Boll:
+                return "sell-boll-1-down-1"
+            elif kk5DownToBoll and f5po[1][1]==0:
+                return "sell-boll-1-downtoboll-0"
+            elif kk5DownToBoll and f5po[1][1]==1:
+                return "sell-boll-1-downtoboll-1"
+            elif kk5DownToBoll and f5po[1][1]==3:
+                return "sell-boll-1-downtoboll-3"
+            elif kk5Boll and f5po[2][1]==0:
+                return "sell-boll-1-boll-0"
+            elif kk5Boll and f5po[2][1]==1:
+                return "sell-boll-1-boll-1"
+            elif kk5Boll and f5po[2][1]==3:
+                return "sell-boll-1-boll-3"
+            elif kk5UpToBoll and f5po[3][1]==0:
+                return "sell-boll-1-uptoboll-0"
+            elif kk5UpToBoll and f5po[3][1]==1:
+                return "sell-boll-1-uptoboll-1"
+            elif kk5UpToBoll and f5po[3][1]==3:
+                return "sell-boll-1-uptoboll-3"
+            elif kk5Up and not kk5Boll:
+                return "sell-boll-1-up-0"
 
-                if kk5Down and not kk5Boll:
-                    return "sell-boll-3-down-1"
-                elif kk5DownToBoll and f5po[1][1]==0:
-                    return "sell-boll-3-downtoboll-0"
-                elif kk5DownToBoll and f5po[1][1]==1:
-                    return "sell-boll-3-downtoboll-1"
-                elif kk5DownToBoll and f5po[1][1]==3:
-                    return "sell-boll-3-downtoboll-3"
-                elif kk5Boll and f5po[2][1]==0:
-                    return "sell-boll-3-boll-0"
-                elif kk5Boll and f5po[2][1]==1:
-                    return "sell-boll-3-boll-1"
-                elif kk5Boll and f5po[2][1]==3:
-                    return "sell-boll-3-boll-3"
-                elif kk5UpToBoll and f5po[3][1]==0:
-                    return "sell-boll-3-uptoboll-0"
-                elif kk5UpToBoll and f5po[3][1]==1:
-                    return "sell-boll-3-uptoboll-1"
-                elif kk5UpToBoll and f5po[3][1]==3:
-                    return "sell-boll-3-uptoboll-3"
-                elif kk5Up and not kk5Boll:
-                    return "sell-boll-3-up-0"
+        elif kk1Boll and f1po[2][1] == 3 :
 
-            elif kk1UpToBoll and f1po[3][1] == 0 :
+            if kk5Down and not kk5Boll:
+                return "sell-boll-3-down-1"
+            elif kk5DownToBoll and f5po[1][1]==0:
+                return "sell-boll-3-downtoboll-0"
+            elif kk5DownToBoll and f5po[1][1]==1:
+                return "sell-boll-3-downtoboll-1"
+            elif kk5DownToBoll and f5po[1][1]==3:
+                return "sell-boll-3-downtoboll-3"
+            elif kk5Boll and f5po[2][1]==0:
+                return "sell-boll-3-boll-0"
+            elif kk5Boll and f5po[2][1]==1:
+                return "sell-boll-3-boll-1"
+            elif kk5Boll and f5po[2][1]==3:
+                return "sell-boll-3-boll-3"
+            elif kk5UpToBoll and f5po[3][1]==0:
+                return "sell-boll-3-uptoboll-0"
+            elif kk5UpToBoll and f5po[3][1]==1:
+                return "sell-boll-3-uptoboll-1"
+            elif kk5UpToBoll and f5po[3][1]==3:
+                return "sell-boll-3-uptoboll-3"
+            elif kk5Up and not kk5Boll:
+                return "sell-boll-3-up-0"
 
-                if kk5Down and not kk5Boll:
-                    return "sell-uptoboll-0-down-1"
-                elif kk5DownToBoll and f5po[1][1]==0:
-                    return "sell-uptoboll-0-downtoboll-0"
-                elif kk5DownToBoll and f5po[1][1]==1:
-                    return "buy-uptoboll-0-downtoboll-1"
-                elif kk5DownToBoll and f5po[1][1]==3:
-                    return "sell-uptoboll-0-downtoboll-3"
-                elif kk5Boll and f5po[2][1]==0:
-                    return "sell-uptoboll-0-boll-0"
-                elif kk5Boll and f5po[2][1]==1:
-                    return "buy-uptoboll-0-boll-1"
-                elif kk5Boll and f5po[2][1]==3:
-                    return "sell-uptoboll-0-boll-3"
-                elif kk5UpToBoll and f5po[3][1]==0:
-                    return "sell-uptoboll-0-uptoboll-0"
-                elif kk5UpToBoll and f5po[3][1]==1:
-                    return "buy-uptoboll-0-uptoboll-1"
-                elif kk5UpToBoll and f5po[3][1]==3:
-                    return "sell-uptoboll-0-uptoboll-3"
-                elif kk5Up and not kk5Boll:
-                    return "sell-uptoboll-0-up-0"
+        elif kk1UpToBoll and f1po[3][1] == 0 :
 
-            elif kk1UpToBoll and f1po[3][1] == 1 :
+            if kk5Down and not kk5Boll:
+                return "sell-uptoboll-0-down-1"
+            elif kk5DownToBoll and f5po[1][1]==0:
+                return "sell-uptoboll-0-downtoboll-0"
+            elif kk5DownToBoll and f5po[1][1]==1:
+                return "buy-uptoboll-0-downtoboll-1"
+            elif kk5DownToBoll and f5po[1][1]==3:
+                return "sell-uptoboll-0-downtoboll-3"
+            elif kk5Boll and f5po[2][1]==0:
+                return "sell-uptoboll-0-boll-0"
+            elif kk5Boll and f5po[2][1]==1:
+                return "buy-uptoboll-0-boll-1"
+            elif kk5Boll and f5po[2][1]==3:
+                return "sell-uptoboll-0-boll-3"
+            elif kk5UpToBoll and f5po[3][1]==0:
+                return "sell-uptoboll-0-uptoboll-0"
+            elif kk5UpToBoll and f5po[3][1]==1:
+                return "buy-uptoboll-0-uptoboll-1"
+            elif kk5UpToBoll and f5po[3][1]==3:
+                return "sell-uptoboll-0-uptoboll-3"
+            elif kk5Up and not kk5Boll:
+                return "sell-uptoboll-0-up-0"
 
-                if kk5Down and not kk5Boll:
-                    return "sell-uptoboll-1-down-1"
-                elif kk5DownToBoll and f5po[1][1]==0:
-                    return "sell-uptoboll-1-downtoboll-0"
-                elif kk5DownToBoll and f5po[1][1]==1:
-                    return "sell-uptoboll-1-downtoboll-1"
-                elif kk5DownToBoll and f5po[1][1]==3:
-                    return "sell-uptoboll-1-downtoboll-3"
-                elif kk5Boll and f5po[2][1]==0:
-                    return "sell-uptoboll-1-boll-0"
-                elif kk5Boll and f5po[2][1]==1:
-                    return "buy-uptoboll-1-boll-1"
-                elif kk5Boll and f5po[2][1]==3:
-                    return "sell-uptoboll-1-boll-3"
-                elif kk5UpToBoll and f5po[3][1]==0:
-                    return "sell-uptoboll-1-uptoboll-0"
-                elif kk5UpToBoll and f5po[3][1]==1:
-                    return "sell-uptoboll-1-uptoboll-1"
-                elif kk5UpToBoll and f5po[3][1]==3:
-                    return "sell-uptoboll-1-uptoboll-3"
-                elif kk5Up and not kk5Boll:
-                    return "sell-uptoboll-1-up-0"
+        elif kk1UpToBoll and f1po[3][1] == 1 :
 
-            elif kk1UpToBoll and f1po[3][1] == 3 :
+            if kk5Down and not kk5Boll:
+                return "sell-uptoboll-1-down-1"
+            elif kk5DownToBoll and f5po[1][1]==0:
+                return "sell-uptoboll-1-downtoboll-0"
+            elif kk5DownToBoll and f5po[1][1]==1:
+                return "sell-uptoboll-1-downtoboll-1"
+            elif kk5DownToBoll and f5po[1][1]==3:
+                return "sell-uptoboll-1-downtoboll-3"
+            elif kk5Boll and f5po[2][1]==0:
+                return "sell-uptoboll-1-boll-0"
+            elif kk5Boll and f5po[2][1]==1:
+                return "buy-uptoboll-1-boll-1"
+            elif kk5Boll and f5po[2][1]==3:
+                return "sell-uptoboll-1-boll-3"
+            elif kk5UpToBoll and f5po[3][1]==0:
+                return "sell-uptoboll-1-uptoboll-0"
+            elif kk5UpToBoll and f5po[3][1]==1:
+                return "sell-uptoboll-1-uptoboll-1"
+            elif kk5UpToBoll and f5po[3][1]==3:
+                return "sell-uptoboll-1-uptoboll-3"
+            elif kk5Up and not kk5Boll:
+                return "sell-uptoboll-1-up-0"
 
-                if kk5Down and not kk5Boll:
-                    return "sell-uptoboll-3-down-1"
-                elif kk5DownToBoll and f5po[1][1]==0:
-                    return "sell-uptoboll-3-downtoboll-0"
-                elif kk5DownToBoll and f5po[1][1]==1:
-                    return "sell-uptoboll-3-downtoboll-1"
-                elif kk5DownToBoll and f5po[1][1]==3:
-                    return "sell-uptoboll-3-downtoboll-3"
-                elif kk5Boll and f5po[2][1]==0:
-                    return "sell-uptoboll-3-boll-0"
-                elif kk5Boll and f5po[2][1]==1:
-                    return "sell-uptoboll-3-boll-1"
-                elif kk5Boll and f5po[2][1]==3:
-                    return "sell-uptoboll-3-boll-3"
-                elif kk5UpToBoll and f5po[3][1]==0:
-                    return "sell-uptoboll-3-uptoboll-0"
-                elif kk5UpToBoll and f5po[3][1]==1:
-                    return "sell-uptoboll-3-uptoboll-1"
-                elif kk5UpToBoll and f5po[3][1]==3:
-                    return "sell-uptoboll-3-uptoboll-3"
-                elif kk5Up and not kk5Boll:
-                    return "sell-uptoboll-3-up-0"
+        elif kk1UpToBoll and f1po[3][1] == 3 :
 
-            elif kk1Up:
-                if kk5Down and not kk5Boll:
-                    return "sell-up-1-down-1"
-                elif kk5DownToBoll and f5po[1][1]==0:
-                    return "sell-up-1-downtoboll-0"
-                elif kk5DownToBoll and f5po[1][1]==1:
-                    return "sell-up-1-downtoboll-1"
-                elif kk5DownToBoll and f5po[1][1]==3:
-                    return "sell-up-1-downtoboll-3"
-                elif kk5Boll and f5po[2][1]==0:
-                    return "sell-up-1-boll-0"
-                elif kk5Boll and f5po[2][1]==1:
-                    return "sell-up-1-boll-1"
-                elif kk5Boll and f5po[2][1]==3:
-                    return "sell-up-1-boll-3"
-                elif kk5UpToBoll and f5po[3][1]==0:
-                    return "sell-up-1-uptoboll-0"
-                elif kk5UpToBoll and f5po[3][1]==1:
-                    return "sell-up-1-uptoboll-1"
-                elif kk5UpToBoll and f5po[3][1]==3:
-                    return "sell-up-1-uptoboll-3"
-                elif kk5Up and not kk5Boll:
-                    return "sell-up-1-up-0"
+            if kk5Down and not kk5Boll:
+                return "sell-uptoboll-3-down-1"
+            elif kk5DownToBoll and f5po[1][1]==0:
+                return "sell-uptoboll-3-downtoboll-0"
+            elif kk5DownToBoll and f5po[1][1]==1:
+                return "sell-uptoboll-3-downtoboll-1"
+            elif kk5DownToBoll and f5po[1][1]==3:
+                return "sell-uptoboll-3-downtoboll-3"
+            elif kk5Boll and f5po[2][1]==0:
+                return "sell-uptoboll-3-boll-0"
+            elif kk5Boll and f5po[2][1]==1:
+                return "sell-uptoboll-3-boll-1"
+            elif kk5Boll and f5po[2][1]==3:
+                return "sell-uptoboll-3-boll-3"
+            elif kk5UpToBoll and f5po[3][1]==0:
+                return "sell-uptoboll-3-uptoboll-0"
+            elif kk5UpToBoll and f5po[3][1]==1:
+                return "sell-uptoboll-3-uptoboll-1"
+            elif kk5UpToBoll and f5po[3][1]==3:
+                return "sell-uptoboll-3-uptoboll-3"
+            elif kk5Up and not kk5Boll:
+                return "sell-uptoboll-3-up-0"
+
+        elif kk1Up:
+            if kk5Down and not kk5Boll:
+                return "sell-up-1-down-1"
+            elif kk5DownToBoll and f5po[1][1]==0:
+                return "sell-up-1-downtoboll-0"
+            elif kk5DownToBoll and f5po[1][1]==1:
+                return "sell-up-1-downtoboll-1"
+            elif kk5DownToBoll and f5po[1][1]==3:
+                return "sell-up-1-downtoboll-3"
+            elif kk5Boll and f5po[2][1]==0:
+                return "sell-up-1-boll-0"
+            elif kk5Boll and f5po[2][1]==1:
+                return "sell-up-1-boll-1"
+            elif kk5Boll and f5po[2][1]==3:
+                return "sell-up-1-boll-3"
+            elif kk5UpToBoll and f5po[3][1]==0:
+                return "sell-up-1-uptoboll-0"
+            elif kk5UpToBoll and f5po[3][1]==1:
+                return "sell-up-1-uptoboll-1"
+            elif kk5UpToBoll and f5po[3][1]==3:
+                return "sell-up-1-uptoboll-3"
+            elif kk5Up and not kk5Boll:
+                return "sell-up-1-up-0"
 
         return None
 
-    def canbuybymacd(k1,k2):
-        if k1.macd < -0.6 and k1.macd < k2.macd:
-            return 0
-        if k1.macd < 0 and k2.macd > 0:
-            return 0
-        if k1.macd >0 and k2.macd>0 and k1.macd < k2.macd and k1.macd < 0.2:
-            return 0
-        if k1.macd >0.6 and k1.macd > k2.macd:
-            return 1
-        if k1.macd>0 and k2.macd<0:
-            return 1
-        if k1.macd <0 and k2.macd<0 and k1.macd>k2.macd and k1.macd>-0.1:
-            return 1
+    return canbuybypo()
 
-        return 3
-
-    def canbuybykdj(k1,k2):
-        if k1.j-k1.k>0 and k2.j-k2.k<0:
-            return 1
-
-        if k1.j-k1.k<0 and k2.j-k2.k>0:
-            return 0
-
-        if k1.j < 20 and k1.j > k2.j:
-            return 1
-
-        if k1.j > 80 and k1.j < k2.j:
-            return 0
-
-        return 3
-
-    po=canbuybypo()
-    bymacd = None
-    bykdj = None
-    if l1tag=="1":
-        bymacd = canbuybymacd(l1_pre,l1_pre_pre)
-        bykdj = canbuybykdj(l1_pre,l1_pre_pre)
-    else:
-        bymacd = canbuybymacd(l1_last,l1_pre)
-        bykdj = canbuybykdj(l1_last,l1_pre)

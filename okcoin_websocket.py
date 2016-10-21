@@ -9,6 +9,7 @@ import threading
 from datetime import datetime
 from stock import stock,KLine,Trade
 import logging
+import ply
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
@@ -3423,7 +3424,88 @@ def go13():
 
 
 
+def go14():
+    global buyPrice1,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
+    m5up,m5down,m5next = stock5Min.forecastClose()
+    m1up,m1down,m1next = stock1Min.forecastClose()
+    lastM5 = stock5Min.lastKline()
+    prelastM5 = stock5Min.preLastKline()
+    pre2lastM5 = stock5Min.pre2LastKline()
+    current = stock1Min.lastKline()
+    lastm1 = stock1Min.preLastKline()
+    prelastm1 = stock1Min.pre2LastKline()
+    lastM15 = stock15Min.lastKline()
 
+    lastM15 = stock15Min.lastKline()
+    prelastM15 = stock15Min.preLastKline()
+    pre2lastM15 = stock15Min.pre2LastKline()
+
+    if current.time-lastM5.time>=5*60:
+        return
+
+    if current.time == buy1Time:
+        return
+
+    fpo1 = ply.pl(stock1Min,stock5Min,"1","5",5)
+    fpo2 = ply.pl(stock5Min,stock15Min,"5","15",15)
+
+    bymacd1 = ply.canbuybymacd(lastm1,prelastm1)
+    bykdj1 = ply.canbuybykdj(lastm1,prelastm1)
+
+    bymacd5 = ply.canbuybymacd(lastM5,prelastM5)
+    bykdj5 = ply.canbuybykdj(lastM5,prelastM5)
+
+    bymacd15 = ply.canbuybymacd(lastM15,prelastM15)
+    bykdj15 = ply.canbuybykdj(lastM15,prelastM15)
+
+    fpp1 = fpo1.split("-")
+    fpp2 = fpo2.split("-")
+
+    pricelogging.info("time=%s,fp1=%s,fp2=%s,bymacd=%s,bykdj1=%s,bymacd5=%s,bykdj5=%s,bymacd15=%s,bykdj15=%s" % (time.ctime(current.time),fpp1,fpp2,bymacd1,bykdj1,bymacd5,bykdj5,bymacd15,bykdj15))
+
+    xfg = None
+    if fpp1[0]=="buy":
+        if fpp2[0]=="sell":
+            xfg = "sell"
+        elif fpp2[0]=="buy":
+            xfg = "buy"
+    elif fpp1[0] == "sell":
+        if fpp2[0] == "sell":
+            xfg = "sell"
+        elif fpp2[0] == "buy":
+            xfg = "sell-buy"
+
+
+
+    if xfg == "buy" :
+        if bymacd1==0:
+            pricelogging.info("disable by macd 1111");
+            xfg = "xbuy"
+    elif xfg == "sell":
+        pass
+    elif xfg == "sell-buy":
+        if bymacd1==1:
+            xfg = "buy"
+        elif bymacd1==3 and lastm1.macd > prelastm1.macd:
+            xfg = "buy"
+        elif bykdj1 == 1:
+            xfg = "buy"
+
+
+    if buyPrice1==None and xfg=="buy" and bymacd5!=0:
+        if stock1Min.iscrossKline():
+            buy1Time = current.time
+            buy2Time = lastM5.time
+            buyPrice1 = current.close
+            spec = 1
+            pricelogging.info("tbuyb1-%s,time=%s,buytime=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time)))
+            return
+
+    if buyPrice1!=None and xfg=="sell":
+        if stock1Min.iscrossKline():
+            pricelogging.info("tbuybi588-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+            buyPrice1 = None
+            return
 
 
 def on_message(self,evt):
