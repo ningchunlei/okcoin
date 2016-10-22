@@ -3484,8 +3484,19 @@ def go14():
     elif xfg == "sell-buy":
         if bymacd1==1:
             xfg = "buy"
-        elif bymacd1==3 and lastm1.macd > prelastm1.macd:
-            xfg = "buy"
+        elif bymacd1==3:
+            if buyPrice1==None:
+                if bykdj1==False:
+                    xfg = "sell"
+                elif lastm1.j>80:
+                    xfg = "sell"
+                elif lastm1.j<40 and stock1Min.isUpOrDownKline():
+                    xfg = "buy"
+                elif lastm1.macd>0.2:
+                    xfg = "buy"
+            else:
+                if bykdj1 == False:
+                    xfg = "sell"
         elif bykdj1 == 1:
             xfg = "buy"
 
