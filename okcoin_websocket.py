@@ -3463,6 +3463,8 @@ def go14():
 
     pricelogging.info("time=%s,fp1=%s,fp2=%s,bymacd=%s,bykdj1=%s,bymacd5=%s,bykdj5=%s,bymacd15=%s,bykdj15=%s" % (time.ctime(current.time),fpp1,fpp2,bymacd1,bykdj1,bymacd5,bykdj5,bymacd15,bykdj15))
 
+
+
     xfg = None
     if fpp1[0]=="buy":
         if fpp2[0]=="sell":
@@ -3481,7 +3483,9 @@ def go14():
             pricelogging.info("tbuy disable by macd 1111");
             xfg = "buy"
     elif xfg == "sell":
-        pass
+        if ( ((fpp1[1] == "boll" or fpp1[1]=="downtoboll") and fpp1[2] == '1') or fpp1[1]=="down") and fpp2[1]=="up" and ((fpp2[3]=="uptoboll" or fpp2[3]=="boll") and fpp2[4]=='1'):
+            if (bymacd1!=0 and bymacd5!=0) and lastm1.macd > prelastm1.macd:
+                xfg = "buy"
     elif xfg == "sell-buy":
         if bymacd1==1:
             xfg = "buy"

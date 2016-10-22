@@ -431,6 +431,31 @@ class stock(object):
 
         return flag
 
+    def findIsDownKK(self,index,v,count=1):
+        flag1= 0;
+        flag2 = 0;
+        while True:
+            if self.stocks[self.cursor-count].po[index][0] != v:
+                break
+            if self.stocks[self.cursor-count].j < 20:
+                flag1 = 1
+            if self.stocks[self.cursor-count].j - self.stocks[self.cursor-count].k>0 and self.stocks[self.cursor-count].j - self.stocks[self.cursor-count].k<0:
+                flag2 = 1
+            count+=1
+        return flag1,flag2
+
+    def findIsUpKK(self,index,v,count=1):
+        flag1= 0;
+        flag2 = 0;
+        while True:
+            if self.stocks[self.cursor-count].po[index][0] != v:
+                break
+            if self.stocks[self.cursor-count].j > 80:
+                flag1 = 1
+            if self.stocks[self.cursor-count].j - self.stocks[self.cursor-count].k<0 and self.stocks[self.cursor-count].j - self.stocks[self.cursor-count].k>0:
+                flag2 = 1
+            count+=1
+        return flag1,flag2
 
     def findUpKline(self):
         kline = None

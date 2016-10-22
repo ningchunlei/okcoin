@@ -73,9 +73,14 @@ def pl(level1Stock,level2Stock,l1tag,l2tag,difftime):
 
     if l1tag == "1":
         f1po = level1Stock.mkposition()
+        l1_pre.po = f1po
     else:
         f1po = level1Stock.mkposition(count=0)
+        l1_last.po = f1po
     f5po = level2Stock.mkposition(count=0)
+    l2_last.po = f5po
+
+
 
     kk1Down = False
     kk1Up = False
