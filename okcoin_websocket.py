@@ -3494,7 +3494,7 @@ def go14():
         return tspec
 
     def xsell():
-        if bymacd1==1 or bymacd5==1:
+        if bymacd1==1 or (bymacd5==1 and lastM5.j-lastM5.k>0):
             return
 
         if bymacd1==0 or bymacd5==0:
