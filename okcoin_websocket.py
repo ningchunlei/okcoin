@@ -3511,11 +3511,13 @@ def go14():
             return
 
 
-    if xfg=="buy" and bymacd5!=0:
+    if buyPrice2==None and xfg=="buy" and bymacd5!=0:
+        buyPrice2 = current.close
         pricelogging.info("tbuyb1-1-%s,time=%s,buytime=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time)))
 
-    if xfg=="sell":
-        pricelogging.info("tbuybi588-1-%s,sell-%s,dif=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+    if buyPrice2!=None and xfg=="sell":
+        pricelogging.info("tbuybi588-1-%s,sell-%s,dif=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice2),time.ctime(stock1Min.lastKline().time)))
+        buyPrice2 = None
 
     if buyPrice1!=None and xfg=="sell":
         if stock1Min.iscrossKline():
