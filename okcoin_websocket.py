@@ -3446,8 +3446,8 @@ def go14():
     if current.time == buy1Time:
         return
 
-    fpo1 = ply.pl(stock1Min,stock5Min,"1","5",5)
-    fpo2 = ply.pl(stock5Min,stock15Min,"5","15",15)
+    f1po1,f1po5 = ply.pl(stock1Min,stock5Min,"1","5",5)
+    f2po5,f2po15 = ply.pl(stock5Min,stock15Min,"5","15",15)
 
     bymacd1 = ply.canbuybymacd(lastm1,prelastm1)
     bykdj1 = ply.canbuybykdj(lastm1,prelastm1)
@@ -3458,77 +3458,67 @@ def go14():
     bymacd15 = ply.canbuybymacd(lastM15,prelastM15)
     bykdj15 = ply.canbuybykdj(lastM15,prelastM15)
 
-    fpp1 = fpo1.split("-")
-    fpp2 = fpo2.split("-")
-
-    pricelogging.info("time=%s,fp1=%s,fp2=%s,bymacd=%s,bykdj1=%s,bymacd5=%s,bykdj5=%s,bymacd15=%s,bykdj15=%s" % (time.ctime(current.time),fpp1,fpp2,bymacd1,bykdj1,bymacd5,bykdj5,bymacd15,bykdj15))
+    pricelogging.info("time=%s,fp1=%s,fp2=%s,fp3=%s,bymacd=%s,bykdj1=%s,bymacd5=%s,bykdj5=%s,bymacd15=%s,bykdj15=%s" % (time.ctime(current.time),f1po1,f1po5,f2po15,bymacd1,bykdj1,bymacd5,bykdj5,bymacd15,bykdj15))
 
 
+    def xbuy():
+        tspec = None
+        if bymacd1==0 or bymacd5==0:
+            pricelogging.info("tbuy disable by macd 111")
+            return
 
-    xfg = None
-    if fpp1[0]=="buy":
-        if fpp2[0]=="sell":
-            xfg = "sell"
-        elif fpp2[0]=="buy":
-            xfg = "buy"
-    elif fpp1[0] == "sell":
-        if fpp2[0] == "sell":
-            xfg = "sell"
-        elif fpp2[0] == "buy":
-            xfg = "sell-buy"
-
-    pricelogging.info("xfg = %s" , xfg);
-    if xfg == "buy" :
-        if bymacd1==0:
-            pricelogging.info("tbuy disable by macd 1111");
-            xfg = "buy"
-    elif xfg == "sell":
-        if ( ((fpp1[1] == "boll" or fpp1[1]=="downtoboll") and fpp1[2] == '1') or fpp1[1]=="down") and fpp2[1]=="up" and ((fpp2[3]=="uptoboll" or fpp2[3]=="boll") and fpp2[4]=='1'):
-            if (bymacd1!=0 and bymacd5!=0) and lastm1.macd > prelastm1.macd:
-                xfg = "buy"
-    elif xfg == "sell-buy":
-        if bymacd1==1:
-            xfg = "buy"
-        elif bymacd1==3:
-            if buyPrice1==None:
-                if bykdj1==False:
-                    xfg = "sell"
-                elif lastm1.j>80:
-                    xfg = "sell"
-                elif lastm1.j<40 and stock1Min.isUpOrDownKline():
-                    xfg = "buy"
-                elif lastm1.macd>0.2:
-                    xfg = "buy"
-            else:
-                if bykdj1 == False:
-                    xfg = "sell"
-        elif bykdj1 == 1:
-            xfg = "buy"
+        if ( f1po1[0][0]==1 or (f1po1[1][0]==2 and f1po1[1][1]==1)):
+            if f1po5[0][0]==1 and f1po5[2][0]!=3:
+                if bykdj5==0:
+                    pricelogging.info("tbuy disable by kdj 112")
+                    return
+                if (f2po15[3][0] == 4 and f2po15[3][1] == 0) or (f2po15[1][0] == 2 and f2po15[1][1] == 0):
+                    pricelogging.info("tbuy disable by 15boll 113")
+                    return
+                tspec = 1
 
 
-    if buyPrice1==None and xfg=="buy" and bymacd5!=0:
-        if stock1Min.iscrossKline():
+            if ((f1po5[1][0]==2 and f1po5[1][1]==1) or (f1po5[2][0]==3 and f1po5[2][1]==1) or (f1po5[3][0]==4 and f1po5[3][1]==1) ) and ((f2po15[0][0]==1) or (f2po15[1][0]==2 and f2po15[1][1]==1) or ((f2po15[3][0]==4 and f2po15[3][1]==1)) ):
+                if bykdj5==0:
+                    pricelogging.info("tbuy disable by kdj 112")
+                    return
+                tspec = 2
+
+
+        if (f1po1[1][0]==2 and f1po1[1][1]==0):
+            if ((f1po5[2][0]==3 and f1po5[2][1]==1) or (f1po5[3][0]==4 and f1po5[3][1]==1)) and ((f2po15[1][0]==2 and f2po15[1][1]==1) or (f2po15[2][0]==3 and f2po15[2][1]==1) or ((f2po15[3][0]==4 and f2po15[3][1]==1))):
+                if bykdj5==0:
+                    pricelogging.info("tbuy disable by kdj 112")
+                    return
+                tspec == 3
+        return tspec
+
+    def xsell():
+        if bymacd1==1 or bymacd5==1:
+            return
+
+        if f1po1[4][0]==1:
+            return 1
+
+
+
+    txbuy = xbuy()
+    txsell = xsell()
+
+    pricelogging.info("txbuy=%s,txsell=%s" % (txbuy,txsell) )
+
+    if txbuy!=None:
+        if buyPrice1==None and (stock1Min.iscrossKline() or stock1Min.isMoreUpKline()):
             buy1Time = current.time
             buy2Time = lastM5.time
             buyPrice1 = current.close
-            spec = 1
-            pricelogging.info("tbuyb1-%s,time=%s,buytime=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time)))
+            spec = txbuy
+            pricelogging.info("tbuyb%s-%s,time=%s,deciderTime=%s,spec=%s" % (txbuy,buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),spec))
             return
-
-
-    if buyPrice2==None and xfg=="buy" and bymacd5!=0:
-        buyPrice2 = current.close
-        pricelogging.info("tbuyb1-1-%s,time=%s,buytime=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time)))
-
-    if buyPrice2!=None and xfg=="sell":
-        pricelogging.info("tbuybi588-1-%s,sell-%s,dif=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice2),time.ctime(stock1Min.lastKline().time)))
-        buyPrice2 = None
-
-    if buyPrice1!=None and xfg=="sell":
-        if stock1Min.iscrossKline():
-            pricelogging.info("tbuybi588-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+    if txsell!=None:
+        if buyPrice1!=None and (stock1Min.iscrossKline() or stock1Min.isMoreUpKline()==False):
+            pricelogging.info("tbuybi890-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None
-            return
 
 def on_message(self,evt):
     global last_time

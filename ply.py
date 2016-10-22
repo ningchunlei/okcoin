@@ -41,6 +41,7 @@ def canbuybykdj(k1,k2):
 
     return 3
 
+
 def pl(level1Stock,level2Stock,l1tag,l2tag,difftime):
 
     l1_last = level1Stock.lastKline()
@@ -406,5 +407,5 @@ def pl(level1Stock,level2Stock,l1tag,l2tag,difftime):
 
         return None
 
-    return canbuybypo()
+    return f1po,f5po
 
