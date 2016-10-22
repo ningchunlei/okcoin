@@ -3464,23 +3464,23 @@ def go14():
     def xbuy():
         tspec = None
         if bymacd1==0 or bymacd5==0:
-            pricelogging.info("tbuy disable by macd 111")
+            pricelogging.info("tim = %s ,tbuy disable by macd 111" % (time.ctime(current.time)))
             return
 
         if ( f1po1[0][0]==1 or (f1po1[1][0]==2 and f1po1[1][1]==1)):
             if f1po5[0][0]==1 and f1po5[2][0]!=3:
                 if bykdj5==0:
-                    pricelogging.info("tbuy disable by kdj 112")
+                    pricelogging.info("time = %s, tbuy disable by kdj 112" % (time.ctime(current.time)))
                     return
                 if (f2po15[3][0] == 4 and f2po15[3][1] == 0) or (f2po15[1][0] == 2 and f2po15[1][1] == 0):
-                    pricelogging.info("tbuy disable by 15boll 113")
+                    pricelogging.info("time=%s, tbuy disable by 15boll 113" % (time.ctime(current.time)))
                     return
                 tspec = 1
 
 
             if ((f1po5[1][0]==2 and f1po5[1][1]==1) or (f1po5[2][0]==3 and f1po5[2][1]==1) or (f1po5[3][0]==4 and f1po5[3][1]==1) ) and ((f2po15[0][0]==1) or (f2po15[1][0]==2 and f2po15[1][1]==1) or ((f2po15[3][0]==4 and f2po15[3][1]==1)) ):
                 if bykdj5==0:
-                    pricelogging.info("tbuy disable by kdj 112")
+                    pricelogging.info("time=%s, tbuy disable by kdj 112" % (time.ctime(current.time)))
                     return
                 tspec = 2
 
@@ -3488,7 +3488,7 @@ def go14():
         if (f1po1[1][0]==2 and f1po1[1][1]==0):
             if ((f1po5[2][0]==3 and f1po5[2][1]==1) or (f1po5[3][0]==4 and f1po5[3][1]==1)) and ((f2po15[1][0]==2 and f2po15[1][1]==1) or (f2po15[2][0]==3 and f2po15[2][1]==1) or ((f2po15[3][0]==4 and f2po15[3][1]==1))):
                 if bykdj5==0:
-                    pricelogging.info("tbuy disable by kdj 112")
+                    pricelogging.info("time=%s,tbuy disable by kdj 112" % (time.ctime(current.time)))
                     return
                 tspec == 3
         return tspec
@@ -3505,7 +3505,7 @@ def go14():
     txbuy = xbuy()
     txsell = xsell()
 
-    pricelogging.info("txbuy=%s,txsell=%s" % (txbuy,txsell) )
+    pricelogging.info("time=%s, txbuy=%s,txsell=%s" % (time.ctime(current.time),txbuy,txsell))
 
     if txbuy!=None:
         if buyPrice1==None and (stock1Min.iscrossKline() or stock1Min.isMoreUpKline()):
