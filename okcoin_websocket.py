@@ -3478,7 +3478,7 @@ def go14():
                 tspec = 1
 
 
-            if ((f1po5[1][0]==2 and f1po5[1][1]==1) or (f1po5[2][0]==3 and f1po5[2][1]==1) or (f1po5[3][0]==4 and f1po5[3][1]==1) ) and ((f2po15[0][0]==1) or (f2po15[1][0]==2 and f2po15[1][1]==1) or ((f2po15[3][0]==4 and f2po15[3][1]==1)) ):
+            if ((f1po5[1][0]==2 and f1po5[1][1]==1) or (f1po5[2][0]==3) or (f1po5[3][0]==4 and f1po5[3][1]==1) ) and ((f2po15[0][0]==1) or (f2po15[1][0]==2 and f2po15[1][1]==1) or ((f2po15[3][0]==4 and f2po15[3][1]==1)) ):
                 if bykdj5==0:
                     pricelogging.info("time=%s, tbuy disable by kdj 112" % (time.ctime(current.time)))
                     return
