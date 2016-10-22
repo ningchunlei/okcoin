@@ -3497,8 +3497,11 @@ def go14():
         if bymacd1==1 or bymacd5==1:
             return
 
+        if bymacd1==0 or bymacd5==0:
+            return 22
+
         if f1po1[4][0]!=None:
-            return 1
+            return 11
 
 
 
