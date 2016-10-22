@@ -3502,7 +3502,6 @@ def go14():
 
 
     if buyPrice1==None and xfg=="buy" and bymacd5!=0:
-
         if stock1Min.iscrossKline():
             buy1Time = current.time
             buy2Time = lastM5.time
@@ -3510,19 +3509,19 @@ def go14():
             spec = 1
             pricelogging.info("tbuyb1-%s,time=%s,buytime=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time)))
             return
-        else:
-            pricelogging.info("tbuyb1-1-%s,time=%s,buytime=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time)))
-            return
+
+
+    if xfg=="buy" and bymacd5!=0:
+        pricelogging.info("tbuyb1-1-%s,time=%s,buytime=%s" % (buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time)))
+
+    if xfg=="sell":
+        pricelogging.info("tbuybi588-1-%s,sell-%s,dif=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
 
     if buyPrice1!=None and xfg=="sell":
         if stock1Min.iscrossKline():
             pricelogging.info("tbuybi588-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None
             return
-        else:
-            pricelogging.info("tbuybi588-1-%s,sell-%s,dif=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
-            return
-
 
 def on_message(self,evt):
     global last_time
