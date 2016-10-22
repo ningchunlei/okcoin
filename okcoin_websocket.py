@@ -3500,7 +3500,7 @@ def go14():
         if bymacd1==0 or bymacd5==0:
             return 22
 
-        if f1po1[4][0]!=None:
+        if f1po1[4][0]==5:
             return 11
 
 
@@ -3510,7 +3510,7 @@ def go14():
 
     pricelogging.info("time=%s, txbuy=%s,txsell=%s" % (time.ctime(current.time),txbuy,txsell))
 
-    if txbuy!=None:
+    if txbuy!=None and txsell==None:
         if buyPrice1==None and (stock1Min.iscrossKline() or stock1Min.isMoreUpKline()):
             buy1Time = current.time
             buy2Time = lastM5.time
@@ -3518,7 +3518,7 @@ def go14():
             spec = txbuy
             pricelogging.info("tbuyb%s-%s,time=%s,deciderTime=%s,spec=%s" % (txbuy,buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),spec))
             return
-    if txsell!=None:
+    if txsell!=None and txbuy==None:
         if buyPrice1!=None and (stock1Min.iscrossKline() or stock1Min.isMoreUpKline()==False):
             pricelogging.info("tbuybi890-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None
