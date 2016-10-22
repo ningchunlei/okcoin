@@ -71,11 +71,11 @@ def pl(level1Stock,level2Stock,l1tag,l2tag,difftime):
     pricelogging.info("clevel=%s,time=%s,j=%s,k=%s,macd=%s,up=%s,dn=%s,boll=%s,open=%s,close=%s" % (l1tag,time.ctime(l1_last.time),l1_last.j,l1_last.k,l1_last.macd,l1_last.up,l1_last.dn,l1_last.boll,l1_last.open,l1_last.close))
     pricelogging.info("clevel=%s,time=%s,j=%s,k=%s,macd=%s,up=%s,dn=%s,boll=%s,open=%s,close=%s" % (l2tag,time.ctime(l2_last.time),l2_last.j,l2_last.k,l2_last.macd,l2_last.up,l2_last.dn,l2_last.boll,l2_last.open,l2_last.close))
 
-
-    f1po = level1Stock.mkposition()
+    if l1tag == "1":
+        f1po = level1Stock.mkposition()
+    else:
+        f1po = level1Stock.mkposition(count=0)
     f5po = level2Stock.mkposition(count=0)
-
-
 
     kk1Down = False
     kk1Up = False
