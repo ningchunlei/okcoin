@@ -3497,7 +3497,7 @@ def go14():
         if bymacd1==1 or bymacd5==1:
             return
 
-        if f1po1[4][0]==1:
+        if f1po1[4][0]!=None:
             return 1
 
 
