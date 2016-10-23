@@ -3468,6 +3468,7 @@ def go14():
             return
 
         if ( f1po1[0][0]==1 or (f1po1[1][0]==2 and f1po1[1][1]==1)):
+
             if f1po5[0][0]==1 and f1po5[2][0]!=3:
                 if bykdj5==0:
                     pricelogging.info("time = %s, tbuy disable by kdj 112" % (time.ctime(current.time)))
@@ -3478,7 +3479,7 @@ def go14():
                 tspec = 1
 
 
-            if ( (f1po5[1][0]==2) or (f1po5[2][0]==3) or (f1po5[3][0]==4) ) and ((f2po15[0][0]==1) or (f2po15[1][0]==2 and f2po15[1][1]==1) or ((f2po15[3][0]==4 and f2po15[3][1]==1)) ):
+            if ( (f1po5[1][0]==2) or (f1po5[2][0]==3) or (f1po5[3][0]==4) ) and ((f2po15[0][0]==1) or (f2po15[1][0]==2 and f2po15[1][1]==1) or ((f2po15[3][0]==4 and stock15Min.isUpOrDownKline())) ):
                 if bykdj5==0:
                     pricelogging.info("time=%s, tbuy disable by kdj 112" % (time.ctime(current.time)))
                     return
@@ -3486,7 +3487,7 @@ def go14():
 
 
         if (f1po1[1][0]==2 and f1po1[1][1]==0):
-            if ((f1po5[2][0]==3) or (f1po5[3][0]==4)) and ((f2po15[1][0]==2 and f2po15[1][1]==1) or (f2po15[2][0]==3 and f2po15[2][1]==1) or ((f2po15[3][0]==4 and f2po15[3][1]==1))):
+            if ((f1po5[2][0]==3) or (f1po5[3][0]==4)) and ((f2po15[1][0]==2 and f2po15[1][1]==1) or (f2po15[2][0]==3 and f2po15[2][1]==1) or ((f2po15[3][0]==4 and and stock15Min.isUpOrDownKline()))):
                 if bykdj5==0:
                     pricelogging.info("time=%s,tbuy disable by kdj 112" % (time.ctime(current.time)))
                     return
