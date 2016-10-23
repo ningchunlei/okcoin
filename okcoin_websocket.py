@@ -3559,7 +3559,7 @@ def go14():
         buy1Time = current.time
         buy2Time = lastM5.time
         buyPrice1 = current.close
-        pricelogging.info("tbuy-%s,-%s,time=%s,deciderTime=%s,k5=%s,k1=%s,k15=%s,spec=%s" % (txtbuy,buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),spec))
+        pricelogging.info("tbuy-%s,-%s,time=%s,deciderTime=%s,spec=%s" % (txtbuy,buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),spec))
         return
 
     if txsell!=None and buyPrice1!=None:
