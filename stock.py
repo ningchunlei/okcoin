@@ -834,8 +834,8 @@ class stock(object):
 
 
 
-    def iscrossKline(self):
-        if abs(self.stocks[self.cursor-1].close-self.stocks[self.cursor-1].open)<=0.4:
+    def iscrossKline(self,count=1):
+        if abs(self.stocks[self.cursor-count].close-self.stocks[self.cursor-count].open)<=0.3:
             return True
         else:
             return False

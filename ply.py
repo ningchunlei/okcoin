@@ -12,13 +12,13 @@ tradelogging = logging.getLogger("trade")
 
 def canbuybymacd(k1,k2):
     if k1.macd < -0.6 and k1.macd < k2.macd:
-        return 0
+        return 4
     if k1.macd < 0 and k2.macd > 0:
         return 0
     if k1.macd >0 and k2.macd>0 and k1.macd < k2.macd and k1.macd < 0.2:
         return 0
     if k1.macd >0.6 and k1.macd > k2.macd:
-        return 1
+        return 2
     if k1.macd>0 and k2.macd<0:
         return 1
     if k1.macd <0 and k2.macd<0 and k1.macd>k2.macd and k1.macd>-0.1:
@@ -34,10 +34,10 @@ def canbuybykdj(k1,k2):
         return 0
 
     if k1.j < 20 and k1.j > k2.j:
-        return 1
+        return 2
 
     if k1.j > 80 and k1.j < k2.j:
-        return 0
+        return 4
 
     return 3
 
