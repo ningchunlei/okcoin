@@ -3488,10 +3488,13 @@ def go14():
                     return
 
                 if lastm1.j-lastm1.k < 0 and lastm1.j > prelastm1.j and lastm1.macd > prelastm1.macd:
+                    if (f1po1[2][0]==3 and (f1po1[2][1]==1 or f1po1[2][1]==3)):
+                        return
                     return 21
 
                 if prelastm1.j-prelastm1.k<0 and lastm1.j-lastm1.k > 0 and lastm1.j > prelastm1.j:
                     return 22
+
 
     def xbuy4():
         if lastm1.j-lastm1.k<0 and lastm1.j > prelastm1.j:
