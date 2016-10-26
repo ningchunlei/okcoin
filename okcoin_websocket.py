@@ -3552,7 +3552,7 @@ def go14():
         if upToDown==True and lastm1.j-lastm1.k>0 and prelastm1.j-prelastm1.k<0:
             upToDown = False
 
-        if current.time - buy1Time == 60 and lastm1.j-lastm1.k<-2:
+        if current.time - buy1Time == 60 and lastm1.j-lastm1.k<0:
             pricelogging.info("tbuy-x114-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None
             spec = 12
@@ -3588,7 +3588,19 @@ def go14():
             xspec = lastM5.j - lastM5.k
             xkdj = lastM5.j
 
-
+    if buyPrice1!=None and spec==13:
+        if lastm1.j-lastm1.k<0:
+            if lastm1.j<prelastm1.j and abs(lastm1.j-prelastm1.j)>4:
+                pricelogging.info("tbuy-x114-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+                buyPrice1 = None
+                spec = 12
+                buy1Time = current.time
+                buy2Time = lastM5.time
+                xspec = lastM5.j - lastM5.k
+                xkdj = lastM5.j
+                return
+        else:
+            spec = 11
 
 
     if spec == 12 and buyPrice1==None:
@@ -3618,7 +3630,7 @@ def go14():
             buy1Time = current.time
             buy2Time = lastM5.time
             buyPrice1 = current.close
-            spec = 11
+            spec = 13
             pricelogging.info("12 - tbuy-%s,-%s,time=%s,deciderTime=%s,spec=%s" % (spec,buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),spec))
             return
 
