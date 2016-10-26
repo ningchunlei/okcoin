@@ -3470,10 +3470,9 @@ def go14():
             return
 
         fdata = stock1Min.findInFiveData()
-        if (f1po1[0][0]==1 or (f1po1[1][0]==2 and f1po1[1][1]==1) or (f1po1[2][0]==3 and f1po1[2][1]==1)):
+        if (f1po1[0][0]==1 or (f1po1[1][0]==2 and (f1po1[1][1]==1 or f1po1[1][1]==3) ) or (f1po1[2][0]==3 and (f1po1[2][1]==1 or f1po1[2][1]==3))):
 
-            if (f1po5[0][0]==1) or (f1po5[1][0]==2 and f1po5[1][1]==1):
-
+            if (f1po5[0][0]==1) or (f1po5[1][0]==2 and (f1po5[1][1]==1 or f1po5[1][1]==3)):
                 if bymacd5 == 0:
                     pricelogging.info("time = %s ,tbuy disable by macd 111-3" % (time.ctime(current.time)))
                     return
@@ -3482,8 +3481,8 @@ def go14():
                     return 11
 
 
-        if (f1po1[0][0]==1 or (f1po1[1][0]==2 and f1po1[1][1]==1)):
-            if (f1po5[2][0]==3 and f1po5[2][1]==0) or (f1po5[3][0]==4 and f1po5[3][1]==0):
+        if (f1po1[0][0]==1 or (f1po1[1][0]==2 and (f1po1[1][1]==1 or f1po1[1][1]==3))):
+            if (f1po5[2][0]==3) or (f1po5[3][0]==4):
                 if bymacd5 == 0:
                     pricelogging.info("time = %s ,tbuy disable by macd 111-3" % (time.ctime(current.time)))
                     return

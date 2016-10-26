@@ -674,6 +674,7 @@ class stock(object):
         tmax = self.stocks[self.cursor-count].close
         xcount = count
         tc = count
+        txx = 0
         while True:
             if not (self.stocks[self.cursor-count].high<self.stocks[self.cursor-count].boll and self.stocks[self.cursor-count].low>self.stocks[self.cursor-count].dn):
                 if self.stocks[self.cursor-count].low-0.3<self.stocks[self.cursor-count].dn and self.stocks[self.cursor-count].close<self.stocks[self.cursor-count].boll:
@@ -686,15 +687,20 @@ class stock(object):
                 if tmax < self.stocks[self.cursor-count].close :
                     tmax = self.stocks[self.cursor-count].close
                     tc = count;
+                if (self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k) * (self.stocks[self.cursor-count-1].j-self.stocks[self.cursor-count-1].k) < 0:
+                    txx += 1
             count += 1
 
         tdown = True
+
+        '''
         if self.stocks[self.cursor-tc].j -self.stocks[self.cursor-tc].k > 0 and self.stocks[self.cursor-xcount].j - self.stocks[self.cursor-xcount].k<0:
             tdown=False
         if self.stocks[self.cursor-tc].macd > 0 and self.stocks[self.cursor-xcount].macd <0:
             tdown=False
+        '''
 
-        if flag==1 and tdown==False:
+        if flag==1 and txx!=0 and self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k<0:
             return 3
 
         return flag
@@ -705,7 +711,7 @@ class stock(object):
         tmax = self.stocks[self.cursor-count].close
         xcount = count
         tc = count
-
+        txx = 0
         while True:
             if not (self.stocks[self.cursor-count].high<self.stocks[self.cursor-count].up and self.stocks[self.cursor-count].low>self.stocks[self.cursor-count].boll):
                 if self.stocks[self.cursor-count].high+0.3>self.stocks[self.cursor-count].up and self.stocks[self.cursor-count].close>self.stocks[self.cursor-count].boll:
@@ -719,6 +725,8 @@ class stock(object):
                 if tmax < self.stocks[self.cursor-count].close :
                     tmax = self.stocks[self.cursor-count].close
                     tc = count;
+                if (self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k) * (self.stocks[self.cursor-count-1].j-self.stocks[self.cursor-count-1].k) < 0:
+                    txx += 1
             count += 1
 
         tdown = True
@@ -727,8 +735,8 @@ class stock(object):
         if self.stocks[self.cursor-tc].macd > 0 and self.stocks[self.cursor-xcount].macd <0:
             tdown=False
 
-        if flag==1 and tdown==False:
-            flag = 3
+        if flag==1 and txx!=0 and self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k<0:
+            return 3
 
         return flag
 
