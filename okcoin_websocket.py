@@ -3480,6 +3480,11 @@ def go14():
                 if lastm1.j-lastm1.k>-4 and lastm1.macd > prelastm1.macd and prelastm1.j-prelastm1.k<0 and lastm1.j-lastm1.k>prelastm1.j-prelastm1.k:
                     return 11
 
+                if lastm1.macd > prelastm1.macd and lastm1.j-lastm1.k>0 and prelastm1.j-prelastm1.k>0 and lastm1.j<80:
+                    if (f1po1[2][0]==3 and (f1po1[2][1]==1 or f1po1[2][1]==3)):
+                        return
+                    return 11
+
 
         if (f1po1[0][0]==1 or (f1po1[1][0]==2 and (f1po1[1][1]==1 or f1po1[1][1]==3)) or (f1po1[2][0]==3 and (f1po1[2][1]==1 or f1po1[2][1]==3))):
             if (f1po5[2][0]==3) or (f1po5[3][0]==4):
