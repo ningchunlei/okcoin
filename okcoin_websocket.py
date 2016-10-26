@@ -3487,7 +3487,7 @@ def go14():
                     pricelogging.info("time = %s ,tbuy disable by macd 111-3" % (time.ctime(current.time)))
                     return
 
-                if lastm1.j-lastm1.k < 0 and lastm1.j > prelastm1.j and lastm1.j<20 and lastm1.macd > prelastm1.macd:
+                if lastm1.j-lastm1.k < 0 and lastm1.j > prelastm1.j and lastm1.macd > prelastm1.macd:
                     return 21
 
                 if prelastm1.j-prelastm1.k<0 and lastm1.j-lastm1.k > 0 and lastm1.j > prelastm1.j:
@@ -3530,8 +3530,8 @@ def go14():
     if buyPrice1!=None and (spec==21 or spec==22):
         if lastm1.j-lastm1.k<0 and lastm1.j < prelastm1.j:
             if lastM5.j- lastM5.k > 0:
-                pricelogging.info("time = %s ,tbuy disable by up 113-1" % (time.ctime(current.time)))
-                spec == 11
+                pricelogging.info("time = %s ,tbuy disable by go up 113-1" % (time.ctime(current.time)))
+                spec = 11
             else:
                 pricelogging.info("tbuy-x114-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
                 buyPrice1 = None
@@ -3541,8 +3541,8 @@ def go14():
                 xspec = None
                 xkdj = None
         elif lastm1.j - lastm1.k > 0:
-            pricelogging.info("time = %s ,tbuy disable by up 113-2" % (time.ctime(current.time)))
-            spec == 11
+            pricelogging.info("time = %s ,tbuy disable by go up 113-2" % (time.ctime(current.time)))
+            spec = 11
 
         return
 
