@@ -3533,13 +3533,14 @@ def go14():
                 pricelogging.info("time = %s ,tbuy disable by go up 113-1" % (time.ctime(current.time)))
                 spec = 11
             else:
-                pricelogging.info("tbuy-x114-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
-                buyPrice1 = None
-                spec = None
-                buy1Time = None
-                buy2Time = None
-                xspec = None
-                xkdj = None
+                if stock1Min.lastKline().close-buyPrice1 >0 :
+                    pricelogging.info("tbuy-x114-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+                    buyPrice1 = None
+                    spec = None
+                    buy1Time = None
+                    buy2Time = None
+                    xspec = None
+                    xkdj = None
         elif lastm1.j - lastm1.k > 0:
             pricelogging.info("time = %s ,tbuy disable by go up 113-2" % (time.ctime(current.time)))
             spec = 11
