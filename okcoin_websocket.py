@@ -3595,6 +3595,8 @@ def go14():
         if bykdj5==0:
             pricelogging.info("time = %s ,tbuy disable by macd 112-5" % (time.ctime(current.time)))
             sepc = None
+            sellSpec = None
+            m5data = None
 
 
         if buy2Time!=lastM5.time and sellSpec<0 and lastM5.j<prelastM5.j and lastM5.j-lastM5.k<0:
