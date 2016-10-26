@@ -3487,7 +3487,7 @@ def go14():
                     pricelogging.info("time = %s ,tbuy disable by macd 111-3" % (time.ctime(current.time)))
                     return
 
-                if lastM5.macd < prelastM5.macd and lastM5.j < prelastM5.j and prelastM5.open > prelastM5.close:
+                if lastM5.macd < prelastM5.macd and (lastM5.j < prelastM5.j or (lastM5.j>prelastM5.j and abs(lastM5.j-prelastM5.j)<4 )) and prelastM5.open > prelastM5.close:
                     pricelogging.info("time = %s ,tbuy disable by macd 111-31" % (time.ctime(current.time)))
                     return
 
