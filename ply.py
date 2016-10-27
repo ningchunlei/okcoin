@@ -42,6 +42,26 @@ def canbuybykdj(k1,k2):
     return 3
 
 
+def kdiff(k1po,k2po):
+
+    if k1po[0][0]==1 and k2po[0][0] == 1:
+        return True
+
+    if k1po[1][0]==2 and k2po[1][0] == 2:
+        return True
+
+    if k1po[2][0]==3 and k2po[2][0] == 3:
+        return True
+    if k1po[3][0]==4 and k2po[3][0] == 4:
+        return True
+    if k1po[4][0]==5 and k2po[4][0] == 5:
+        return True
+    return False
+
+
+def kkpos(klast1,kbuy1,klast1po,kbuy1po,klast5,kbuy5,klast5po,kbuy5po):
+    return kdiff(klast5po,kbuy5po)
+
 def pl(level1Stock,level2Stock,l1tag,l2tag,difftime):
 
     l1_last = level1Stock.lastKline()

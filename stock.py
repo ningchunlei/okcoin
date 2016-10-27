@@ -744,6 +744,15 @@ class stock(object):
         flag = 0
         while True:
             if not (self.stocks[self.cursor-count].low<self.stocks[self.cursor-count].boll and self.stocks[self.cursor-count].high>self.stocks[self.cursor-count].boll):
+                if self.stocks[self.cursor-count].high<self.stocks[self.cursor-count].up and self.stocks[self.cursor-count].low>self.stocks[self.cursor-count].boll:
+                    if self.stocks[self.cursor-count].high < self.stocks[self.cursor-count].boll + (self.stocks[self.cursor-count].up-self.stocks[self.cursor-count].boll)/3:
+                        count +=1
+                        continue
+                if self.stocks[self.cursor-count].high<self.stocks[self.cursor-count].boll and self.stocks[self.cursor-count].low>self.stocks[self.cursor-count].dn:
+                    if self.stocks[self.cursor-count].low > self.stocks[self.cursor-count].boll - (self.stocks[self.cursor-count].boll-self.stocks[self.cursor-count].dn)/3:
+                        count +=1
+                        continue
+
                 if self.stocks[self.cursor-count].high+0.3>self.stocks[self.cursor-count].up and self.stocks[self.cursor-count].close>self.stocks[self.cursor-count].boll \
                         or self.stocks[self.cursor-count].high<self.stocks[self.cursor-count].up and self.stocks[self.cursor-count].low>self.stocks[self.cursor-count].boll:
                     #from up
