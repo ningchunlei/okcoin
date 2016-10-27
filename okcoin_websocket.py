@@ -3555,6 +3555,8 @@ def go14():
                     buy2Time = None
                     xspec = None
                     xkdj = None
+                elif stock1Min.lastKline().close-buyPrice1 <0:
+                    pricelogging.info("time = %s ,tbuy disable sell 114-1" % (time.ctime(current.time)))
         elif lastm1.j - lastm1.k > 0:
             pricelogging.info("time = %s ,tbuy disable by go up 113-2" % (time.ctime(current.time)))
             spec = 11
@@ -3602,7 +3604,8 @@ def go14():
                 buy2Time = lastM5.time
                 xspec = lastM5.j - lastM5.k
                 xkdj = lastM5.j
-
+            elif stock1Min.lastKline().close-buyPrice1 <0:
+                pricelogging.info("time = %s ,tbuy disable sell 114-2" % (time.ctime(current.time)))
 
     if buyPrice1!=None and spec==13:
         if lastm1.j-lastm1.k<0:
