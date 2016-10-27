@@ -3639,20 +3639,32 @@ def go14():
             spec = 11
             return
 
-        if lastm1.j-lastm1.k<0 and lastM5.j<prelastM5.j:
-            pricelogging.info("tbuy-x114-4-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+        if current.time - buy1Time>60 and ( (lastm1.j-lastm1.k<0 and prelastm1.j-prelastm1.k>0) or (upToDown==True and lastm1.j-lastm1.k<0)):
+            upToDown = True
+            if bymacd1 == 1:
+                pricelogging.info("time = %s ,tbuy disable by macd 112-1" % (time.ctime(current.time)))
+                return
+            if bymacd5 == 1:
+                pricelogging.info("time = %s ,tbuy disable by macd 112-2" % (time.ctime(current.time)))
+                return
+            if lastM5.j-lastM5.k>0 and lastM5.j > prelastM5.j and lastM5.j<80:
+                pricelogging.info("time = %s ,tbuy disable by macd 112-3" % (time.ctime(current.time)))
+                return
+            if lastm1.macd > prelastm1.macd:
+                pricelogging.info("time = %s ,tbuy disable by macd 112-4" % (time.ctime(current.time)))
+                return
+            if lastm1.close > lastm1.open:
+                pricelogging.info("time = %s ,tbuy disable by macd 112-5" % (time.ctime(current.time)))
+                return
+
+
+            pricelogging.info("tbuy-%s-%s,sell-%s,diff=%s,time=%s" % (spec,buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
             buyPrice1 = None
-            spec = None
-            buy1Time = None
-            buy2Time = None
-            xspec = None
-            xkdj = None
-            upToDown = None
-            sellSpec = None
-            m5data = None
-            kk1pos = None
-            kk5pos = None
-            return
+            spec = 12
+            buy1Time = current.time
+            buy2Time = lastM5.time
+            xspec = lastM5.j - lastM5.k
+            xkdj = lastM5.j
 
 
     if buyPrice1!=None and spec==11:
