@@ -93,6 +93,11 @@ def canbuy(stock1Min,lastm1,prelastm1,pre2lastm1,lastm5,prelastm5,pre2lastm5):
         pricelogging.info("tbuy-canbuy-31")
         return True
 
+    if pre2lastm5.close>pre2lastm5.open and prelastm5.close>prelastm5.open and prelastm5.j>pre2lastm5.j and \
+                    lastm1.close > lastm1.open and lastm1.macd>1 :
+        pricelogging.info("tbuy-canbuy-32")
+        return True
+
     if lastm5.j-lastm5.k>0:
         fdata = stock1Min.findInFiveData()
         if fdata[0].open < fdata[len(fdata)-1].close and lastm1.j > prelastm1.j and datetime.fromtimestamp(lastm1.time).minute % 5<3:
