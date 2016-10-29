@@ -3514,7 +3514,7 @@ def go14():
 
     if spec == 15:
         if lastm1.close < lastm1.open :
-            if xbuy3()!=None:
+            if xbuy3()==None:
                 sell("115-2")
             if lastM5.j-lastM5.k >0:
                 spec = 12
@@ -3536,7 +3536,7 @@ def go14():
                     and prelastM5.close > prelastM5.open and pre2lastM5.close>pre2lastM5.open and lastm1.macd>1 and lastM5.macd>1:
                 spec = 15
                 return
-            if xbuy3()!=None:
+            if xbuy3()==None:
                 sell("115-1")
             if lastM5.j-lastM5.k >0:
                 spec = 12
