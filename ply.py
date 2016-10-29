@@ -114,10 +114,10 @@ def cansell(stock1Min,lastm1,prelastm1,pre2lastm1,lastm5,prelastm5,pre2lastm5):
             return True
 
     if lastm1.close<lastm1.open and lastm5.j-lastm5.k<0:
-        if lastm1.j>80 and lastm1.j<prelastm1.j and not ( (lastm1.macd>1) and (lastm5.j>prelastm5.j and prelastm5.j>pre2lastm5.j and prelastm5.macd>pre2lastm5.macd and lastm5.macd>prelastm5.macd and prelastm5.close > prelastm5.open) ):
+        if lastm1.j>80 and lastm1.j<prelastm1.j and not ( (lastm1.macd>1) and (lastm5.macd>prelastm5.macd and prelastm5.j>pre2lastm5.j and prelastm5.macd>pre2lastm5.macd and prelastm5.close > prelastm5.open)):
             pricelogging.info("tbuy-cansell-0")
             return True
-    if lastm1.j-lastm1.k<0 and lastm1.close<lastm1.open and not ( (lastm1.macd>1) and (lastm5.j>prelastm5.j and prelastm5.j>pre2lastm5.j and prelastm5.macd>pre2lastm5.macd and lastm5.macd>prelastm5.macd and prelastm5.close > prelastm5.open) ):
+    if lastm1.j-lastm1.k<0 and lastm1.close<lastm1.open and not ( (lastm1.macd>1) and (lastm5.macd>prelastm5.macd and prelastm5.j>pre2lastm5.j and prelastm5.macd>pre2lastm5.macd and prelastm5.close > prelastm5.open)):
         pricelogging.info("tbuy-cansell-01")
         return True
 
