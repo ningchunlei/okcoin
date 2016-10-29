@@ -3467,9 +3467,9 @@ def go14():
             return
 
         fdata = stock1Min.findInFiveData()
-        if (f1po1[0][0]==1 or (f1po1[1][0]==2 and (f1po1[1][1]==1 or f1po1[1][1]==3) ) or (f1po1[2][0]==3 and (f1po1[2][1]==1 or f1po1[2][1]==3))):
+        if (f1po1[0][0]==1 or (f1po1[1][0]==2) or (f1po1[2][0]==3)):
 
-            if (f1po5[0][0]==1) or (f1po5[1][0]==2 and (f1po5[1][1]==1 or f1po5[1][1]==3)):
+            if (f1po5[0][0]==1) or (f1po5[1][0]==2):
 
                 if ply.canbuy(stock1Min,lastm1,prelastm1,stock1Min.preMyLastKline(3),lastM5,prelastM5)==True :
                     pricelogging.info("time = %s ,tbuy buy by macd 121-3" % (time.ctime(current.time)))
