@@ -59,9 +59,12 @@ def kdiff(k1po,k2po):
     return False
 
 
-def canbuy(stock1Min,lastm1,prelastm1,pre2lastm1,lastm5,prelastm5):
+def canbuy(stock1Min,lastm1,prelastm1,pre2lastm1,lastm5,prelastm5,pre2lastm5):
     if datetime.fromtimestamp(lastm1.time).minute % 5==4 and lastm1.close>lastm1.open:
         if lastm1.j>prelastm1.j or lastm1.j-lastm1.k>0:
+            if prelastm5.j - prelastm5.k<0 and prelastm5.macd<pre2lastm5.macd:
+                if abs(lastm1.close-lastm1.open)<=0.3 and lastm1.close < prelastm1.close and prelastm1.close > prelastm1.open:
+                    return
             pricelogging.info("tbuy-canbuy-1")
             return True
 

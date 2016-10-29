@@ -3534,11 +3534,23 @@ def go14():
         buy(spec)
         return
 
-    if buyPrice1!=None:
+    if spec == 15:
+        if lastm1.close < lastm1.open :
+            sell("115-2")
+            if lastM5.j-lastM5.k >0:
+                spec = 12
+        else:
+            spec=11
+
+    if buyPrice1!=None and spec!=15:
         if ply.cansell(stock1Min,lastm1,prelastm1,stock1Min.preMyLastKline(3),lastM5,prelastM5,pre2lastM5) == True:
 
             if current.close - buyPrice1<0 and lastm1.j-lastm1.k>0 and lastm1.macd>0.7 and lastM5.j>prelastM5.j and prelastM5.open < prelastM5.close:
                 pricelogging.info("time = %s ,tbuy disable by macd 117-5" % (time.ctime(current.time)))
+                return
+            if datetime.fromtimestamp(lastm1.time).minute % 5==0 and lastm1.close<lastm1.open and prelastM5.macd>0 and prelastM5.macd > pre2lastM5.macd \
+                    and prelastM5.close > prelastM5.open and pre2lastM5.close>pre2lastM5.open:
+                spec == 15
                 return
             sell("115-1")
             if lastM5.j-lastM5.k >0:
