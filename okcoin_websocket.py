@@ -3471,7 +3471,7 @@ def go14():
 
             if (f1po5[0][0]==1) or (f1po5[1][0]==2):
 
-                if ply.canbuy(stock1Min,lastm1,prelastm1,stock1Min.preMyLastKline(3),lastM5,prelastM5)==True :
+                if ply.canbuy(stock1Min,lastm1,prelastm1,stock1Min.preMyLastKline(3),lastM5,prelastM5,pre2lastM5)==True :
                     pricelogging.info("time = %s ,tbuy buy by macd 121-3" % (time.ctime(current.time)))
                     return 10
                 if lastm1.macd > prelastm1.macd and lastm1.j-lastm1.k>0 and prelastm1.j-prelastm1.k>0 and lastm1.j<80 and lastm1.close>lastm1.open :
@@ -3485,7 +3485,7 @@ def go14():
                     pricelogging.info("time = %s ,tbuy disable by macd 111-31" % (time.ctime(current.time)))
                     return
                 '''
-                if ply.canbuy(stock1Min,lastm1,prelastm1,stock1Min.preMyLastKline(3),lastM5,prelastM5)==True:
+                if ply.canbuy(stock1Min,lastm1,prelastm1,stock1Min.preMyLastKline(3),lastM5,prelastM5,pre2lastM5)==True:
                     return 21
 
 
@@ -3563,7 +3563,7 @@ def go14():
             sellSpec = None
             m5data = None
 
-        if ply.canbuy(stock1Min,lastm1,prelastm1,stock1Min.preMyLastKline(3),lastM5,prelastM5)==True:
+        if ply.canbuy(stock1Min,lastm1,prelastm1,stock1Min.preMyLastKline(3),lastM5,prelastM5,pre2lastM5)==True:
             buy("1119")
 
 
