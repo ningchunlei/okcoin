@@ -3462,10 +3462,6 @@ def go14():
 
 
     def xbuy3():
-        if bymacd1 == 0:
-            pricelogging.info("time = %s ,tbuy disable by macd 111-1" % (time.ctime(current.time)))
-            return
-
         fdata = stock1Min.findInFiveData()
         if (f1po1[0][0]==1 or (f1po1[1][0]==2) or (f1po1[2][0]==3)):
 
