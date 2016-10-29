@@ -102,6 +102,12 @@ def cansell(stock1Min,lastm1,prelastm1,pre2lastm1,lastm5,prelastm5):
             pricelogging.info("tbuy-cansell-1")
             return True
 
+    if lastm1.close<lastm1.open and lastm5.j-lastm5.k<0:
+        if lastm1.j>80 and lastm1.j<prelastm1.j:
+            pricelogging.info("tbuy-cansell-0")
+            return True
+
+
 
 def kkpos(klast1,kbuy1,klast1po,kbuy1po,klast5,kbuy5,klast5po,kbuy5po):
     return kdiff(klast5po,kbuy5po)

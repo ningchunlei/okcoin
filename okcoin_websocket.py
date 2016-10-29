@@ -3484,7 +3484,7 @@ def go14():
                     pricelogging.info("time = %s ,tbuy buy by macd 121-4" % (time.ctime(current.time)))
                     return 10
 
-        if (f1po1[0][0]==1 or (f1po1[1][0]==2 and (f1po1[1][1]==1 or f1po1[1][1]==3)) or (f1po1[2][0]==3 and (f1po1[2][1]==1 or f1po1[2][1]==3))):
+        if (f1po1[0][0]==1 or (f1po1[1][0]==2) or (f1po1[2][0]==3)):
             if (f1po5[2][0]==3) or (f1po5[3][0]==4):
                 if bymacd5 == 0:
                     pricelogging.info("time = %s ,tbuy disable by macd 111-3" % (time.ctime(current.time)))
@@ -3506,7 +3506,7 @@ def go14():
 
 
     def buy(tag):
-        global  buyPrice1
+        global buyPrice1,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
         buy1Time = current.time
         buy2Time = lastM5.time
         buyPrice1 = current.close
@@ -3518,7 +3518,7 @@ def go14():
         return
 
     def sell(tag):
-        global  buyPrice1
+        global buyPrice1,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
         pricelogging.info("tbuy-x114-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
         buyPrice1 = None
         spec = None
