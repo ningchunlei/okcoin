@@ -106,6 +106,9 @@ def cansell(stock1Min,lastm1,prelastm1,pre2lastm1,lastm5,prelastm5):
         if lastm1.j < prelastm1.j and lastm1.j>80:
             pricelogging.info("tbuy-cansell-1")
             return True
+        if lastm1.j>80 and lastm1.j > prelastm1.j and abs(lastm1.j-prelastm1.j)<4:
+            pricelogging.info("tbuy-cansell-10")
+            return True
 
     if lastm1.close<lastm1.open and lastm5.j-lastm5.k<0:
         if lastm1.j>80 and lastm1.j<prelastm1.j:
