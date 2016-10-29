@@ -59,6 +59,50 @@ def kdiff(k1po,k2po):
     return False
 
 
+def canbuy(stock1Min,lastm1,prelastm1,pre2lastm1,lastm5,prelastm5):
+    if datetime.fromtimestamp(lastm1.time).minute % 5==4 and lastm1.close>lastm1.open:
+        pricelogging.info("tbuy-canbuy-1")
+        return True
+
+    if prelastm5.close<prelastm5.open and lastm5.j-lastm5.k<0 and datetime.fromtimestamp(pre2lastm1.time).minute % 5==4 and pre2lastm1.close<pre2lastm1.open and \
+                    prelastm1.close>prelastm1.open and lastm1.close > lastm1.open:
+        pricelogging.info("tbuy-canbuy-2")
+        return True
+
+    if prelastm5.close>prelastm5.open and datetime.fromtimestamp(prelastm1.time).minute % 5==4 and prelastm1.close<prelastm1.open and \
+                   lastm1.close > lastm1.open:
+        pricelogging.info("tbuy-canbuy-3")
+        return True
+
+
+    if lastm5.j-lastm5.k>0:
+        fdata = stock1Min.findInFiveData()
+        if fdata[0].open < fdata[len(fdata)-1].close and lastm1.j > prelastm1.j:
+            pricelogging.info("tbuy-canbuy-4")
+            return True
+
+    return False
+
+
+def cansell(stock1Min,lastm1,prelastm1,pre2lastm1,lastm5,prelastm5):
+    if datetime.fromtimestamp(lastm1.time).minute % 5==4 and lastm1.close<lastm1.open:
+        if prelastm5.close<prelastm5.open:
+            pricelogging.info("tbuy-cansell-4")
+            return True
+
+        if lastm1.j < prelastm1.j and lastm1.j>80:
+            pricelogging.info("tbuy-cansell-3")
+            return True
+
+    if datetime.fromtimestamp(lastm1.time).minute % 5==0 and lastm1.close<lastm1.open:
+        if prelastm5.close<prelastm5.open:
+            pricelogging.info("tbuy-cansell-2")
+            return True
+        if lastm1.j < prelastm1.j and lastm1.j>80:
+            pricelogging.info("tbuy-cansell-1")
+            return True
+
+
 def kkpos(klast1,kbuy1,klast1po,kbuy1po,klast5,kbuy5,klast5po,kbuy5po):
     return kdiff(klast5po,kbuy5po)
 

@@ -3477,30 +3477,25 @@ def go14():
                     pricelogging.info("time = %s ,tbuy disable by macd 111-3" % (time.ctime(current.time)))
                     return
 
-                if lastm1.j-lastm1.k>-4 and lastm1.macd > prelastm1.macd and prelastm1.j-prelastm1.k<0 and lastm1.j-lastm1.k>prelastm1.j-prelastm1.k:
+                if ply.canbuy(stock1Min,lastm1,prelastm1,stock1Min.preMyLastKline(3),lastM5,prelastM5)==True :
+                    pricelogging.info("time = %s ,tbuy buy by macd 121-3" % (time.ctime(current.time)))
                     return 10
-
-                if lastm1.macd > prelastm1.macd and lastm1.j-lastm1.k>0 and prelastm1.j-prelastm1.k>0 and lastm1.j<80:
+                if lastm1.macd > prelastm1.macd and lastm1.j-lastm1.k>0 and prelastm1.j-prelastm1.k>0 and lastm1.j<80 :
+                    pricelogging.info("time = %s ,tbuy buy by macd 121-4" % (time.ctime(current.time)))
                     return 10
-
 
         if (f1po1[0][0]==1 or (f1po1[1][0]==2 and (f1po1[1][1]==1 or f1po1[1][1]==3)) or (f1po1[2][0]==3 and (f1po1[2][1]==1 or f1po1[2][1]==3))):
             if (f1po5[2][0]==3) or (f1po5[3][0]==4):
                 if bymacd5 == 0:
                     pricelogging.info("time = %s ,tbuy disable by macd 111-3" % (time.ctime(current.time)))
                     return
-
+                '''
                 if lastM5.macd < prelastM5.macd and (lastM5.j < prelastM5.j or (lastM5.j>prelastM5.j and abs(lastM5.j-prelastM5.j)<4 )) and prelastM5.open > prelastM5.close:
                     pricelogging.info("time = %s ,tbuy disable by macd 111-31" % (time.ctime(current.time)))
                     return
-
-                if lastm1.j-lastm1.k < 0 and lastm1.j > prelastm1.j and lastm1.macd > prelastm1.macd:
-                    if (f1po1[2][0]==3 and (f1po1[2][1]==1 or f1po1[2][1]==3)):
-                        return
+                '''
+                if ply.canbuy(stock1Min,lastm1,prelastm1,stock1Min.preMyLastKline(3),lastM5,prelastM5)==True:
                     return 21
-
-                if prelastm1.j-prelastm1.k<0 and lastm1.j-lastm1.k > 0 and lastm1.j > prelastm1.j:
-                    return 22
 
 
     def xbuy4():
@@ -3510,13 +3505,8 @@ def go14():
             return 32
 
 
-    txtbuy = xbuy3()
-
-    if txtbuy!=None and spec==None:
-        spec = txtbuy
-
-
-    if (spec==11 or spec==10 or spec == 21 or spec==22) and buyPrice1==None:
+    def buy(tag):
+        global  buyPrice1
         buy1Time = current.time
         buy2Time = lastM5.time
         buyPrice1 = current.close
@@ -3524,177 +3514,40 @@ def go14():
         m5data = None
         kk1pos = f1po1
         kk5pos = f1po5
-        pricelogging.info("tbuy-%s,-%s,time=%s,deciderTime=%s,spec=%s" % (spec,buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),spec))
+        pricelogging.info("tbuy-%s,-%s,time=%s,deciderTime=%s,spec=%s" % (tag,buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),spec))
         return
 
-    if sellSpec<0 and prelastM5.j - prelastM5.k >0:
-        m5data = 1
-
-    if buyPrice1!=None and (spec==21 or spec==22):
-        if lastm1.j-lastm1.k<0 and lastm1.j < prelastm1.j:
-            if lastM5.j- lastM5.k > 0:
-                pricelogging.info("time = %s ,tbuy disable by go up 113-1" % (time.ctime(current.time)))
-                spec = 11
-            else:
-                if (stock1Min.lastKline().close-buyPrice1 >0):
-                    pricelogging.info("tbuy-x114-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
-                    buyPrice1 = None
-                    spec = None
-                    buy1Time = None
-                    buy2Time = None
-                    xspec = None
-                    xkdj = None
-                    upToDown = None
-                    sellSpec = None
-                    m5data = None
-                    kk1pos = None
-                    kk5pos = None
-                elif stock1Min.lastKline().close-buyPrice1 <0:
-                    if prelastM5.time == buy2Time and prelastM5.close < prelastM5.open and datetime.fromtimestamp(lastm1.time).minute % 5==4 and lastm1.close<lastm1.open:
-                        pricelogging.info("tbuy-x115-1-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
-                        buyPrice1 = None
-                        spec = None
-                        buy1Time = None
-                        buy2Time = None
-                        xspec = None
-                        xkdj = None
-                        upToDown = None
-                        sellSpec = None
-                        m5data = None
-                        kk1pos = None
-                        kk5pos = None
-                        return
-                    pricelogging.info("time = %s ,tbuy disable sell 114-1" % (time.ctime(current.time)))
-        elif lastm1.j - lastm1.k > 0:
-            pricelogging.info("time = %s ,tbuy disable by go up 113-2" % (time.ctime(current.time)))
-            spec = 11
-
+    def sell(tag):
+        global  buyPrice1
+        pricelogging.info("tbuy-x114-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+        buyPrice1 = None
+        spec = None
+        buy1Time = None
+        buy2Time = None
+        xspec = None
+        xkdj = None
+        upToDown = None
+        sellSpec = None
+        m5data = None
+        kk1pos = None
+        kk5pos = None
         return
 
+    txtbuy = xbuy3()
 
-    if buyPrice1!=None and spec==10:
-        if current.time - buy1Time == 60 and lastm1.j-lastm1.k<0:
-            pricelogging.info("tbuy-x114-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
-            buyPrice1 = None
-            spec = None
-            buy1Time = None
-            buy2Time = None
-            xspec = None
-            xkdj = None
-            upToDown = None
-            sellSpec = None
-            m5data = None
-            kk1pos = None
-            kk5pos = None
-            return
-
-        if prelastM5.time == buy2Time and prelastM5.close < prelastM5.open and datetime.fromtimestamp(lastm1.time).minute % 5==4 and lastm1.close<lastm1.open:
-            pricelogging.info("tbuy-x114-1-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
-            buyPrice1 = None
-            spec = None
-            buy1Time = None
-            buy2Time = None
-            xspec = None
-            xkdj = None
-            upToDown = None
-            sellSpec = None
-            m5data = None
-            kk1pos = None
-            kk5pos = None
-            return
-
-        if current.time - buy1Time>60 and lastm1.j-lastm1.k>0 and lastM5.j-lastM5.k<0:
-            if lastm1.macd < prelastm1.macd and lastm1.close<lastm1.open:
-                pricelogging.info("tbuy-x114-2-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
-                buyPrice1 = None
-                spec = None
-                buy1Time = None
-                buy2Time = None
-                xspec = None
-                xkdj = None
-                upToDown = None
-                sellSpec = None
-                m5data = None
-                kk1pos = None
-                kk5pos = None
-                return
-            if lastm1.j<prelastm1.j and lastm1.close<lastm1.open:
-                pricelogging.info("tbuy-x114-3-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
-                buyPrice1 = None
-                spec = None
-                buy1Time = None
-                buy2Time = None
-                xspec = None
-                xkdj = None
-                upToDown = None
-                sellSpec = None
-                m5data = None
-                kk1pos = None
-                kk5pos = None
-                return
-
-        if lastM5.j - lastM5.k > 0 :
-            spec = 11
-            return
+    if txtbuy!=None and spec==None:
+        spec = txtbuy
 
 
-    if buyPrice1!=None and spec==11:
-        if upToDown==True and lastm1.j-lastm1.k>0 and prelastm1.j-prelastm1.k<0:
-            upToDown = False
+    if (spec==11 or spec==10 or spec == 21 or spec==22) and buyPrice1==None:
+        buy(spec)
+        return
 
-        if current.time - buy1Time == 60 and lastm1.j-lastm1.k<0:
-            pricelogging.info("tbuy-x114-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
-            buyPrice1 = None
-            spec = 12
-            buy1Time = current.time
-            buy2Time = lastM5.time
-            xspec = lastM5.j - lastM5.k
-            xkdj = lastM5.j
-            upToDown = False
-            return
-        if current.time - buy1Time>60 and ( (lastm1.j-lastm1.k<0 and prelastm1.j-prelastm1.k>0) or (upToDown==True and lastm1.j-lastm1.k<0)):
-            upToDown = True
-            if bymacd1 == 1:
-                pricelogging.info("time = %s ,tbuy disable by macd 112-1" % (time.ctime(current.time)))
-                return
-            if bymacd5 == 1:
-                pricelogging.info("time = %s ,tbuy disable by macd 112-2" % (time.ctime(current.time)))
-                return
-            if lastM5.j-lastM5.k>0 and lastM5.j > prelastM5.j and lastM5.j<80:
-                pricelogging.info("time = %s ,tbuy disable by macd 112-3" % (time.ctime(current.time)))
-                return
-            if lastm1.macd > prelastm1.macd:
-                pricelogging.info("time = %s ,tbuy disable by macd 112-4" % (time.ctime(current.time)))
-                return
-            if lastm1.close > lastm1.open:
-                pricelogging.info("time = %s ,tbuy disable by macd 112-5" % (time.ctime(current.time)))
-                return
-
-            if (stock1Min.lastKline().close-buyPrice1 >0):
-                pricelogging.info("tbuy-%s-%s,sell-%s,diff=%s,time=%s" % (spec,buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
-                buyPrice1 = None
+    if buyPrice1!=None:
+        if ply.cansell(stock1Min,lastm1,prelastm1,stock1Min.preMyLastKline(3),lastM5,prelastM5) == True:
+            sell("115-1")
+            if lastM5.j-lastM5.k >0:
                 spec = 12
-                buy1Time = current.time
-                buy2Time = lastM5.time
-                xspec = lastM5.j - lastM5.k
-                xkdj = lastM5.j
-            elif stock1Min.lastKline().close-buyPrice1 <0:
-                pricelogging.info("time = %s ,tbuy disable sell 114-2" % (time.ctime(current.time)))
-
-    if buyPrice1!=None and spec==13:
-        if lastm1.j-lastm1.k<0:
-            if lastm1.j<prelastm1.j and abs(lastm1.j-prelastm1.j)>4:
-                pricelogging.info("tbuy-x114-%s,sell-%s,diff=%s,time=%s" % (buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
-                buyPrice1 = None
-                spec = 12
-                buy1Time = current.time
-                buy2Time = lastM5.time
-                xspec = lastM5.j - lastM5.k
-                xkdj = lastM5.j
-                return
-        else:
-            spec = 11
-
 
     if spec == 12 and buyPrice1==None:
         if bykdj5==0:
@@ -3717,17 +3570,9 @@ def go14():
             sellSpec = None
             m5data = None
 
-        xt4 = xbuy4()
 
-        if xt4!=None:
-            buy1Time = current.time
-            buy2Time = lastM5.time
-            buyPrice1 = current.close
-            spec = 13
-            kk1pos = f1po1
-            kk5pos = f1po5
-            pricelogging.info("12 - tbuy-%s,-%s,time=%s,deciderTime=%s,spec=%s" % (spec,buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),spec))
-            return
+        if ply.canbuy(stock1Min,lastm1,prelastm1,stock1Min.preMyLastKline(3),lastM5,prelastM5)==True:
+            buy("1119")
 
 
 def on_message(self,evt):
