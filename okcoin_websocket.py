@@ -3536,7 +3536,7 @@ def go14():
 
     if buyPrice1!=None:
         if ply.cansell(stock1Min,lastm1,prelastm1,stock1Min.preMyLastKline(3),lastM5,prelastM5,pre2lastM5) == True:
-            if current.close - buyPrice1<0 and lastM5.j>prelastM5.j and lastM5.j-lastM5.k>-10 and lastM5.j-lastM5.k > prelastM5.j-pre2lastM5.k:
+            if current.close - buyPrice1<0 and lastM5.j>prelastM5.j and lastM5.j-lastM5.k>-10 and lastM5.j-lastM5.k > prelastM5.j-pre2lastM5.k and lastm1.j-lastm1.k>0:
                 pricelogging.info("time = %s ,tbuy disable by macd 117-5" % (time.ctime(current.time)))
                 return
             sell("115-1")
