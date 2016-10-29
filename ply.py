@@ -75,14 +75,14 @@ def canbuy(stock1Min,lastm1,prelastm1,pre2lastm1,lastm5,prelastm5,pre2lastm5):
                         prelastm1.close>prelastm1.open and lastm1.close > lastm1.open:
             if lastm1.macd<-1 and lastm1.macd<prelastm1.macd:
                 return
-            if pre2lastm5.po[4][0]==5:
+            if prelastm5.po[4][0]==5:
                 return
             pricelogging.info("tbuy-canbuy-2")
             return True
         elif lastm1.j-lastm1.k>0 and datetime.fromtimestamp(lastm1.time).minute % 5==0 and lastm1.close>lastm1.open and lastm1.j > prelastm1.j:
             if lastm1.macd<-1 and lastm1.macd<prelastm1.macd:
                 return
-            if pre2lastm5.po[4][0]==5:
+            if prelastm5.po[4][0]==5:
                 return
             pricelogging.info("tbuy-canbuy-21")
             return True
