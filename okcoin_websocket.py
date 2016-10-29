@@ -3463,13 +3463,14 @@ def go14():
 
     def xbuy3():
         fdata = stock1Min.findInFiveData()
-
         if ply.canbuy(stock1Min,lastm1,prelastm1,stock1Min.preMyLastKline(3),lastM5,prelastM5,pre2lastM5)==True :
             pricelogging.info("time = %s ,tbuy buy by macd 121-3" % (time.ctime(current.time)))
             return 10
-        if lastm1.macd > prelastm1.macd and lastm1.j-lastm1.k>0 and prelastm1.j-prelastm1.k>0 and lastm1.j<80 and lastm1.close>lastm1.open :
-            pricelogging.info("time = %s ,tbuy buy by macd 121-4" % (time.ctime(current.time)))
-            return 10
+        if (f1po1[0][0]==1 or (f1po1[1][0]==2) or (f1po1[2][0]==3)):
+            if (f1po5[0][0]==1) or (f1po5[1][0]==2):
+                if lastm1.macd > prelastm1.macd and lastm1.j-lastm1.k>0 and prelastm1.j-prelastm1.k>0 and lastm1.j<80 and lastm1.close>lastm1.open :
+                    pricelogging.info("time = %s ,tbuy buy by macd 121-4" % (time.ctime(current.time)))
+                    return 10
 
     def xbuy4():
         if lastm1.j-lastm1.k<0 and lastm1.j > prelastm1.j:
