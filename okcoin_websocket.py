@@ -3474,7 +3474,7 @@ def go14():
                 if ply.canbuy(stock1Min,lastm1,prelastm1,stock1Min.preMyLastKline(3),lastM5,prelastM5)==True :
                     pricelogging.info("time = %s ,tbuy buy by macd 121-3" % (time.ctime(current.time)))
                     return 10
-                if lastm1.macd > prelastm1.macd and lastm1.j-lastm1.k>0 and prelastm1.j-prelastm1.k>0 and lastm1.j<80 :
+                if lastm1.macd > prelastm1.macd and lastm1.j-lastm1.k>0 and prelastm1.j-prelastm1.k>0 and lastm1.j<80 and lastm1.close>lastm1.open :
                     pricelogging.info("time = %s ,tbuy buy by macd 121-4" % (time.ctime(current.time)))
                     return 10
 
