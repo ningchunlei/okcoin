@@ -3535,7 +3535,7 @@ def go14():
         return
 
     if buyPrice1!=None:
-        if ply.cansell(stock1Min,lastm1,prelastm1,stock1Min.preMyLastKline(3),lastM5,prelastM5) == True:
+        if ply.cansell(stock1Min,lastm1,prelastm1,stock1Min.preMyLastKline(3),lastM5,prelastM5,pre2lastM5) == True:
             sell("115-1")
             if lastM5.j-lastM5.k >0:
                 spec = 12
