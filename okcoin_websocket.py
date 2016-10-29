@@ -3546,8 +3546,14 @@ def go14():
                 return
             if datetime.fromtimestamp(lastm1.time).minute % 5==0 and lastm1.close<lastm1.open and prelastM5.macd>0 and prelastM5.macd > pre2lastM5.macd \
                     and prelastM5.close > prelastM5.open and pre2lastM5.close>pre2lastM5.open:
-                spec == 15
+                spec = 15
                 return
+
+            if datetime.fromtimestamp(lastm1.time).minute % 5==4 and lastm1.close<lastm1.open and prelastM5.macd>0 and prelastM5.macd > pre2lastM5.macd \
+                    and prelastM5.close > prelastM5.open and pre2lastM5.close>pre2lastM5.open and lastm1.macd>1 and lastM5.macd>1:
+                spec = 15
+                return
+
             sell("115-1")
             if lastM5.j-lastM5.k >0:
                 spec = 12
