@@ -3541,26 +3541,11 @@ def go14():
                 spec = 12
 
     if spec == 12 and buyPrice1==None:
-        if bykdj5==0:
+        if lastM5.j-lastM5.k<0:
             pricelogging.info("time = %s ,tbuy disable by macd 112-5" % (time.ctime(current.time)))
             sepc = None
             sellSpec = None
             m5data = None
-
-
-        if buy2Time!=lastM5.time and sellSpec<0 and lastM5.j<prelastM5.j and lastM5.j-lastM5.k<0:
-            pricelogging.info("time = %s ,tbuy disable by macd 112-6" % (time.ctime(current.time)))
-            spec = None
-            sellSpec = None
-            m5data = None
-            return
-
-        if sellSpec<0 and m5data==1 and lastM5.j-lastM5.k<0:
-            pricelogging.info("time = %s ,tbuy disable by macd 112-7" % (time.ctime(current.time)))
-            spec = None
-            sellSpec = None
-            m5data = None
-
 
         if ply.canbuy(stock1Min,lastm1,prelastm1,stock1Min.preMyLastKline(3),lastM5,prelastM5)==True:
             buy("1119")
