@@ -690,7 +690,7 @@ class stock(object):
             if data[index]==None:
                 td =  (max(valueMax(self.stocks[self.cursor-count]),valueMax(self.stocks[self.cursor-count-1]),valueMax(self.stocks[self.cursor-count+1])) \
                                    ,min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1])))
-                data[index] = [td,td,None,time.ctime(self.stocks[self.cursor].time)]
+                data[index] = [td,td,None,time.ctime(self.stocks[self.cursor-count].time)]
 
 
             kmin = min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1]))
@@ -698,14 +698,14 @@ class stock(object):
                 td =  (max(valueMax(self.stocks[self.cursor-count]),valueMax(self.stocks[self.cursor-count-1]),valueMax(self.stocks[self.cursor-count+1])) \
                            ,min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1])))
                 data[index][1] = td
-                data[index][3]=time.ctime(self.stocks[self.cursor].time)
+                data[index][3]=time.ctime(self.stocks[self.cursor-count].time)
 
             kmax = max(valueMax(self.stocks[self.cursor-count]),valueMax(self.stocks[self.cursor-count-1]),valueMax(self.stocks[self.cursor-count+1]))
             if kmax>data[index][0][0]:
                 td =  (max(valueMax(self.stocks[self.cursor-count]),valueMax(self.stocks[self.cursor-count-1]),valueMax(self.stocks[self.cursor-count+1])) \
                            ,min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1])))
                 data[index][0] = td
-                data[index][3]=time.ctime(self.stocks[self.cursor].time)
+                data[index][3]=time.ctime(self.stocks[self.cursor-count].time)
 
             if self.stocks[self.cursor-count].j - self.stocks[self.cursor-count].k<0:
                 if self.stocks[self.cursor-count].j<=20:
