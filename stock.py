@@ -8,6 +8,7 @@ import time
 from datetime import datetime,timedelta
 import pandas
 import logging
+import copy
 
 class KLine(object):
 
@@ -714,7 +715,7 @@ class stock(object):
                         print "k1,%s" % (data)
                     elif data[index][2]=="UP":
                         index += 1
-                        data[index] = data[index-1]
+                        data[index] = copy.deepcopy(data[index-1])
                         data[index][2]="DOWN"
                         print "k2,%s" % (data)
 
@@ -725,7 +726,7 @@ class stock(object):
                         print "k3,%s" % (data)
                     elif data[index][2]=="DOWN":
                         index +=1
-                        data[index]= data[index-1]
+                        data[index]= copy.deepcopy(data[index-1])
                         data[index][2] = "UP"
                         print "k3,%s" % (data)
 
