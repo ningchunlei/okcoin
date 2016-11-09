@@ -669,6 +669,66 @@ class stock(object):
         return flag
 
 
+    def searchKDJRange(self):
+        data=[None,None,None,None,None]
+        count = 1
+        index = 0
+
+        def valueMax(kline):
+            if kline.close>kline.open:
+                return kline.close
+            return kline.open
+
+        def valueMin(kline):
+            if kline.close<kline.open:
+                return kline.close
+            return kline.open
+
+        while True:
+            if index == 4:
+                break;
+            if data[index]==None:
+                td =  (max(valueMax(self.stocks[self.cursor-count]),valueMax(self.stocks[self.cursor-count-1]),valueMax(self.stocks[self.cursor-count+1])) \
+                                   ,min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1])))
+                data[index] = (td,td,None,time.ctime(self.stocks[self.cursor].time))
+
+
+            kmin = min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1]))
+            if kmin<data[index][1][1]:
+                td =  (max(valueMax(self.stocks[self.cursor-count]),valueMax(self.stocks[self.cursor-count-1]),valueMax(self.stocks[self.cursor-count+1])) \
+                           ,min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1])))
+                data[index][1] = td
+                data[index][3]=time.ctime(self.stocks[self.cursor].time)
+
+            kmax = max(valueMax(self.stocks[self.cursor-count]),valueMax(self.stocks[self.cursor-count-1]),valueMax(self.stocks[self.cursor-count+1]))
+            if kmax>data[index][0][0]:
+                td =  (max(valueMax(self.stocks[self.cursor-count]),valueMax(self.stocks[self.cursor-count-1]),valueMax(self.stocks[self.cursor-count+1])) \
+                           ,min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1])))
+                data[index][0] = td
+                data[index][3]=time.ctime(self.stocks[self.cursor].time)
+
+            if self.stocks[self.cursor-count].j - self.stocks[self.cursor-count].k<0:
+                if self.stocks[self.cursor-count].j<=20:
+                    if data[index][2]==None:
+                        data[index][2]="DOWN"
+                    elif data[index][2]=="UP":
+                        index += 1
+                        data[index] = data[index-1]
+                        data[index][2]="DOWN"
+
+            if self.stocks[self.cursor-count].j - self.stocks[self.cursor-count].k>0:
+                if self.stocks[self.cursor-count].j>=80:
+                    if data[index][2]==None:
+                        data[index][2]="UP"
+                    elif data[index][2]=="DOWN":
+                        index +=1
+                        data[index]= data[index-1]
+                        data[index][2] = "UP"
+
+
+            count += 1
+        return data
+
     def touchSimlarTimeDownFrom(self,count=1):
         flag = 0
         tmax = self.stocks[self.cursor-count].close

@@ -3552,6 +3552,46 @@ def go14():
             buy("1119")
 
 
+def go15():
+    global buyPrice1,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
+    m5up,m5down,m5next = stock5Min.forecastClose()
+    m1up,m1down,m1next = stock1Min.forecastClose()
+    lastM5 = stock5Min.lastKline()
+    prelastM5 = stock5Min.preLastKline()
+    pre2lastM5 = stock5Min.pre2LastKline()
+    current = stock1Min.lastKline()
+    lastm1 = stock1Min.preLastKline()
+    prelastm1 = stock1Min.pre2LastKline()
+    lastM15 = stock15Min.lastKline()
+
+    lastM15 = stock15Min.lastKline()
+    prelastM15 = stock15Min.preLastKline()
+    pre2lastM15 = stock15Min.pre2LastKline()
+
+    if current.time-lastM5.time>=5*60:
+        return
+
+    if current.time == buy1Time:
+        return
+
+    f1po1,f1po5 = ply.pl(stock1Min,stock5Min,"1","5",5)
+    f2po5,f2po15 = ply.pl(stock5Min,stock15Min,"5","15",15)
+
+    bymacd1 = ply.canbuybymacd(lastm1,prelastm1)
+    bykdj1 = ply.canbuybykdj(lastm1,prelastm1)
+
+    bymacd5 = ply.canbuybymacd(lastM5,prelastM5)
+    bykdj5 = ply.canbuybykdj(lastM5,prelastM5)
+
+    bymacd15 = ply.canbuybymacd(lastM15,prelastM15)
+    bykdj15 = ply.canbuybykdj(lastM15,prelastM15)
+
+    pricelogging.info("time=%s,fp1=%s,fp2=%s,fp3=%s,bymacd=%s,bykdj1=%s,bymacd5=%s,bykdj5=%s,bymacd15=%s,bykdj15=%s" % (time.ctime(current.time),f1po1,f1po5,f2po15,bymacd1,bykdj1,bymacd5,bykdj5,bymacd15,bykdj15))
+
+
+    pricelogging.info(stock1Min.searchKDJRange())
+
+
 def on_message(self,evt):
     global last_time
     global buyPrice
