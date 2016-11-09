@@ -690,7 +690,7 @@ class stock(object):
             if data[index]==None:
                 td =  (max(valueMax(self.stocks[self.cursor-count]),valueMax(self.stocks[self.cursor-count-1]),valueMax(self.stocks[self.cursor-count+1])) \
                                    ,min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1])))
-                data[index] = (td,td,None,time.ctime(self.stocks[self.cursor].time))
+                data[index] = [td,td,None,time.ctime(self.stocks[self.cursor].time)]
 
 
             kmin = min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1]))
