@@ -711,20 +711,23 @@ class stock(object):
                 if self.stocks[self.cursor-count].j<=20:
                     if data[index][2]==None:
                         data[index][2]="DOWN"
+                        print "k1,%s" % (data)
                     elif data[index][2]=="UP":
                         index += 1
                         data[index] = data[index-1]
                         data[index][2]="DOWN"
+                        print "k2,%s" % (data)
 
             if self.stocks[self.cursor-count].j - self.stocks[self.cursor-count].k>0:
                 if self.stocks[self.cursor-count].j>=80:
                     if data[index][2]==None:
                         data[index][2]="UP"
+                        print "k3,%s" % (data)
                     elif data[index][2]=="DOWN":
                         index +=1
                         data[index]= data[index-1]
                         data[index][2] = "UP"
-
+                        print "k3,%s" % (data)
 
             count += 1
         return data
