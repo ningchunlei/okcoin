@@ -712,23 +712,23 @@ class stock(object):
                 if self.stocks[self.cursor-count].j<=20:
                     if data[index][2]==None:
                         data[index][2]="DOWN"
-                        print "k1,%s" % (data)
+                        print "k1,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data)
                     elif data[index][2]=="UP":
                         index += 1
                         data[index] = copy.deepcopy(data[index-1])
                         data[index][2]="DOWN"
-                        print "k2,%s" % (data)
+                        print "k2,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data)
 
             if self.stocks[self.cursor-count].j - self.stocks[self.cursor-count].k>0:
                 if self.stocks[self.cursor-count].j>=80:
                     if data[index][2]==None:
                         data[index][2]="UP"
-                        print "k3,%s" % (data)
+                        print "k3,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data)
                     elif data[index][2]=="DOWN":
                         index +=1
                         data[index]= copy.deepcopy(data[index-1])
                         data[index][2] = "UP"
-                        print "k3,%s" % (data)
+                        print "k4,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data)
 
             count += 1
         return data
