@@ -691,7 +691,8 @@ class stock(object):
             if data[index]==None:
                 td =  (max(valueMax(self.stocks[self.cursor-count]),valueMax(self.stocks[self.cursor-count-1]),valueMax(self.stocks[self.cursor-count+1])) \
                                    ,min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1])))
-                data[index] = [td,td,None,time.ctime(self.stocks[self.cursor-count].time)]
+                data[index] = [td,td,None,time.ctime(self.stocks[self.cursor-count].time),time.ctime(self.stocks[self.cursor-count].time)]
+                print "k0,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data)
 
 
             kmin = min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1]))
@@ -699,7 +700,8 @@ class stock(object):
                 td =  (max(valueMax(self.stocks[self.cursor-count]),valueMax(self.stocks[self.cursor-count-1]),valueMax(self.stocks[self.cursor-count+1])) \
                            ,min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1])))
                 data[index][1] = td
-                data[index][3]=time.ctime(self.stocks[self.cursor-count].time)
+                data[index][4]=time.ctime(self.stocks[self.cursor-count].time)
+                print "k01,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data)
 
             kmax = max(valueMax(self.stocks[self.cursor-count]),valueMax(self.stocks[self.cursor-count-1]),valueMax(self.stocks[self.cursor-count+1]))
             if kmax>data[index][0][0]:
@@ -707,6 +709,7 @@ class stock(object):
                            ,min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1])))
                 data[index][0] = td
                 data[index][3]=time.ctime(self.stocks[self.cursor-count].time)
+                print "k02,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data)
 
             if self.stocks[self.cursor-count].j - self.stocks[self.cursor-count].k<0:
                 if self.stocks[self.cursor-count].j<=20:
@@ -716,6 +719,7 @@ class stock(object):
                     elif data[index][2]=="UP":
                         index += 1
                         data[index] = copy.deepcopy(data[index-1])
+                        data[index][0] = data[index][1]
                         data[index][2]="DOWN"
                         print "k2,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data)
 
@@ -728,6 +732,7 @@ class stock(object):
                         index +=1
                         data[index]= copy.deepcopy(data[index-1])
                         data[index][2] = "UP"
+                        data[index][1] = data[index][0]
                         print "k4,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data)
 
             count += 1
