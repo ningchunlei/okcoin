@@ -3706,10 +3706,9 @@ def go15():
 
         if xmax1<xmax2:
             if (lastm1.j-lastm1.k<0 or (lastm1.macd<0 and prelastm1.macd>0)) and valueMax(lastm1)<xmax1:
-                if buyPrice1!=None and lastm1.boll - buyPrice1>1:
+                if lastm1.macd>0 and lastm1.j-lastm1.k<0 and prelastm1.j-prelastm1.k<0 and stock1Min.preMyLastKline(3).j-stock1Min.preMyLastKline(3).k<0:
+                    sell(1)
                     return
-                sell(1)
-                return
             if lastm1.close>lastm1.boll and lastm1.j-lastm1.k>0:
                 if buyPrice1==None:
                     spec = 7
