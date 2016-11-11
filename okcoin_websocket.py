@@ -3700,11 +3700,13 @@ def go15():
         xmax2 = xdata[2][0][0]
         xmin2 = xdata[2][0][1]
 
-        if lastm1.j-lastm1.k<0 and lastm1.close<lastm1.boll:
-            sell(11)
-            return
+
 
         if xmax1<xmax2:
+            if lastm1.j-lastm1.k<0 and lastm1.close<lastm1.boll:
+                sell(11)
+            return
+
             if (lastm1.j-lastm1.k<0 or (lastm1.macd<0 and prelastm1.macd>0)) and valueMax(lastm1)<xmax1:
                 if lastm1.macd>0 and lastm1.j-lastm1.k<0 and prelastm1.j-prelastm1.k<0 and stock1Min.preMyLastKline(3).j-stock1Min.preMyLastKline(3).k<0:
                     sell(1)
@@ -3714,7 +3716,10 @@ def go15():
                     spec = 7
                     buy(7)
                     return
-
+        elif xmax1>xmax2:
+            if lastm1.j-lastm1.k<0 and lastm1.close<lastm1.boll:
+                sell(11)
+            return
 
 
 def on_message(self,evt):
