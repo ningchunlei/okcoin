@@ -3706,7 +3706,7 @@ def go15():
 
         if xmax1<xmax2:
             if (lastm1.j-lastm1.k<0 or (lastm1.macd<0 and prelastm1.macd>0)) and valueMax(lastm1)<xmax1:
-                if lastm1.boll - buyPrice1>1:
+                if buyPrice1!=None and lastm1.boll - buyPrice1>1:
                     return
                 sell(1)
                 return
