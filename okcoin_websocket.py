@@ -3630,6 +3630,9 @@ def go15():
 
 
     xdata = stock1Min.searchKDJRange()
+
+    pricelogging.info(xdata)
+
     if xdata[0][2] == "DOWN" and xdata[2][2]=="DOWN":
         xmax1 = xdata[0][1][0]
         xmin1 = xdata[0][1][1]
@@ -3643,22 +3646,22 @@ def go15():
                     buy(2)
                     return
         elif xmin2>xmax1:
-            if lastm1.close>lastm1.boll:
+            if lastm1.close>lastm1.boll and lastm1.j-lastm1.k>0:
                 spec = 3
                 buy(3)
                 return
         elif xmax1>xmax2:
-            if lastm1.close>lastm1.boll:
+            if lastm1.j-lastm1.k>0 and valueMin(lastm1)>xmin1:
                 spec = 4
                 buy(4)
                 return
         elif xmin1<xmin2:
-            if lastm1.close>lastm1.boll:
+            if lastm1.j-lastm1.k>0 and valueMin(lastm1)>xmin1:
                 spec = 5
                 buy(5)
                 return
         else:
-            if lastm1.close>lastm1.boll:
+            if lastm1.j-lastm1.k>0 and valueMin(lastm1)>xmin1:
                 spec = 6
                 buy(6)
                 return
@@ -3671,7 +3674,7 @@ def go15():
         xmin2 = xdata[2][0][1]
 
         if xmax1<xmax2:
-            if (lastm1.j-lastm1.k<0 or (lastm1.macd<0 and prelastm1.macd>0)) and valueMax(lastm1)<xmax2:
+            if (lastm1.j-lastm1.k<0 or (lastm1.macd<0 and prelastm1.macd>0)) and valueMax(lastm1)<xmax1:
                 sell(1)
                 return
 
