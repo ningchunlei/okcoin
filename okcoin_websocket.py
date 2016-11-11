@@ -3679,6 +3679,12 @@ def go15():
             if (lastm1.j-lastm1.k<0 or (lastm1.macd<0 and prelastm1.macd>0)) and valueMax(lastm1)<xmax1:
                 sell(1)
                 return
+            if ((f1po1[1][0]==2 and f1po1[1][1]==1) or (f1po1[2][0]==3 and f1po1[2][1]==1)) and lastm1.j-lastm1.k>-4 and prelastm1.j-prelastm1.k < lastm1.j-lastm1.k:
+                if buyPrice1==None:
+                    spec = 7
+                    buy(7)
+                    return
+
 
 
 def on_message(self,evt):
