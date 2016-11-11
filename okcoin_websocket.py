@@ -3588,8 +3588,92 @@ def go15():
 
     pricelogging.info("time=%s,fp1=%s,fp2=%s,fp3=%s,bymacd=%s,bykdj1=%s,bymacd5=%s,bykdj5=%s,bymacd15=%s,bykdj15=%s" % (time.ctime(current.time),f1po1,f1po5,f2po15,bymacd1,bykdj1,bymacd5,bykdj5,bymacd15,bykdj15))
 
+    def valueMax(kline):
+        if kline.close>kline.open:
+            return kline.close
+        return kline.open
 
-    pricelogging.info(stock1Min.searchKDJRange())
+    def valueMin(kline):
+        if kline.close<kline.open:
+            return kline.close
+        return kline.open
+
+
+    def buy(tag):
+        global buyPrice1,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
+        if buyPrice1==None:
+            buy1Time = current.time
+            buy2Time = lastM5.time
+            buyPrice1 = current.close
+            sellSpec = lastM5.j - lastM5.k
+            m5data = None
+            kk1pos = f1po1
+            kk5pos = f1po5
+            pricelogging.info("tbuy-%s,-%s,time=%s,deciderTime=%s,spec=%s" % (tag,buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),spec))
+            return
+
+    def sell(tag):
+        global buyPrice1,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
+        pricelogging.info("tbuy-%s-%s,sell-%s,diff=%s,time=%s" % (tag,buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+        buyPrice1 = None
+        spec = None
+        buy1Time = None
+        buy2Time = None
+        xspec = None
+        xkdj = None
+        upToDown = None
+        sellSpec = None
+        m5data = None
+        kk1pos = None
+        kk5pos = None
+        return
+
+
+    xdata = stock1Min.searchKDJRange()
+    if xdata[0][2] == "DOWN" and xdata[2][2]=="DOWN":
+        xmax1 = xdata[0][1][0]
+        xmin1 = xdata[0][1][1]
+
+        xmax2 = xdata[2][1][0]
+        xmin2 = xdata[2][1][1]
+        if xmin1>xmax2:
+            if f1po1[2][0]==3 or f1po1[3][0]==4:
+                if lastm1.j>prelastm1.j and valueMin(lastm1)>xmin1:
+                    spec = 2
+                    buy(2)
+                    return
+        elif xmin2>xmax1:
+            if lastm1.close>lastm1.boll:
+                spec = 3
+                buy(3)
+                return
+        elif xmax1>xmax2:
+            if lastm1.close>lastm1.boll:
+                spec = 4
+                buy(4)
+                return
+        elif xmin1<xmin2:
+            if lastm1.close>lastm1.boll:
+                spec = 5
+                buy(5)
+                return
+        else:
+            if lastm1.close>lastm1.boll:
+                spec = 6
+                buy(6)
+                return
+
+    if xdata[0][2] == "UP" and xdata[2][2]=="UP":
+        xmax1 = xdata[0][0][0]
+        xmin1 = xdata[0][0][1]
+
+        xmax2 = xdata[2][0][0]
+        xmin2 = xdata[2][0][1]
+
+        if xmax1<xmax2:
+            if (lastm1.j-lastm1.k<0 or (lastm1.macd<0 and prelastm1.macd>0)) and valueMax(lastm1)<xmax2:
+                sell(1)
+                return
 
 
 def on_message(self,evt):
