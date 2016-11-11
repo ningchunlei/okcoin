@@ -3663,17 +3663,32 @@ def go15():
                 buy(3)
                 return
         elif xmax1>xmax2:
-            if lastm1.j-lastm1.k>0 and valueMin(lastm1)>xmin1:
+            if lastm1.macd<0 and lastm1.close>lastm1.boll and lastm1.j-lastm1.k>0:
+                spec = 4
+                buy(4)
+                return
+
+            if lastm1.macd>0 and lastm1.j-lastm1.k>0 and valueMin(lastm1)>xmin1:
                 spec = 4
                 buy(4)
                 return
         elif xmin1<xmin2:
-            if lastm1.j-lastm1.k>0 and valueMin(lastm1)>xmin1:
+            if lastm1.macd<0 and lastm1.close>lastm1.boll and lastm1.j-lastm1.k>0:
+                spec = 5
+                buy(5)
+                return
+
+            if lastm1.macd>0 and lastm1.j-lastm1.k>0 and valueMin(lastm1)>xmin1:
                 spec = 5
                 buy(5)
                 return
         else:
-            if lastm1.j-lastm1.k>0 and valueMin(lastm1)>xmin1:
+            if lastm1.macd<0 and lastm1.close>lastm1.boll and lastm1.j-lastm1.k>0:
+                spec = 6
+                buy(6)
+                return
+
+            if lastm1.macd>0 and lastm1.j-lastm1.k>0 and valueMin(lastm1)>xmin1:
                 spec = 6
                 buy(6)
                 return
