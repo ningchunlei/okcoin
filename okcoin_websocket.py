@@ -3641,6 +3641,12 @@ def go15():
 
         xmax2 = xdata[2][1][0]
         xmin2 = xdata[2][1][1]
+
+        if buyPrice1!=None:
+            if (lastm1.macd<0 and prelastm1.macd>0) or (lastm1.j-lastm1.k<0 and prelastm1.j-prelastm1.k>0):
+                sell(2)
+                return
+
         if xmin1>xmax2:
             if f1po1[2][0]==3 or f1po1[3][0]==4:
                 if lastm1.macd<0 and lastm1.j-lastm1.k>0 and valueMin(lastm1)>xmin1 and lastm1.close>lastm1.open:
