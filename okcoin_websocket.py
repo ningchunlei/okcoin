@@ -3668,7 +3668,7 @@ def go15():
                 buy(4)
                 return
 
-            if lastm1.macd>0 and lastm1.j-lastm1.k>0 and valueMin(lastm1)>xmin1:
+            if lastm1.macd>0 and lastm1.j-lastm1.k>0 and valueMin(lastm1)>xmin1 and lastm1.close>lastm1.open:
                 spec = 4
                 buy(4)
                 return
@@ -3678,7 +3678,7 @@ def go15():
                 buy(5)
                 return
 
-            if lastm1.macd>0 and lastm1.j-lastm1.k>0 and valueMin(lastm1)>xmin1:
+            if lastm1.macd>0 and lastm1.j-lastm1.k>0 and valueMin(lastm1)>xmin1 and lastm1.close>lastm1.open:
                 spec = 5
                 buy(5)
                 return
@@ -3688,7 +3688,7 @@ def go15():
                 buy(6)
                 return
 
-            if lastm1.macd>0 and lastm1.j-lastm1.k>0 and valueMin(lastm1)>xmin1:
+            if lastm1.macd>0 and lastm1.j-lastm1.k>0 and valueMin(lastm1)>xmin1 and lastm1.close>lastm1.open:
                 spec = 6
                 buy(6)
                 return
