@@ -697,7 +697,7 @@ class stock(object):
                 pricelogging.info("k0,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
 
             kmin = valueMin(self.stocks[self.cursor-count])
-            if kmin<data[index][1][1] and kmin<valueMin(self.stocks[self.cursor-count-1]) and kmin<valueMin(self.stocks[self.cursor-count+1]):
+            if kmin<data[index][1][1] and kmin<=valueMin(self.stocks[self.cursor-count-1]) and kmin<=valueMin(self.stocks[self.cursor-count+1]):
                 td =  (max(valueMax(self.stocks[self.cursor-count]),valueMax(self.stocks[self.cursor-count-1]),valueMax(self.stocks[self.cursor-count+1])) \
                            ,kmin)
                 data[index][1] = td
@@ -705,7 +705,7 @@ class stock(object):
                 pricelogging.info("k01,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
 
             kmax = valueMax(self.stocks[self.cursor-count])
-            if kmax>data[index][0][0] and kmax > valueMax(self.stocks[self.cursor-count-1]) and kmax>valueMax(self.stocks[self.cursor-count+1]):
+            if kmax>data[index][0][0] and kmax >= valueMax(self.stocks[self.cursor-count-1]) and kmax>=valueMax(self.stocks[self.cursor-count+1]):
                 td =  (kmax \
                            ,min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1])))
                 data[index][0] = td
