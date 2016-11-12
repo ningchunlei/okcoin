@@ -3652,7 +3652,7 @@ def go15():
 
 
         if lastm1.j-lastm1.k<0 and lastm1.close<lastm1.boll:
-            sell(11)
+            sell(14)
             return
 
         if xmin1>xmax2:
