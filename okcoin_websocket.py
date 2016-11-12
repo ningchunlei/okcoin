@@ -3460,6 +3460,8 @@ def go14():
 
     pricelogging.info("time=%s,fp1=%s,fp2=%s,fp3=%s,bymacd=%s,bykdj1=%s,bymacd5=%s,bykdj5=%s,bymacd15=%s,bykdj15=%s" % (time.ctime(current.time),f1po1,f1po5,f2po15,bymacd1,bykdj1,bymacd5,bykdj5,bymacd15,bykdj15))
 
+    if prelastM5.po==None:
+        return
 
     def xbuy3():
         fdata = stock1Min.findInFiveData()
