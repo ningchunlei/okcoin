@@ -3611,10 +3611,13 @@ def go15():
             kk5pos = f1po5
             pricelogging.info("tbuy-%s,-%s,time=%s,deciderTime=%s,spec=%s" % (tag,buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),spec))
             return
+        else:
+            pricelogging.info("tbuy-buy-disable,time=%s" % (time.ctime(stock1Min.lastKline().time)) )
 
     def sell(tag):
         global buyPrice1,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
         if buyPrice1==None:
+            pricelogging.info("tbuy-sell-disable,time=%s" % (time.ctime(stock1Min.lastKline().time)) )
             return
         pricelogging.info("tbuy-%s-%s,sell-%s,diff=%s,time=%s" % (tag,buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
         buyPrice1 = None
@@ -3699,8 +3702,6 @@ def go15():
 
         xmax2 = xdata[2][0][0]
         xmin2 = xdata[2][0][1]
-
-
 
         if xmax1<xmax2:
             if lastm1.j-lastm1.k<0 and lastm1.close<lastm1.boll:
