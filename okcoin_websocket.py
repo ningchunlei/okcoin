@@ -3656,50 +3656,51 @@ def go15():
             return
 
         if xmin1>xmax2:
-            if f1po1[2][0]==3 or f1po1[3][0]==4:
-                if lastm1.macd<0 and lastm1.j-lastm1.k>0 and valueMin(lastm1)>xmin1 and lastm1.close>lastm1.open:
+            if lastM5.po[0][0]==1 or lastM5.po[1][0]==2:
+                if lastm1.macd>0 and prelastm1.macd<0:
                     spec = 21
                     buy(21)
                     return
-                if lastm1.macd>0 and lastm1.j>prelastm1.j and valueMin(lastm1)>xmin1:
+                if lastm1.j-lastm1.k>0 and prelastm1.j-prelastm1.k<0 and valueMin(lastm1)>xmin1:
                     spec = 2
                     buy(2)
                     return
         elif xmin2>xmax1:
-            if lastm1.close>lastm1.boll and lastm1.j-lastm1.k>0:
-                spec = 3
-                buy(3)
-                return
+            #if lastm1.close>lastm1.boll and lastm1.j-lastm1.k>0:
+                #spec = 3
+                #buy(3)
+            #    return
+            pass
         elif xmax1>xmax2:
-            if lastm1.macd<0 and lastm1.close>lastm1.boll and lastm1.j-lastm1.k>0 and lastm1.close>lastm1.open:
-                spec = 4
-                buy(4)
-                return
-
-            if lastm1.macd>0 and lastm1.j-lastm1.k>0 and valueMin(lastm1)>xmin1 and lastm1.close>lastm1.open:
-                spec = 4
-                buy(4)
-                return
+            if lastM5.po[0][0]==1 or lastM5.po[1][0]==2:
+                if lastm1.macd>0 and prelastm1.macd<0:
+                    spec = 21
+                    buy(21)
+                    return
+                if lastm1.j-lastm1.k>0 and prelastm1.j-prelastm1.k<0 and valueMin(lastm1)>xmin1:
+                    spec = 2
+                    buy(2)
+                    return
         elif xmin1<xmin2:
-            if lastm1.macd<0 and lastm1.close>lastm1.boll and lastm1.j-lastm1.k>0 and lastm1.close>lastm1.open:
-                spec = 5
-                buy(5)
-                return
-
-            if lastm1.macd>0 and lastm1.j-lastm1.k>0 and valueMin(lastm1)>xmin1 and lastm1.close>lastm1.open:
-                spec = 5
-                buy(5)
-                return
+            if lastM5.po[0][0]==1 or lastM5.po[1][0]==2:
+                if lastm1.macd>0 and prelastm1.macd<0:
+                    spec = 21
+                    buy(21)
+                    return
+                if lastm1.j-lastm1.k>0 and prelastm1.j-prelastm1.k<0 and valueMin(lastm1)>xmin1:
+                    spec = 2
+                    buy(2)
+                    return
         else:
-            if lastm1.macd<0 and lastm1.close>lastm1.boll and lastm1.j-lastm1.k>0 and lastm1.close>lastm1.open:
-                spec = 6
-                buy(6)
-                return
-
-            if lastm1.macd>0 and lastm1.j-lastm1.k>0 and valueMin(lastm1)>xmin1 and lastm1.close>lastm1.open:
-                spec = 6
-                buy(6)
-                return
+            if lastM5.po[0][0]==1 or lastM5.po[1][0]==2:
+                if lastm1.macd>0 and prelastm1.macd<0:
+                    spec = 21
+                    buy(21)
+                    return
+                if lastm1.j-lastm1.k>0 and prelastm1.j-prelastm1.k<0 and valueMin(lastm1)>xmin1:
+                    spec = 2
+                    buy(2)
+                    return
 
     if xdata[0][2] == "UP" and xdata[2][2]=="UP":
         xmax1 = xdata[0][0][0]
@@ -3708,24 +3709,11 @@ def go15():
         xmax2 = xdata[2][0][0]
         xmin2 = xdata[2][0][1]
 
-        if xmax1<xmax2:
-            if lastm1.j-lastm1.k<0 and lastm1.close<lastm1.boll:
-                sell(11)
-            return
-
-            if (lastm1.j-lastm1.k<0 or (lastm1.macd<0 and prelastm1.macd>0)) and valueMax(lastm1)<xmax1:
-                if lastm1.macd>0 and lastm1.j-lastm1.k<0 and prelastm1.j-prelastm1.k<0 and stock1Min.preMyLastKline(3).j-stock1Min.preMyLastKline(3).k<0:
-                    sell(1)
-                    return
-            if lastm1.close>lastm1.boll and lastm1.j-lastm1.k>0:
-                if buyPrice1==None:
-                    spec = 7
-                    buy(7)
-                    return
-        elif xmax1>xmax2:
-            if lastm1.j-lastm1.k<0 and lastm1.close<lastm1.boll:
-                sell(11)
-            return
+        if xmin1<xmax2:
+            if lastm1.macd>0.2:
+                return
+            if lastm1.j-lastm1.k<0 or (lastm1.macd<0 and prelastm1.macd>0):
+                sell(45)
 
 
 def on_message(self,evt):

@@ -712,7 +712,7 @@ class stock(object):
                 data[index][3]=time.ctime(self.stocks[self.cursor-count].time)
                 pricelogging.info("k02,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
             if self.stocks[self.cursor-count].j - self.stocks[self.cursor-count].k<0:
-                if self.stocks[self.cursor-count].j<=20:
+                if self.stocks[self.cursor-count].j<=30:
                     if data[index][2]==None:
                         data[index][2]="DOWN"
                         pricelogging.info("k1,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
@@ -724,7 +724,7 @@ class stock(object):
                         pricelogging.info("k2,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
 
             if self.stocks[self.cursor-count].j - self.stocks[self.cursor-count].k>0:
-                if self.stocks[self.cursor-count].j>=80:
+                if self.stocks[self.cursor-count].j>=70:
                     if data[index][2]==None:
                         data[index][2]="UP"
                         pricelogging.info("k3,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
