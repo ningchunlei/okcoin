@@ -3650,6 +3650,11 @@ def go15():
                 sell(2)
                 return
 
+
+        if lastm1.j-lastm1.k<0 and lastm1.close<lastm1.boll:
+            sell(11)
+            return
+
         if xmin1>xmax2:
             if f1po1[2][0]==3 or f1po1[3][0]==4:
                 if lastm1.macd<0 and lastm1.j-lastm1.k>0 and valueMin(lastm1)>xmin1 and lastm1.close>lastm1.open:
