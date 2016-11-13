@@ -3603,6 +3603,9 @@ def go15():
 
     def buy(tag):
         global buyPrice1,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
+        if prelastM5.macd<0 and prelastM5.macd<stock5Min.preMyLastKline(3).macd:
+            return
+
         if buyPrice1==None:
             buy1Time = current.time
             buy2Time = lastM5.time
