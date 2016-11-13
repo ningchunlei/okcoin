@@ -3624,6 +3624,10 @@ def go15():
         if buyPrice1==None:
             pricelogging.info("tbuy-%s-sell-disable,time=%s" % (tag,time.ctime(stock1Min.lastKline().time)) )
             return
+
+        if stock1Min.lastKline().close-buyPrice1 <-2:
+            return
+
         pricelogging.info("tbuy-%s-%s,sell-%s,diff=%s,time=%s" % (tag,buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
         buyPrice1 = None
         spec = None
