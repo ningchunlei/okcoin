@@ -3661,6 +3661,10 @@ def go15():
             sell(34)
             return
 
+        if prelastm1.macd>lastm1.macd and lastm1.close<lastm1.boll:
+            sell(36)
+            return
+
         if xmin1>xmax2:
             if (lastM5.macd>0 and lastM5.close>lastM5.boll) or (lastM5.macd>0 and lastM5.macd>prelastM5.macd):
                 if lastm1.j > prelastm1.j and lastm1.macd>prelastm1.macd:
@@ -3695,14 +3699,6 @@ def go15():
             buy(26)
             return
 
-        if xdata[0][0][0]==None:
-            return
-
-        xmax1 = xdata[0][0][0]
-        xmin1 = xdata[0][0][1]
-
-        xmax2 = xdata[2][0][0]
-        xmin2 = xdata[2][0][1]
 
         if lastm1.macd<prelastm1.macd and prelastm1.macd < stock1Min.preMyLastKline(3).macd and lastm1.close < lastm1.open and prelastm1.close < prelastm1.open:
             sell(35)
