@@ -3662,7 +3662,7 @@ def go15():
             return
 
         if prelastm1.macd>lastm1.macd and lastm1.close<lastm1.boll:
-            sell(36)
+            sell(40)
             return
 
         if xmin1>xmax2:
