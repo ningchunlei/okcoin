@@ -3648,15 +3648,6 @@ def go15():
     pricelogging.info(xdata)
 
     if xdata[0][2] == "DOWN" and xdata[2][2]=="DOWN":
-        if xdata[0][1][1]==None:
-            return
-
-        xmax1 = xdata[0][1][0]
-        xmin1 = xdata[0][1][1]
-
-        xmax2 = xdata[2][1][0]
-        xmin2 = xdata[2][1][1]
-
         if lastm1.macd<prelastm1.macd and prelastm1.macd < stock1Min.preMyLastKline(3).macd and lastm1.close < lastm1.open and prelastm1.close < prelastm1.open:
             if lastM5.macd>prelastM5.macd and lastM5.j>prelastM5.j:
                 if lastm1.close<lastm1.dn:
@@ -3672,6 +3663,17 @@ def go15():
             else:
                 sell(40)
                 return
+
+
+        if xdata[0][1][1]==None:
+            return
+
+        xmax1 = xdata[0][1][0]
+        xmin1 = xdata[0][1][1]
+
+        xmax2 = xdata[2][1][0]
+        xmin2 = xdata[2][1][1]
+
 
         if xmin1>xmax2:
             if (lastM5.macd>0 and lastM5.close>lastM5.boll) or (lastM5.macd>0 and lastM5.macd>prelastM5.macd):
@@ -3690,16 +3692,18 @@ def go15():
                     spec = 23
                     buy(23)
                     return
-        elif xmin1+2>xmin2:
+        elif xmin1>xmin2:
             if lastm1.close>lastm1.boll and lastm1.macd>prelastm1.macd:
-                spec = 24
-                buy(24)
-                return
+                if lastM5.j > prelastM5.j and lastM5.macd>prelastM5.macd:
+                    spec = 24
+                    buy(24)
+                    return
         elif xmin1<xmin2:
             if lastm1.close>lastm1.boll and lastm1.macd>prelastm1.macd:
-                spec = 25
-                buy(25)
-                return
+                if lastM5.j > prelastM5.j and lastM5.macd>prelastM5.macd:
+                    spec = 25
+                    buy(25)
+                    return
 
     if xdata[0][2] == "UP" and xdata[2][2]=="UP":
         if lastm1.close>xdata[0][0][0] and lastm1.macd>0.6 and (lastM5.macd>0 or (lastM5.macd<0 and lastM5.macd>prelastM5.macd)):
