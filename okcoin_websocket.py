@@ -3658,12 +3658,20 @@ def go15():
         xmin2 = xdata[2][1][1]
 
         if lastm1.macd<prelastm1.macd and prelastm1.macd < stock1Min.preMyLastKline(3).macd and lastm1.close < lastm1.open and prelastm1.close < prelastm1.open:
-            sell(34)
-            return
+            if lastM5.macd>prelastM5.macd and lastM5.j>prelastM5.j:
+                if lastm1.close<lastm1.dn:
+                    sell(34)
+            else:
+                sell(34)
+                return
 
         if prelastm1.macd>lastm1.macd and lastm1.close<lastm1.boll:
-            sell(40)
-            return
+            if lastM5.macd>prelastM5.macd and lastM5.j>prelastM5.j:
+                if lastm1.close<lastm1.dn:
+                    sell(40)
+            else:
+                sell(40)
+                return
 
         if xmin1>xmax2:
             if (lastM5.macd>0 and lastM5.close>lastM5.boll) or (lastM5.macd>0 and lastM5.macd>prelastM5.macd):
