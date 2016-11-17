@@ -3666,6 +3666,11 @@ def go15():
                     sell(40)
                     return
 
+        if lastM5.j<prelastM5.j and lastM5.macd<prelastM5.macd:
+            if prelastm1.macd>lastm1.macd and lastm1.close<lastm1.boll:
+                sell(46)
+                return
+
 
         if xdata[0][1][1]==None:
             return
@@ -3712,7 +3717,7 @@ def go15():
             spec = 26
             buy(26)
             return
-        if lastM5.macd >0 and lastM5.close>lastM5.boll:
+        if lastM5.macd>0 and lastM5.j>prelastM5.j and lastM5.close>lastM5.boll:
             if lastm1.j > prelastm1.j and lastm1.macd>prelastm1.macd and lastm1.close>lastm1.boll:
                 spec = 27
                 buy(27)
