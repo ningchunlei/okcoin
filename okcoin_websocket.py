@@ -3650,19 +3650,21 @@ def go15():
     if xdata[0][2] == "DOWN" and xdata[2][2]=="DOWN":
         if lastm1.macd<prelastm1.macd and prelastm1.macd < stock1Min.preMyLastKline(3).macd and lastm1.close < lastm1.open and prelastm1.close < prelastm1.open:
             if lastM5.macd>prelastM5.macd and lastM5.j>prelastM5.j:
-                if lastm1.close<lastm1.dn:
+                if lastm1.close<lastm1.boll-(lastm1.boll-lastm1.dn)/2:
                     sell(34)
-            else:
-                sell(34)
-                return
+            elif lastM5.macd<prelastM5.macd:
+                if lastm1.close<lastm1.boll-(lastm1.boll-lastm1.dn)/2:
+                    sell(34)
+                    return
 
         if prelastm1.macd>lastm1.macd and lastm1.close<lastm1.boll:
             if lastM5.macd>prelastM5.macd and lastM5.j>prelastM5.j:
-                if lastm1.close<lastm1.dn:
+                if lastm1.close<lastm1.boll-(lastm1.boll-lastm1.dn)/2:
                     sell(40)
-            else:
-                sell(40)
-                return
+            elif lastM5.macd<prelastM5.macd:
+                if lastm1.close<lastm1.boll-(lastm1.boll-lastm1.dn)/2:
+                    sell(40)
+                    return
 
 
         if xdata[0][1][1]==None:
@@ -3710,7 +3712,11 @@ def go15():
             spec = 26
             buy(26)
             return
-
+        if lastM5.macd >0 and lastM5.close>lastM5.boll:
+            if lastm1.j > prelastm1.j and lastm1.macd>prelastm1.macd and lastm1.close>lastm1.boll:
+                spec = 27
+                buy(27)
+                return
 
         if lastm1.macd<prelastm1.macd and prelastm1.macd < stock1Min.preMyLastKline(3).macd and lastm1.close < lastm1.open and prelastm1.close < prelastm1.open:
             sell(35)
