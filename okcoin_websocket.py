@@ -3667,7 +3667,7 @@ def go15():
                     return
 
         if lastM5.j<prelastM5.j and lastM5.macd<prelastM5.macd:
-            pricelogging.info("tbuy-%s-sell-disable,time=%s" % (111,time.ctime(stock1Min.lastKline().time)) )
+            pricelogging.info("tbuy-%s-sell-disable,time=%s,pmacd=%s,lmacd=%s,close=%s,boll=%s" % (111,time.ctime(stock1Min.lastKline().time),prelastm1.macd,lastm1.macd,lastm1.close,lastm1.boll) )
             if prelastm1.macd>lastm1.macd and lastm1.close<lastm1.boll:
                 sell(46)
                 return
