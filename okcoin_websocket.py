@@ -3713,6 +3713,14 @@ def go15():
                     return
 
     if xdata[0][2] == "UP" and xdata[2][2]=="UP":
+        if prelastm1.macd>lastm1.macd and lastm1.close<lastm1.boll:
+            sell(36)
+            return
+
+        if lastm1.macd<prelastm1.macd and prelastm1.macd < stock1Min.preMyLastKline(3).macd and lastm1.close < lastm1.open and prelastm1.close < prelastm1.open:
+            sell(35)
+            return
+
         if lastm1.close>xdata[0][0][0] and lastm1.macd>0.6 and (lastM5.macd>0 or (lastM5.macd<0 and lastM5.macd>prelastM5.macd)):
             spec = 26
             buy(26)
@@ -3723,13 +3731,9 @@ def go15():
                 buy(27)
                 return
 
-        if lastm1.macd<prelastm1.macd and prelastm1.macd < stock1Min.preMyLastKline(3).macd and lastm1.close < lastm1.open and prelastm1.close < prelastm1.open:
-            sell(35)
-            return
 
-        if prelastm1.macd>lastm1.macd and lastm1.close<lastm1.boll:
-            sell(36)
-            return
+
+
 
 
 def on_message(self,evt):
