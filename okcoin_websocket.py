@@ -3666,7 +3666,7 @@ def go15():
         xmax3 = xdata[3][1][0]
         xmin3 = xdata[3][1][1]
 
-        if (xmin1>xmin2 or abs(xmin1-xmin2)<(lastm1.boll-lastm1.dn)/2) and xmin1.macd>xmin2.macd:
+        if (xmin1>xmin2 or abs(xmin1-xmin2)<(lastm1.boll-lastm1.dn)/2) and xdata[0][1][2].macd>xdata[2][1][2].macd:
             if lastm1.close>lastm1.boll and lastm1.close>lastm1.open and not stock1Min.iscrossKline() and lastm1.macd>prelastm1.macd:
                 fdata = stock1Min.findInFiveData()
                 if fdata[len(fdata)-1].close > fdata[0].open:
@@ -3682,6 +3682,14 @@ def go15():
                     return
 
     if xdata[0][2] == "UP" and xdata[2][2]=="UP":
+        xmax1 = xdata[0][0][0]
+        xmin1 = xdata[0][0][1]
+
+        xmax2 = xdata[2][0][0]
+        xmin2 = xdata[2][0][1]
+
+
+
         if xdata[0][0][0]==None:
             return
 
@@ -3689,7 +3697,7 @@ def go15():
             sell(123)
             return
 
-        if xmin1>xmin2 and xmin1.macd>xmin2.macd  and lastm1.macd>0 and lastM5.macd<0 and lastM5.macd>prelastM5.macd:
+        if xmin1>xmin2 and xdata[0][0][2].macd>xdata[2][0][2].macd  and lastm1.macd>0 and lastM5.macd<0 and lastM5.macd>prelastM5.macd:
             spec = 26
             buy(26)
             return
