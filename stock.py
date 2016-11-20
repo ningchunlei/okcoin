@@ -688,7 +688,7 @@ class stock(object):
             return kline.open
 
         while True:
-            if index == 4:
+            if index == 7:
                 break;
             if data[index]==None:
                 td =  (max(valueMax(self.stocks[self.cursor-count]),valueMax(self.stocks[self.cursor-count-1]),valueMax(self.stocks[self.cursor-count+1])) \

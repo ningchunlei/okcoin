@@ -3641,96 +3641,58 @@ def go15():
 
 
     xdata = stock1Min.searchKDJRange()
+    x5data = stock5Min.searchKDJRange()
 
     pricelogging.info(xdata)
 
+
+
     if xdata[0][2] == "DOWN" and xdata[2][2]=="DOWN":
-        if lastm1.macd<prelastm1.macd and prelastm1.macd < stock1Min.preMyLastKline(3).macd and lastm1.close < lastm1.open and prelastm1.close < prelastm1.open:
-            if lastM5.macd>prelastM5.macd and lastM5.j>prelastM5.j:
-                if lastm1.close<lastm1.boll-(lastm1.boll-lastm1.dn)/2:
-                    sell(34)
-            elif lastM5.macd<prelastM5.macd:
-                if lastm1.close<lastm1.boll-(lastm1.boll-lastm1.dn)/2:
-                    sell(34)
-                    return
-
-        if prelastm1.macd>lastm1.macd and lastm1.close<lastm1.boll:
-            if lastM5.macd>prelastM5.macd and lastM5.j>prelastM5.j:
-                if lastm1.close<lastm1.boll-(lastm1.boll-lastm1.dn)/2:
-                    sell(40)
-            elif lastM5.macd<prelastM5.macd:
-                if lastm1.close<lastm1.boll-(lastm1.boll-lastm1.dn)/2:
-                    sell(40)
-                    return
-
-        if lastM5.j<prelastM5.j and lastM5.macd<prelastM5.macd:
-            pricelogging.info("tbuy-%s-sell-disable,time=%s,pmacd=%s,lmacd=%s,close=%s,boll=%s" % (111,time.ctime(stock1Min.lastKline().time),prelastm1.macd,lastm1.macd,lastm1.close,lastm1.boll) )
-            if prelastm1.macd>lastm1.macd and lastm1.close<lastm1.boll:
-                sell(46)
-                return
-
-
         if xdata[0][1][1]==None:
             return
 
         xmax1 = xdata[0][1][0]
         xmin1 = xdata[0][1][1]
 
+        xmaxup1 = xdata[1][0][0]
+        xminup1 = xdata[1][0][1]
+
         xmax2 = xdata[2][1][0]
         xmin2 = xdata[2][1][1]
 
+        xmaxup2 = xdata[3][0][0]
+        xminup2 = xdata[3][0][1]
 
-        if xmin1>xmax2:
-            if (lastM5.macd>0 and lastM5.close>lastM5.boll) or (lastM5.macd>0 and lastM5.macd>prelastM5.macd):
-                if lastm1.j > prelastm1.j and lastm1.macd>prelastm1.macd:
-                    spec = 21
-                    buy(21)
-                    return
-            if lastM5.macd<0 and lastM5.j>prelastM5.j:
-                if lastm1.j > prelastm1.j and lastm1.macd>prelastm1.macd:
-                    spec = 22
-                    buy(22)
-                    return
-        elif xmin2>xmax1:
-            if (lastM5.macd<0 and lastM5.j>prelastM5.j):
-                if lastm1.close>lastm1.boll and lastm1.macd>prelastm1.macd:
-                    spec = 23
-                    buy(23)
-                    return
-        elif xmin1>xmin2:
-            if lastm1.close>lastm1.boll and lastm1.macd>prelastm1.macd:
-                if lastM5.j > prelastM5.j and lastM5.macd>prelastM5.macd:
+        xmax3 = xdata[3][1][0]
+        xmin3 = xdata[3][1][1]
+
+        if (xmin1>xmin2 or abs(xmin1-xmin2)<(lastm1.boll-lastm1.dn)/2) and xmin1.macd>xmin2.macd:
+            if lastm1.close>lastm1.boll and lastm1.close>lastm1.open and not stock1Min.iscrossKline() and lastm1.macd>prelastm1.macd:
+                fdata = stock1Min.findInFiveData()
+                if fdata[len(fdata)-1].close > fdata[0].open:
                     spec = 24
                     buy(24)
                     return
-        elif xmin1<xmin2:
-            if lastm1.close>lastm1.boll and lastm1.macd>prelastm1.macd:
-                if lastM5.j > prelastM5.j and lastM5.macd>prelastM5.macd:
-                    spec = 25
-                    buy(25)
+        elif xmin2>xmax1:
+            if lastm1.close>lastm1.boll and lastm1.close>lastm1.open and not stock1Min.iscrossKline() and lastm1.macd>prelastm1.macd:
+                fdata = stock1Min.findInFiveData()
+                if fdata[len(fdata)-1].close > fdata[0].open:
+                    spec = 23
+                    buy(23)
                     return
 
     if xdata[0][2] == "UP" and xdata[2][2]=="UP":
-        if prelastm1.macd>lastm1.macd and lastm1.close<lastm1.boll:
-            sell(36)
+        if xdata[0][0][0]==None:
             return
 
-        if lastm1.macd<prelastm1.macd and prelastm1.macd < stock1Min.preMyLastKline(3).macd and lastm1.close < lastm1.open and prelastm1.close < prelastm1.open:
-            sell(35)
+        if (abs(xmax1-xmax2)<2 or xmax1<xmax2) and xdata[0][0][2].macd < xdata[2][0][2].macd:
+            sell(123)
             return
 
-        if lastm1.close>xdata[0][0][0] and lastm1.macd>0.6 and (lastM5.macd>0 or (lastM5.macd<0 and lastM5.macd>prelastM5.macd)):
+        if xmin1>xmin2 and xmin1.macd>xmin2.macd  and lastm1.macd>0 and lastM5.macd<0 and lastM5.macd>prelastM5.macd:
             spec = 26
             buy(26)
             return
-        if lastM5.macd>0 and lastM5.j>prelastM5.j and lastM5.close>lastM5.boll:
-            if lastm1.j > prelastm1.j and lastm1.macd>prelastm1.macd and lastm1.close>lastm1.boll:
-                spec = 27
-                buy(27)
-                return
-
-
-
 
 
 
