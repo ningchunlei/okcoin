@@ -673,7 +673,7 @@ class stock(object):
 
 
     def searchKDJRange(self):
-        data=[None,None,None,None,None]
+        data=[None,None,None,None,None,None,None,None]
         count = 1
         index = 0
 
