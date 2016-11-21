@@ -3685,8 +3685,20 @@ def go15():
         xmax1 = xdata[0][0][0]
         xmin1 = xdata[0][0][1]
 
+        xmaxdn1 = xdata[1][1][0]
+        xmindn1 = xdata[1][1][1]
+
         xmax2 = xdata[2][0][0]
         xmin2 = xdata[2][0][1]
+
+        xmaxdn2 = xdata[3][1][0]
+        xmindn2 = xdata[3][1][1]
+
+
+        if xmindn1>xmindn2 and xdata[1][1][2].macd>xdata[3][1][2].macd and lastm1.macd>0 and lastM5.macd<0 and lastM5.macd>prelastM5.macd:
+            spec = 29
+            buy(29)
+            return
 
 
         if xdata[0][0][0]==None:
