@@ -3603,8 +3603,6 @@ def go15():
 
     def buy(tag):
         global buyPrice1,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
-        if prelastM5.macd<0 and prelastM5.macd<=stock5Min.preMyLastKline(3).macd:
-            return
 
         if buyPrice1==None:
             buy1Time = current.time
@@ -3694,6 +3692,10 @@ def go15():
         xmaxdn2 = xdata[3][1][0]
         xmindn2 = xdata[3][1][1]
 
+        pricelogging.info("tbuy-%s-sell-disable,time=%s,=%s,=%s,=%s,=%s,=%s" % ("456",time.ctime(stock1Min.lastKline().time)\
+                                                                                ,xmindn1>xmindn2,xdata[1][1][2].macd>xdata[3][1][2].macd,lastm1.macd>0 \
+
+        ,lastM5.macd<0,lastM5.macd>prelastM5.macd) )
 
         if xmindn1>xmindn2 and xdata[1][1][2].macd>xdata[3][1][2].macd and lastm1.macd>0 and lastM5.macd<0 and lastM5.macd>prelastM5.macd:
             spec = 29
