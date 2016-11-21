@@ -3689,7 +3689,6 @@ def go15():
         xmin2 = xdata[2][0][1]
 
 
-
         if xdata[0][0][0]==None:
             return
 

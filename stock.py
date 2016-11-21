@@ -695,7 +695,7 @@ class stock(object):
                            ,min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1])))
                 data[index] = [td,td,None,time.ctime(self.stocks[self.cursor-count].time),time.ctime(self.stocks[self.cursor-count].time)]
                 #pricelogging.info("k0,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
-
+            '''
             if data[index][1][0]==None:
                 if data[index][1][2].time == self.stocks[self.cursor-count-1].time and valueMin(self.stocks[self.cursor-count])>=data[index][1][1]:
                     data[index][1] = (max(valueMax(self.stocks[self.cursor-count]),valueMax(self.stocks[self.cursor-count-1]),valueMax(self.stocks[self.cursor-count-2])) \
@@ -705,10 +705,14 @@ class stock(object):
                 if data[index][0][2].time == self.stocks[self.cursor-count-1].time and valueMax(self.stocks[self.cursor-count])<=data[index][0][0]:
                     data[index][0] = (data[index[0][0]] \
                                           ,min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count-2])))
-
+            '''
             kmin = valueMin(self.stocks[self.cursor-count])
             if kmin<data[index][1][1]:
-                td =  (None \
+                if valueMin(self.stocks[self.cursor-count])>=kmin:
+                    td = (max(valueMax(self.stocks[self.cursor-count]),valueMax(self.stocks[self.cursor-count-1]),valueMax(self.stocks[self.cursor-count+1]))\
+                          ,kmin,self.stocks[self.cursor-count])
+                else:
+                    td =  (None \
                            ,kmin,self.stocks[self.cursor-count])
                 data[index][1] = td
                 data[index][4]=time.ctime(self.stocks[self.cursor-count].time)
@@ -716,7 +720,11 @@ class stock(object):
 
             kmax = valueMax(self.stocks[self.cursor-count])
             if kmax>data[index][0][0]:
-                td =  (kmax \
+                if valueMax(self.stocks[self.cursor-count])<=data[index][0][0]:
+                    td =  (kmax \
+                               ,min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1])),self.stocks[self.cursor-count])
+                else:
+                    td =  (kmax \
                            ,None,self.stocks[self.cursor-count])
                 data[index][0] = td
                 data[index][3]=time.ctime(self.stocks[self.cursor-count].time)
