@@ -692,7 +692,8 @@ class stock(object):
                 break;
             if data[index]==None:
                 td =  (max(valueMax(self.stocks[self.cursor-count]),valueMax(self.stocks[self.cursor-count-1]),valueMax(self.stocks[self.cursor-count+1])) \
-                           ,min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1])))
+                           ,min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1]))\
+                       ,self.stocks[self.cursor-count])
                 data[index] = [td,td,None,time.ctime(self.stocks[self.cursor-count].time),time.ctime(self.stocks[self.cursor-count].time)]
                 #pricelogging.info("k0,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
             '''
