@@ -3708,7 +3708,7 @@ def go15():
             sell(123)
             return
 
-        if xmin1>xmin2 and xdata[0][0][2].macd>xdata[2][0][2].macd  and lastm1.macd>0 and lastM5.macd<0 and lastM5.macd>prelastM5.macd:
+        if xmin1>xmin2 and xmindn1>xmindn2 and xdata[0][0][2].macd>0 and xdata[2][0][2].macd>0 and xdata[0][0][2].macd>xdata[2][0][2].macd  and lastm1.macd>0 and lastM5.macd<0 and lastM5.macd>prelastM5.macd:
             spec = 26
             buy(26)
             return
