@@ -709,7 +709,7 @@ class stock(object):
             '''
             kmin = valueMin(self.stocks[self.cursor-count])
             if kmin<data[index][1][1]:
-                if valueMin(self.stocks[self.cursor-count])>=kmin:
+                if valueMin(self.stocks[self.cursor-count-1])>=kmin:
                     td = (max(valueMax(self.stocks[self.cursor-count]),valueMax(self.stocks[self.cursor-count-1]),valueMax(self.stocks[self.cursor-count+1]))\
                           ,kmin,self.stocks[self.cursor-count])
                 else:
@@ -721,7 +721,7 @@ class stock(object):
 
             kmax = valueMax(self.stocks[self.cursor-count])
             if kmax>data[index][0][0]:
-                if valueMax(self.stocks[self.cursor-count])<=data[index][0][0]:
+                if valueMax(self.stocks[self.cursor-count-1])<=kmax:
                     td =  (kmax \
                                ,min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1])),self.stocks[self.cursor-count])
                 else:
@@ -737,6 +737,11 @@ class stock(object):
                         #pricelogging.info("k1,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
                     elif data[index][2]=="UP":
                         index += 1
+
+                        if data[index-1][0][1] == None:
+                            data[index-1][0][1] = min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1]));
+                            data[index-1][0][2] = self.stocks[self.cursor-count]
+
                         data[index] = copy.deepcopy(data[index-1])
                         data[index][2]="DOWN"
                         data[index][0] = copy.deepcopy(data[index][1])
@@ -749,6 +754,11 @@ class stock(object):
                         #pricelogging.info("k3,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
                     elif data[index][2]=="DOWN":
                         index +=1
+
+                        if data[index-1][1][0] == None:
+                            data[index-1][1][0] = min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1]));
+                            data[index-1][1][2] = self.stocks[self.cursor-count]
+
                         data[index]= copy.deepcopy(data[index-1])
                         data[index][2] = "UP"
                         data[index][1] = copy.deepcopy(data[index][0])
