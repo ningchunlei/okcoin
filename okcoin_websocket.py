@@ -3643,6 +3643,150 @@ def go15():
 
     pricelogging.info(xdata)
 
+    def canbuy2():
+        xmax1 = xdata[0][1][0]
+        xmin1 = xdata[0][1][1]
+
+        xmax2 = xdata[1][0][0]
+        xmin2 = xdata[1][0][1]
+
+        xmax3 = xdata[2][1][0]
+        xmin3 = xdata[2][1][1]
+
+        xmax4 = xdata[3][0][0]
+        xmin4 = xdata[3][0][1]
+
+        xmax5 = xdata[3][1][0]
+        xmin5 = xdata[3][1][1]
+
+        if xdata[0][2] == "DOWN" and xdata[2][2]=="DOWN":
+            if xdata[0][1][1]==None:
+                return 0
+
+            if (xmin1>xmin3 or abs(xmin1-xmin3)<(lastm1.boll-lastm1.dn)/2):
+                if lastm1.close>lastm1.boll and lastm1.close>lastm1.open and not stock1Min.iscrossKline() and lastm1.macd>prelastm1.macd:
+                    fdata = stock1Min.findInFiveData()
+                    if fdata[len(fdata)-1].close > fdata[0].open:
+                        return 24
+                if lastm1.macd>0 and prelastm1.macd<0:
+                    return 25
+            elif xmin3>xmax1:
+                if lastm1.close>lastm1.boll and lastm1.close>lastm1.open and not stock1Min.iscrossKline() and lastm1.macd>prelastm1.macd:
+                    fdata = stock1Min.findInFiveData()
+                    if fdata[len(fdata)-1].close > fdata[0].open:
+                        return 23
+                if lastm1.macd>0 and prelastm1.macd<0:
+                    return 26
+
+        if xdata[0][2] == "UP" and xdata[2][2]=="UP":
+
+            if xdata[0][1][0]==None:
+                xmax1 = valueMax(lastm1)
+
+            if (xmax1>xmax3 or abs(xmax1-xmax3)<(lastm1.boll-lastm1.dn)/2):
+                if lastm1.close>lastm1.boll and lastm1.close>lastm1.open and not stock1Min.iscrossKline() and lastm1.macd>prelastm1.macd:
+                    fdata = stock1Min.findInFiveData()
+                    if fdata[len(fdata)-1].close > fdata[0].open:
+                        return 34
+                if lastm1.macd>0 and prelastm1.macd<0:
+                    return 35
+            elif xmax1 < xmin4:
+                if lastm1.close>lastm1.boll and lastm1.close>lastm1.open and not stock1Min.iscrossKline() and lastm1.macd>prelastm1.macd:
+                    fdata = stock1Min.findInFiveData()
+                    if fdata[len(fdata)-1].close > fdata[0].open:
+                        return 33
+                if lastm1.macd>0 and prelastm1.macd<0:
+                    return 36
+    def cansell2():
+
+        xmax1 = xdata[0][1][0]
+        xmin1 = xdata[0][1][1]
+
+        xmax2 = xdata[1][0][0]
+        xmin2 = xdata[1][0][1]
+
+        xmax3 = xdata[2][1][0]
+        xmin3 = xdata[2][1][1]
+
+        xmax4 = xdata[3][0][0]
+        xmin4 = xdata[3][0][1]
+
+        xmax5 = xdata[3][1][0]
+        xmin5 = xdata[3][1][1]
+
+        if xdata[0][2] == "UP" and xdata[2][2]=="UP":
+            if xdata[0][0][0]==None:
+                return 0
+
+            if (abs(xmax1-xmax3)<2 or xmax1<xmax3) and xdata[0][0][2].macd < xdata[2][0][2].macd:
+                    return 51
+
+            if lastm1.macd<0 and prelastm1.macd>0:
+                    return 52
+
+            if lastm1.close < lastm1.boll and lastm1.close<lastm1.open and not stock1Min.iscrossKline() and lastm1.macd<prelastm1.macd:
+                fdata = stock1Min.findInFiveData()
+                if fdata[len(fdata)-1].close < fdata[0].open:
+                    return 53
+
+        if xdata[0][2] == "DOWN" and xdata[2][2]=="DOWN":
+            if lastm1.macd<0 and prelastm1.macd>0:
+                return 54
+            if lastm1.close < lastm1.boll and lastm1.close<lastm1.open and not stock1Min.iscrossKline() and lastm1.macd<prelastm1.macd:
+                fdata = stock1Min.findInFiveData()
+                if fdata[len(fdata)-1].close < fdata[0].open:
+                    return 55
+
+            if xdata[0][1][1]==None:
+                if lastm1.macd<prelastm1.macd:
+                    return 56
+
+
+
+
+
+
+
+        if xmindn1>xmindn2 and xdata[1][1][2].macd>xdata[3][1][2].macd and lastm1.macd>0 and lastM5.macd<0 and lastM5.macd>prelastM5.macd:
+            spec = 29
+            buy(29)
+            return
+
+
+        if xdata[0][0][0]==None:
+            return
+
+        if (abs(xmax1-xmax2)<2 or xmax1<xmax2) and xdata[0][0][2].macd < xdata[2][0][2].macd:
+            sell(123)
+            return
+
+        if xmin1>xmin2 and xmindn1>xmindn2 and xdata[0][0][2].macd>0 and xdata[2][0][2].macd>0 and xdata[0][0][2].macd>xdata[2][0][2].macd  and lastm1.macd>0 and lastM5.macd<0 and lastM5.macd>prelastM5.macd:
+            spec = 26
+            buy(26)
+            return
+
+
+    if x5data[0][2] == "DOWN" and x5data[2][2] == "DOWN" :
+        x5max1 = x5data[0][1][0]
+        x5min1 = x5data[0][1][1]
+
+        x5maxup1 = x5data[1][0][0]
+        x5minup1 = x5data[1][0][1]
+
+        x5max2 = x5data[2][1][0]
+        x5min2 = x5data[2][1][1]
+
+        x5maxup2 = x5data[3][0][0]
+        x5minup2 = x5data[3][0][1]
+
+        x5max3 = x5data[3][1][0]
+        x5min3 = x5data[3][1][1]
+
+        if x5data[0][1][1] == None:
+
+
+
+
 
 
     if xdata[0][2] == "DOWN" and xdata[2][2]=="DOWN":
