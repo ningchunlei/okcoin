@@ -3645,23 +3645,23 @@ def go15():
     pricelogging.info(xdata)
 
     def zs(xt):
-        xmax1 = xt[0][1][0]
-        xmin1 = xt[0][1][1]
-
-        xmax2 = xt[1][0][0]
-        xmin2 = xt[1][0][1]
-
-        xmax3 = xt[2][1][0]
-        xmin3 = xt[2][1][1]
-
-        xmax4 = xt[3][0][0]
-        xmin4 = xt[3][0][1]
-
-        xmax5 = xt[3][1][0]
-        xmin5 = xt[3][1][1]
-
 
         if xt[0][2] == "DOWN" :
+            xmax1 = xt[0][1][0]
+            xmin1 = xt[0][1][1]
+
+            xmax2 = xt[1][0][0]
+            xmin2 = xt[1][0][1]
+
+            xmax3 = xt[2][1][0]
+            xmin3 = xt[2][1][1]
+
+            xmax4 = xt[3][0][0]
+            xmin4 = xt[3][0][1]
+
+            xmax5 = xt[3][1][0]
+            xmin5 = xt[3][1][1]
+
             if xmax2 < xmax4 and xmin3 < xmin5:  # 下降趋势
                 if xmax2 < xmin5:  # 3卖
                     return (xmin3,xmax2,xt[2][1][2],xt[1][0][2])
@@ -3671,6 +3671,21 @@ def go15():
                 return (max(xmin3,xmin5),min(xmax2,xmax4),xt[2][1][2],xt[1][0][2])   # 上涨趋势
 
         if xt[0][2] == "UP" :
+            xmax1 = xt[0][0][0]
+            xmin1 = xt[0][0][1]
+
+            xmax2 = xt[1][1][0]
+            xmin2 = xt[1][1][1]
+
+            xmax3 = xt[2][0][0]
+            xmin3 = xt[2][0][1]
+
+            xmax4 = xt[3][1][0]
+            xmin4 = xt[3][1][1]
+
+            xmax5 = xt[3][0][0]
+            xmin5 = xt[3][0][1]
+
             if xmax3 > xmax5 and xmin2 > xmin4:  # 上涨趋势
                 if xmin2 > xmax5: #3 买
                     return (xmin2,xmax3,xt[1][0][2],xt[2][1][2])
@@ -3680,23 +3695,23 @@ def go15():
                 return (max(xmin2,xmin4),min(xmax3,xmax5),xt[1][0][2],xt[3][0][2])
 
     def position(xt):
-        xmax1 = xt[0][1][0]
-        xmin1 = xt[0][1][1]
-
-        xmax2 = xt[1][0][0]
-        xmin2 = xt[1][0][1]
-
-        xmax3 = xt[2][1][0]
-        xmin3 = xt[2][1][1]
-
-        xmax4 = xt[3][0][0]
-        xmin4 = xt[3][0][1]
-
-        xmax5 = xt[3][1][0]
-        xmin5 = xt[3][1][1]
-
-
         if xt[0][2] == "DOWN" :
+
+            xmax1 = xt[0][1][0]
+            xmin1 = xt[0][1][1]
+
+            xmax2 = xt[1][0][0]
+            xmin2 = xt[1][0][1]
+
+            xmax3 = xt[2][1][0]
+            xmin3 = xt[2][1][1]
+
+            xmax4 = xt[3][0][0]
+            xmin4 = xt[3][0][1]
+
+            xmax5 = xt[3][1][0]
+            xmin5 = xt[3][1][1]
+
             if xmax2 < xmax4 and xmin3 < xmin5:  # 下降趋势
                 if xmax2 < xmin5:  # 3卖
                     return 21
@@ -3712,6 +3727,21 @@ def go15():
                 return 26 #震荡
 
         if xt[0][2] == "UP" :
+            xmax1 = xt[0][0][0]
+            xmin1 = xt[0][0][1]
+
+            xmax2 = xt[1][1][0]
+            xmin2 = xt[1][1][1]
+
+            xmax3 = xt[2][0][0]
+            xmin3 = xt[2][0][1]
+
+            xmax4 = xt[3][1][0]
+            xmin4 = xt[3][1][1]
+
+            xmax5 = xt[3][0][0]
+            xmin5 = xt[3][0][1]
+
             if xmax3 > xmax5 and xmin2 > xmin4:  # 上涨趋势
                 if xmin2 > xmax5: #3 买
                     return 31
