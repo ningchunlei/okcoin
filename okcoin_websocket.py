@@ -3732,6 +3732,8 @@ def go15():
         px = position(xt)
         rzs = zs(xt)
 
+        pricelogging.info("tbuy,-%s" % (rzs))
+
         if kline.close > kline.boll and rzs[0]>kline.close and rzs[0] - kline.close>5 and kline.macd > prekline.macd:
             return ("buy",1)
         elif rzs[1]-rzs[0] < 4:
