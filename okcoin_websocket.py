@@ -3735,7 +3735,7 @@ def go15():
         if kline.close > kline.boll and rzs[0]>kline.close and rzs[0] - kline.close>5 and kline.macd > prekline.macd:
             return ("buy",1)
         elif rzs[1]-rzs[0] < 4:
-            if kline.close > rzs[1] and kline.clsoe>kline.open and kline.macd > prekline.macd :
+            if kline.close > rzs[1] and kline.close>kline.open and kline.macd > prekline.macd :
                 return ("buy",2)
         else:
             if kline.close > rzs[0] and kline.macd > prekline.macd:
