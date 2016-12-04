@@ -3640,7 +3640,7 @@ def go15():
 
 
     xdata = stock1Min.searchKDJRange()
-    x5data = stock5Min.searchKDJRange()
+    #x5data = stock5Min.searchKDJRange()
 
     pricelogging.info(xdata)
 

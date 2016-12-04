@@ -757,7 +757,7 @@ class stock(object):
                         index +=1
 
                         if data[index-1][1][0] == None:
-                            data[index-1][1] = (min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1])),\
+                            data[index-1][1] = (max(valueMax(self.stocks[self.cursor-count]),valueMax(self.stocks[self.cursor-count-1]),valueMax(self.stocks[self.cursor-count+1])),\
                                                 data[index-1][1][1],self.stocks[self.cursor-count])
 
                         data[index]= copy.deepcopy(data[index-1])
