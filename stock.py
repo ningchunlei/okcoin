@@ -695,7 +695,7 @@ class stock(object):
                            ,min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1]))\
                        ,self.stocks[self.cursor-count])
                 data[index] = [td,td,None,time.ctime(self.stocks[self.cursor-count].time),time.ctime(self.stocks[self.cursor-count].time)]
-                #pricelogging.info("k0,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
+                pricelogging.info("k0,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
             '''
             if data[index][1][0]==None:
                 if data[index][1][2].time == self.stocks[self.cursor-count-1].time and valueMin(self.stocks[self.cursor-count])>=data[index][1][1]:
@@ -717,7 +717,7 @@ class stock(object):
                            ,kmin,self.stocks[self.cursor-count])
                 data[index][1] = td
                 data[index][4]=time.ctime(self.stocks[self.cursor-count].time)
-                #pricelogging.info("k01,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
+                pricelogging.info("k01,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
 
             kmax = valueMax(self.stocks[self.cursor-count])
             if kmax>data[index][0][0]:
@@ -729,12 +729,12 @@ class stock(object):
                            ,None,self.stocks[self.cursor-count])
                 data[index][0] = td
                 data[index][3]=time.ctime(self.stocks[self.cursor-count].time)
-                #pricelogging.info("k02,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
+                pricelogging.info("k02,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
             if self.stocks[self.cursor-count].j - self.stocks[self.cursor-count].k<0:
                 if self.stocks[self.cursor-count].j<=30:
                     if data[index][2]==None:
                         data[index][2]="DOWN"
-                        #pricelogging.info("k1,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
+                        pricelogging.info("k1,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
                     elif data[index][2]=="UP":
                         index += 1
 
@@ -746,13 +746,13 @@ class stock(object):
                         data[index] = copy.deepcopy(data[index-1])
                         data[index][2]="DOWN"
                         data[index][0] = copy.deepcopy(data[index][1])
-                        #pricelogging.info("k2,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
+                        pricelogging.info("k2,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
 
             if self.stocks[self.cursor-count].j - self.stocks[self.cursor-count].k>0:
                 if self.stocks[self.cursor-count].j>=70:
                     if data[index][2]==None:
                         data[index][2]="UP"
-                        #pricelogging.info("k3,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
+                        pricelogging.info("k3,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
                     elif data[index][2]=="DOWN":
                         index +=1
 
@@ -763,7 +763,7 @@ class stock(object):
                         data[index]= copy.deepcopy(data[index-1])
                         data[index][2] = "UP"
                         data[index][1] = copy.deepcopy(data[index][0])
-                        #pricelogging.info("k4,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
+                        pricelogging.info("k4,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
 
             count += 1
         return data
