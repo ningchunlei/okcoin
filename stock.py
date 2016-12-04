@@ -742,10 +742,14 @@ class stock(object):
                             data[index-1][0] = (data[index-1][0][0],min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1])) \
                                     ,self.stocks[self.cursor-count])
 
+                        if data[index-1][1][1] ==None:
+                            data[index-1][1] = (data[index-1][1][0],min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1])) \
+                                                    ,self.stocks[self.cursor-count])
 
                         data[index] = copy.deepcopy(data[index-1])
                         data[index][2]="DOWN"
-                        data[index][0] = copy.deepcopy(data[index][1])
+                        data[index][1] = copy.deepcopy(data[index-1][0])
+
                         pricelogging.info("k2,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
 
             if self.stocks[self.cursor-count].j - self.stocks[self.cursor-count].k>0:
@@ -760,9 +764,10 @@ class stock(object):
                             data[index-1][1] = (max(valueMax(self.stocks[self.cursor-count]),valueMax(self.stocks[self.cursor-count-1]),valueMax(self.stocks[self.cursor-count+1])),\
                                                 data[index-1][1][1],self.stocks[self.cursor-count])
 
+
                         data[index]= copy.deepcopy(data[index-1])
                         data[index][2] = "UP"
-                        data[index][1] = copy.deepcopy(data[index][0])
+                        data[index][0] = copy.deepcopy(data[index-1][1])
                         pricelogging.info("k4,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
 
             count += 1
