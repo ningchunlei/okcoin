@@ -3803,7 +3803,7 @@ def go15():
             return
 
     if buyPrice1!=None:
-        if spec == 1 and lastm1.close < buyPrice1 and lastm1.close<xspec-(lastm1.boll－lastm1.bn)/2 and lastm1.macd < prelastm1.macd:
+        if spec == 1 and lastm1.close < buyPrice1 and lastm1.close<xspec-(lastm1.boll-lastm1.bn)/2 and lastm1.macd < prelastm1.macd:
             sell(1)
             return
         ret = cans(xdata,lastm1,prelastm1)
