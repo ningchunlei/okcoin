@@ -3764,21 +3764,21 @@ def go15():
 
         pricelogging.info("tbuy,-%s-%s-px=%s" % (rzs[0],rzs[1],px))
         if kline.close > kline.boll and rzs[0]>kline.close and kline.macd > 0 and kline.macd>prekline.macd:
-   	         return ("buy",1) 
-        elif rzs[1]-rzs[0] < 4:
-            if kline.close > rzs[1] and kline.close>kline.open and kline.macd > prekline.macd :
-                return ("buy",2)
+            if xdata[0][2] == "DOWN":
+                return ("buy",1)
+            elif xdata[0][2] == "UP" and (px==33 or px ==35):
+   	            return ("buy",1)
         else:
             if px==24 or px == 34: 
-                if kline.close > rzs[1] and kline.macd > prekline.macd:
+                if kline.close > rzs[1] and kline.close>kline.open and kline.macd > prekline.macd:
                     return ("buy",3)
             else:
-                if kline.close > rzs[0] and kline.macd > prekline.macd:
-                    return ("buy",5)
+                if kline.close > rzs[0] and kline.close>kline.open and kline.macd > prekline.macd:
+                    if abs(kline.close-rzs[1])>4:
+                        return ("buy",5)
 
-            if kline.close > rzs[1] and kline.macd > prekline.macd:
+            if kline.close > rzs[1] and kline.close>kline.open and kline.macd > prekline.macd:
                 return ("buy",4)
-
 
     def cans(xt,kline,prekline):
         px = position(xt)
@@ -3795,6 +3795,7 @@ def go15():
         ret = canb(xdata,lastm1,prelastm1)
         if ret!=None:
             spec = ret[1]
+            buy1Time = lastm1.time
             buy(ret[1])
             if spec == 1:
                 xspec = lastm1.close
@@ -3805,6 +3806,10 @@ def go15():
     if buyPrice1!=None:
         if spec == 1 and lastm1.close < buyPrice1 and lastm1.close<xspec-(lastm1.boll-lastm1.dn)/2 and lastm1.macd < prelastm1.macd:
             sell(1)
+            return
+
+        if lastm1.time - buy1Time == 120 and lastm1.close<lastm1.open and prelastm1.close < prelastm1.open:
+            sell(51)
             return
         ret = cans(xdata,lastm1,prelastm1)
         rzs = zs(xdata)
