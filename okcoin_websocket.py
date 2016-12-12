@@ -3769,16 +3769,24 @@ def go15():
             elif xdata[0][2] == "UP" and (px==33 or px ==35):
    	            return ("buy",1)
         else:
-            if px==24 or px == 34: 
+            if px==24 or px == 34 or px == 31 or px==32:
                 if kline.close > rzs[1] and kline.close>kline.open and kline.macd > prekline.macd:
                     return ("buy",3)
             else:
                 if kline.close > rzs[0] and kline.close>kline.open and kline.macd > prekline.macd:
-                    if abs(kline.close-rzs[1])>4:
-                        return ("buy",5)
+                    if xdata[0][2] == "DOWN" and xt[1][0][1]>rzs[0]:
+                        if kline.close > xt[1][0][1]:
+                            return ("buy",7)
+                    else:
+                        if abs(kline.close-rzs[1])>4:
+                            return ("buy",5)
 
             if kline.close > rzs[1] and kline.close>kline.open and kline.macd > prekline.macd:
-                return ("buy",4)
+                if xdata[0][2] == "DOWN" and xt[1][0][1]>rzs[0]:
+                    if kline.close > xt[1][0][1]:
+                        return ("buy",7)
+                else:
+                    return ("buy",4)
 
     def cans(xt,kline,prekline):
         px = position(xt)
@@ -3813,13 +3821,15 @@ def go15():
             return
         ret = cans(xdata,lastm1,prelastm1)
         rzs = zs(xdata)
+
+        if lastm1.macd < 0:
+            if rzs[1] < lastm1.close and abs(rzs[1]-lastm1.close)>4:
+                if lastm1.close < lastm1.boll and lastm1.macd < prelastm1.macd:
+                    sell(61)
+
         if ret != None :
-            if lastm1.macd < 0 :
-                sell(ret[1])
-            xpos = position(xdata)
-            if xpos != None and (xpos==24 or xpos ==34):
-                sell(ret[1])
-                return
+            sell(ret[1])
+
             
 
 
