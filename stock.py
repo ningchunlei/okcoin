@@ -730,45 +730,45 @@ class stock(object):
                 data[index][0] = td
                 data[index][3]=time.ctime(self.stocks[self.cursor-count].time)
                 pricelogging.info("k02,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
-            if self.stocks[self.cursor-count].j - self.stocks[self.cursor-count].k<0:
-                if self.stocks[self.cursor-count].j<=30:
-                    if data[index][2]==None:
-                        data[index][2]="DOWN"
-                        pricelogging.info("k1,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
-                    elif data[index][2]=="UP":
-                        index += 1
+            #if self.stocks[self.cursor-count].j - self.stocks[self.cursor-count].k<0:
+            if self.stocks[self.cursor-count].j<=30:
+                if data[index][2]==None:
+                    data[index][2]="DOWN"
+                    pricelogging.info("k1,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
+                elif data[index][2]=="UP":
+                    index += 1
 
-                        if data[index-1][0][1] == None:
-                            data[index-1][0] = (data[index-1][0][0],min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1])) \
-                                    ,self.stocks[self.cursor-count])
+                    if data[index-1][0][1] == None:
+                        data[index-1][0] = (data[index-1][0][0],min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1])) \
+                                ,self.stocks[self.cursor-count])
 
-                        if data[index-1][1][1] ==None:
-                            data[index-1][1] = (data[index-1][1][0],min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1])) \
-                                                    ,self.stocks[self.cursor-count])
+                    if data[index-1][1][1] ==None:
+                        data[index-1][1] = (data[index-1][1][0],min(valueMin(self.stocks[self.cursor-count]),valueMin(self.stocks[self.cursor-count-1]),valueMin(self.stocks[self.cursor-count+1])) \
+                                                ,self.stocks[self.cursor-count])
 
-                        data[index] = copy.deepcopy(data[index-1])
-                        data[index][2]="DOWN"
-                        data[index][1] = copy.deepcopy(data[index-1][0])
+                    data[index] = copy.deepcopy(data[index-1])
+                    data[index][2]="DOWN"
+                    data[index][1] = copy.deepcopy(data[index-1][0])
 
-                        pricelogging.info("k2,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
+                    pricelogging.info("k2,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
 
-            if self.stocks[self.cursor-count].j - self.stocks[self.cursor-count].k>0:
-                if self.stocks[self.cursor-count].j>=70:
-                    if data[index][2]==None:
-                        data[index][2]="UP"
-                        pricelogging.info("k3,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
-                    elif data[index][2]=="DOWN":
-                        index +=1
+            #if self.stocks[self.cursor-count].j - self.stocks[self.cursor-count].k>0:
+            if self.stocks[self.cursor-count].j>=70:
+                if data[index][2]==None:
+                    data[index][2]="UP"
+                    pricelogging.info("k3,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
+                elif data[index][2]=="DOWN":
+                    index +=1
 
-                        if data[index-1][1][0] == None:
-                            data[index-1][1] = (max(valueMax(self.stocks[self.cursor-count]),valueMax(self.stocks[self.cursor-count-1]),valueMax(self.stocks[self.cursor-count+1])),\
-                                                data[index-1][1][1],self.stocks[self.cursor-count])
+                    if data[index-1][1][0] == None:
+                        data[index-1][1] = (max(valueMax(self.stocks[self.cursor-count]),valueMax(self.stocks[self.cursor-count-1]),valueMax(self.stocks[self.cursor-count+1])),\
+                                            data[index-1][1][1],self.stocks[self.cursor-count])
 
 
-                        data[index]= copy.deepcopy(data[index-1])
-                        data[index][2] = "UP"
-                        data[index][0] = copy.deepcopy(data[index-1][1])
-                        pricelogging.info("k4,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
+                    data[index]= copy.deepcopy(data[index-1])
+                    data[index][2] = "UP"
+                    data[index][0] = copy.deepcopy(data[index-1][1])
+                    pricelogging.info("k4,j=%s,time=%s,%s" % (self.stocks[self.cursor-count].j,time.ctime(self.stocks[self.cursor-count].time),data))
 
             count += 1
         return data
