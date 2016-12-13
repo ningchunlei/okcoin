@@ -3792,6 +3792,7 @@ def go15():
         px = position(xt)
         rzs = zs(xt)
 
+        pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px))
         if kline.close < rzs[0] and kline.macd < prekline.macd:
             return ("sell",11)
 
