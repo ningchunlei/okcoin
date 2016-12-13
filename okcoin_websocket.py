@@ -3769,9 +3769,7 @@ def go15():
             elif xdata[0][2] == "UP" and (px==33 or px ==35):
    	            return ("buy",1)
         else:
-            if px == 23 :
-
-            elif px==24 or px == 34 or px == 31 or px==32:
+            if px==24 or px == 34 or px == 31 or px==32:
                 if kline.close > rzs[1] and kline.close>kline.open and kline.macd > prekline.macd:
                     return ("buy",3)
             else:
