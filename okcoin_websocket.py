@@ -3762,7 +3762,7 @@ def go15():
         px = position(xt)
         rzs = zs(xt)
 
-        pricelogging.info("tbuy,-%s-%s-px=%s" % (rzs[0],rzs[1],px))
+        pricelogging.info("tbuy,-time=%s-%s-%s-px=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px))
         if kline.close > kline.boll and rzs[0]>kline.close and kline.macd > 0 and kline.macd>prekline.macd:
             if xdata[0][2] == "DOWN":
                 return ("buy",1)
