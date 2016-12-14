@@ -3828,7 +3828,10 @@ def go15():
             return
 
         if lastm1.time - buy1Time == 120 and (spec==3 or spec==4) and lastm1.close<lastm1.open and prelastm1.close < prelastm1.open:
-            sell(51)
+            if lastm1.close>lastm1.boll or (lastm1.boll-lastm1.close)<1:
+                return
+            else:
+                sell(51)
             return
         ret = cans(xdata,lastm1,prelastm1)
         rzs = zs(xdata)
