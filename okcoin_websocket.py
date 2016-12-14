@@ -3842,7 +3842,7 @@ def go15():
                     sell(61)
 
         if ret != None :
-            if lastm1.macd >0.4 and lastm1.close> lastm1.boll and lastm1.j>30:
+            if ((lastm1.close> lastm1.boll) or (lastm1.close<lastm1.boll and lastm1.boll-lastm1.close<1)) and lastm1.macd >0 :
                 return
             sell(ret[1])
 
