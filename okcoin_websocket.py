@@ -3764,6 +3764,8 @@ def go15():
 
         pricelogging.info("tbuy,-time=%s-%s-%s-px=%s,up=%s,close=%s,kf=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,kline.up,kline.close,abs(kline.up-kline.close)))
         if kline.close > kline.boll and rzs[0]>kline.close and kline.macd > 0 and kline.macd>prekline.macd and abs(kline.up-kline.close)>4:
+            if abs(rzs[0]-kline.close)<2:
+                return
             if xdata[0][2] == "DOWN":
                 return ("buy",1)
             elif xdata[0][2] == "UP" and (px==33 or px ==35):
