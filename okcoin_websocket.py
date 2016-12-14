@@ -3762,9 +3762,9 @@ def go15():
         px = position(xt)
         rzs = zs(xt)
 
-        pricelogging.info("tbuy,-time=%s-%s-%s-px=%s,up=%s,close=%s,kf=%s,xt1=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,kline.up,kline.close,abs(kline.up-kline.close),xt[1][0][1]))
+        pricelogging.info("tbuy,-time=%s-%s-%s-px=%s,boll=%s,close=%s,kf=%s,xt1=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,kline.boll,kline.close,abs(kline.up-kline.close),xt[1][0][1]))
         if kline.close > kline.boll and rzs[0]>kline.close and kline.macd > 0 and kline.macd>prekline.macd:
-            if abs(rzs[0]-kline.close)<2:
+            if abs(rzs[0]-kline.close)<2 and kline.macd < 0.6:
                 return
             if kline.macd < 0.6:
                 return
