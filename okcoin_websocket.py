@@ -3767,7 +3767,7 @@ def go15():
             if abs(rzs[0]-kline.close)<2:
                 return
             if kline.macd < 0.6:
-                return 
+                return
             if xdata[0][2] == "DOWN":
                 return ("buy",1)
             elif xdata[0][2] == "UP" and (px==33 or px ==35):
@@ -3839,6 +3839,8 @@ def go15():
                     sell(61)
 
         if ret != None :
+            if ret[1] == 21 and lastm1.macd >0 and lastm1.close> lastm1.boll:
+                return
             sell(ret[1])
 
             
