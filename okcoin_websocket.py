@@ -3692,7 +3692,7 @@ def go15():
                     if xdata[1][1][0] < stock1Min.lastKline().close and abs(xdata[1][1][0]-stock1Min.lastKline().close)<2:
                         return
 
-        if spec!=43 and stock1Min.lastKline().close-buyPrice1<0 and lastM5.close > lastM5.boll:
+        if spec!=43 and stock1Min.lastKline().close-buyPrice1<0 and (lastM5.close > lastM5.boll or (lastM5.j>prelastM5.j and lastM5.macd > prelastM5.macd)):
             if stock1Min.lastKline().close < xzs[1] and stock1Min.lastKline().close>xzs[0]-1 and abs(xzs[0]-stock1Min.lastKline().close)<2:
                 return
 
