@@ -3876,7 +3876,7 @@ def go15():
             sell(62)
             return
 
-        if lastm1.macd<prelastm1.macd and prelastm1.macd - lastm1.macd >= 0.5:
+        if lastm1.macd<prelastm1.macd and prelastm1.macd - lastm1.macd >= 0.4:
             sell(63)
             return
 
