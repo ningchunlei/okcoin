@@ -3618,25 +3618,7 @@ def go15():
         else:
             pricelogging.info("tbuy-%s-buy-disable,time=%s" % (tag,time.ctime(stock1Min.lastKline().time)) )
 
-    def sell(tag):
-        global buyPrice1,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
-        if buyPrice1==None:
-            pricelogging.info("tbuy-%s-sell-disable,time=%s" % (tag,time.ctime(stock1Min.lastKline().time)) )
-            return
 
-        pricelogging.info("tbuy-%s-%s,sell-%s,diff=%s,time=%s" % (tag,buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
-        buyPrice1 = None
-        spec = None
-        buy1Time = None
-        buy2Time = None
-        xspec = None
-        xkdj = None
-        upToDown = None
-        sellSpec = None
-        m5data = None
-        kk1pos = None
-        kk5pos = None
-        return
 
 
     xdata = stock1Min.searchKDJRange()
@@ -3693,6 +3675,40 @@ def go15():
                     return (max(xmin2,xmin4),min(xmax3,xmax5),xt[1][1][2],xt[2][0][2])
             else:
                 return (max(xmin2,xmin4),min(xmax3,xmax5),xt[1][1][2],xt[2][0][2])
+
+    def sell(tag):
+        global buyPrice1,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
+        if buyPrice1==None:
+            pricelogging.info("tbuy-%s-sell-disable,time=%s" % (tag,time.ctime(stock1Min.lastKline().time)) )
+            return
+
+        xzs = zs(xdata)
+        if tag==43 and stock1Min.lastKline().close-buyPrice1<0:
+            if lastm1.macd>0 and lastM5.j > prelastM5.j:
+                if xdata[0][2] == "DOWN":
+                    if xdata[2][1][0] < stock1Min.lastKline().close and abs(xdata[2][1][0]-stock1Min.lastKline().close)<2:
+                        return
+                elif xdata[0][2] == "UP":
+                    if xdata[1][1][0] < stock1Min.lastKline().close and abs(xdata[1][1][0]-stock1Min.lastKline().close)<2:
+                        return
+
+        if tag!=43 and stock1Min.lastKline().close-buyPrice1<0 and lastM5.j>prelastM5.j:
+            if stock1Min.lastKline().close < xzs[1] and stock1Min.lastKline().close>xzs[0] and abs(xzs[0]-stock1Min.lastKline().close)<2:
+                return
+
+        pricelogging.info("tbuy-%s-%s,sell-%s,diff=%s,time=%s" % (tag,buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+        buyPrice1 = None
+        spec = None
+        buy1Time = None
+        buy2Time = None
+        xspec = None
+        xkdj = None
+        upToDown = None
+        sellSpec = None
+        m5data = None
+        kk1pos = None
+        kk5pos = None
+        return
 
     def position(xt):
         if xt[0][2] == "DOWN" :
