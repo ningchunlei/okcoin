@@ -3931,7 +3931,7 @@ def go15():
 
         if lastm1.high>lastm1.up and lastm1.close < lastm1.open and lastm1.j < prelastm1.j:
             if xdata[0][2] == "UP":
-                if abs(xdata[2][0][0]-lastm1.high)<1:
+                if abs(xdata[2][0][0]-lastm1.close)<1:
                     return sell(90)
 
 
