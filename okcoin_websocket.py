@@ -3832,7 +3832,7 @@ def go15():
 
             if kline.close > rzs5[0] and lastM5.macd > prelastM5.macd:
                 if kline.close > rzs[1] and kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd:
-                    return ("buy",32)
+                    return ("buy",33)
 
                 if kline.close > rzs[0] and kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd:
                     return ("buy",31)
