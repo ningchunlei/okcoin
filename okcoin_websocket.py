@@ -3824,10 +3824,10 @@ def go15():
                 return ("buy",43)
         else:
             if kline.close > rzs5[0] and lastM5.macd > prelastM5.macd:
-                if kline.close > rzs[0] and kline.close>kline.open and kline.macd > prekline.macd:
+                if kline.close > rzs[0] and kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd:
                     return ("buy",31)
 
-                if kline.close > rzs[1] and kline.close>kline.open and kline.macd > prekline.macd:
+                if kline.close > rzs[1] and kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd:
                     return ("buy",32)
             elif kline.close > rzs5[0] and lastM5.macd < prelastM5.macd and lastM5.macd>0:
                 if kline.close > rzs[1] and kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd and kline.macd>0:
@@ -3838,7 +3838,7 @@ def go15():
                     return ("buy",35)
 
             elif kline.close<rzs5[0] and lastM5.macd > prelastM5.macd and lastM5.macd>0:
-                if kline.close > rzs[0] and kline.macd > prekline.macd:
+                if kline.close > rzs[0] and kline.close>kline.boll and kline.macd > prekline.macd:
                     return ("buy",36)
 
                 if kline.close > rzs[1] and kline.macd > prekline.macd and kline.close>kline.boll:
@@ -3880,6 +3880,9 @@ def go15():
             sell(63)
             return
 
+        if prelastM5.close < prelastM5.open and lastm1.macd<0.2 and lastm1.macd < prelastm1.close:
+            sell(67)
+            return
 
         if lastM5.macd < prelastM5.macd:
             if lastM5.macd>0:
