@@ -3823,6 +3823,13 @@ def go15():
             if fdata[len(fdata)-1].close > fdata[0].close:
                 return ("buy",43)
         else:
+            if kline.close > rzs5[1] and lastM5.macd > 3:
+                if kline.close > rzs[1] and kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd:
+                    return ("buy",32)
+
+                if kline.close > rzs[0] and kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd:
+                    return ("buy",31)
+
             if kline.close > rzs5[0] and lastM5.macd > prelastM5.macd:
                 if kline.close > rzs[1] and kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd:
                     return ("buy",32)
