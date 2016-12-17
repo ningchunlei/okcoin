@@ -3889,7 +3889,11 @@ def go15():
             return
 
         if prelastM5.close < prelastM5.open and lastm1.macd<0.2 and lastm1.macd < prelastm1.macd:
-            sell(67)
+            if lastm1.close > rzs5[1] and prelastM5.macd > pre2lastM5.macd:
+                if lastm1.close<lastm1.boll:
+                    sell(68)
+            else:
+                sell(67)
             return
 
         if lastM5.macd < prelastM5.macd:
