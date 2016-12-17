@@ -3868,9 +3868,9 @@ def go15():
 
         if spec == 43 and lastm1.close < rzs[0] and lastm1.macd<prelastm1.macd and lastm1.j-lastm1.k<0:
             if lastm1.macd>0 and lastM5.macd > prelastM5.macd:
-                return
-            sell(spec)
-            return
+                pass
+            else:
+                sell(spec)
 
         if lastm1.macd < 0 and lastm1.macd < prelastm1.macd and lastm1.close<lastm1.boll:
             sell(62)
