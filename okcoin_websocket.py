@@ -3844,6 +3844,10 @@ def go15():
                 if kline.close > rzs[1] and kline.macd > prekline.macd and kline.close>kline.boll:
                     return ("buy",37)
 
+    ret = canb2(xdata,lastm1,prelastm1)
+    if ret!=None and spec==43 and buyPrice1!=None:
+        spec = ret[1]
+
     if buyPrice1==None:
         ret = canb2(xdata,lastm1,prelastm1)
         if ret!=None:
@@ -3863,6 +3867,8 @@ def go15():
         rzs = zs(xdata)
 
         if spec == 43 and lastm1.close < rzs[0] and lastm1.macd<prelastm1.macd and lastm1.j-lastm1.k<0:
+            if lastm1.macd>0 and lastM5.macd > prelastM5.macd>0 and lastm1.close>lastm1.boll:
+                return
             sell(spec)
             return
 
