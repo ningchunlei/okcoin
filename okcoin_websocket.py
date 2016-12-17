@@ -3684,7 +3684,7 @@ def go15():
 
         xzs = zs(xdata)
         xspec = True
-        if spec==43 and stock1Min.lastKline().close-buyPrice1<0:
+        if tag!=90 and spec==43 and stock1Min.lastKline().close-buyPrice1<0:
             if lastm1.macd>0:
                 if xdata[0][2] == "DOWN":
                     if xdata[2][1][0] < stock1Min.lastKline().close and abs(xdata[2][1][0]-stock1Min.lastKline().close)<2:
@@ -3693,7 +3693,7 @@ def go15():
                     if xdata[1][1][0] < stock1Min.lastKline().close and abs(xdata[1][1][0]-stock1Min.lastKline().close)<2:
                         return
 
-        if spec!=43 and stock1Min.lastKline().close-buyPrice1<0 and (lastM5.close > lastM5.boll or (prelastM5.j-prelastM5.k>0 and prelastM5.macd > pre2lastM5.macd)):
+        if tag!=90 and spec!=43 and stock1Min.lastKline().close-buyPrice1<0 and (lastM5.close > lastM5.boll or (prelastM5.j-prelastM5.k>0 and prelastM5.macd > pre2lastM5.macd)):
             if stock1Min.lastKline().close < xzs[1]+1 and stock1Min.lastKline().close>xzs[0]-1 and abs(xzs[0]-stock1Min.lastKline().close)<2:
                 return
             if xdata[0][2] == "DOWN":
@@ -3928,6 +3928,12 @@ def go15():
                     return sell(64)
             elif lastM5.macd<0:
                 return sell(65)
+
+        if lastm1.high>lastm1.up and lastm1.close < lastm1.open and lastm1.j < prelastm1.j:
+            if xdata[0][2] == "UP":
+                if abs(xdata[2][0][0]-lastm1.high)<1:
+                    return sell(90)
+
 
 
 def on_message(self,evt):
