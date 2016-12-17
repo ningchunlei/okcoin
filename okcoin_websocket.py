@@ -3888,7 +3888,7 @@ def go15():
             return
 
     if buyPrice1!=None:
-        if ret==None and xspec == True and lastm1.close-buyPrice1>0:
+        if xspec == True and lastm1.close-buyPrice1>0:
             sell(90)
 
         px5 = position(x5data)
