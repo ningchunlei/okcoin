@@ -3695,6 +3695,12 @@ def go15():
         if spec!=43 and stock1Min.lastKline().close-buyPrice1<0 and (lastM5.close > lastM5.boll or (prelastM5.j-prelastM5.k>0 and prelastM5.macd > pre2lastM5.macd)):
             if stock1Min.lastKline().close < xzs[1]+1 and stock1Min.lastKline().close>xzs[0]-1 and abs(xzs[0]-stock1Min.lastKline().close)<2:
                 return
+            if xdata[0][2] == "DOWN":
+                if xdata[2][1][0] < stock1Min.lastKline().close and abs(xdata[2][1][0]-stock1Min.lastKline().close)<2:
+                    return
+            elif xdata[0][2] == "UP":
+                if xdata[1][1][0] < stock1Min.lastKline().close and abs(xdata[1][1][0]-stock1Min.lastKline().close)<2:
+                    return
 
         pricelogging.info("tbuy-%s-%s,sell-%s,diff=%s,time=%s" % (tag,buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
         buyPrice1 = None
