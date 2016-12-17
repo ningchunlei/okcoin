@@ -3792,7 +3792,7 @@ def go15():
                 else:
                     return ("buy",4)
 
-    def cans(xt,kline,prekline,xt5,k5line,pre5kline):
+    def cans(xt,kline,prekline):
         px = position(xt)
         rzs = zs(xt)
 
