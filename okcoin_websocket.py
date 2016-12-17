@@ -3824,11 +3824,12 @@ def go15():
                 return ("buy",43)
         else:
             if kline.close > rzs5[0] and lastM5.macd > prelastM5.macd:
+                if kline.close > rzs[1] and kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd:
+                    return ("buy",32)
+
                 if kline.close > rzs[0] and kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd:
                     return ("buy",31)
 
-                if kline.close > rzs[1] and kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd:
-                    return ("buy",32)
             elif kline.close > rzs5[0] and lastM5.macd < prelastM5.macd and lastM5.macd>0:
                 if kline.close > rzs[1] and kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd and kline.macd>0:
                     return ("buy",32)
@@ -3838,11 +3839,11 @@ def go15():
                     return ("buy",35)
 
             elif kline.close<rzs5[0] and lastM5.macd > prelastM5.macd and lastM5.macd>0:
-                if kline.close > rzs[0] and kline.close>kline.boll and kline.macd > prekline.macd:
-                    return ("buy",36)
-
                 if kline.close > rzs[1] and kline.macd > prekline.macd and kline.close>kline.boll:
                     return ("buy",37)
+
+                if kline.close > rzs[0] and kline.close>kline.boll and kline.macd > prekline.macd:
+                    return ("buy",36)
 
     ret = canb2(xdata,lastm1,prelastm1)
     if ret!=None and spec==43 and buyPrice1!=None:
@@ -3880,7 +3881,7 @@ def go15():
             sell(63)
             return
 
-        if prelastM5.close < prelastM5.open and lastm1.macd<0.2 and lastm1.macd < prelastm1.close:
+        if prelastM5.close < prelastM5.open and lastm1.macd<0.2 and lastm1.macd < prelastm1.macd:
             sell(67)
             return
 
