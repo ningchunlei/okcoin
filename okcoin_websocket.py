@@ -3683,6 +3683,7 @@ def go15():
             return
 
         xzs = zs(xdata)
+        xspec = True
         if spec==43 and stock1Min.lastKline().close-buyPrice1<0:
             if lastm1.macd>0:
                 if xdata[0][2] == "DOWN":
@@ -3887,6 +3888,9 @@ def go15():
             return
 
     if buyPrice1!=None:
+        if ret==None and xspec == True and lastm1.close-buyPrice1>0:
+            sell(90)
+
         px5 = position(x5data)
         rzs5 = zs(x5data)
 
