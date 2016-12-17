@@ -3640,7 +3640,7 @@ def go15():
 
 
     xdata = stock1Min.searchKDJRange()
-    #x5data = stock5Min.searchKDJRange()
+    x5data = stock5Min.searchKDJRange()
 
     pricelogging.info(xdata)
 
@@ -3792,7 +3792,7 @@ def go15():
                 else:
                     return ("buy",4)
 
-    def cans(xt,kline,prekline):
+    def cans(xt,kline,prekline,xt5,k5line,pre5kline):
         px = position(xt)
         rzs = zs(xt)
 
@@ -3810,44 +3810,77 @@ def go15():
             return ("sell",21)
 
 
+    def canb2(xt,kline,prekline):
+        px5 = position(x5data)
+        rzs5 = zs(x5data)
+
+        px = position(xt)
+        rzs = zs(xt)
+
+        fdata = stock1Min.findInFiveData()
+
+        if kline.close > kline.boll and rzs[0]>kline.close and kline.macd>prekline.macd and lastM5.macd>prelastM5.macd:
+            if fdata[len(fdata)-1].close > fdata[0].close:
+                return ("buy",43)
+        else:
+            if kline.close > rzs5[0] and lastM5.macd > prelastM5.macd:
+                if kline.close > rzs[0] and kline.close>kline.open and kline.macd > prekline.macd:
+                    return ("buy",31)
+
+                if kline.close > rzs[1] and kline.close>kline.open and kline.macd > prekline.macd:
+                    return ("buy",32)
+            elif kline.close > rzs5[0] and lastM5.macd < prelastM5.macd and lastM5.macd>0:
+                if kline.close > rzs[1] and kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd and kline.macd>0:
+                    return ("buy",32)
+
+            elif kline.close<rzs5[0] and lastM5.macd > prelastM5.macd and lastM5.macd<0:
+                if kline.close > rzs[0] and kline.close>kline.boll and kline.macd > prekline.macd:
+                    return ("buy",35)
+
+            elif kline.close<rzs5[0] and lastM5.macd > prelastM5.macd and lastM5.macd>0:
+                if kline.close > rzs[0] and kline.macd > prekline.macd:
+                    return ("buy",36)
+
+                if kline.close > rzs[1] and kline.macd > prekline.macd and kline.close>kline.boll:
+                    return ("buy",37)
+
     if buyPrice1==None:
-        ret = canb(xdata,lastm1,prelastm1)
+        ret = canb2(xdata,lastm1,prelastm1)
         if ret!=None:
             spec = ret[1]
             buy1Time = lastm1.time
             buy(ret[1])
-            if spec == 1:
-                xspec = lastm1.close
-            else:
-                xspec = zs(xdata)[0]
             return
 
     if buyPrice1!=None:
-        if spec == 1 and lastm1.close < buyPrice1 and lastm1.close<xspec-(lastm1.boll-lastm1.dn)/2 and lastm1.macd < prelastm1.macd:
-            sell(1)
-            return
+        px5 = position(x5data)
+        rzs5 = zs(x5data)
 
-        if lastm1.time - buy1Time == 120 and (spec==3 or spec==4) and lastm1.close<lastm1.open and prelastm1.close < prelastm1.open:
-            if lastm1.close>lastm1.boll or (lastm1.boll-lastm1.close)<1:
-                return
-            else:
-                sell(51)
-            return
+        px = position(xdata)
+        rzs = zs(xdata)
+
         ret = cans(xdata,lastm1,prelastm1)
         rzs = zs(xdata)
 
-        if lastm1.macd < 0:
-            if rzs[1] < lastm1.close and abs(rzs[1]-lastm1.close)>4:
-                if lastm1.close < lastm1.boll and lastm1.macd < prelastm1.macd:
-                    sell(61)
+        if spec == 43 and lastm1.close < rzs[0] and lastm1.macd<prelastm1.macd and lastm1.j-lastm1.k<0:
+            sell(spec)
+            return
 
-        if ret != None :
-            if ((lastm1.close> lastm1.boll) or (lastm1.close<lastm1.boll and lastm1.boll-lastm1.close<1)) and lastm1.macd >0 :
-                return
-            sell(ret[1])
+        if lastm1.macd < 0 and lastm1.macd < prelastm1.macd and lastm1.close<lastm1.boll:
+            sell(62)
+            return
 
-            
+        if lastm1.macd<prelastm1.macd and prelastm1.macd - lastm1.macd >= 0.5:
+            sell(63)
+            return
 
+
+        if lastM5.macd < prelastM5.macd:
+            if lastM5.macd>0:
+                if lastm1.close < rzs[0] and lastm1.macd < prelastm1.macd:
+                    return sell(64)
+            elif lastM5.macd<0:
+                return sell(65)
 
 
 def on_message(self,evt):
