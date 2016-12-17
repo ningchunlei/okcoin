@@ -3867,7 +3867,7 @@ def go15():
         rzs = zs(xdata)
 
         if spec == 43 and lastm1.close < rzs[0] and lastm1.macd<prelastm1.macd and lastm1.j-lastm1.k<0:
-            if lastm1.macd>0 and lastM5.macd > prelastM5.macd>0 and lastm1.close>lastm1.boll:
+            if lastm1.macd>0 and lastM5.macd > prelastM5.macd:
                 return
             sell(spec)
             return
