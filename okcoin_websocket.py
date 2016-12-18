@@ -4334,6 +4334,10 @@ def go16():
         px = position(xdata)
         rzs = zs(xdata)
 
+        xret = cansell3(xdata,lastm1,prelastm1)
+
+        pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s,prelastm5=%s,buy2time=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,time.ctime(prelastM5),time.ctime(buy2Time)))
+
         if spec >=40:
             if lastM5.time - buy2Time <= 60*10:
                 if lastm1.close < lastm1.boll:
@@ -4348,10 +4352,10 @@ def go16():
             if prelastM5.time == buy2Time and datetime.fromtimestamp(lastm1.time).minute % 5==0:
                 if prelastM5.j < pre2lastM5.j and prelastM5.close < prelastM5.open:
                     sell(72)
+
                 return
 
         if prelastM5.time >= buy2Time:
-            xret = cansell3(xdata,lastm1,prelastm1)
             if xret != None:
                 sell(xret[1])
                 return
