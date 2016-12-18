@@ -4062,7 +4062,7 @@ def go16():
         if buyPrice1==None:
             pricelogging.info("tbuy-%s-sell-disable,time=%s" % (tag,time.ctime(stock1Min.lastKline().time)) )
             return
-
+        """
         xzs = zs(xdata)
         xspec = True
         if tag!=90 and spec==43 and stock1Min.lastKline().close-buyPrice1<0:
@@ -4083,7 +4083,7 @@ def go16():
             elif xdata[0][2] == "UP":
                 if xdata[1][1][0] < stock1Min.lastKline().close and abs(xdata[1][1][0]-stock1Min.lastKline().close)<2:
                     return
-
+        """
         pricelogging.info("tbuy-%s-%s,sell-%s,diff=%s,time=%s" % (tag,buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
         buyPrice1 = None
         spec = None
