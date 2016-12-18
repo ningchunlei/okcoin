@@ -4336,7 +4336,7 @@ def go16():
 
         xret = cansell3(xdata,lastm1,prelastm1)
 
-        pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s,prelastm5=%s,buy2time=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,time.ctime(prelastM5),time.ctime(buy2Time)))
+        pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s,prelastm5=%s,buy2time=%s" % (time.ctime(lastm1.time),rzs[0],rzs[1],px,time.ctime(prelastM5),time.ctime(buy2Time)))
 
         if spec >=40:
             if lastM5.time - buy2Time <= 60*10:
@@ -4350,6 +4350,10 @@ def go16():
                 return
         if spec == 33:
             if prelastM5.time == buy2Time and datetime.fromtimestamp(lastm1.time).minute % 5==0:
+
+
+
+
                 if prelastM5.j < pre2lastM5.j and prelastM5.close < prelastM5.open:
                     sell(72)
 
