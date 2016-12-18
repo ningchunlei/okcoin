@@ -4274,6 +4274,10 @@ def go16():
                     return ("buy",43)
 
             if x5data[0][1][1] != None:
+                if lastM5.j-lastM5.k<0:
+                    if not ((kline.close>kline.boll and kline.macd>0) or (kline.close > rzs[1] and kline.macd > prekline.macd)):
+                        return
+
                 if x5data[2][1][1] < x5data[0][1][1]:
                     if kline.macd > prekline.macd and kline.j-kline.k>0:
                         return ("buy",44)
