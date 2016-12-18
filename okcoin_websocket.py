@@ -4351,6 +4351,7 @@ def go16():
                     sell(72)
                 return
 
+        pricelogging.info("tbuy,-s1time=%s-%s-%s-px=%s,ret=%s,close=%s" % (time.ctime(lastm1.time),rzs[0],rzs[1],px,xret,lastm1.close))
         if prelastM5.time >= buy2Time:
             if xret != None:
                 sell(xret[1])
