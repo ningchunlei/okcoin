@@ -4269,9 +4269,6 @@ def go16():
         pricelogging.info("tbuy,-time=%s-%s-%s-px=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px))
 
         if x5data[0][2] == "DOWN" :
-
-
-
             if kline.close > kline.boll and rzs[0]>kline.close and kline.macd>prekline.macd:
                 if lastM5.j-lastM5.k<0 and lastM5.macd<pre2lastM5.macd:
                     if not ((kline.close>kline.boll and kline.macd>0) or (kline.close > rzs[1] and kline.macd > prekline.macd)):
@@ -4350,10 +4347,6 @@ def go16():
                 return
         if spec == 33:
             if prelastM5.time == buy2Time and datetime.fromtimestamp(lastm1.time).minute % 5==0:
-
-
-
-
                 if prelastM5.j < pre2lastM5.j and prelastM5.close < prelastM5.open:
                     sell(72)
 
