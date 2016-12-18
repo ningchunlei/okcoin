@@ -4331,6 +4331,9 @@ def go16():
         px = position(xdata)
         rzs = zs(xdata)
 
+        if xspec == True and lastm1.close-buyPrice1>0:
+            sell(90)
+
         xret = cansell3(xdata,lastm1,prelastm1)
         fdata = stock1Min.findInFiveData()
 
