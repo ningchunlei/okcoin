@@ -4299,7 +4299,7 @@ def go16():
 
         pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px))
 
-        if rzs[1]<kline.close and kline.close < kline.open and kline.j - kline.k<0:
+        if rzs[1]>kline.close and kline.close < kline.open and kline.j - kline.k<0:
             return ("sell",51)
 
 
