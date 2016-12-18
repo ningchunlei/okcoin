@@ -4331,8 +4331,8 @@ def go16():
             return
 
     if buyPrice1!=None:
-        px = position(xt)
-        rzs = zs(xt)
+        px = position(xdata)
+        rzs = zs(xdata)
 
         if spec >=40:
             if lastM5.time - buy2Time <= 60*10:
