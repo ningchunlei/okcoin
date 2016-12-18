@@ -4332,7 +4332,7 @@ def go16():
         rzs = zs(xdata)
 
         xret = cansell3(xdata,lastm1,prelastm1)
-
+        fdata = stock1Min.findInFiveData()
         pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s,ret=%s,close=%s" % (time.ctime(lastm1.time),rzs[0],rzs[1],px,xret,lastm1.close))
 
         if spec >=40:
