@@ -4345,7 +4345,7 @@ def go16():
                         sell(71)
                 return
         if spec == 33:
-            if prelastM5.time == buy2Time:
+            if prelastM5.time == buy2Time and datetime.fromtimestamp(lastm1.time).minute % 5==0:
                 if prelastM5.j < pre2lastM5.j and prelastM5.close < prelastM5.open:
                     sell(72)
                 return
