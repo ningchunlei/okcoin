@@ -4350,7 +4350,7 @@ def go16():
                     sell(72)
                 return
 
-        if prelastM5.time > buy2Time:
+        if prelastM5.time >= buy2Time:
             xret = cansell3(xdata,lastm1,prelastm1)
             if xret != None:
                 sell(xret[1])
