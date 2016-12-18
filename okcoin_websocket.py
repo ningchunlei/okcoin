@@ -4287,8 +4287,12 @@ def go16():
 
                 if x5data[2][1][1] < x5data[0][1][1]:
                     if kline.macd > prekline.macd and kline.j-kline.k>0:
+                        if kline.close < rzs[1] and abs(kline.close - rzs[1])<1:
+                            return
                         return ("buy",44)
                     if kline.j > prekline.j and kline.macd > prekline.macd and kline.close > rzs[0]:
+                        if kline.close < rzs[1] and abs(kline.close - rzs[1])<1:
+                            return
                         return ("buy",45)
             else:
                 if abs(x5data[2][1][1]-lastM5.close)<2:
