@@ -4329,7 +4329,7 @@ def go16():
     if buyPrice1!=None:
         if spec >=40:
             if lastM5.time - buy2Time <= 60*10:
-                if lastm1.close < xspec:
+                if lastm1.close < lastm1.boll:
                     sell(70)
                 if prelastM5.time == buy2Time:
                     if prelastM5.j < pre2lastM5.j and prelastM5.close < prelastM5.open:
