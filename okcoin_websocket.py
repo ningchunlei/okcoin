@@ -4203,12 +4203,12 @@ def go16():
 
                         if xdata[0][2] == "DOWN":
                             if buyTriggerTime == xdata[1][0][2]:
-                                if kline.close < xdata[1][0][0]:
+                                if kline.close < stock1Min.findBigKline(xdata[1][0][2].time):
                                     return
 
                         if xdata[0][2] == "UP":
                             if buyTriggerTime == xdata[1][1][2]:
-                                if kline.close < xdata[1][1][0]:
+                                if kline.close < stock1Min.findBigKline(xdata[1][1][2].time):
                                     return
 
                         return ("buy",44)
@@ -4220,12 +4220,12 @@ def go16():
 
                         if xdata[0][2] == "DOWN":
                             if buyTriggerTime == xdata[1][0][2]:
-                                if kline.close < xdata[1][0][0]:
+                                if kline.close < stock1Min.findBigKline(xdata[1][0][2].time):
                                     return
 
                         if xdata[0][2] == "UP":
                             if buyTriggerTime == xdata[1][1][2]:
-                                if kline.close < xdata[1][1][0]:
+                                if kline.close < stock1Min.findBigKline(xdata[1][1][2].time):
                                     return
 
                         return ("buy",45)
@@ -4238,14 +4238,14 @@ def go16():
             if lastM5.macd>0 or (lastM5.j>prelastM5.j and lastM5.j-lastM5.k<0) or (lastM5.j-lastM5.k>0):
                 if xdata[0][2] == "DOWN":
                     if buyTriggerTime == xdata[1][0][2]:
-                        if kline.close > xdata[1][0][0]:
+                        if kline.close > stock1Min.findBigKline(xdata[1][0][2].time):
                             return ("buy",33)
                     else:
                         if kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd and kline.close > xdata[2][1][1]:
                             return ("buy",33)
                 if xdata[0][2] == "UP":
                     if buyTriggerTime == xdata[1][1][2]:
-                        if kline.close > xdata[1][1][0]:
+                        if kline.close > stock1Min.findBigKline(xdata[1][1][2].time):
                             return ("buy",33)
                     else:
                         if kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd and kline.close > xdata[1][1][1] and kline.close > xdata[3][1][1]:
