@@ -4178,7 +4178,7 @@ def go16():
 
         fdata = stock1Min.findInFiveData()
 
-        pricelogging.info("tbuy,-time=%s-%s-%s-px=%s,5p=%s,%s,%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1],buyTriggerTime))
+        pricelogging.info("tbuy,-time=%s-%s-%s-px=%s,5p=%s,%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1]))
 
         if x5data[0][2] == "DOWN" :
             if kline.close > kline.boll and rzs[0]>kline.close and kline.macd>prekline.macd:
