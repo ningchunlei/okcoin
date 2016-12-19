@@ -4180,52 +4180,63 @@ def go16():
 
         pricelogging.info("tbuy,-time=%s-%s-%s-px=%s,5p=%s,%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1]))
 
+
         if x5data[0][2] == "DOWN" or (x5data[0][2] == "UP" and lastM5.close < lastM5.boll and lastM5.j>prelastM5.j):
             if kline.close > kline.boll and rzs[0]>kline.close and kline.macd>prekline.macd:
-                if lastM5.j-lastM5.k<0 and lastM5.macd<pre2lastM5.macd:
+                if lastM5.j-lastM5.k<0 and lastM5.macd<prelastM5.macd:
                     if not ((kline.close>kline.boll and kline.macd>0) or (kline.close > rzs[1] and kline.macd > prekline.macd)):
+                        pricelogging.info("tbuy1")
                         return
 
                 if fdata[len(fdata)-1].close > fdata[0].close:
                     return ("buy",43)
 
             if x5data[0][1][1] != None:
-                if lastM5.j-lastM5.k<0 and lastM5.macd<pre2lastM5.macd:
+                if lastM5.j-lastM5.k<0 and lastM5.macd<prelastM5.macd:
                     if not ((kline.close>kline.boll and kline.macd>0) or (kline.close > rzs[1] and kline.macd > prekline.macd)):
+                        pricelogging.info("tbuy2")
                         return
 
                 if x5data[2][1][1] < x5data[0][1][1]:
                     if kline.macd > prekline.macd and kline.j-kline.k>0:
                         if kline.close < rzs[1] and abs(kline.close - rzs[1])<1:
+                            pricelogging.info("tbuy3")
                             return
                         if kline.close < rzs5[1] and abs(kline.close - rzs5[1])<1:
+                            pricelogging.info("tbuy4")
                             return
 
                         if xdata[0][2] == "DOWN":
                             if buyTriggerTime == xdata[1][0][2]:
                                 if kline.close < stock1Min.findBigKline(xdata[1][0][2].time):
+                                    pricelogging.info("tbuy5")
                                     return
 
                         if xdata[0][2] == "UP":
                             if buyTriggerTime == xdata[1][1][2]:
                                 if kline.close < stock1Min.findBigKline(xdata[1][1][2].time):
+                                    pricelogging.info("tbuy6")
                                     return
 
                         return ("buy",44)
                     if kline.j > prekline.j and kline.macd > prekline.macd and kline.close > rzs[0]:
                         if kline.close < rzs[1] and abs(kline.close - rzs[1])<1:
+                            pricelogging.info("tbuy7")
                             return
                         if kline.close < rzs5[1] and abs(kline.close - rzs5[1])<1:
+                            pricelogging.info("tbuy8")
                             return
 
                         if xdata[0][2] == "DOWN":
                             if buyTriggerTime == xdata[1][0][2]:
                                 if kline.close < stock1Min.findBigKline(xdata[1][0][2].time):
+                                    pricelogging.info("tbuy9")
                                     return
 
                         if xdata[0][2] == "UP":
                             if buyTriggerTime == xdata[1][1][2]:
                                 if kline.close < stock1Min.findBigKline(xdata[1][1][2].time):
+                                    pricelogging.info("tbuy10")
                                     return
 
                         return ("buy",45)
@@ -4235,6 +4246,7 @@ def go16():
                         return ("buy",46)
 
         elif x5data[0][2] == "UP":
+            pricelogging.info("tbuy11")
             if lastM5.macd>0 or (lastM5.j>prelastM5.j and lastM5.j-lastM5.k<0) or (lastM5.j-lastM5.k>0):
                 if xdata[0][2] == "DOWN":
                     if buyTriggerTime == xdata[1][0][2]:
