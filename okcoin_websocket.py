@@ -4238,12 +4238,11 @@ def go16():
 
         #pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px))
         if xdata[0][2] == "UP":
-            if xdata[0][0][2].high >= xdata[0][0][2].up and kline.close < kline.open and kline.close < prekline.close:
+            if (xdata[0][0][2].high >= xdata[0][0][2].up or (xdata[0][0][2].high < xdata[0][0][2].up and abs(xdata[0][0][2].high-xdata[0][0][2].up)<0.5)) and kline.close < kline.open and kline.close < prekline.close:
                 return ("sell",52)
 
         if rzs[1]>kline.close and kline.close < kline.open and kline.j - kline.k<0:
             return ("sell",51)
-
 
 
     if buyPrice1==None:
@@ -4262,7 +4261,7 @@ def go16():
         rzs = zs(xdata)
         px5 = position(x5data)
         rzs5 = zs(x5data)
-        pricelogging.info("tbuy,-time=%s-%s-%s-px=%s,5p=%s,%s" % (time.ctime(lastm1.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1]))
+        pricelogging.info("tbuy,-time=%s-%s-%s-px=%s,5p=%s,%s,x=%s" % (time.ctime(lastm1.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1],xdata[0][0][2]))
 
 
         xret = cansell3(xdata,lastm1,prelastm1)
