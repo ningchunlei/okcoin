@@ -4238,11 +4238,9 @@ def go16():
 
         #pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px))
 
-        pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s,%s" % (time.ctime(kline.time),xdata[0][2],prekline,kline,(prekline.high >= prekline.up or (prekline.high < prekline.up and abs(prekline.high-prekline.up)<0.5)) and kline.close < kline.open and kline.close < prekline.close))
-
         if xdata[0][2] == "UP":
             if (prekline.high >= prekline.up or (prekline.high < prekline.up and abs(prekline.high-prekline.up)<0.5)) and kline.close < kline.open and kline.close < prekline.close:
-                return ("sell",52)
+                return ("sell",90)
 
         if rzs[1]>kline.close and kline.close < kline.open and kline.j - kline.k<0:
             return ("sell",51)
