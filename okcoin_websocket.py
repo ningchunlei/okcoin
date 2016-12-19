@@ -4093,6 +4093,10 @@ def go16():
         xkdj = None
         upToDown = None
         sellSpec = None
+        if xdata[0][2] == "DOWN":
+            buyTriggerTime = xdata[1][0][2]
+        if xdata[0][2] == "UP" :
+            buyTriggerTime = xdata[1][1][2]
         m5data = None
         kk1pos = None
         kk5pos = None
@@ -4162,99 +4166,7 @@ def go16():
                 return 36 #震荡
 
 
-    def canb(xt,kline,prekline):
-        px = position(xt)
-        rzs = zs(xt)
 
-        pricelogging.info("tbuy,-time=%s-%s-%s-px=%s,boll=%s,close=%s,kf=%s,xt1=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,kline.boll,kline.close,abs(kline.up-kline.close),xt[1][0][1]))
-        if kline.close > kline.boll and rzs[0]>kline.close and kline.macd > 0 and kline.macd>prekline.macd:
-            if abs(rzs[0]-kline.close)<2 and kline.macd < 0.6:
-                return
-            if kline.macd < 0.6:
-                return
-            if xdata[0][2] == "DOWN":
-                return ("buy",1)
-            elif xdata[0][2] == "UP" and (px==33 or px ==35):
-                return ("buy",1)
-        else:
-            if px==24 or px == 34 or px == 31 or px==32:
-                if kline.close > rzs[1] and kline.close>kline.open and kline.macd > prekline.macd:
-                    return ("buy",3)
-            else:
-                if kline.close > rzs[0] and kline.close>kline.open and kline.macd > prekline.macd:
-                    if xdata[0][2] == "DOWN" and xt[1][0][1]>rzs[0]:
-                        if kline.close > xt[1][0][1]:
-                            return ("buy",7)
-                    else:
-                        if abs(kline.close-rzs[1])>4:
-                            return ("buy",5)
-
-            if kline.close > rzs[1] and kline.close>kline.open and kline.macd > prekline.macd:
-                if xdata[0][2] == "DOWN" and xt[1][0][1]>rzs[0]:
-                    if kline.close > xt[1][0][1]:
-                        return ("buy",7)
-                else:
-                    return ("buy",4)
-
-    def cans(xt,kline,prekline):
-        px = position(xt)
-        rzs = zs(xt)
-
-        pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px))
-        if (px == 31 or px == 32) and (kline.macd<0) and kline.j-kline.k <0 and kline.close < xt[2][0][0]:
-            return ("sell",31)
-
-        if (px == 23) and (kline.macd<0) and kline.j-kline.k <0 and xt[1][0][0] < xt[3][0][0]:
-            return ("sell",32)
-
-        if kline.close < rzs[0] and kline.macd < prekline.macd:
-            return ("sell",11)
-
-        if kline.close < rzs[1] and kline.macd < prekline.macd:
-            return ("sell",21)
-
-
-    def canb2(xt,kline,prekline):
-        px5 = position(x5data)
-        rzs5 = zs(x5data)
-
-        px = position(xt)
-        rzs = zs(xt)
-
-        fdata = stock1Min.findInFiveData()
-
-        if kline.close > kline.boll and rzs[0]>kline.close and kline.macd>prekline.macd and lastM5.macd>prelastM5.macd:
-            if fdata[len(fdata)-1].close > fdata[0].close:
-                return ("buy",43)
-        else:
-            if kline.close > rzs5[1] and lastM5.macd > 3:
-                if kline.close > rzs[1] and kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd:
-                    return ("buy",38)
-
-                if kline.close > rzs[0] and kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd:
-                    return ("buy",39)
-
-            if kline.close > rzs5[0] and lastM5.macd > prelastM5.macd:
-                if kline.close > rzs[1] and kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd:
-                    return ("buy",33)
-
-                if kline.close > rzs[0] and kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd:
-                    return ("buy",31)
-
-            elif kline.close > rzs5[0] and lastM5.macd < prelastM5.macd and lastM5.macd>0:
-                if kline.close > rzs[1] and kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd and kline.macd>0:
-                    return ("buy",32)
-
-            elif kline.close<rzs5[0] and lastM5.macd > prelastM5.macd and lastM5.macd<0:
-                if kline.close > rzs[0] and kline.close>kline.boll and kline.macd > prekline.macd:
-                    return ("buy",35)
-
-            elif kline.close<rzs5[0] and lastM5.macd > prelastM5.macd and lastM5.macd>0:
-                if kline.close > rzs[1] and kline.macd > prekline.macd and kline.close>kline.boll:
-                    return ("buy",37)
-
-                if kline.close > rzs[0] and kline.close>kline.boll and kline.macd > prekline.macd:
-                    return ("buy",36)
 
 
     def canb3(xt,kline,prekline):
@@ -4286,13 +4198,13 @@ def go16():
                     if kline.macd > prekline.macd and kline.j-kline.k>0:
                         if kline.close < rzs[1] and abs(kline.close - rzs[1])<1:
                             return
-                        if kline.close < rzs5[1] and abs(kline.close - rzs5[1])<2.5:
+                        if kline.close < rzs5[1] and abs(kline.close - rzs5[1])<1:
                             return
                         return ("buy",44)
                     if kline.j > prekline.j and kline.macd > prekline.macd and kline.close > rzs[0]:
                         if kline.close < rzs[1] and abs(kline.close - rzs[1])<1:
                             return
-			if kline.close < rzs5[1] and abs(kline.close - rzs5[1])<2.5:
+			            if kline.close < rzs5[1] and abs(kline.close - rzs5[1])<1:
                             return
                         return ("buy",45)
             else:
@@ -4301,16 +4213,21 @@ def go16():
                         return ("buy",46)
 
         elif x5data[0][2] == "UP":
-            if lastM5.macd>0:
-                if kline.close > rzs[0] and kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd:
-                    if kline.close < rzs[1] and abs(kline.close - rzs[1])<1:
-                        return
-                    if kline.close < rzs5[1] and abs(kline.close - rzs5[1])<2.5:
-                        return
-                    if kline.close < rzs5[0]:
-                        return
-                    return ("buy",33)
-
+            if lastM5.macd>0 or (lastM5.j>prelastM5.j and lastM5.j-lastM5.k<0) or (lastM5.j-lastM5.k>0):
+                if xdata[0][2] == "DOWN":
+                    if buyTriggerTime == xdata[1][0][2]:
+                        if kline.close > xdata[1][0][0]:
+                            return ("buy",33)
+                    else:
+                        if kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd and kline.close > xdata[2][1][1]:
+                            return ("buy",33)
+                if xdata[0][2] == "UP":
+                    if buyTriggerTime == xdata[1][1][2]:
+                        if kline.close > xdata[1][1][0]:
+                            return ("buy",33)
+                    else:
+                        if kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd and kline.close > xdata[1][1][1] and kline.close > xdata[3][1][1]:
+                            return ("buy",33)
 
     def cansell3(xt,kline,prekline):
         px = position(xt)
@@ -4320,6 +4237,9 @@ def go16():
         rzs5 = zs(x5data)
 
         #pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px))
+        if xdata[0][2] == "UP":
+            if xdata[0][0][2].high >= xdata[0][0][2].up and kline.close < kline.open and kline.close < prekline.close:
+                return ("sell",52)
 
         if rzs[1]>kline.close and kline.close < kline.open and kline.j - kline.k<0:
             return ("sell",51)
@@ -4343,37 +4263,14 @@ def go16():
         px5 = position(x5data)
         rzs5 = zs(x5data)
         pricelogging.info("tbuy,-time=%s-%s-%s-px=%s,5p=%s,%s" % (time.ctime(lastm1.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1]))
-        if xspec == True and lastm1.close-buyPrice1>0:
-            sell(90)
+
 
         xret = cansell3(xdata,lastm1,prelastm1)
         fdata = stock1Min.findInFiveData()
 
-        if spec >=40:
-            if lastM5.time - buy2Time <= 60*10:
-                if lastm1.close < lastm1.boll:
-                    if rzs[0]<lastm1.close and abs(rzs[0]-lastm1.close)<1:
-                        return
-                    sell(70)
-                if prelastM5.time == buy2Time:
-                    if prelastM5.j < pre2lastM5.j and prelastM5.close < prelastM5.open:
-                        sell(71)
-                return
-        if spec == 33:
-            if lastm1.time == buy1Time and prelastm1.close > rzs5[1] and lastm1.close<lastm1.open and lastm1.close<rzs5[1]:
-                sell(90)
-            if prelastM5.time == buy2Time and len(fdata)==1:
-                if prelastM5.j < pre2lastM5.j and prelastM5.close < prelastM5.open:
-                    sell(72)
-                return
-
-
-        if prelastM5.time >= buy2Time:
-            if spec==33 and buyPrice1>rzs[1] and buyPrice1>rzs5[1] and lastm1.j-lastm1.k<0 and lastm1.macd< prelastm1.macd:
-                sell(90)
-            if xret != None:
-                sell(xret[1])
-                return
+        if xret != None:
+            sell(xret[1])
+            return
 
 def on_message(self,evt):
     global last_time
