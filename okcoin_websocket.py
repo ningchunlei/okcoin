@@ -4182,6 +4182,7 @@ def go16():
 
 
         if x5data[0][2] == "DOWN" or (x5data[0][2] == "UP" and lastM5.close < lastM5.boll and lastM5.j>prelastM5.j):
+            pricelogging.info("tbuy0")
             if kline.close > kline.boll and rzs[0]>kline.close and kline.macd>prekline.macd:
                 if lastM5.j-lastM5.k<0 and lastM5.macd<prelastM5.macd:
                     if not ((kline.close>kline.boll and kline.macd>0) or (kline.close > rzs[1] and kline.macd > prekline.macd)):
@@ -4192,6 +4193,7 @@ def go16():
                     return ("buy",43)
 
             if x5data[0][1][1] != None:
+                pricelogging.info("tbuy01")
                 if lastM5.j-lastM5.k<0 and lastM5.macd<prelastM5.macd:
                     if not ((kline.close>kline.boll and kline.macd>0) or (kline.close > rzs[1] and kline.macd > prekline.macd)):
                         pricelogging.info("tbuy2")
@@ -4241,6 +4243,7 @@ def go16():
 
                         return ("buy",45)
             else:
+                pricelogging.info("tbuy02")
                 if abs(x5data[2][1][1]-lastM5.close)<2:
                     if kline.macd > prekline.macd and kline.j > prekline.j and kline.close > kline.open:
                         return ("buy",46)
