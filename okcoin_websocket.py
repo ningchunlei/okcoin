@@ -4243,12 +4243,19 @@ def go16():
                     else:
                         if kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd and kline.close > xdata[2][1][1]:
                             return ("buy",33)
+
+                        if kline.close<kline.boll and abs(kline.high-kline.boll)<0.5 and kline.j-kline.k>0 and kline.j>prekline.j and kline.close>kline.open and kline.macd > prekline.macd and kline.close > xdata[2][1][1]:
+                            return ("buy",33)
+
                 if xdata[0][2] == "UP":
                     if buyTriggerTime == xdata[1][1][2]:
                         if kline.close > stock1Min.findBigKline(xdata[1][1][2].time):
                             return ("buy",33)
                     else:
                         if kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd and kline.close > xdata[1][1][1] and kline.close > xdata[3][1][1]:
+                            return ("buy",33)
+
+                        if kline.close<kline.boll and abs(kline.high-kline.boll)<0.5 and kline.j-kline.k>0 and kline.j>prekline.j  and kline.close>kline.open and kline.macd > prekline.macd and kline.close > xdata[1][1][1] and kline.close > xdata[3][1][1]:
                             return ("buy",33)
 
     def cansell3(xt,kline,prekline):
