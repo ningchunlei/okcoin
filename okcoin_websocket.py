@@ -4193,7 +4193,7 @@ def go16():
                     return ("buy",43)
 
             if x5data[0][1][1] != None:
-                pricelogging.info("tbuy01")
+                pricelogging.info("tbuy01=%s,%s",x5data[2][1][1],x5data[0][1][1])
                 if lastM5.j-lastM5.k<0 and lastM5.macd<prelastM5.macd:
                     if not ((kline.close>kline.boll and kline.macd>0) or (kline.close > rzs[1] and kline.macd > prekline.macd)):
                         pricelogging.info("tbuy2")
