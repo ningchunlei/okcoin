@@ -4204,7 +4204,7 @@ def go16():
                     if kline.j > prekline.j and kline.macd > prekline.macd and kline.close > rzs[0]:
                         if kline.close < rzs[1] and abs(kline.close - rzs[1])<1:
                             return
-			            if kline.close < rzs5[1] and abs(kline.close - rzs5[1])<1:
+                        if kline.close < rzs5[1] and abs(kline.close - rzs5[1])<1:
                             return
                         return ("buy",45)
             else:
