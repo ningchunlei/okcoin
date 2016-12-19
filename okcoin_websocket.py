@@ -4266,7 +4266,7 @@ def go16():
 
         fdata = stock1Min.findInFiveData()
 
-        pricelogging.info("tbuy,-time=%s-%s-%s-px=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px))
+        pricelogging.info("tbuy,-time=%s-%s-%s-px=%s,5p=%s,%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1]))
 
         if x5data[0][2] == "DOWN" :
             if kline.close > kline.boll and rzs[0]>kline.close and kline.macd>prekline.macd:
@@ -4286,9 +4286,13 @@ def go16():
                     if kline.macd > prekline.macd and kline.j-kline.k>0:
                         if kline.close < rzs[1] and abs(kline.close - rzs[1])<1:
                             return
+                        if kline.close < rzs5[1] and abs(kline.close - rzs5[1])<2.5:
+                            return
                         return ("buy",44)
                     if kline.j > prekline.j and kline.macd > prekline.macd and kline.close > rzs[0]:
                         if kline.close < rzs[1] and abs(kline.close - rzs[1])<1:
+                            return
+			if kline.close < rzs5[1] and abs(kline.close - rzs5[1])<2.5:
                             return
                         return ("buy",45)
             else:
@@ -4299,6 +4303,12 @@ def go16():
         elif x5data[0][2] == "UP":
             if lastM5.macd>0:
                 if kline.close > rzs[0] and kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd:
+                    if kline.close < rzs[1] and abs(kline.close - rzs[1])<1:
+                        return
+                    if kline.close < rzs5[1] and abs(kline.close - rzs5[1])<2.5:
+                        return
+                    if kline.close < rzs5[0]:
+                        return
                     return ("buy",33)
 
 
@@ -4321,7 +4331,7 @@ def go16():
         rzs5 = zs(x5data)
         if ret!=None:
             spec = ret[1]
-            buy1Time = lastm1.time
+            buy1Time = current.time
             buy2Time = lastM5.time
             xspec = rzs5[0]
             buy(ret[1])
@@ -4330,7 +4340,9 @@ def go16():
     if buyPrice1!=None:
         px = position(xdata)
         rzs = zs(xdata)
-
+        px5 = position(x5data)
+        rzs5 = zs(x5data)
+        pricelogging.info("tbuy,-time=%s-%s-%s-px=%s,5p=%s,%s" % (time.ctime(lastm1.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1]))
         if xspec == True and lastm1.close-buyPrice1>0:
             sell(90)
 
@@ -4348,6 +4360,8 @@ def go16():
                         sell(71)
                 return
         if spec == 33:
+            if lastm1.time == buy1Time and prelastm1.close > rzs5[1] and lastm1.close<lastm1.open and lastm1.close<rzs5[1]:
+                sell(90)
             if prelastM5.time == buy2Time and len(fdata)==1:
                 if prelastM5.j < pre2lastM5.j and prelastM5.close < prelastM5.open:
                     sell(72)
@@ -4355,6 +4369,8 @@ def go16():
 
 
         if prelastM5.time >= buy2Time:
+            if spec==33 and buyPrice1>rzs[1] and buyPrice1>rzs5[1] and lastm1.j-lastm1.k<0 and lastm1.macd< prelastm1.macd:
+                sell(90)
             if xret != None:
                 sell(xret[1])
                 return
