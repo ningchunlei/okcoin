@@ -4265,6 +4265,9 @@ def go16():
                 return ("sell",90)
 
         if rzs[1]>kline.close and kline.close < kline.open and kline.j - kline.k<0:
+            if spec == 33:
+                if xdata[0][2] == "DOWN" and kline.close > kline.boll:
+                    return
             return ("sell",51)
 
 
