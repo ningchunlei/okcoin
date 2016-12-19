@@ -4271,7 +4271,7 @@ def go16():
             if (prekline.high >= prekline.up or (prekline.high < prekline.up and abs(prekline.high-prekline.up)<0.5)) and kline.close < kline.open and kline.close < prekline.close:
                 return ("sell",90)
 
-        if spec ==33 and buy1Time == prekline.close and kline.close < kline.open and kline.j < prekline.j and kline.macd < prekline.macd:
+        if spec ==33 and buy1Time == prekline.time and kline.close < kline.open and kline.j < prekline.j and kline.macd < prekline.macd:
             return ("sell",90)
 
         if rzs[1]>kline.close and kline.close < kline.open and kline.j - kline.k<0:
