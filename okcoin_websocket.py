@@ -4180,7 +4180,7 @@ def go16():
 
         pricelogging.info("tbuy,-time=%s-%s-%s-px=%s,5p=%s,%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1]))
 
-        if x5data[0][2] == "DOWN" :
+        if x5data[0][2] == "DOWN" or (x5data[0][2] == "UP" and lastM5.close < lastM5.boll and lastM5.j>prelastM5.j):
             if kline.close > kline.boll and rzs[0]>kline.close and kline.macd>prekline.macd:
                 if lastM5.j-lastM5.k<0 and lastM5.macd<pre2lastM5.macd:
                     if not ((kline.close>kline.boll and kline.macd>0) or (kline.close > rzs[1] and kline.macd > prekline.macd)):
