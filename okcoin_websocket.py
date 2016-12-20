@@ -4295,8 +4295,12 @@ def go16():
                 pricelogging.info("h=%s,k=%s",hkline,kline)
                 if hkline.close>hkline.open and hkline.open<kline.close:
                     if kline.close<kline.open and prekline.close<prekline.open and abs(kline.close-prekline.close)<0.3:
+                        if not xb():
+                            return
                         return ("sell",91)
                     if kline.j-kline.k<0:
+                        if not xb():
+                            return
                         return ("sell",92)
                     return
                 return ("sell",90)
