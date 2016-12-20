@@ -4349,6 +4349,8 @@ def go16():
         fdata = stock1Min.findInFiveData()
 
         if xret != None:
+            if lastm1.close-buyPrice1<0 and lastm1.up-lastm1.dn<1.5 and lastm1.close > lastm1.dn:
+                return
             sell(xret[1])
             return
 
