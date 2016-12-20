@@ -4283,7 +4283,7 @@ def go16():
 
     def xb5():
         if x5data[0][2] == "UP":
-            if (prelastM5.high >= prelastM5.up or (prelastM5.high < prelastM5.up and abs(prelastM5.high-prelastM5.up)<0.5)) and prelastM5.close < prelastM5.open and prelastM5.close < pre2lastM5.close and prekline.j<pre2lastM5.j:
+            if (prelastM5.high >= prelastM5.up or (prelastM5.high < prelastM5.up and abs(prelastM5.high-prelastM5.up)<0.5)) and prelastM5.close < prelastM5.open and prelastM5.close < pre2lastM5.close and prelastM5.j<pre2lastM5.j:
                 xspec = True
 
     def cansell3(xt,kline,prekline):
