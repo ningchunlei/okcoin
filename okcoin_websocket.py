@@ -4378,6 +4378,11 @@ def go16():
         xret = cansell3(xdata,lastm1,prelastm1)
         fdata = stock1Min.findInFiveData()
 
+        if xspec!=True:
+            xb5()
+            pricelogging.info("tbuy - xvf=%s,%s",xspec,buyPrice3)
+
+
         if xret != None:
             if lastm1.close-buyPrice1<0 and lastm1.up-lastm1.dn<1.5 and lastm1.close > lastm1.dn:
                 return
