@@ -4282,6 +4282,7 @@ def go16():
                             return ("buy",33)
 
     def xb5():
+        global  xspec,buyPrice3
         if x5data[0][2] == "UP":
             if (pre2lastM5.high >= pre2lastM5.up or (pre2lastM5.high < pre2lastM5.up and abs(pre2lastM5.high-pre2lastM5.up)<0.5)) and prelastM5.close < prelastM5.open and prelastM5.close < pre2lastM5.close and prelastM5.j<pre2lastM5.j:
                 xspec = True
