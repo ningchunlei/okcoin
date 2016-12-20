@@ -4305,6 +4305,8 @@ def go16():
                             return
                         return ("sell",92)
                     return
+                if not xb():
+                    return
                 return ("sell",90)
 
         if spec ==33 and buy1Time == prekline.time and kline.close < kline.open and kline.j < prekline.j and kline.macd < prekline.macd:
