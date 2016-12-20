@@ -4280,9 +4280,8 @@ def go16():
 
         def xb():
             if x5data[0][2] == "UP" and x5data[1][1][1] > x5data[3][1][1] and prelastM5.j>pre2lastM5.j:
-                if kline.close - buyPrice1>1:
+                if lastm1.close - buyPrice1>1:
                     return True
-
                 if kline.close > kline.boll:
                     return False
                 if kline.close < kline.boll and abs(kline.close-kline.boll)<0.3:
@@ -4290,27 +4289,20 @@ def go16():
 
             return True
 
-
         if xdata[0][2] == "UP":
             if (prekline.high >= prekline.up or (prekline.high < prekline.up and abs(prekline.high-prekline.up)<0.5)) and kline.close < kline.open and kline.close < prekline.close:
                 hkline = stock1Min.findBigKline(xdata[1][1][2].time)
                 pricelogging.info("h=%s,k=%s",hkline,kline)
                 if hkline.close>hkline.open and hkline.open<kline.close:
                     if kline.close<kline.open and prekline.close<prekline.open and abs(kline.close-prekline.close)<0.3:
-                        if not xb():
-                            return
                         return ("sell",91)
                     if kline.j-kline.k<0:
-                        if not xb():
-                            return
                         return ("sell",92)
-                    return
-                if not xb():
                     return
                 return ("sell",90)
 
         if spec ==33 and buy1Time == prekline.time and kline.close < kline.open and kline.j < prekline.j and kline.macd < prekline.macd:
-            return ("sell",90)
+            return ("sell",93)
 
         if xdata[0][2] == "UP":
             if spec == 33:
