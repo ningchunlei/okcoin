@@ -4285,7 +4285,7 @@ def go16():
                 if hkline.close>hkline.open and hkline.open<kline.close:
                     if kline.close<kline.open and prekline.close<prekline.open and abs(kline.close-prekline.close)<0.3:
                         return ("sell",91)
-                    if kline.j-kline.close<0:
+                    if kline.j-kline.k<0:
                         return ("sell",92)
                     return
                 return ("sell",90)
