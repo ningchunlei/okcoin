@@ -4281,6 +4281,11 @@ def go16():
                         if kline.close<kline.boll and abs(kline.high-kline.boll)<0.5 and kline.j-kline.k>0 and kline.j>prekline.j  and kline.close>kline.open and kline.macd > prekline.macd and kline.close > xdata[1][1][1] and kline.close > xdata[3][1][1]:
                             return ("buy",33)
 
+    def xb5():
+        if x5data[0][2] == "UP":
+            if (prelastM5.high >= prelastM5.up or (prelastM5.high < prelastM5.up and abs(prelastM5.high-prelastM5.up)<0.5)) and prelastM5.close < prelastM5.open and prelastM5.close < pre2lastM5.close and prekline.j<pre2lastM5.j:
+                xspec = True
+
     def cansell3(xt,kline,prekline):
         px = position(xt)
         rzs = zs(xt)
@@ -4303,7 +4308,6 @@ def go16():
 
             return True
 
-    
         if xdata[0][2] == "UP":
             if (prekline.high >= prekline.up or (prekline.high < prekline.up and abs(prekline.high-prekline.up)<0.5)) and kline.close < kline.open and kline.close < prekline.close:
                 hkline = stock1Min.findBigKline(xdata[1][1][2].time)
@@ -4342,6 +4346,16 @@ def go16():
     if buyPrice1==None:
         ret = canb3(xdata,lastm1,prelastm1)
         rzs5 = zs(x5data)
+
+        if xspec!=True:
+            xb5()
+
+        if xspec == True:
+            if prelastM5.j-prelastM5.k<0 and prelastM5.j>pre2lastM5.j:
+                xspec = None
+            else:
+                return
+
         if ret!=None:
             spec = ret[1]
             buy1Time = current.time
@@ -4356,7 +4370,6 @@ def go16():
         px5 = position(x5data)
         rzs5 = zs(x5data)
         pricelogging.info("tbuy,-time=%s-%s-%s-px=%s,5p=%s,%s" % (time.ctime(lastm1.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1]))
-
 
         xret = cansell3(xdata,lastm1,prelastm1)
         fdata = stock1Min.findInFiveData()
