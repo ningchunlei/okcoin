@@ -4283,8 +4283,9 @@ def go16():
 
     def xb5():
         if x5data[0][2] == "UP":
-            if (prelastM5.high >= prelastM5.up or (prelastM5.high < prelastM5.up and abs(prelastM5.high-prelastM5.up)<0.5)) and prelastM5.close < prelastM5.open and prelastM5.close < pre2lastM5.close and prelastM5.j<pre2lastM5.j:
+            if (pre2lastM5.high >= pre2lastM5.up or (pre2lastM5.high < pre2lastM5.up and abs(pre2lastM5.high-pre2lastM5.up)<0.5)) and prelastM5.close < prelastM5.open and prelastM5.close < pre2lastM5.close and prelastM5.j<pre2lastM5.j:
                 xspec = True
+                buyPrice3 = pre2lastM5.close
 
     def cansell3(xt,kline,prekline):
         px = position(xt)
@@ -4351,8 +4352,9 @@ def go16():
             xb5()
 
         if xspec == True:
-            if prelastM5.j-prelastM5.k<0 and prelastM5.j>pre2lastM5.j:
+            if (prelastM5.j-prelastM5.k<0 and prelastM5.j>pre2lastM5.j) or (lastm1.close>buyPrice3):
                 xspec = None
+                buyPrice3 = None
             else:
                 return
 
