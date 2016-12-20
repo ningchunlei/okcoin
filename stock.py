@@ -246,7 +246,7 @@ class stock(object):
         return kline
 
     def findBigKline(self,indexTime):
-        count=0
+        count=1
         kline = 0
         xkline = None
         while True:
