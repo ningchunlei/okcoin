@@ -4279,7 +4279,10 @@ def go16():
         #pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px))
 
         def xb():
-            if x5data[0][2] == "UP" and x5data[1][1][1] > x5data[3][1][1]:
+            if x5data[0][2] == "UP" and x5data[1][1][1] > x5data[3][1][1] and lastM5.j>prelastM5.j:
+                if kline.close - buyPrice1>1:
+                    return True
+
                 if kline.close > kline.boll:
                     return False
                 if kline.close < kline.boll and abs(kline.close-kline.boll)<0.3:
