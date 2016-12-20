@@ -4303,11 +4303,7 @@ def go16():
 
             return True
 
-        def xb5():
-            if x5data[0][2] == "UP":
-                if (prelastM5.high >= prekline.up or (prekline.high < prekline.up and abs(prekline.high-prekline.up)<0.5)) and kline.close < kline.open and kline.close < prekline.close:
-
-
+    
         if xdata[0][2] == "UP":
             if (prekline.high >= prekline.up or (prekline.high < prekline.up and abs(prekline.high-prekline.up)<0.5)) and kline.close < kline.open and kline.close < prekline.close:
                 hkline = stock1Min.findBigKline(xdata[1][1][2].time)
