@@ -4354,7 +4354,7 @@ def go16():
             pricelogging.info("tbuy - xvf=%s,%s",xbuy,buyPrice3)
 
         if xbuy == True:
-            if (prelastM5.j-prelastM5.k<0 and prelastM5.j>pre2lastM5.j) or (lastm1.close>buyPrice3):
+            if (prelastM5.j-prelastM5.k<0 and prelastM5.j>pre2lastM5.j) or (lastm1.close>buyPrice3+1):
                 xbuy = None
                 buyPrice3 = None
             else:
