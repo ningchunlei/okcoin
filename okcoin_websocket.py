@@ -4282,10 +4282,10 @@ def go16():
                             return ("buy",33)
 
     def xb5():
-        global  xspec,buyPrice3
+        global  sellSpec,buyPrice3
         if x5data[0][2] == "UP":
             if (pre2lastM5.high >= pre2lastM5.up or (pre2lastM5.high < pre2lastM5.up and abs(pre2lastM5.high-pre2lastM5.up)<0.5)) and prelastM5.close < prelastM5.open and prelastM5.close < pre2lastM5.close and prelastM5.j<pre2lastM5.j:
-                xspec = True
+                sellSpec = True
                 buyPrice3 = pre2lastM5.close
 
     def cansell3(xt,kline,prekline):
@@ -4349,13 +4349,13 @@ def go16():
         ret = canb3(xdata,lastm1,prelastm1)
         rzs5 = zs(x5data)
 
-        if xspec!=True:
+        if sellSpec!=True:
             xb5()
-            pricelogging.info("tbuy - xvf=%s,%s",xspec,buyPrice3)
+            pricelogging.info("tbuy - xvf=%s,%s",sellSpec,buyPrice3)
 
-        if xspec == True:
+        if sellSpec == True:
             if (prelastM5.j-prelastM5.k<0 and prelastM5.j>pre2lastM5.j) or (lastm1.close>buyPrice3):
-                xspec = None
+                sellSpec = None
                 buyPrice3 = None
             else:
                 return
@@ -4378,9 +4378,9 @@ def go16():
         xret = cansell3(xdata,lastm1,prelastm1)
         fdata = stock1Min.findInFiveData()
 
-        if xspec!=True:
+        if sellSpec!=True:
             xb5()
-            pricelogging.info("tbuy - xvf=%s,%s",xspec,buyPrice3)
+            pricelogging.info("tbuy - xvf=%s,%s",sellSpec,buyPrice3)
 
 
         if xret != None:
