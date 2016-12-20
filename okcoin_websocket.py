@@ -4283,7 +4283,7 @@ def go16():
                 hkline = stock1Min.findBigKline(xdata[1][1][2].time)
                 pricelogging.info("h=%s,k=%s",hkline,kline)
                 if hkline.close>hkline.open and hkline.open<kline.close:
-                    if kline.close<kline.open and prekline.close<prekline.open:
+                    if kline.close<kline.open and prekline.close<prekline.open and abs(kline.close-prekline.close)<0.3:
                         return ("sell",91)
                     if kline.j-kline.close<0:
                         return ("sell",92)
