@@ -4286,6 +4286,8 @@ def go16():
                     return False
                 if kline.close < kline.boll and abs(kline.close-kline.boll)<0.3:
                     return False
+                if lastm1.close - buyPrice1<0:
+                    return False
 
             return True
 
