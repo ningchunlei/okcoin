@@ -4062,7 +4062,7 @@ def go16():
         if buyPrice1==None:
             pricelogging.info("tbuy-%s-sell-disable,time=%s" % (tag,time.ctime(stock1Min.lastKline().time)) )
             return
-
+        '''
         xzs = zs(xdata)
         xspec = True
         if tag!=90 and spec==43 and stock1Min.lastKline().close-buyPrice1<0:
@@ -4083,7 +4083,7 @@ def go16():
             elif xdata[0][2] == "UP":
                 if xdata[1][1][0] < stock1Min.lastKline().close and abs(xdata[1][1][0]-stock1Min.lastKline().close)<2:
                     return
-
+            '''
         pricelogging.info("tbuy-%s-%s,sell-%s,diff=%s,time=%s" % (tag,buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
         buyPrice1 = None
         spec = None
@@ -4166,9 +4166,6 @@ def go16():
                 return 36 #震荡
 
 
-
-
-
     def canb3(xt,kline,prekline):
         px5 = position(x5data)
         rzs5 = zs(x5data)
@@ -4209,13 +4206,13 @@ def go16():
 
                     if xdata[0][2] == "DOWN":
                         if buyTriggerTime == xdata[1][0][2]:
-                            if kline.close < stock1Min.findBigKline(xdata[1][0][2].time):
+                            if kline.close < stock1Min.findBigKline(xdata[1][0][2].time).close:
                                 pricelogging.info("tbuy5")
                                 return
 
                     if xdata[0][2] == "UP":
                         if buyTriggerTime == xdata[1][1][2]:
-                            if kline.close < stock1Min.findBigKline(xdata[1][1][2].time):
+                            if kline.close < stock1Min.findBigKline(xdata[1][1][2].time).close:
                                 pricelogging.info("tbuy6")
                                 return
 
@@ -4230,13 +4227,13 @@ def go16():
 
                     if xdata[0][2] == "DOWN":
                         if buyTriggerTime == xdata[1][0][2]:
-                            if kline.close < stock1Min.findBigKline(xdata[1][0][2].time):
+                            if kline.close < stock1Min.findBigKline(xdata[1][0][2].time).close:
                                 pricelogging.info("tbuy9")
                                 return
 
                     if xdata[0][2] == "UP":
                         if buyTriggerTime == xdata[1][1][2]:
-                            if kline.close < stock1Min.findBigKline(xdata[1][1][2].time):
+                            if kline.close < stock1Min.findBigKline(xdata[1][1][2].time).close:
                                 pricelogging.info("tbuy10")
                                 return
 
@@ -4252,7 +4249,7 @@ def go16():
             if lastM5.macd>0 or (lastM5.j>prelastM5.j and lastM5.j-lastM5.k<0) or (lastM5.j-lastM5.k>0):
                 if xdata[0][2] == "DOWN":
                     if buyTriggerTime == xdata[1][0][2]:
-                        if kline.close > stock1Min.findBigKline(xdata[1][0][2].time):
+                        if kline.close > stock1Min.findBigKline(xdata[1][0][2].time).close:
                             return ("buy",33)
                     else:
                         if kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd and kline.close > xdata[2][1][1]:
@@ -4263,7 +4260,7 @@ def go16():
 
                 if xdata[0][2] == "UP":
                     if buyTriggerTime == xdata[1][1][2]:
-                        if kline.close > stock1Min.findBigKline(xdata[1][1][2].time):
+                        if kline.close > stock1Min.findBigKline(xdata[1][1][2].time).close:
                             return ("buy",33)
                     else:
                         if kline.close>kline.boll and kline.close>kline.open and kline.macd > prekline.macd and kline.close > xdata[1][1][1] and kline.close > xdata[3][1][1]:
@@ -4283,16 +4280,29 @@ def go16():
 
         if xdata[0][2] == "UP":
             if (prekline.high >= prekline.up or (prekline.high < prekline.up and abs(prekline.high-prekline.up)<0.5)) and kline.close < kline.open and kline.close < prekline.close:
+                hkline = stock1Min.findBigKline(xdata[1][1][2].time)
+                if hkline.close>hkline.open and hkline.open<kline.close:
+                    if kline.close<kline.open and prekline.close<prekline.open:
+                        return ("sell",91)
+                    if kline.j-kline.close<0:
+                        return ("sell",92)
                 return ("sell",90)
 
         if spec ==33 and buy1Time == prekline.time and kline.close < kline.open and kline.j < prekline.j and kline.macd < prekline.macd:
             return ("sell",90)
 
-        if rzs[1]>kline.close and kline.close < kline.open and kline.j - kline.k<0:
+        if xdata[0][2] == "UP":
             if spec == 33:
                 if xdata[0][2] == "DOWN" and kline.close > kline.boll:
                     return
-            return ("sell",51)
+            if kline.close < xdata[1][1][1] and kline.macd < prekline.macd:
+                return ("sell",51)
+        elif xdata[0][2] == "DOWN":
+            if spec == 33:
+                if xdata[0][2] == "DOWN" and kline.close > kline.boll:
+                    return
+            if kline.close < xdata[2][1][1] and kline.macd < prekline.macd:
+                return ("sell",52)
 
 
     if buyPrice1==None:

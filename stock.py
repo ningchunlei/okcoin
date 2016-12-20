@@ -248,15 +248,17 @@ class stock(object):
     def findBigKline(self,indexTime):
         count=0
         kline = 0
+        xkline = None
         while True:
             if self.stocks[self.cursor-count].time < indexTime:
                 break
 
             if self.stocks[self.cursor-count].close > kline:
                 kline = self.stocks[self.cursor-count].close
+                xkline = self.stocks[self.cursor-count]
 
             count+=1
-        return kline
+        return xkline
 
     def on_trade(self,trade):
         if self.baseTime == None:
