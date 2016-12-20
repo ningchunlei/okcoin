@@ -4350,6 +4350,7 @@ def go16():
 
         if xspec!=True:
             xb5()
+            pricelogging.info("tbuy - xvf=%s,%s",xspec,buyPrice3)
 
         if xspec == True:
             if (prelastM5.j-prelastM5.k<0 and prelastM5.j>pre2lastM5.j) or (lastm1.close>buyPrice3):
