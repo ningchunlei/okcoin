@@ -4680,7 +4680,7 @@ def go17():
             if valueMax(xkdjdata[1][1]) < valueMax(xkdjdata[3][1]):
                 return 12
 
-            if valueMin(xkdjdata[2][2]) < valueMin(xkdjdata[0][2]):
+            if valueMin(xkdjdata[2][2]) > valueMin(xkdjdata[0][2]):
                 return 13
 
 
