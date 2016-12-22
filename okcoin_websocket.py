@@ -4663,7 +4663,7 @@ def go17():
 
             if valueMin(xkdjdata[2][1]) < valueMin(xkdjdata[0][1]):
                 return 13
-        
+
 
     if buyPrice1==None:
         ret = canb3(xdata,lastm1,prelastm1)

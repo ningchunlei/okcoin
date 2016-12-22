@@ -841,6 +841,7 @@ class stock(object):
                 kstart == "DOWN"
 
             count += 1
+        return xkline
 
     def touchSimlarTimeDownFrom(self,count=1):
         flag = 0
