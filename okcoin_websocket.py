@@ -4655,6 +4655,8 @@ def go17():
             if valueMin(xkdjdata[1][2]) > valueMin(xkdjdata[3][2]):
                 return 41
             if valueMin(xkdjdata[1][2]) < valueMin(xkdjdata[3][2]) and abs(valueMin(xkdjdata[1][2])-valueMin(xkdjdata[3][2]))<=1 and kline.close > valueMin(xkdjdata[1][2]):
+                if valueMax(xkdjdata[0][1]) < valueMax(xkdjdata[2][1]):
+                    return
                 return 42
 
 
