@@ -4631,6 +4631,12 @@ def go17():
         elif xt[0][0] == "UP":
             return (valueMin(xt[1][2]),valueMax(xt[2][1]),valueMin(xt[3][2]))
 
+    def rrrzs(xt):
+        if xt[0][0] == "DOWN" :
+            return (valueMin(xt[0][2]),valueMin(xt[2][2]))
+        elif xt[0][0] == "UP":
+            return (valueMin(xt[1][2]),valueMin(xt[3][2]))
+
     def canb3(xt,kline,prekline):
         px5 = position(x5data)
         rzs5 = zs(x5data)
@@ -4661,7 +4667,7 @@ def go17():
 
 
         gh = trzs(xkdjdata)
-        gh5 = trzs(x5kdjdata)
+        gh5 = rrrzs(x5kdjdata)
 
         pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s,5p=%s,%s,=%s,5j=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1],gh,gh5))
 
@@ -4692,12 +4698,23 @@ def go17():
         rzs = zs(xdata)
         px5 = position(x5data)
         rzs5 = zs(x5data)
-        pricelogging.info("tbuy,-time=%s-%s-%s-px=%s,5p=%s,%s" % (time.ctime(lastm1.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1]))
 
         xret = cansell3(xdata,lastm1,prelastm1)
         fdata = stock1Min.findInFiveData()
 
+        gh = trzs(xkdjdata)
+        gh5 = rrrzs(x5kdjdata)
+
         if xret != None:
+            if buyTriggerTime==prelastM5.time and prelastM5.j < pre2lastM5.j:
+                sell(xret)
+                return
+
+            if current.close - buyPrice1<0:
+                if gh5[0] > gh5[1] or (gh5[0] < gh5[1] and abs(gh5[0]-gh5[1])<1.5):
+                    if xret == 13 and prelastM5.j > pre2lastM5.j:
+                        buyTriggerTime = lastM5.time
+                        return
             sell(xret)
             return
 

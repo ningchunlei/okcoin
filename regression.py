@@ -7,7 +7,7 @@ from stock import stock,KLine
 startime = sys.argv[1].replace(","," ")
 endtime = sys.argv[2].replace(","," ")
 
-store_dir = "/root/ningcl/btc"
+store_dir = "/Users/jack"
 
 class RStock(stock):
 
@@ -179,4 +179,4 @@ while stock1Min.lastKline().time < overtime:
             stock1Min.on_kline(kline1Min)
             stock5Min.on_kline(kline5)
             stock15Min.on_kline(kline15)
-            okcoin_websocket.go()
+            okcoin_websocket.go17()

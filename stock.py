@@ -812,11 +812,15 @@ class stock(object):
                 maxkline = self.stocks[self.cursor-count]
                 minkline = self.stocks[self.cursor-count]
                 kstart = "UP"
+                count += 1
+                continue
 
             if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k<-10 and kstart == None:
                 maxkline = self.stocks[self.cursor-count]
                 minkline = self.stocks[self.cursor-count]
                 kstart = "DOWN"
+                count += 1
+                continue
 
 
             if maxkline != None:
@@ -832,6 +836,8 @@ class stock(object):
                 maxkline = self.stocks[self.cursor-count]
                 minkline = self.stocks[self.cursor-count]
                 kstart = "UP"
+                count += 1
+                continue
 
 
             if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k<-10 and kstart == "UP" :
@@ -839,6 +845,8 @@ class stock(object):
                 maxkline = self.stocks[self.cursor-count]
                 minkline = self.stocks[self.cursor-count]
                 kstart = "DOWN"
+                count += 1
+                continue
 
             count += 1
         return xkline
