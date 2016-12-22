@@ -4681,6 +4681,8 @@ def go17():
                 return 12
 
             if valueMin(xkdjdata[2][2]) > valueMin(xkdjdata[0][2]):
+                if abs(valueMin(xkdjdata[2][2])-valueMin(xkdjdata[0][2]))<1:
+                    return
                 return 13
 
 
