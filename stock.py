@@ -788,6 +788,60 @@ class stock(object):
             count += 1
         return data
 
+    def searchKDJTopAndDown(self):
+        def valueMax(kline):
+            if kline.close>kline.open:
+                return kline.close
+            return kline.open
+
+        def valueMin(kline):
+            if kline.close<kline.open:
+                return kline.close
+            return kline.open
+
+        xkline = []
+        count=1;
+        maxkline = None
+        minkline = None
+        kstart = None
+        while True:
+            if len(xkline)>5:
+                break
+
+            if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k>10 and kstart == None:
+                maxkline = self.stocks[self.cursor-count]
+                minkline = self.stocks[self.cursor-count]
+                kstart = "UP"
+
+            if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k<-10 and kstart == None:
+                maxkline = self.stocks[self.cursor-count]
+                minkline = self.stocks[self.cursor-count]
+                kstart = "DOWN"
+
+
+            if maxkline != None:
+                if valueMax(maxkline)<valueMax(self.stocks[self.cursor-count]):
+                    maxkline = self.stocks[self.cursor-count]
+            if minkline != None:
+                if valueMin(minkline) > valueMin(self.stocks[self.cursor-count]):
+                    minkline = self.stocks[self.cursor-count]
+
+
+            if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k>10 and kstart == "DOWN" :
+                xkline.append(("DOWN",maxkline,minkline))
+                maxkline = self.stocks[self.cursor-count]
+                minkline = self.stocks[self.cursor-count]
+                kstart == "UP"
+
+
+            if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k<-10 and kstart == "UP" :
+                xkline.append(("UP",maxkline,minkline))
+                maxkline = self.stocks[self.cursor-count]
+                minkline = self.stocks[self.cursor-count]
+                kstart == "DOWN"
+
+            count += 1
+
     def touchSimlarTimeDownFrom(self,count=1):
         flag = 0
         tmax = self.stocks[self.cursor-count].close

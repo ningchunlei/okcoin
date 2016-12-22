@@ -169,12 +169,12 @@ def pl(level1Stock,level2Stock,l1tag,l2tag,difftime):
     l2_pre_pre_kdj = l2_pre_pre.j-l2_pre_pre.k
 
 
-    pricelogging.info("level=%s,time=%s,j=%s,k=%s,macd=%s,up=%s,dn=%s,boll=%s,open=%s,close=%s" % (l1tag,time.ctime(l1_pre.time),l1_pre.j,l1_pre.k,l1_pre.macd,l1_pre.up,l1_pre.dn,l1_pre.boll,l1_pre.open,l1_pre.close))
-    pricelogging.info("level=%s,time=%s,j=%s,k=%s,macd=%s,up=%s,dn=%s,boll=%s,open=%s,close=%s" % (l2tag,time.ctime(l2_pre.time),l2_pre.j,l2_pre.k,l2_pre.macd,l2_pre.up,l2_pre.dn,l2_pre.boll,l2_pre.open,l2_pre.close))
+    #pricelogging.info("level=%s,time=%s,j=%s,k=%s,macd=%s,up=%s,dn=%s,boll=%s,open=%s,close=%s" % (l1tag,time.ctime(l1_pre.time),l1_pre.j,l1_pre.k,l1_pre.macd,l1_pre.up,l1_pre.dn,l1_pre.boll,l1_pre.open,l1_pre.close))
+    #pricelogging.info("level=%s,time=%s,j=%s,k=%s,macd=%s,up=%s,dn=%s,boll=%s,open=%s,close=%s" % (l2tag,time.ctime(l2_pre.time),l2_pre.j,l2_pre.k,l2_pre.macd,l2_pre.up,l2_pre.dn,l2_pre.boll,l2_pre.open,l2_pre.close))
 
 
-    pricelogging.info("clevel=%s,time=%s,j=%s,k=%s,macd=%s,up=%s,dn=%s,boll=%s,open=%s,close=%s" % (l1tag,time.ctime(l1_last.time),l1_last.j,l1_last.k,l1_last.macd,l1_last.up,l1_last.dn,l1_last.boll,l1_last.open,l1_last.close))
-    pricelogging.info("clevel=%s,time=%s,j=%s,k=%s,macd=%s,up=%s,dn=%s,boll=%s,open=%s,close=%s" % (l2tag,time.ctime(l2_last.time),l2_last.j,l2_last.k,l2_last.macd,l2_last.up,l2_last.dn,l2_last.boll,l2_last.open,l2_last.close))
+    #pricelogging.info("clevel=%s,time=%s,j=%s,k=%s,macd=%s,up=%s,dn=%s,boll=%s,open=%s,close=%s" % (l1tag,time.ctime(l1_last.time),l1_last.j,l1_last.k,l1_last.macd,l1_last.up,l1_last.dn,l1_last.boll,l1_last.open,l1_last.close))
+    #pricelogging.info("clevel=%s,time=%s,j=%s,k=%s,macd=%s,up=%s,dn=%s,boll=%s,open=%s,close=%s" % (l2tag,time.ctime(l2_last.time),l2_last.j,l2_last.k,l2_last.macd,l2_last.up,l2_last.dn,l2_last.boll,l2_last.open,l2_last.close))
 
     if l1tag == "1":
         f1po = level1Stock.mkposition()
@@ -232,13 +232,13 @@ def pl(level1Stock,level2Stock,l1tag,l2tag,difftime):
         kk5Up = True
 
 
-    pricelogging.info("fx1=%s,fx5=%s" % (f1po,f5po))
+    #pricelogging.info("fx1=%s,fx5=%s" % (f1po,f5po))
 
-    pricelogging.info("kk1down=%s,up=%s,boll=%s,downtoboll=%s,uptoboll=%s" % (kk1Down,kk1Up,kk1Boll,kk1DownToBoll,kk1UpToBoll))
+    #pricelogging.info("kk1down=%s,up=%s,boll=%s,downtoboll=%s,uptoboll=%s" % (kk1Down,kk1Up,kk1Boll,kk1DownToBoll,kk1UpToBoll))
 
-    pricelogging.info("kk5down=%s,up=%s,boll=%s,downtoboll=%s,uptoboll=%s" % (kk5Down,kk5Up,kk5Boll,kk5DownToBoll,kk5UpToBoll))
+    #pricelogging.info("kk5down=%s,up=%s,boll=%s,downtoboll=%s,uptoboll=%s" % (kk5Down,kk5Up,kk5Boll,kk5DownToBoll,kk5UpToBoll))
 
-    pricelogging.info("k1iscross=%s,k5icross=%s,isupordownline1=%s,isupordownline5=%s" % (level1Stock.iscrossKline(),level2Stock.iscrossKline(),level1Stock.isUpOrDownKline(),level1Stock.isUpOrDownKline()) )
+    #pricelogging.info("k1iscross=%s,k5icross=%s,isupordownline1=%s,isupordownline5=%s" % (level1Stock.iscrossKline(),level2Stock.iscrossKline(),level1Stock.isUpOrDownKline(),level1Stock.isUpOrDownKline()) )
 
 
     def canbuybypo():
