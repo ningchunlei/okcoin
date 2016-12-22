@@ -4625,6 +4625,12 @@ def go17():
                 return 36 #震荡
 
 
+    def trzs(xt):
+        if xt[0][0] == "DOWN" :
+            return (valueMax(xt[1][1]),valueMin(xt[2][2]),valueMax(xt[3][1]))
+        elif xt[0][0] == "UP":
+            return (valueMin(xt[1][2]),valueMax(xt[2][1]),valueMin(xt[3][2]))
+
     def canb3(xt,kline,prekline):
         px5 = position(x5data)
         rzs5 = zs(x5data)
@@ -4633,8 +4639,11 @@ def go17():
         rzs = zs(xt)
 
         fdata = stock1Min.findInFiveData()
+        gh = trzs(xkdjdata)
+        gh5 = trzs(x5kdjdata)
 
-        pricelogging.info("tbuy,-time=%s-%s-%s-px=%s,5p=%s,%s,=%s,=%s,5j=%s,=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1],xkdjdata[0],xkdjdata[1],x5kdjdata[0],x5kdjdata[1]))
+        pricelogging.info("tbuy,-time=%s-%s-%s-px=%s,5p=%s,%s,=%s,5j=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1],gh,gh5))
+
 
         if xkdjdata[0][0] == "UP":
             if valueMin(xkdjdata[1][2]) > valueMin(xkdjdata[3][2]):
@@ -4650,7 +4659,11 @@ def go17():
         px5 = position(x5data)
         rzs5 = zs(x5data)
 
-        pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s,5p=%s,%s,=%s,=%s,5j=%s,=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1],xkdjdata[0],xkdjdata[1],x5kdjdata[0],x5kdjdata[1]))
+
+        gh = trzs(xkdjdata)
+        gh5 = trzs(x5kdjdata)
+
+        pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s,5p=%s,%s,=%s,5j=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1],gh,gh5))
 
         #pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px))
         if prelastM5.time == buy2Time:
