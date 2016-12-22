@@ -831,14 +831,14 @@ class stock(object):
                 xkline.append(("DOWN",maxkline,minkline))
                 maxkline = self.stocks[self.cursor-count]
                 minkline = self.stocks[self.cursor-count]
-                kstart == "UP"
+                kstart = "UP"
 
 
             if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k<-10 and kstart == "UP" :
                 xkline.append(("UP",maxkline,minkline))
                 maxkline = self.stocks[self.cursor-count]
                 minkline = self.stocks[self.cursor-count]
-                kstart == "DOWN"
+                kstart = "DOWN"
 
             count += 1
         return xkline
