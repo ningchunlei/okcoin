@@ -3,11 +3,20 @@ import time,os
 from datetime import datetime,timedelta
 import okcoin_websocket
 from stock import stock,KLine
+import time
+from datetime import datetime
+import logging
 
 startime = sys.argv[1].replace(","," ")
 endtime = sys.argv[2].replace(","," ")
 
 store_dir = "/Users/jack"
+
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+                    datefmt='%a, %d %b %Y %H:%M:%S'
+                    )
+pricelogging = logging.getLogger("price")
 
 class RStock(stock):
 
@@ -179,4 +188,5 @@ while stock1Min.lastKline().time < overtime:
             stock1Min.on_kline(kline1Min)
             stock5Min.on_kline(kline5)
             stock15Min.on_kline(kline15)
+            #pricelogging.info(stock1Min.lastKline())
             okcoin_websocket.go17()

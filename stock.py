@@ -788,6 +788,46 @@ class stock(object):
             count += 1
         return data
 
+    def searchbigkdj(self,type,indexTime):
+
+        def valueMax(kline):
+            if kline.close>kline.open:
+                return kline.close
+            return kline.open
+
+        def valueMin(kline):
+            if kline.close<kline.open:
+                return kline.close
+            return kline.open
+
+        count=0
+        while True:
+            if self.stocks[self.cursor-count].time == indexTime:
+                break
+            count += 1
+
+        xcount =0
+        maxkline = self.stocks[self.cursor-count]
+        minkline = self.stocks[self.cursor-count]
+        while True:
+            if type == "DOWN":
+                if self.stocks[self.cursor-count+xcount].j -self.stocks[self.cursor-count+xcount].k > 10:
+                    break
+            if type == "UP":
+                if self.stocks[self.cursor-count+xcount].j -self.stocks[self.cursor-count+xcount].k < -10:
+                    break
+
+
+            if valueMax(maxkline)<valueMax(self.stocks[self.cursor-count+xcount]):
+                maxkline = self.stocks[self.cursor-count+xcount]
+
+            if valueMin(minkline) > valueMin(self.stocks[self.cursor-count+xcount]):
+                minkline = self.stocks[self.cursor-count+xcount]
+
+            xcount += 1
+
+        return (maxkline,minkline)
+
     def searchKDJTopAndDown(self):
         def valueMax(kline):
             if kline.close>kline.open:
@@ -809,11 +849,17 @@ class stock(object):
                 break
 
             if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k>10 and kstart == None:
+                pricelogging.info("%s,%s" % (str(time.ctime(self.stocks[self.cursor-count].time)),str(time.ctime(1482372300))))
+                if str(time.ctime(self.stocks[self.cursor-count].time))==str(time.ctime(1482372300)):
+                    print "xxx"
+
                 maxkline = self.stocks[self.cursor-count]
                 minkline = self.stocks[self.cursor-count]
                 kstart = "UP"
                 count += 1
                 continue
+
+
 
             if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k<-10 and kstart == None:
                 maxkline = self.stocks[self.cursor-count]
@@ -833,8 +879,9 @@ class stock(object):
 
             if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k>10 and kstart == "DOWN" :
                 xkline.append(("DOWN",maxkline,minkline))
-                maxkline = self.stocks[self.cursor-count]
-                minkline = self.stocks[self.cursor-count]
+
+                maxkline,minkline = self.searchbigkdj("DOWN",self.stocks[self.cursor-count].time)
+
                 kstart = "UP"
                 count += 1
                 continue
@@ -842,8 +889,9 @@ class stock(object):
 
             if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k<-10 and kstart == "UP" :
                 xkline.append(("UP",maxkline,minkline))
-                maxkline = self.stocks[self.cursor-count]
-                minkline = self.stocks[self.cursor-count]
+
+                maxkline,minkline = self.searchbigkdj("DOWN",self.stocks[self.cursor-count].time)
+
                 kstart = "DOWN"
                 count += 1
                 continue
