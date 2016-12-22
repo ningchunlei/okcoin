@@ -4658,33 +4658,21 @@ def go17():
                 return 11
 
         if xkdjdata[0][0] == "DOWN":
-            if
+            if valueMax(xkdjdata[1][0]) < valueMax(xkdjdata[3][0]):
+                return 12
 
-
+            if valueMin(xkdjdata[2][1]) < valueMin(xkdjdata[0][1]):
+                return 13
 
 
     if buyPrice1==None:
         ret = canb3(xdata,lastm1,prelastm1)
-        rzs5 = zs(x5data)
-
-        if xbuy!=True:
-            xb5()
-            pricelogging.info("tbuy - xvf=%s,%s",xbuy,buyPrice3)
-
-        if xbuy == True:
-            if (prelastM5.j-prelastM5.k<0 and prelastM5.j>pre2lastM5.j) or (lastm1.close>buyPrice3+0.6):
-                xbuy = None
-                buyPrice3 = None
-            else:
-                return
-
         if ret!=None:
-            spec = ret[1]
+            spec = ret
             buy1Time = current.time
             buy2Time = lastM5.time
-            xspec = rzs5[0]
-            buy(ret[1])
-            return
+            xspec = x5kdjdata[0]
+            buy(ret)
 
     if buyPrice1!=None:
         px = position(xdata)
@@ -4696,15 +4684,8 @@ def go17():
         xret = cansell3(xdata,lastm1,prelastm1)
         fdata = stock1Min.findInFiveData()
 
-        if xbuy!=True:
-            xb5()
-            pricelogging.info("tbuy - xvf=%s,%s",xbuy,buyPrice3)
-
-
         if xret != None:
-            if lastm1.close-buyPrice1<0 and lastm1.up-lastm1.dn<1.5 and lastm1.close > lastm1.dn:
-                return
-            sell(xret[1])
+            sell(xret)
             return
 
 def on_message(self,evt):
