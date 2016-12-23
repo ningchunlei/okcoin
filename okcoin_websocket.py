@@ -4671,13 +4671,14 @@ def go17():
                 return 42
 
         if x5kdjdata[0][0] == "DOWN":
-            if valueMin(x5kdjdata[0][2]) > valueMin(x5kdjdata[2][2]):
-                if prelastM5.j > pre2lastM5.j and lastm1.j-lastm1.k>0 and lastm1.close>lastm1.boll:
-                    return 43
+            if lastM5.up - lastM5.dn < 10:
+                if valueMin(x5kdjdata[0][2]) > valueMin(x5kdjdata[2][2]):
+                    if prelastM5.j > pre2lastM5.j and lastm1.j-lastm1.k>0 and lastm1.close>lastm1.boll:
+                        return 43
 
-            if valueMin(x5kdjdata[0][2]) < valueMin(x5kdjdata[2][2]) and abs(valueMin(xkdjdata[0][2])-valueMin(xkdjdata[2][2]))<=1 and kline.close > valueMin(xkdjdata[2][2]):
-                if prelastM5.j > pre2lastM5.j and lastm1.j-lastm1.k>0 and lastm1.close>lastm1.boll:
-                    return 43
+                if valueMin(x5kdjdata[0][2]) < valueMin(x5kdjdata[2][2]) and abs(valueMin(xkdjdata[0][2])-valueMin(xkdjdata[2][2]))<=1 and kline.close > valueMin(xkdjdata[2][2]):
+                    if prelastM5.j > pre2lastM5.j and lastm1.j-lastm1.k>0 and lastm1.close>lastm1.boll:
+                        return 43
 
 
     def cansell3(xt,kline,prekline):
