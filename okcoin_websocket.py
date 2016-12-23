@@ -4736,7 +4736,7 @@ def go17():
             if lastM5.up - lastM5.dn < 8:
                 if xkdjdata[0][0] == "UP":
                     if (lastm1.close<lastm1.open and lastm1.j-lastm1.k < 0 )or (lastm1.macd<0 and lastm1.close<lastm1.open) or (lastm1.close<lastm1.open and lastm1.close<lastm1.up and lastm1.j<prelastm1.j and lastm1.close < xkdjdata[0][1]):
-                        if x5kdjdata[0][0] == "UP" and abs(x5kdjdata[0][1] - x5kdjdata[2][1])<1:
+                        if x5kdjdata[0][0] == "UP" and abs(valueMax(x5kdjdata[0][1]) - valueMax(x5kdjdata[2][1]))<1:
                             return 51
 
 
