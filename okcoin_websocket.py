@@ -4654,21 +4654,30 @@ def go17():
         if xkdjdata[0][0] == "UP":
 
             if valueMin(xkdjdata[1][2]) > valueMin(xkdjdata[3][2]):
-                '''
+
                 if valueMax(xkdjdata[2][1]) < valueMax(xkdjdata[4][1]):
                     if valueMin(xkdjdata[5][2]) < valueMin(xkdjdata[3][2]):
                         if valueMax(xkdjdata[0][1]) < valueMax(xkdjdata[2][1]):
                             return
-                    '''
+
                 return 41
             if valueMin(xkdjdata[1][2]) < valueMin(xkdjdata[3][2]) and abs(valueMin(xkdjdata[1][2])-valueMin(xkdjdata[3][2]))<=1 and kline.close > valueMin(xkdjdata[1][2]):
-                '''
+
                 if valueMax(xkdjdata[2][1]) < valueMax(xkdjdata[4][1]):
                     if valueMin(xkdjdata[5][2]) < valueMin(xkdjdata[3][2]):
                         if valueMax(xkdjdata[0][1]) < valueMax(xkdjdata[2][1]):
                             return
-                    '''
+
                 return 42
+
+        if x5kdjdata[0][0] == "DOWN":
+            if valueMin(x5kdjdata[0][2]) > valueMin(x5kdjdata[2][2]):
+                if prelastM5.j > pre2lastM5.j and lastm1.j-lastm1.k>0 and lastm1.close>lastm1.boll:
+                    return 43
+
+            if valueMin(x5kdjdata[0][2]) < valueMin(x5kdjdata[2][2]) and abs(valueMin(xkdjdata[0][2])-valueMin(xkdjdata[2][2]))<=1 and kline.close > valueMin(xkdjdata[2][2]):
+                if prelastM5.j > pre2lastM5.j and lastm1.j-lastm1.k>0 and lastm1.close>lastm1.boll:
+                    return 43
 
 
     def cansell3(xt,kline,prekline):
@@ -4691,6 +4700,8 @@ def go17():
 
         if xkdjdata[0][0] == "DOWN":
             if valueMax(xkdjdata[1][1]) < valueMax(xkdjdata[3][1]):
+                if abs(valueMax(xkdjdata[1][1])-valueMax(xkdjdata[3][1]))<1:
+                    return
                 return 12
 
             if valueMin(xkdjdata[2][2]) > valueMin(xkdjdata[0][2]):
@@ -4720,18 +4731,34 @@ def go17():
         gh = trzs(xkdjdata)
         gh5 = rrrzs(x5kdjdata)
 
-        if xret != None:
-            if buyTriggerTime==prelastM5.time and prelastM5.j < pre2lastM5.j:
-                sell(xret)
+        def kkj():
+            if lastM5.up - lastM5.dn < 6:
+                if xkdjdata[0][0] == "UP":
+                    if (lastm1.close<lastm1.open and lastm1.j-lastm1.k < 0 )or (lastm1.macd<0 and lastm1.close<lastm1.open) or (lastm1.close<lastm1.open and lastm1.close<lastm1.up and lastm1.j<prelastm1.j and lastm1.close < xkdjdata[0][1]):
+                        if x5kdjdata[0][0] == "UP" and abs(x5kdjdata[0][1] - x5kdjdata[2][1])<1:
+                            return 51
+
+
+        if kkj()!=None:
+            if current.close - buyPrice1>0:
+                sell(52)
                 return
 
+        if xret != None:
             if current.close - buyPrice1<0:
-                if gh5[0] > gh5[1] or (gh5[0] < gh5[1] and abs(gh5[0]-gh5[1])<1.5):
-                    if xret == 13 and prelastM5.j > pre2lastM5.j:
-                        buyTriggerTime = lastM5.time
-                        return
+                if lastM5.up - lastM5.dn<6:
+                    if x5kdjdata[0][0] == "DOWN":
+                        if valueMin(x5kdjdata[0][2])>valueMin(x5kdjdata[2][2]) or (valueMin(x5kdjdata[0][2]) < valueMin(x5kdjdata[2][2]) and abs(valueMin(xkdjdata[0][2])-valueMin(xkdjdata[2][2]))<=1):
+                            if current.close < x5kdjdata[2][2]:
+                                sell(51)
+
+                    if x5kdjdata[0][0] == "UP":
+                        if valueMin(x5kdjdata[1][2])>valueMin(x5kdjdata[3][2]) or (valueMin(x5kdjdata[1][2]) < valueMin(x5kdjdata[3][2]) and abs(valueMin(xkdjdata[1][2])-valueMin(xkdjdata[3][2]))<=1):
+                            if current.close < x5kdjdata[1][2]:
+                                sell(51)
+                    return
             sell(xret)
-            return
+
 
 def on_message(self,evt):
     global last_time
