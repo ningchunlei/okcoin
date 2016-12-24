@@ -4449,6 +4449,7 @@ def go17():
             m5data = None
             kk1pos = f1po1
             kk5pos = f1po5
+            buyTriggerTime = None
             pricelogging.info("tbuy-%s,-%s,time=%s,deciderTime=%s,spec=%s" % (tag,buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),spec))
             return
         else:
@@ -4552,10 +4553,7 @@ def go17():
         xkdj = None
         upToDown = None
         sellSpec = None
-        if xdata[0][2] == "DOWN":
-            buyTriggerTime = xdata[1][0][2]
-        if xdata[0][2] == "UP" :
-            buyTriggerTime = xdata[1][1][2]
+        buyTriggerTime = lastM5.time
         m5data = None
         kk1pos = None
         kk5pos = None
@@ -4705,6 +4703,11 @@ def go17():
                     return 55
 
     if buyPrice1==None:
+        if buyTriggerTime == lastM5.time and lastm1.macd>prelastm1.macd and lastm1.close > lastm1.open:
+            spec = 90
+            buy(90)
+            return
+
         ret = canb3(xdata,lastm1,prelastm1)
         if ret!=None:
             spec = ret
@@ -4714,6 +4717,13 @@ def go17():
             buy(ret)
 
     if buyPrice1!=None:
+
+        if spec==90:
+            if lastm1.macd < prelastm1.macd:
+                sell(90)
+
+            return
+
         px = position(xdata)
         rzs = zs(xdata)
         px5 = position(x5data)
