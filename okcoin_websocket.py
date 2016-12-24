@@ -4743,7 +4743,7 @@ def go17():
             sell(xret)
 
         if buyPrice1!=None and lastM5.time > buy2Time:
-            if current.close - buyPrice1<20:
+            if current.close - buyPrice1<15:
                 sell(110)
 
 def on_message(self,evt):
