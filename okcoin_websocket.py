@@ -4700,8 +4700,9 @@ def go17():
                             return 54
             else:
                 if xkdjdata[0][0] == "DOWN":
-                    if valueMax(xkdjdata[1][1]) < valueMax(xkdjdata[3][1]) and lastm1.macd<prelastm1.macd:
-                        return 56
+                    if buy1Time!=None and xkdjdata[3][1].time > buy1Time:
+                        if valueMax(xkdjdata[1][1]) < valueMax(xkdjdata[3][1]) and lastm1.macd<prelastm1.macd:
+                            return 56
 
             if prelastM5.j<pre2lastM5.j and prelastM5.macd<pre2lastM5.macd:
                 if valueMin(x5kdjdata[1][2]) > valueMin(x5kdjdata[3][2]) and valueMax(x5kdjdata[2][1]) > valueMax(x5kdjdata[0][1]):
