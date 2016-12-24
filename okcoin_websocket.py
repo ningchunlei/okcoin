@@ -4648,6 +4648,7 @@ def go17():
 
         pricelogging.info("tbuy,-time=%s-%s-%s-px=%s,5p=%s,%s,=%s,5j=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1],gh,gh5))
         pricelogging.info("kline=%s,=%s",lastm1,lastm1.time-prelastM5.time)
+        pricelogging.info("kline=%s,=%s",lastm1,lastm1.time-prelastM5.time)
 
         if x5kdjdata[0][0] == "DOWN":
             if prelastM5.j - prelastM5.k>-9.8:
@@ -4716,9 +4717,9 @@ def go17():
         if prelastM5.j-prelastM5.k<0:
             spec = None
 
-        if (spec==56 or (prelastM5.j - prelastM5.k>0 and spec!=None)) and lastm1.macd>prelastm1.macd and lastm1.macd>0:
+        if (spec==56 or (prelastM5.j - prelastM5.k>0 and spec!=None)) and lastm1.macd>prelastm1.macd and prelastm1.macd > stock.preMyLastKline(3).macd:
             if xkdjdata[0][0] == "UP":
-                if valueMax(xkdjdata[0][1]) < valueMax(xkdjdata[2][1]):
+                if valueMax(xkdjdata[0][1]) > valueMax(xkdjdata[2][1]):
                     spec = 90
                     buy(90)
                     return
