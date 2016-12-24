@@ -4703,7 +4703,7 @@ def go17():
                     return 55
 
     if buyPrice1==None:
-        if spec!=90 and buyTriggerTime == lastM5.time and lastm1.macd>prelastm1.macd and lastm1.close > lastm1.open and lastm1.macd>0:
+        if spec!=90 and buyTriggerTime == lastM5.time and lastm1.macd>prelastm1.macd and lastm1.close > lastm1.open:
             if xkdjdata[0][0] == "UP":
                 spec = 90
                 buy(90)
