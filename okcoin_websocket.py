@@ -4716,7 +4716,7 @@ def go17():
         if prelastM5.j-prelastM5.k<0:
             spec = None
 
-        if spec==56 and lastm1.macd>prelastm1.macd and lastm1.macd>0:
+        if (spec==56 or (prelastM5.j - prelastM5.k>0 and spec!=None)) and lastm1.macd>prelastm1.macd and lastm1.macd>0:
             if xkdjdata[0][0] == "UP":
                 if valueMax(xkdjdata[0][1]) < valueMax(xkdjdata[2][1]):
                     spec = 90
