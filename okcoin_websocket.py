@@ -4742,7 +4742,7 @@ def go17():
         if xret != None:
             sell(xret)
 
-        if buyPrice1!=None:
+        if buyPrice1!=None and lastM5.time > buy2Time:
             if current.close - buyPrice1<6:
                 sell(110)
 
