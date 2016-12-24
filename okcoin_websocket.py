@@ -4717,11 +4717,9 @@ def go17():
             buy(ret)
 
     if buyPrice1!=None:
-
         if spec==90:
             if lastm1.macd < prelastm1.macd:
                 sell(90)
-
             return
 
         px = position(xdata)
@@ -4743,6 +4741,10 @@ def go17():
 
         if xret != None:
             sell(xret)
+
+        if buyPrice1!=None:
+            if current.close - buyPrice1<6:
+                sell(110)
 
 def on_message(self,evt):
     global last_time
