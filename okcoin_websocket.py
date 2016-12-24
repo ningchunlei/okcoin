@@ -4671,7 +4671,7 @@ def go17():
                 return 42
 
         if x5kdjdata[0][0] == "DOWN":
-            if lastM5.up - lastM5.dn < 8:
+            if lastM5.up - lastM5.dn < 10:
                 if valueMin(x5kdjdata[0][2]) > valueMin(x5kdjdata[2][2]):
                     if prelastM5.j > pre2lastM5.j and lastm1.j-lastm1.k>0 and lastm1.close>lastm1.boll:
                         return 43
@@ -4679,6 +4679,14 @@ def go17():
                 if valueMin(x5kdjdata[0][2]) < valueMin(x5kdjdata[2][2]) and abs(valueMin(xkdjdata[0][2])-valueMin(xkdjdata[2][2]))<=1 and kline.close > valueMin(xkdjdata[2][2]):
                     if prelastM5.j > pre2lastM5.j and lastm1.j-lastm1.k>0 and lastm1.close>lastm1.boll:
                         return 43
+            else:
+                if valueMin(x5kdjdata[0][2]) > valueMin(x5kdjdata[2][2]):
+                    if prelastM5.j > pre2lastM5.j and prelastM5.macd>pre2lastM5.macd and lastm1.j-lastm1.k>0 and lastm1.close>lastm1.boll:
+                        return 45
+
+                if valueMin(x5kdjdata[0][2]) < valueMin(x5kdjdata[2][2]) and prelastM5.macd>pre2lastM5.macd and abs(valueMin(xkdjdata[0][2])-valueMin(xkdjdata[2][2]))<=1 and kline.close > valueMin(xkdjdata[2][2]):
+                    if prelastM5.j > pre2lastM5.j and lastm1.j-lastm1.k>0 and lastm1.close>lastm1.boll:
+                        return 45
 
 
     def cansell3(xt,kline,prekline):
@@ -4711,9 +4719,23 @@ def go17():
                 return 13
 
 
+    def kkj():
+        if lastM5.up - lastM5.dn < 8:
+            if xkdjdata[0][0] == "UP":
+                if (lastm1.close<lastm1.open and lastm1.j-lastm1.k < 0 )or (lastm1.macd<0 and lastm1.close<lastm1.open) or (lastm1.close<lastm1.open and lastm1.close<lastm1.up and lastm1.j<prelastm1.j and lastm1.close < xkdjdata[0][1]):
+                    if x5kdjdata[0][0] == "UP" and abs(valueMax(x5kdjdata[0][1]) - valueMax(x5kdjdata[2][1]))<1:
+                        return 57
+
+
     if buyPrice1==None:
         ret = canb3(xdata,lastm1,prelastm1)
         if ret!=None:
+            if x5kdjdata[0][0]=="UP":
+                if prelastM5.j<pre2lastM5.j and prelastM5.j-prelastM5.k<0 and prelastM5.macd < pre2lastM5.macd :
+                    if valueMax(x5kdjdata[0][1])>stock5Min.touchBollUp(x5kdjdata[1][2].time):
+                        pricelogging.info("tbuy,-stime=%s-disbale" % (time.ctime(kline.time)))
+                        return
+
             spec = ret
             buy1Time = current.time
             buy2Time = lastM5.time
@@ -4732,14 +4754,6 @@ def go17():
         gh = trzs(xkdjdata)
         gh5 = rrrzs(x5kdjdata)
 
-        def kkj():
-            if lastM5.up - lastM5.dn < 8:
-                if xkdjdata[0][0] == "UP":
-                    if (lastm1.close<lastm1.open and lastm1.j-lastm1.k < 0 )or (lastm1.macd<0 and lastm1.close<lastm1.open) or (lastm1.close<lastm1.open and lastm1.close<lastm1.up and lastm1.j<prelastm1.j and lastm1.close < xkdjdata[0][1]):
-                        if x5kdjdata[0][0] == "UP" and abs(valueMax(x5kdjdata[0][1]) - valueMax(x5kdjdata[2][1]))<1:
-                            return 51
-
-
         if kkj()!=None:
             if current.close - buyPrice1>0:
                 sell(52)
@@ -4747,17 +4761,15 @@ def go17():
 
         if xret != None:
             if current.close - buyPrice1<0:
-                if lastM5.up - lastM5.dn<8:
-                    if x5kdjdata[0][0] == "DOWN":
-                        if valueMin(x5kdjdata[0][2])>valueMin(x5kdjdata[2][2]) or (valueMin(x5kdjdata[0][2]) < valueMin(x5kdjdata[2][2]) and abs(valueMin(xkdjdata[0][2])-valueMin(xkdjdata[2][2]))<=1):
-                            if current.close < x5kdjdata[2][2]:
-                                sell(51)
+                if x5kdjdata[0][0] == "DOWN":
+                    if valueMin(x5kdjdata[0][2])>valueMin(x5kdjdata[2][2]):
+                        if lastM5.boll-lastM5.dn<4:
+                            if current.close > lastM5.dn:
+                                return
+                        else:
+                            if current.close > lastM5.boll:
+                                return
 
-                    if x5kdjdata[0][0] == "UP":
-                        if valueMin(x5kdjdata[1][2])>valueMin(x5kdjdata[3][2]) or (valueMin(x5kdjdata[1][2]) < valueMin(x5kdjdata[3][2]) and abs(valueMin(xkdjdata[1][2])-valueMin(xkdjdata[3][2]))<=1):
-                            if current.close < x5kdjdata[1][2]:
-                                sell(51)
-                    return
             sell(xret)
 
 
