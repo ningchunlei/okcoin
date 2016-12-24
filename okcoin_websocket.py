@@ -4649,7 +4649,7 @@ def go17():
         gh5 = trzs(x5kdjdata)
 
         pricelogging.info("tbuy,-time=%s-%s-%s-px=%s,5p=%s,%s,=%s,5j=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1],gh,gh5))
-
+        pricelogging.info("kline=%s",lastm1)
 
         if x5kdjdata[0][0] == "DOWN":
             if prelastM5.j - prelastM5.k>-9.8:
@@ -4691,7 +4691,11 @@ def go17():
                             return 53
                 if xkdjdata[0][0] == "DOWN":
                     if valueMax(xkdjdata[1][1]) < valueMax(xkdjdata[3][1]) and lastm1.macd<prelastm1.macd:
-                        return 52
+                        if xkdjdata[3][1].time < buy1Time:
+                            if lastm1.close < valueMin(xkdjdata[1][1]):
+                                return 52
+                        else:
+                            return 52
                     else:
                         if lastm1.macd<0 and lastm1.macd<prelastm1.macd:
                             return 54
