@@ -4802,6 +4802,16 @@ def go17():
                                     return
 
             sell(xret)
+        else:
+            if x5kdjdata[0][0] == "DOWN":
+                if prelastM5.j<pre2lastM5.j and prelastM5.j-prelastM5.k<0 and prelastM5.macd < pre2lastM5.macd :
+                    if valueMax(x5kdjdata[1][1])>stock5Min.touchBollUp(x5kdjdata[2][2].time):
+                        sell(116)
+
+            if x5kdjdata[0][0]=="UP":
+                if prelastM5.j<pre2lastM5.j and prelastM5.j-prelastM5.k<0 and prelastM5.macd < pre2lastM5.macd :
+                    if valueMax(x5kdjdata[0][1])>stock5Min.touchBollUp(x5kdjdata[1][2].time):
+                        sell(117)
 
 
 def on_message(self,evt):
