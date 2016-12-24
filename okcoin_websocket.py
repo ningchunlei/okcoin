@@ -4649,7 +4649,7 @@ def go17():
         gh5 = trzs(x5kdjdata)
 
         pricelogging.info("tbuy,-time=%s-%s-%s-px=%s,5p=%s,%s,=%s,5j=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1],gh,gh5))
-        pricelogging.info("kline=%s",lastm1)
+        pricelogging.info("kline=%s,=%s",lastm1,lastm1.time-prelastM5.time)
 
         if x5kdjdata[0][0] == "DOWN":
             if prelastM5.j - prelastM5.k>-9.8:
