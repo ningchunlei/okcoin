@@ -605,6 +605,18 @@ class stock(object):
             count += 1
         return True
 
+    def searchSamePeriod(self,fromType):
+        count=1
+        while True:
+            if fromType == "DOWN":
+                if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k>10:
+                    return self.stocks[self.cursor-count]
+            if fromType == "UP":
+                if self.stocks[self.cursor-count].j-self.stocks[self.cursor-count].k<-10:
+                    return self.stocks[self.cursor-count]
+            count += 1
+        return None
+
     def kdjUpDontTouchMaxKline(self):
         maxc = 0
         count=1
