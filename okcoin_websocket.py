@@ -4734,8 +4734,6 @@ def go17():
         if xret != None:
             sell(xret)
 
-        if current.close - buyPrice1 <0 :
-            sell(110)
 
 
 def on_message(self,evt):
