@@ -4652,7 +4652,7 @@ def go17():
 
 
         if x5kdjdata[0][0] == "DOWN":
-            if prelastM5.j - prelastM5.k<-9.8:
+            if prelastM5.j - prelastM5.k>-9.8:
                 if xkdjdata[0][0] == "UP":
                     if valueMin(xkdjdata[1][2]) > valueMin(xkdjdata[3][2]) and lastm1.macd>prelastm1.macd and lastm1.close>lastm1.open:
                         return 41
