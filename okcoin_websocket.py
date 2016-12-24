@@ -4651,43 +4651,20 @@ def go17():
         pricelogging.info("tbuy,-time=%s-%s-%s-px=%s,5p=%s,%s,=%s,5j=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1],gh,gh5))
 
 
-        if xkdjdata[0][0] == "UP":
-
-            if valueMin(xkdjdata[1][2]) > valueMin(xkdjdata[3][2]):
-
-                if valueMax(xkdjdata[2][1]) < valueMax(xkdjdata[4][1]):
-                    if valueMin(xkdjdata[5][2]) < valueMin(xkdjdata[3][2]):
-                        if valueMax(xkdjdata[0][1]) < valueMax(xkdjdata[2][1]):
-                            return
-
-                return 41
-            if valueMin(xkdjdata[1][2]) < valueMin(xkdjdata[3][2]) and abs(valueMin(xkdjdata[1][2])-valueMin(xkdjdata[3][2]))<=1 and kline.close > valueMin(xkdjdata[1][2]):
-
-                if valueMax(xkdjdata[2][1]) < valueMax(xkdjdata[4][1]):
-                    if valueMin(xkdjdata[5][2]) < valueMin(xkdjdata[3][2]):
-                        if valueMax(xkdjdata[0][1]) < valueMax(xkdjdata[2][1]):
-                            return
-
-                return 42
-
         if x5kdjdata[0][0] == "DOWN":
-            if lastM5.up - lastM5.dn < 10:
-                if valueMin(x5kdjdata[0][2]) > valueMin(x5kdjdata[2][2]):
-                    if prelastM5.j > pre2lastM5.j and lastm1.j-lastm1.k>0 and lastm1.close>lastm1.boll:
-                        return 43
-
-                if valueMin(x5kdjdata[0][2]) < valueMin(x5kdjdata[2][2]) and abs(valueMin(xkdjdata[0][2])-valueMin(xkdjdata[2][2]))<=1 and kline.close > valueMin(xkdjdata[2][2]):
-                    if prelastM5.j > pre2lastM5.j and lastm1.j-lastm1.k>0 and lastm1.close>lastm1.boll:
-                        return 43
-            else:
-                if valueMin(x5kdjdata[0][2]) > valueMin(x5kdjdata[2][2]):
-                    if prelastM5.j > pre2lastM5.j and prelastM5.macd>pre2lastM5.macd and lastm1.j-lastm1.k>0 and lastm1.close>lastm1.boll:
-                        return 45
-
-                if valueMin(x5kdjdata[0][2]) < valueMin(x5kdjdata[2][2]) and prelastM5.macd>pre2lastM5.macd and abs(valueMin(xkdjdata[0][2])-valueMin(xkdjdata[2][2]))<=1 and kline.close > valueMin(xkdjdata[2][2]):
-                    if prelastM5.j > pre2lastM5.j and lastm1.j-lastm1.k>0 and lastm1.close>lastm1.boll:
-                        return 45
-
+            if prelastM5.j - prelastM5.k<-9.8:
+                if xkdjdata[0][0] == "UP":
+                    if valueMin(xkdjdata[1][2]) > valueMin(xkdjdata[3][2]) and lastm1.macd>prelastm1.macd and lastm1.close>lastm1.open:
+                        return 41
+                    else:
+                        if lastm1.macd>0 and lastm1.macd>prelastm1.macd and lastm1.close>lastm1.open:
+                            return 43
+                if xkdjdata[0][0] == "DOWN":
+                    if valueMin(xkdjdata[0][2]) > valueMin(xkdjdata[2][2]) and lastm1.macd>prelastm1.macd and lastm1.close>lastm1.open:
+                        return 42
+                    else:
+                        if lastm1.macd>0 and lastm1.macd>prelastm1.macd and lastm1.close>lastm1.open:
+                            return 44
 
     def cansell3(xt,kline,prekline):
         px = position(xt)
@@ -4703,48 +4680,25 @@ def go17():
         pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s,5p=%s,%s,=%s,5j=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1],gh,gh5))
 
         #pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px))
-        if prelastM5.time == buy2Time:
-            if prelastM5.j < pre2lastM5.j :
-                return 11
 
-        if xkdjdata[0][0] == "DOWN":
-            if valueMax(xkdjdata[1][1]) < valueMax(xkdjdata[3][1]):
-                if abs(valueMax(xkdjdata[1][1])-valueMax(xkdjdata[3][1]))<1:
-                    return
-                return 12
-
-            if valueMin(xkdjdata[2][2]) > valueMin(xkdjdata[0][2]):
-                if abs(valueMin(xkdjdata[2][2])-valueMin(xkdjdata[0][2]))<1:
-                    return
-                return 13
-
-
-    def kkj():
-        if lastM5.up - lastM5.dn < 10:
-            if xkdjdata[0][0] == "UP":
-                if (lastm1.close<lastm1.open and lastm1.j-lastm1.k < 0 )or (lastm1.macd<0 and lastm1.close<lastm1.open) or (lastm1.close<lastm1.open and lastm1.close<lastm1.up and lastm1.j<prelastm1.j and lastm1.close < xkdjdata[0][1]):
-                    if x5kdjdata[0][0] == "UP" and abs(valueMax(x5kdjdata[0][1]) - valueMax(x5kdjdata[2][1]))<1:
-                        return 57
-
+        if x5kdjdata[0][0] == "UP":
+            if prelastM5.j - prelastM5.k<9.8:
+                if xkdjdata[0][0] == "UP":
+                    if valueMax(xkdjdata[0][1]) < valueMax(xkdjdata[2][1]) and lastm1.macd<prelastm1.macd:
+                        return 51
+                    else:
+                        if lastm1.macd<0 and lastm1.macd<prelastm1.macd:
+                            return 53
+                if xkdjdata[0][0] == "DOWN":
+                    if valueMax(xkdjdata[1][1]) < valueMax(xkdjdata[3][1]) and lastm1.macd<prelastm1.macd:
+                        return 52
+                    else:
+                        if lastm1.macd<0 and lastm1.macd<prelastm1.macd:
+                            return 54
 
     if buyPrice1==None:
         ret = canb3(xdata,lastm1,prelastm1)
         if ret!=None:
-            if x5kdjdata[0][0]=="UP":
-                if prelastM5.j<pre2lastM5.j and prelastM5.j-prelastM5.k<0 and prelastM5.macd < pre2lastM5.macd :
-                    if valueMax(x5kdjdata[0][1])>stock5Min.touchBollUp(x5kdjdata[1][2].time):
-                        pricelogging.info("tbuy,-stime=%s-disbale81" % (time.ctime(lastm1.time)))
-                        return
-            if kkj()!=None:
-                pricelogging.info("tbuy,-stime=%s-disbale80" % (time.ctime(lastm1.time)))
-                return
-
-            if x5kdjdata[0][0]=="DOWN":
-                    if prelastM5.j<pre2lastM5.j and prelastM5.j-prelastM5.k<0 and prelastM5.macd < pre2lastM5.macd :
-                        if valueMax(x5kdjdata[1][1])>stock5Min.touchBollUp(x5kdjdata[2][2].time):
-                            pricelogging.info("tbuy,-stime=%s-disbale811" % (time.ctime(lastm1.time)))
-                            return
-
             spec = ret
             buy1Time = current.time
             buy2Time = lastM5.time
@@ -4763,64 +4717,12 @@ def go17():
         gh = trzs(xkdjdata)
         gh5 = rrrzs(x5kdjdata)
 
-        if kkj()!=None:
-            if current.close - buyPrice1>0:
-                sell(52)
-                return
-
-        if x5kdjdata[0][0] == "DOWN":
-            if prelastM5.j<pre2lastM5.j and prelastM5.j-prelastM5.k<0 and prelastM5.macd < pre2lastM5.macd :
-                if valueMax(x5kdjdata[1][1])>stock5Min.touchBollUp(x5kdjdata[2][2].time):
-                    sell(116)
-                    return
-
-        if x5kdjdata[0][0]=="UP":
-            if prelastM5.j<pre2lastM5.j and prelastM5.j-prelastM5.k<0 and prelastM5.macd < pre2lastM5.macd :
-                if valueMax(x5kdjdata[0][1])>stock5Min.touchBollUp(x5kdjdata[1][2].time):
-                    sell(117)
-                    return
+        if x5kdjdata[0][0]=="DOWN":
+            if xkdjdata[0][0] == "DOWN":
+                if valueMin(xkdjdata[0][2]) < valueMin(xkdjdata[2][2]) and lastm1.macd<prelastm1.macd:
+                    return sell(xret)
 
         if xret != None:
-            if current.close - buyPrice1<0:
-                if xret==12:
-                    if valueMin(xkdjdata[2][2]) > valueMin(xkdjdata[0][2]):
-                        if x5kdjdata[0][0] == "DOWN" and buy2Time < stock5Min.searchSamePeriod().time and prelastM5.close>prelastM5.boll:
-                            pricelogging.info("tbuy,-stime=%s-disbale821" % (time.ctime(lastm1.time)))
-                            return
-
-
-
-                if x5kdjdata[0][0] == "DOWN":
-                    if prelastM5.j<pre2lastM5.j and prelastM5.j-prelastM5.k<0 and prelastM5.macd < pre2lastM5.macd :
-                        if valueMax(x5kdjdata[1][1])>stock5Min.touchBollUp(x5kdjdata[2][2].time):
-                            pass
-                    else:
-                        if valueMin(x5kdjdata[0][2])>valueMin(x5kdjdata[2][2]):
-                            if lastM5.boll-lastM5.dn<4:
-                                if lastm1.close > lastM5.dn:
-                                    pricelogging.info("tbuy,-stime=%s-disbale82" % (time.ctime(lastm1.time)))
-                                    return
-                            else:
-                                if lastm1.close > lastM5.boll:
-                                    pricelogging.info("tbuy,-stime=%s-disbale83" % (time.ctime(lastm1.time)))
-                                    return
-
-                if x5kdjdata[0][0]=="UP":
-                    if prelastM5.j<pre2lastM5.j and prelastM5.j-prelastM5.k<0 and prelastM5.macd < pre2lastM5.macd :
-                        if valueMax(x5kdjdata[0][1])>stock5Min.touchBollUp(x5kdjdata[1][2].time):
-                            pass
-                    else:
-                        if prelastM5.j<pre2lastM5.j and prelastM5.j-prelastM5.k<0 and prelastM5.macd < pre2lastM5.macd :
-                            if valueMax(x5kdjdata[0][1])>stock5Min.touchBollUp(x5kdjdata[1][2].time):
-                                pricelogging.info("tbuy,-stime=%s-disbale85" % (time.ctime(lastm1.time)))
-                                sell(55)
-                                return
-                        if valueMin(x5kdjdata[1][2])>valueMin(x5kdjdata[3][2]):
-                            if lastM5.up-lastM5.boll<4:
-                                if lastm1.close > lastM5.boll:
-                                    pricelogging.info("tbuy,-stime=%s-disbale84" % (time.ctime(lastm1.time)))
-                                    return
-
             sell(xret)
 
 
