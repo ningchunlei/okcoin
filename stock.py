@@ -593,6 +593,18 @@ class stock(object):
             return False
         return True
 
+    def touchBollUp(self,indexTime):
+        count=1
+        while True:
+            if self.stocks[self.cursor-count].time <= indexTime:
+                break
+            if self.stocks[self.cursor-count].high-self.stocks[self.cursor-count].up>0:
+                return True
+            if self.stocks[self.cursor-count].high<self.stocks[self.cursor-count].up and abs(self.stocks[self.cursor-count].high-self.stocks[self.cursor-count].up)<0.5:
+                return True
+            count += 1
+        return True
+
     def kdjUpDontTouchMaxKline(self):
         maxc = 0
         count=1
