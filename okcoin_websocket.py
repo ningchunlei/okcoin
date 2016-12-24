@@ -4725,6 +4725,7 @@ def go17():
         gh = trzs(xkdjdata)
         gh5 = rrrzs(x5kdjdata)
 
+
         if x5kdjdata[0][0]=="DOWN":
             if xkdjdata[0][0] == "DOWN":
                 if valueMin(xkdjdata[0][2]) < valueMin(xkdjdata[2][2]) and lastm1.macd<prelastm1.macd:
@@ -4733,6 +4734,8 @@ def go17():
         if xret != None:
             sell(xret)
 
+        if current.close - buyPrice1 <0 :
+            sell(110)
 
 
 def on_message(self,evt):
