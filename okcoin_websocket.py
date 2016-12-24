@@ -4698,16 +4698,25 @@ def go17():
                     else:
                         if lastm1.macd<0 and lastm1.macd<prelastm1.macd:
                             return 54
+            else:
+                if xkdjdata[0][0] == "DOWN":
+                    if valueMax(xkdjdata[1][1]) < valueMax(xkdjdata[3][1]) and lastm1.macd<prelastm1.macd:
+                        return 56
+
             if prelastM5.j<pre2lastM5.j and prelastM5.macd<pre2lastM5.macd:
                 if valueMin(x5kdjdata[1][2]) > valueMin(x5kdjdata[3][2]) and valueMax(x5kdjdata[2][1]) > valueMax(x5kdjdata[0][1]):
                     return 55
 
     if buyPrice1==None:
-        if spec!=90 and buyTriggerTime == lastM5.time and lastm1.macd>prelastm1.macd and lastm1.close > lastm1.open:
+        if prelastM5.j-prelastM5.k<0:
+            spec = None
+
+        if spec==56 and lastm1.macd>prelastm1.macd and lastm1.macd>0:
             if xkdjdata[0][0] == "UP":
-                spec = 90
-                buy(90)
-                return
+                if valueMax(xkdjdata[0][1]) < valueMax(xkdjdata[2][1]):
+                    spec = 90
+                    buy(90)
+                    return
 
         ret = canb3(xdata,lastm1,prelastm1)
         if ret!=None:
@@ -4721,7 +4730,7 @@ def go17():
         if spec==90:
             if lastm1.macd < prelastm1.macd:
                 sell(90)
-                spec = 90
+                spec = None
             return
 
         px = position(xdata)
@@ -4739,10 +4748,14 @@ def go17():
         if x5kdjdata[0][0]=="DOWN":
             if xkdjdata[0][0] == "DOWN":
                 if valueMin(xkdjdata[0][2]) < valueMin(xkdjdata[2][2]) and lastm1.macd<prelastm1.macd:
-                    return sell(xret)
+                    sell(xret)
+                    spec  = xret
+                    return
 
         if xret != None:
             sell(xret)
+            spec  = xret
+            return
 
 def on_message(self,evt):
     global last_time
