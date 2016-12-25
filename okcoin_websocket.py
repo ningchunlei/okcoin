@@ -4770,15 +4770,24 @@ def go17():
 
             if spec == 41 or spec == 42  or spec == 43 or spec == 44:
                 if xkdjdata[0][0] == "DOWN":
+                    pricelogging.info("xdn=%s",xkdjdata[0][2])
+                    pricelogging.info("xdn1=%s",xkdjdata[2][2])
+                    pricelogging.info("xdn2=%s",xkdjdata[1][1])
+                    pricelogging.info("xdn3=%s",current.close)
                     if valueMin(xkdjdata[0][2]) > valueMin(xkdjdata[2][2]) and current.close < valueMax(xkdjdata[1][1]):
                         sellSpec = valueMax(xkdjdata[1][1])
                 if xkdjdata[0][0] == "UP":
+                    pricelogging.info("xdn=%s",xkdjdata[1][2])
+                    pricelogging.info("xdn1=%s",xkdjdata[3][2])
+                    pricelogging.info("xdn2=%s",xkdjdata[2][1])
+                    pricelogging.info("xdn3=%s",current.close)
                     if valueMin(xkdjdata[1][2]) > valueMin(xkdjdata[3][2]) and current.close < valueMax(xkdjdata[2][1]):
                         sellSpec = valueMax(xkdjdata[2][1])
 
 
     if buyPrice1!=None:
-        if sellSpec !=None :
+        pricelogging.info("sellspec=%s",sellSpec)
+        if sellSpec !=None and lastm1.time > buy1Time:
             if lastm1.macd<0:
                 if lastm1.close < sellSpec:
                     sell(120)
