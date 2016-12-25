@@ -4679,7 +4679,7 @@ def go17():
                                 if valueMin(xkdjdata[0][2]) > valueMin(xkdjdata[2][2]) and lastm1.macd>0 and lastm1.j-lastm1.k>0:
                                     return 62
 
-        if x5kdjdata[0][0] == "UP" and lastm5.macd>0:
+        if x5kdjdata[0][0] == "UP" and lastM5.macd>0:
             if xbuy==True:
                 xbuy=None
                 if xkdjdata[0][0] == "DOWN":
