@@ -4813,7 +4813,7 @@ def go17():
                 return
 
         if spec==81:
-            if lastm1.j-lastm1.k<0:
+            if lastm1.j-lastm1.k<0 and lastm1.macd < prelastm1.macd:
                 sell(140)
             return
 
