@@ -4690,6 +4690,15 @@ def go17():
                         return 73
 
             if xkdjdata[0][0] == "DOWN":
+                if lastM5.macd>0 and lastm1.j-prelastm1.j>0:
+                    dntime = stock5Min.touchBollDnTime(x5kdjdata[2][1].time)
+                    if xt[0][2] == "DOWN":
+                        if xt[2][1][2].time > dntime and xt[0][1][1]!=None and xt[0][1][1]>xt[2][1][0] and lastm1.macd > prelastm1.macd:
+                            return 81
+                    if xt[0][2] == "UP":
+                        if xt[3][1][2].time > dntime and xt[1][1][1]!=None and xt[1][1][1]>xt[3][1][0] and lastm1.macd > prelastm1.macd:
+                            return 81
+
                 if lastm1.j-lastm1.k>0 and lastm1.macd > prelastm1.macd and stock1Min.touchBollDn(xkdjdata[1][1].time)==True and lastm1.close > valueMin(xkdjdata[0][2]):
                     return 71
             if xkdjdata[0][0] == "UP":
@@ -4801,6 +4810,10 @@ def go17():
                 sell(130)
                 return
 
+        if spec==81:
+            if lastm1.j-lastm1.k<0 or lastm1.macd<0:
+                sell(140)
+            return
 
         px = position(xdata)
         rzs = zs(xdata)
