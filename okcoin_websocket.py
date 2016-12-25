@@ -4802,7 +4802,7 @@ def go17():
     if buyPrice1!=None:
         pricelogging.info("sellspec=%s",sellSpec)
 
-        if lastm1.time < buy1Time:
+        if lastm1.time <= buy1Time:
             return
 
         if sellSpec !=None:
