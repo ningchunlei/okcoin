@@ -4765,7 +4765,7 @@ def go17():
                 sell(spec)
                 spec = None
                 if xkdjdata[0][0] == "UP":
-                    if lastm1.close > valueMax(xkdjdata[2][0]):
+                    if lastm1.close > valueMax(xkdjdata[2][1]):
                         xbuy = True
             return
 
