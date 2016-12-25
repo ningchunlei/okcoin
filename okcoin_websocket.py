@@ -4690,12 +4690,14 @@ def go17():
                         return 73
 
             if xkdjdata[0][0] == "DOWN":
-                if lastM5.macd>0 and lastm1.j-prelastm1.j>0:
+                if lastM5.macd>0 and lastm1.j-lastm1.k>0:
                     dntime = stock5Min.touchBollDnTime(x5kdjdata[2][1].time)
                     if xt[0][2] == "DOWN":
+                        pricelogging.info("time=%s,xt=%s,xttime=%s,d1=%s,d2=%s",time.ctime(dntime),xt[0][2],time.ctime(xt[2][1][2].time),xt[0][1][1],xt[2][1][0])
                         if xt[2][1][2].time > dntime and xt[0][1][1]!=None and xt[0][1][1]>xt[2][1][0] and lastm1.macd > prelastm1.macd:
                             return 81
                     if xt[0][2] == "UP":
+                        pricelogging.info("time=%s,xt=%s,xttime=%s,d1=%s,d2=%s",time.ctime(dntime),xt[0][2],time.ctime(xt[3][1][2].time),xt[1][1][1],xt[3][1][0])
                         if xt[3][1][2].time > dntime and xt[1][1][1]!=None and xt[1][1][1]>xt[3][1][0] and lastm1.macd > prelastm1.macd:
                             return 81
 
@@ -4811,7 +4813,7 @@ def go17():
                 return
 
         if spec==81:
-            if lastm1.j-lastm1.k<0 or lastm1.macd<0:
+            if lastm1.j-lastm1.k<0:
                 sell(140)
             return
 
