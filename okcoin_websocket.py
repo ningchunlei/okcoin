@@ -4636,6 +4636,7 @@ def go17():
             return (valueMin(xt[1][2]),valueMin(xt[3][2]))
 
     def canb3(xt,kline,prekline):
+        global  xbuy
         px5 = position(x5data)
         rzs5 = zs(x5data)
 
@@ -4665,6 +4666,34 @@ def go17():
                         else:
                             if lastm1.macd>0 and lastm1.macd>prelastm1.macd and lastm1.close>lastm1.open:
                                 return 44
+            else:
+                if prelastM5.j > pre2lastM5.j and stock5Min.touchBollUp(x5kdjdata)==True and prelastM5.close > x5kdjdata[0][2].close:
+                    dntime = stock5Min.touchBollDnTime()
+                    if prelastM5.time > dntime:
+                        if xkdjdata[0][0] == "UP":
+                            if xkdjdata[3][2].time>=dntime:
+                                if valueMin(xkdjdata[1][2]) > valueMin(xkdjdata[3][2]) and lastm1.macd>0:
+                                    return 61
+                        elif xkdjdata[0][0] == "DOWN" and lastm1.j-lastm1.k>0 and lastm1.macd>0:
+                            if xkdjdata[3][2].time>=dntime:
+                                if valueMin(xkdjdata[0][2]) > valueMin(xkdjdata[2][2]) and lastm1.macd>0 and lastm1.j-lastm1.k>0:
+                                    return 62
+
+        if x5kdjdata[0][0] == "UP" and lastm5.macd>0:
+            if xbuy==True:
+                xbuy=None
+                if xkdjdata[0][0] == "DOWN":
+                    if lastm1.j-lastm1.k>0 and lastm1.macd > prelastm1.macd:
+                        return 73
+
+            if xkdjdata[0][0] == "DOWN":
+                if lastm1.j-lastm1.k>0 and lastm1.macd > prelastm1.macd and stock1Min.touchBollDn(xkdjdata[1][1])==True and lastm1.close > valueMin(xkdjdata[0][2]):
+                    return 71
+            if xkdjdata[0][0] == "UP":
+                if lastm1.macd > prelastm1.macd and lastm1.macd >0 and lastm1.close>valueMax(xkdjdata[2][1]):
+                    return 72
+
+
 
     def cansell3(xt,kline,prekline):
         px = position(xt)
@@ -4713,17 +4742,10 @@ def go17():
                 if valueMin(x5kdjdata[1][2]) > valueMin(x5kdjdata[3][2]) and valueMax(x5kdjdata[2][1]) > valueMax(x5kdjdata[0][1]):
                     return 55
 
+    if xbuy==True and lastm1.close<lastm1.boll:
+        xbuy= None
+
     if buyPrice1==None:
-        if prelastM5.j-prelastM5.k<0:
-            spec = None
-
-        if (spec==56 or (prelastM5.j - prelastM5.k>0 and spec!=None)) and ((lastm1.macd>prelastm1.macd and prelastm1.macd > stock1Min.preMyLastKline(3).macd) or lastm1.macd>0):
-            if xkdjdata[0][0] == "UP":
-                if valueMax(xkdjdata[0][1]) > valueMax(xkdjdata[2][1]):
-                    spec = 90
-                    buy(90)
-                    return
-
         ret = canb3(xdata,lastm1,prelastm1)
         if ret!=None:
             spec = ret
@@ -4733,10 +4755,18 @@ def go17():
             buy(ret)
 
     if buyPrice1!=None:
-        if spec==90:
+        if spec==72  or spec==71 or spec==73:
             if lastm1.macd < prelastm1.macd:
-                sell(90)
+                if spec == 73:
+                    if xkdjdata[0][0] == "UP":
+                        if valueMax(xkdjdata[0][1]) > valueMax(xkdjdata[2][1]):
+                            spec = 63
+                            return
+                sell(spec)
                 spec = None
+                if xkdjdata[0][0] == "UP":
+                    if lastm1.close > valueMax(xkdjdata[2][0]):
+                        xbuy = True
             return
 
         px = position(xdata)
