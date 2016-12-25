@@ -4756,6 +4756,11 @@ def go17():
 
     if buyPrice1!=None:
         if spec==72  or spec==71 or spec==73:
+            if spec==71:
+                if lastm1.time == buy1Time and lastm1.close<lastm1.open and lastm1.j < prelastm1.j:
+                    sell(110)
+                    spec = None
+                    return
             if lastm1.macd < prelastm1.macd:
                 if spec == 73:
                     if xkdjdata[0][0] == "UP":
