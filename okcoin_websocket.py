@@ -4445,7 +4445,6 @@ def go17():
             buy1Time = current.time
             buy2Time = lastM5.time
             buyPrice1 = current.close
-            sellSpec = lastM5.j - lastM5.k
             m5data = None
             kk1pos = f1po1
             kk5pos = f1po5
@@ -4754,7 +4753,26 @@ def go17():
             xspec = x5kdjdata[0]
             buy(ret)
 
+            if spec == 41 or spec == 42  or spec == 43 or spec == 44:
+                if xkdjdata[0][0] == "DOWN":
+                    if valueMin(xkdjdata[0][2]) > valueMin(xkdjdata[2][2]) and current.close < valueMax(xkdjdata[1][1]):
+                        sellSpec = valueMax(xkdjdata[1][1])
+                if xkdjdata[0][0] == "UP":
+                    if valueMin(xkdjdata[1][2]) > valueMin(xkdjdata[3][2]) and current.close < valueMax(xkdjdata[2][1]):
+                        sellSpec = valueMax(xkdjdata[2][1])
+
+
     if buyPrice1!=None:
+        if sellSpec !=None :
+            if lastm1.macd<0:
+                if lastm1.close < sellSpec:
+                    sell(120)
+                    sellSpec = None
+                    return
+                else:
+                    sellSpec = None
+
+
         if spec==72  or spec==71 or spec==73:
             if spec==71:
                 if lastm1.time == buy1Time and lastm1.close<lastm1.open and lastm1.j < prelastm1.j:
