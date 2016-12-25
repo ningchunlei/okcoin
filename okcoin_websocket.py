@@ -4442,6 +4442,7 @@ def go17():
     def buy(tag):
         global buyPrice1,lastbuyTime,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
         if lastbuyTime == lastM5.time:
+            pricelogging.info("tbuy-%s-buy-disable,time=%s" % (tag,time.ctime(stock1Min.lastKline().time)) )
             return
 
         if buyPrice1==None:
@@ -4547,7 +4548,10 @@ def go17():
                     return
             '''
         pricelogging.info("tbuy-%s-%s,sell-%s,diff=%s,time=%s" % (tag,buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
-        lastbuyTime = buy2Time
+        if stock1Min.lastKline().close-buyPrice1 > 0:
+            lastbuyTime == None
+        else:
+            lastbuyTime = buy2Time
         buyPrice1 = None
         spec = None
         buy1Time = None
@@ -4690,6 +4694,9 @@ def go17():
                         return 73
 
             if xkdjdata[0][0] == "DOWN":
+                if lastm1.j-lastm1.k>0 and lastm1.macd > prelastm1.macd and stock1Min.touchBollDn(xkdjdata[1][1].time)==True and lastm1.close > valueMin(xkdjdata[0][2]):
+                    return 71
+
                 if lastM5.macd>0 and lastm1.j-lastm1.k>0:
                     dntime = stock5Min.touchBollDnTime(x5kdjdata[2][1].time)
                     if xt[0][2] == "DOWN":
@@ -4700,12 +4707,19 @@ def go17():
                         pricelogging.info("time=%s,xt=%s,xttime=%s,d1=%s,d2=%s",time.ctime(dntime),xt[0][2],time.ctime(xt[3][1][2].time),xt[1][1][1],xt[3][1][0])
                         if xt[3][1][2].time > dntime and xt[1][1][1]!=None and xt[1][1][1]>xt[3][1][0] and lastm1.macd > prelastm1.macd:
                             return 81
-
-                if lastm1.j-lastm1.k>0 and lastm1.macd > prelastm1.macd and stock1Min.touchBollDn(xkdjdata[1][1].time)==True and lastm1.close > valueMin(xkdjdata[0][2]):
-                    return 71
             if xkdjdata[0][0] == "UP":
                 if lastm1.macd > prelastm1.macd and lastm1.macd >0 and lastm1.close>valueMax(xkdjdata[2][1]):
                     return 72
+                if lastM5.macd>0 and lastm1.j-lastm1.k>0:
+                    dntime = stock5Min.touchBollDnTime(x5kdjdata[2][1].time)
+                    if xt[0][2] == "DOWN":
+                        pricelogging.info("time=%s,xt=%s,xttime=%s,d1=%s,d2=%s",time.ctime(dntime),xt[0][2],time.ctime(xt[2][1][2].time),xt[0][1][1],xt[2][1][0])
+                        if xt[2][1][2].time > dntime and xt[0][1][1]!=None and xt[0][1][1]>xt[2][1][0] and lastm1.macd > prelastm1.macd:
+                            return 81
+                    if xt[0][2] == "UP":
+                        pricelogging.info("time=%s,xt=%s,xttime=%s,d1=%s,d2=%s",time.ctime(dntime),xt[0][2],time.ctime(xt[3][1][2].time),xt[1][1][1],xt[3][1][0])
+                        if xt[3][1][2].time > dntime and xt[1][1][1]!=None and xt[1][1][1]>xt[3][1][0] and lastm1.macd > prelastm1.macd:
+                            return 81
 
 
 
