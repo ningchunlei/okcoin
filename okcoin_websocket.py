@@ -61,6 +61,7 @@ kk1pos = None
 kk5pos = None
 kk15pos = None
 m5data=None
+lastbuyTime=None
 
 #business
 def buildMySign(params,secretKey):
@@ -4392,7 +4393,7 @@ def go16():
 
 
 def go17():
-    global buyPrice1,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
+    global buyPrice1,buyPrice2,bidsList,lastbuyTime,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
     m5up,m5down,m5next = stock5Min.forecastClose()
     m1up,m1down,m1next = stock1Min.forecastClose()
     lastM5 = stock5Min.lastKline()
@@ -4439,7 +4440,9 @@ def go17():
 
 
     def buy(tag):
-        global buyPrice1,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
+        global buyPrice1,lastbuyTime,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
+        if lastbuyTime == lastM5.time:
+            return
 
         if buyPrice1==None:
             buy1Time = current.time
@@ -4517,7 +4520,7 @@ def go17():
                 return (max(xmin2,xmin4),min(xmax3,xmax5),xt[1][1][2],xt[2][0][2])
 
     def sell(tag):
-        global buyPrice1,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
+        global buyPrice1,lastbuyTime,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
         if buyPrice1==None:
             pricelogging.info("tbuy-%s-sell-disable,time=%s" % (tag,time.ctime(stock1Min.lastKline().time)) )
             return
@@ -4544,6 +4547,7 @@ def go17():
                     return
             '''
         pricelogging.info("tbuy-%s-%s,sell-%s,diff=%s,time=%s" % (tag,buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+        lastbuyTime = buy2Time
         buyPrice1 = None
         spec = None
         buy1Time = None
@@ -4686,7 +4690,7 @@ def go17():
                         return 73
 
             if xkdjdata[0][0] == "DOWN":
-                if lastm1.j-lastm1.k>0 and lastm1.macd > prelastm1.macd and stock1Min.touchBollDn(xkdjdata[1][1])==True and lastm1.close > valueMin(xkdjdata[0][2]):
+                if lastm1.j-lastm1.k>0 and lastm1.macd > prelastm1.macd and stock1Min.touchBollDn(xkdjdata[1][1].time)==True and lastm1.close > valueMin(xkdjdata[0][2]):
                     return 71
             if xkdjdata[0][0] == "UP":
                 if lastm1.macd > prelastm1.macd and lastm1.macd >0 and lastm1.close>valueMax(xkdjdata[2][1]):
@@ -4791,6 +4795,12 @@ def go17():
                     if lastm1.close > valueMax(xkdjdata[2][1]):
                         xbuy = True
             return
+
+        if spec==41 or spec==42 or spec==43 or spec==44:
+            if lastm1.j-lastm1.k<0 and lastm1.macd<prelastm1.macd and lastm1.close < buyPrice1:
+                sell(130)
+                return
+
 
         px = position(xdata)
         rzs = zs(xdata)
