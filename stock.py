@@ -598,7 +598,7 @@ class stock(object):
         while True:
             if self.stocks[self.cursor-count].time <= indexTime:
                 break
-            if self.stocks[self.cursor-count].high-self.stocks[self.cursor-count].up>=0:
+            if self.stocks[self.cursor-count].high-self.stocks[self.cursor-count].up>=1:
                 return True
             count += 1
         return False
@@ -608,7 +608,7 @@ class stock(object):
         while True:
             if self.stocks[self.cursor-count].time <= indexTime:
                 break
-            if self.stocks[self.cursor-count].low-self.stocks[self.cursor-count].dn<=0:
+            if self.stocks[self.cursor-count].low-self.stocks[self.cursor-count].dn<=1:
                 return True
             count += 1
         return False
@@ -618,7 +618,7 @@ class stock(object):
         while True:
             if self.stocks[self.cursor-count].time <= indexTime:
                 break
-            if self.stocks[self.cursor-count].low-self.stocks[self.cursor-count].dn<=0:
+            if self.stocks[self.cursor-count].low-self.stocks[self.cursor-count].dn<=1:
                 return self.stocks[self.cursor-count].time
             count += 1
         return None

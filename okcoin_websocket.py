@@ -4838,6 +4838,10 @@ def go17():
                         if valueMax(xkdjdata[0][1]) > valueMax(xkdjdata[2][1]):
                             spec = 63
                             return
+
+                if spec==71 and current.close-buyPrice1<0 and lastm1.low > lastm1.dn and lastM5.macd>0:
+                    return
+
                 sell(spec)
                 spec = None
                 if xkdjdata[0][0] == "UP":
