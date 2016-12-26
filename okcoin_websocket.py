@@ -4694,34 +4694,43 @@ def go17():
                         return 73
 
             if xkdjdata[0][0] == "DOWN":
-                if lastm1.j-lastm1.k>0 and lastm1.macd > prelastm1.macd and stock1Min.touchBollDn(xkdjdata[1][1].time)==True and lastm1.close > valueMin(xkdjdata[0][2]):
+                if lastm1.macd > prelastm1.macd and lastm1.j>prelastm1.j and stock1Min.touchBollDn(xkdjdata[1][1].time)==True and lastm1.close > valueMin(xkdjdata[0][2]):
                     return 71
-
+                '''
                 if lastM5.macd>0 and lastm1.j-lastm1.k>0:
                     dntime = stock5Min.touchBollDnTime(x5kdjdata[2][1].time)
                     if xt[0][2] == "DOWN":
                         pricelogging.info("time=%s,xt=%s,xttime=%s,d1=%s,d2=%s",time.ctime(dntime),xt[0][2],time.ctime(xt[2][1][2].time),xt[0][1][1],xt[2][1][0])
-                        if xt[2][1][2].time > dntime and xt[0][1][1]!=None and xt[0][1][1]>xt[2][1][0] and lastm1.macd > prelastm1.macd:
-                            return 81
+                        if stock1Min.touchBollDn(xt[1][0][2].time) ==True:
+                            if xt[2][1][2].time > dntime and xt[0][1][1]!=None and xt[0][1][1]>xt[2][1][0] and lastm1.macd > prelastm1.macd:
+                                return 81
                     if xt[0][2] == "UP":
                         pricelogging.info("time=%s,xt=%s,xttime=%s,d1=%s,d2=%s",time.ctime(dntime),xt[0][2],time.ctime(xt[3][1][2].time),xt[1][1][1],xt[3][1][0])
-                        if xt[3][1][2].time > dntime and xt[1][1][1]!=None and xt[1][1][1]>xt[3][1][0] and lastm1.macd > prelastm1.macd:
-                            return 81
+                        if stock1Min.touchBollDn(xt[2][0][2].time) ==True:
+                            if xt[3][1][2].time > dntime and xt[1][1][1]!=None and xt[1][1][1]>xt[3][1][0] and lastm1.macd > prelastm1.macd:
+                                return 81
+                '''
             if xkdjdata[0][0] == "UP":
                 if lastm1.macd > prelastm1.macd and lastm1.macd >0 and lastm1.close>valueMax(xkdjdata[2][1]):
                     return 72
+
+                if lastm1.macd > prelastm1.macd and lastm1.j>prelastm1.j and stock1Min.touchBollDn(xkdjdata[1][1].time)==True and lastm1.close > valueMin(xkdjdata[0][2]):
+                    return 71
+
+                '''
                 if lastM5.macd>0 and lastm1.j-lastm1.k>0:
                     dntime = stock5Min.touchBollDnTime(x5kdjdata[2][1].time)
                     if xt[0][2] == "DOWN":
                         pricelogging.info("time=%s,xt=%s,xttime=%s,d1=%s,d2=%s",time.ctime(dntime),xt[0][2],time.ctime(xt[2][1][2].time),xt[0][1][1],xt[2][1][0])
-                        if xt[2][1][2].time > dntime and xt[0][1][1]!=None and xt[0][1][1]>xt[2][1][0] and lastm1.macd > prelastm1.macd:
-                            return 81
+                        if stock1Min.touchBollDn(xt[1][0][2].time) ==True:
+                            if xt[2][1][2].time > dntime and xt[0][1][1]!=None and xt[0][1][1]>xt[2][1][0] and lastm1.macd > prelastm1.macd:
+                                return 81
                     if xt[0][2] == "UP":
                         pricelogging.info("time=%s,xt=%s,xttime=%s,d1=%s,d2=%s",time.ctime(dntime),xt[0][2],time.ctime(xt[3][1][2].time),xt[1][1][1],xt[3][1][0])
-                        if xt[3][1][2].time > dntime and xt[1][1][1]!=None and xt[1][1][1]>xt[3][1][0] and lastm1.macd > prelastm1.macd:
-                            return 81
-
-
+                        if stock1Min.touchBollDn(xt[2][0][2].time) ==True:
+                            if xt[3][1][2].time > dntime and xt[1][1][1]!=None and xt[1][1][1]>xt[3][1][0] and lastm1.macd > prelastm1.macd:
+                                return 81
+                '''
 
     def cansell3(xt,kline,prekline):
         px = position(xt)
@@ -4801,6 +4810,12 @@ def go17():
 
     if buyPrice1!=None:
         pricelogging.info("sellspec=%s",sellSpec)
+
+        if spec==71:
+            if lastm1.time == buy1Time and lastm1.close<lastm1.open and lastm1.j < prelastm1.j:
+                sell(110)
+                spec = None
+                return
 
         if lastm1.time <= buy1Time:
             return

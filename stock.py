@@ -1490,7 +1490,7 @@ class stock(object):
         for i in range(length):
             self.stocks[start-i].dif=dif[len(dif)-i-1]
             self.stocks[start-i].dea = dea[len(dea)-i-1]
-            self.stocks[start-i].macd = macd[len(macd)-i-1]
+            self.stocks[start-i].macd = round(float(macd[len(macd)-i-1]), 2)
 
     def mean(self,start,length):
         close =[]
