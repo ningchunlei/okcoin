@@ -4695,7 +4695,6 @@ def go17():
 
             if xkdjdata[0][0] == "DOWN":
                 if lastm1.macd > prelastm1.macd and lastm1.j>prelastm1.j and stock1Min.touchBollDn(xkdjdata[1][1].time)==True and lastm1.close > valueMin(xkdjdata[0][2]):
-                    if laststock1Min.touchBollDnTopValue(stock1Min.touchBollDnTime(xkdjdata[1][1].time))
                     return 71
 
                 '''
