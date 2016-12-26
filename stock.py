@@ -601,7 +601,7 @@ class stock(object):
             if self.stocks[self.cursor-count].high-self.stocks[self.cursor-count].up>=0:
                 return True
             count += 1
-        return True
+        return False
 
     def touchBollDn(self,indexTime):
         count=1
@@ -611,7 +611,7 @@ class stock(object):
             if self.stocks[self.cursor-count].low-self.stocks[self.cursor-count].dn<=0:
                 return True
             count += 1
-        return True
+        return False
 
     def touchBollDnTime(self,indexTime):
         count=1
@@ -622,6 +622,17 @@ class stock(object):
                 return self.stocks[self.cursor-count].time
             count += 1
         return None
+
+    def touchBollDnTopValue(self,indexTime):
+        count=1
+        value = 0
+        while True:
+            if self.stocks[self.cursor-count].time <= indexTime:
+                break
+            if self.stocks[self.cursor-count].close>value:
+                value = self.stocks[self.cursor-count].close
+            count += 1
+        return value
 
     def searchSamePeriod(self,fromType):
         count=1

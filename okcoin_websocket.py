@@ -4695,7 +4695,9 @@ def go17():
 
             if xkdjdata[0][0] == "DOWN":
                 if lastm1.macd > prelastm1.macd and lastm1.j>prelastm1.j and stock1Min.touchBollDn(xkdjdata[1][1].time)==True and lastm1.close > valueMin(xkdjdata[0][2]):
+                    if laststock1Min.touchBollDnTopValue(stock1Min.touchBollDnTime(xkdjdata[1][1].time))
                     return 71
+
                 '''
                 if lastM5.macd>0 and lastm1.j-lastm1.k>0:
                     dntime = stock5Min.touchBollDnTime(x5kdjdata[2][1].time)
@@ -4812,7 +4814,7 @@ def go17():
         pricelogging.info("sellspec=%s",sellSpec)
 
         if spec==71:
-            if lastm1.time == buy1Time and lastm1.close<lastm1.open and lastm1.j < prelastm1.j:
+            if lastm1.time == buy1Time and lastm1.close<lastm1.open and abs(lastm1.close-lastm1.open)>1 and lastm1.j < prelastm1.j:
                 sell(110)
                 spec = None
                 return
@@ -4831,11 +4833,6 @@ def go17():
 
 
         if spec==72  or spec==71 or spec==73:
-            if spec==71:
-                if lastm1.time == buy1Time and lastm1.close<lastm1.open and lastm1.j < prelastm1.j:
-                    sell(110)
-                    spec = None
-                    return
             if lastm1.macd < prelastm1.macd:
                 if spec == 73:
                     if xkdjdata[0][0] == "UP":
