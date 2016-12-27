@@ -4861,6 +4861,7 @@ def go17():
 
         if spec==41 or spec==42 or spec==43 or spec==44:
             if lastm1.j-lastm1.k<0 and lastm1.macd<prelastm1.macd and lastm1.close < buyPrice1:
+                pricelogging.info("m5data=%s",m5data)
                 if abs(lastm1.close-buyPrice1)<2 and m5data!=None and lastm1.close > m5data:
                     return
                 sell(130)
