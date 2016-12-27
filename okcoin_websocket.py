@@ -4682,7 +4682,7 @@ def go17():
                             if lastm1.macd>0 and lastm1.macd>prelastm1.macd and lastm1.close>lastm1.open:
                                 return 44
             else:
-                if prelastM5.j > pre2lastM5.j and stock5Min.touchBollUp(x5kdjdata)==True and prelastM5.close > x5kdjdata[0][2].close:
+                if prelastM5.j > pre2lastM5.j and stock5Min.touchBollDn(x5kdjdata[1][1].time)==True and prelastM5.close > x5kdjdata[0][2].close:
                     dntime = stock5Min.touchBollDnTime(x5kdjdata[1][1].time)
                     if prelastM5.time > dntime:
                         if xkdjdata[0][0] == "UP":
