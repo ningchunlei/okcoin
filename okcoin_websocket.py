@@ -4711,7 +4711,7 @@ def go17():
 
             if xkdjdata[0][0] == "DOWN":
                 if lastm1.macd > prelastm1.macd and lastm1.j>prelastm1.j and stock1Min.touchBollDn(xkdjdata[1][1].time)==True and lastm1.close > valueMin(xkdjdata[0][2]):
-                    if abs(lastm1.up-lastm1.dn) > 5:
+                    if abs(lastm1.up-lastm1.dn) > 4:
                         return 71
 
                 '''
@@ -4733,7 +4733,7 @@ def go17():
                     return 72
 
                 if lastm1.macd > prelastm1.macd and lastm1.j>prelastm1.j and stock1Min.touchBollDn(xkdjdata[1][1].time)==True and lastm1.close > valueMin(xkdjdata[0][2]):
-                    if abs(lastm1.up-lastm1.dn) > 5:
+                    if abs(lastm1.up-lastm1.dn) > 4:
                         return 71
 
                 '''
