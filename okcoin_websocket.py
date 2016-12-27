@@ -4642,6 +4642,14 @@ def go17():
         elif xt[0][0] == "UP":
             return (valueMin(xt[1][2]),valueMin(xt[3][2]))
 
+    def bolldown():
+        if xkdjdata[0][0] == "DOWN":
+            if stock1Min.touchBollDn(xkdjdata[1][1].time)==True:
+                return valueMin(xkdjdata[0][2])
+        if xkdjdata[0][0] == "UP":
+            if stock1Min.touchBollDn(xkdjdata[2][1].time)==True:
+                return valueMin(xkdjdata[1][2])
+
     def canb3(xt,kline,prekline):
         global  xbuy
         px5 = position(x5data)
@@ -4793,6 +4801,8 @@ def go17():
             buy(ret)
 
             if spec == 41 or spec == 42  or spec == 43 or spec == 44:
+                m5data = bolldown()
+
                 if xkdjdata[0][0] == "DOWN":
                     pricelogging.info("xdn=%s",xkdjdata[0][2])
                     pricelogging.info("xdn1=%s",xkdjdata[2][2])
@@ -4851,6 +4861,8 @@ def go17():
 
         if spec==41 or spec==42 or spec==43 or spec==44:
             if lastm1.j-lastm1.k<0 and lastm1.macd<prelastm1.macd and lastm1.close < buyPrice1:
+                if abs(lastm1.close-buyPrice1)<2 and m5data!=None and lastm1.close > m5data:
+                    return
                 sell(130)
                 return
 
