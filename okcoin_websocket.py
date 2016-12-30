@@ -4475,8 +4475,21 @@ def go17():
 
     if fenx1==None:
         fenx1 = tmpfenx1
+    elif fenx1[0].time == tmpfenx1[0].time:
+        fenx1 = tmpfenx1
+    elif fenx1[2]!=None and fenx1[2].time < tmpfenx1[0].time:
+        fenx1 = tmpfenx1
+    elif fenx1[2]==None:
+        fenx1 = tmpfenx1
+
 
     if fenx5==None:
+        fenx5 = tmpfenx5
+    elif fenx5[0].time == tmpfenx5[0].time:
+        fenx5 = tmpfenx5
+    elif fenx5[2]!=None and fenx5[2].time < tmpfenx5[0].time:
+        fenx5 = tmpfenx5
+    elif fenx5[2]==None:
         fenx5 = tmpfenx5
 
     pricelogging.info(xdata)
