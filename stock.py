@@ -1171,7 +1171,7 @@ class stock(object):
                         left = middle
                         middle = (self.stocks[self.cursor-count].low,self.stocks[self.cursor-count].high,self.stocks[self.cursor-count].time)
                         right = None
-
+            count -= 1
 
         return (left,middle,right,flag)
 
