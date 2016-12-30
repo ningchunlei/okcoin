@@ -4496,8 +4496,8 @@ def go17():
     pricelogging.info(xkdjdata)
     pricelogging.info(x5kdjdata)
 
-    pricelogging.info("fenx1=%s,tmp=%s",fenx1,tmpfenx1)
-    pricelogging.info("fenx5=%s,tmp=%s",fenx5,tmpfenx5)
+    pricelogging.info("t=%s,fenx1=%s,tmp=%s",time.ctime(lastm1.time),fenx1,tmpfenx1)
+    pricelogging.info("t=%s,fenx5=%s,tmp=%s",time.ctime(lastm1.time),fenx5,tmpfenx5)
 
     def zs(xt):
         if xt[0][2] == "DOWN" :
