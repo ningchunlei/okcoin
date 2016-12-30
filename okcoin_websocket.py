@@ -62,6 +62,8 @@ kk5pos = None
 kk15pos = None
 m5data=None
 lastbuyTime=None
+fenx1 = None
+fenx5 = None
 
 #business
 def buildMySign(params,secretKey):
@@ -4394,6 +4396,7 @@ def go16():
 
 def go17():
     global buyPrice1,buyPrice2,bidsList,lastbuyTime,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
+    global fenx1,fenx5
     m5up,m5down,m5next = stock5Min.forecastClose()
     m1up,m1down,m1next = stock1Min.forecastClose()
     lastM5 = stock5Min.lastKline()
@@ -4467,9 +4470,21 @@ def go17():
     xkdjdata = stock1Min.searchKDJTopAndDown()
     x5kdjdata = stock5Min.searchKDJTopAndDown()
 
+    tmpfenx1 = stock1Min.checkIsUp()
+    tmpfenx5 = stock5Min.checkIsUp()
+
+    if fenx1==None:
+        fenx1 = tmpfenx1
+
+    if fenx5==None:
+        fenx5 = tmpfenx5
+
     pricelogging.info(xdata)
     pricelogging.info(xkdjdata)
     pricelogging.info(x5kdjdata)
+
+    pricelogging.info("fenx1=%s,tmp=%s",fenx1,tmpfenx1)
+    pricelogging.info("fenx5=%s,tmp=%s",fenx5,tmpfenx5)
 
     def zs(xt):
         if xt[0][2] == "DOWN" :
@@ -4650,6 +4665,30 @@ def go17():
             if stock1Min.touchBollDn(xkdjdata[2][1].time)==True:
                 return valueMin(xkdjdata[1][2])
 
+    def check(fx,tmpfx):
+        if fx==None or tmpfx==None:
+            return
+        if tmpfx[3]=="DOWN":
+            if tmpfx[2] == None:
+                if fx[3] == "DOWN" and fx[2].time == tmpfx[0].time:
+                    if tmpfx[1][0] < fx[1][0] :
+                        return ("DOWN",tmpfx[1][0],fx[2][1])
+                    else:
+                        return ("X-DOWN",fx[1][0],fx[2][1])
+                return ("DOWN",fx[1][0],fx[2][1])
+            else:
+                return ("REVERT",fx[1][0],fx[2][1])
+        if tmpfx[3]=="UP":
+            if tmpfx[2] == None:
+                if fx[3] == "UP" and fx[2].time == tmpfx[0].time:
+                    if tmpfx[1][1] > fx[1][1]:
+                        return ("UP",fx[2][0],tmpfx[1][1])
+                    else:
+                        return ("X-UP",fx[2][0],fx[1][1])
+            else:
+                return ("REVERT",fx[2][0],fx[1][1])
+
+
     def canb3(xt,kline,prekline):
         global  xbuy
         px5 = position(x5data)
@@ -4668,6 +4707,8 @@ def go17():
 
         if x5kdjdata[0][0] == "DOWN":
             if prelastM5.j - prelastM5.k>-9.8:
+                #xret = check(fenx5,tmpfenx5)
+                #if xret[0]=="UP" and prelastM5.macd > pre2lastM5.macd:
                 if lastm1.time - prelastM5.time >=7*60:
                     if xkdjdata[0][0] == "UP":
                         if valueMin(xkdjdata[1][2]) > valueMin(xkdjdata[3][2]) and lastm1.macd>prelastm1.macd and lastm1.close>lastm1.open:
