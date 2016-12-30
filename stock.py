@@ -1061,7 +1061,7 @@ class stock(object):
         middle = None
         right = None
         while True:
-            if count == 1:
+            if count == 0:
                 break;
             if left == None:
                 if self.stocks[self.cursor-count].high > self.stocks[self.cursor-count+1].high and \
