@@ -4392,11 +4392,8 @@ def go16():
             sell(xret[1])
             return
 
-
-
 def go17():
     global buyPrice1,buyPrice2,bidsList,lastbuyTime,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
-    global fenx1,fenx5
     m5up,m5down,m5next = stock5Min.forecastClose()
     m1up,m1down,m1next = stock1Min.forecastClose()
     lastM5 = stock5Min.lastKline()
@@ -4470,34 +4467,9 @@ def go17():
     xkdjdata = stock1Min.searchKDJTopAndDown()
     x5kdjdata = stock5Min.searchKDJTopAndDown()
 
-    tmpfenx1 = stock1Min.checkIsUp()
-    tmpfenx5 = stock5Min.checkIsUp()
-
-    if fenx1==None:
-        fenx1 = tmpfenx1
-    elif fenx1[0][2] == tmpfenx1[0][2]:
-        fenx1 = tmpfenx1
-    elif fenx1[2]!=None and fenx1[2][2] < tmpfenx1[0][2]:
-        fenx1 = tmpfenx1
-    elif fenx1[2]==None:
-        fenx1 = tmpfenx1
-
-
-    if fenx5==None:
-        fenx5 = tmpfenx5
-    elif fenx5[0][2] == tmpfenx5[0][2]:
-        fenx5 = tmpfenx5
-    elif fenx5[2]!=None and fenx5[2][2] < tmpfenx5[0][2]:
-        fenx5 = tmpfenx5
-    elif fenx5[2]==None:
-        fenx5 = tmpfenx5
-
     pricelogging.info(xdata)
     pricelogging.info(xkdjdata)
     pricelogging.info(x5kdjdata)
-
-    pricelogging.info("t=%s,fenx1=%s,tmp=%s",time.ctime(lastm1.time),fenx1,tmpfenx1)
-    pricelogging.info("t=%s,fenx5=%s,tmp=%s",time.ctime(lastm1.time),fenx5,tmpfenx5)
 
     def zs(xt):
         if xt[0][2] == "DOWN" :
@@ -4678,92 +4650,6 @@ def go17():
             if stock1Min.touchBollDn(xkdjdata[2][1].time)==True:
                 return valueMin(xkdjdata[1][2])
 
-    def check(fx,tmpfx):
-        # x you fanzhuan jixiang,(Flag,low,high)
-        if fx==None or tmpfx==None:
-            return
-        if tmpfx[3]=="DOWN":
-            if tmpfx[2] == None:
-                if fx[3] == "DOWN" and fx[2]==None:
-                    return ("DOWN-DOWN",tmpfx[1],tmpfx[1],tmpfx[0])
-                if fx[3] == "DOWN" and fx[2]!=None:
-                    if fx[2][2] == tmpfx[0][2]:
-                        if tmpfx[1][0] < fx[1][0] :
-                            return ("FXDOWN-DOWN",fx[1],tmpfx[1],tmpfx[0])
-                        else:
-                            return ("FXDOWN-DOWN-X",fx[1],tmpfx[1],tmpfx[0])
-                if fx[3] == "UP" and fx[2]!=None:
-                    return ("FXUP-DOWN",tmpfx[0],tmpfx[1],fx[1])
-            else:
-                if fx[3] == "DOWN" and fx[2] == None:
-                    if fx[0][2] == tmpfx[0][2]:
-                        return ("FXDOWN",tmpfx[0],tmpfx[1],tmpfx[2])  # gang xing cheng di fenxing
-                if fx[3] == "DOWN" and fx[2]!=None:
-                    if fx[2][2] == tmpfx[0][2]:
-                        if tmpfx[1][0] < fx[1][0]:
-                            return ("FXDOWN-FXDOWN-DOWN",tmpfx[0],tmpfx[1],tmpfx[2])
-                        else:
-                            return ("FXDOWN-FXDOWN-UP",tmpfx[0],tmpfx[1],tmpfx[2])
-                if fx[3] == "UP" and fx[2]!=None:
-                    if fx[2][2] == tmpfx[0][2]:
-                        if tmpfx[2][1] > tmpfx[0][1]:
-                            if tmpfx[2][1] < fx[1][1]:
-                                return ("FXUP-FXDOWN-XUP",tmpfx[1],tmpfx[2],fx[1])
-                            else:
-                                return ("FXUP-FXDOWN-UP",tmpfx[1],tmpfx[2],fx[1])
-                        else:
-                            return ("FXUP-FXDOWN-DOWN",tmpfx[1],tmpfx[2],fx[1])
-
-        if tmpfx[3]=="UP":
-            if tmpfx[2] == None:
-                if fx[3] == "UP" and fx[2] == None:
-                    return ("UP-UP",tmpfx[1],tmpfx[1],tmpfx[0])
-                if fx[3] == "UP" and fx[2] != None:
-                    if fx[2][2] == tmpfx[0][2]:
-                        if tmpfx[1][1] > fx[1][1]:
-                            return ("FXUP-UP",tmpfx[0],tmpfx[1],fx[1])
-                        else:
-                            return ("FXUP-UP-X",tmpfx[0],tmpfx[1],fx[1])
-                if fx[3]=="DOWN" and fx[2]!=None:
-                    return ("FXDOWN-UP",tmpfx[0],tmpfx[1],fx[1])
-            else:
-                if fx[3] == "UP" and fx[2] == None:
-                    if fx[0][2] == tmpfx[0][2]:
-                        return ("FXUP",tmpfx[0],tmpfx[1],tmpfx[2])
-                if fx[3] == "UP" and fx[2]!=None:
-                    if fx[2][2] == tmpfx[0][2]:
-                        if tmpfx[1][1] < fx[1][1]:
-                            return ("FXUP-FXUP-DOWN",tmpfx[1],tmpfx[2],fx[1])
-                        else:
-                            return ("FXUP-FXUP-UP",tmpfx[1],tmpfx[2],fx[1])
-                if fx[3] == "DOWN" and fx[2]!=None:
-                    if fx[2][2] == tmpfx[0][2]:
-                        if tmpfx[2][0] > tmpfx[0][0]:
-                            return ("FXDOWN-FXUP-UP",tmpfx[1],tmpfx[2],fx[1])
-                        else:
-                            if tmpfx[2][0] < fx[1][0]:
-                                return ("FXDOWN-FXUP-DOWN",tmpfx[1],tmpfx[2],fx[1])
-                            else:
-                                return ("FXDOWN-FXUP-XDOWN",tmpfx[1],tmpfx[2],fx[1])
-
-
-    def check2(fx,tmpfx):
-        if tmpfx[0]=="DOWN-DOWN" and prelastM5.close > prelastM5.open and prelastM5.low<pre2lastM5.low:
-            return ("BUY-01",prelastM5)
-        if tmpfx[0]=="FXDOWN" and prelastM5.close>prelastM5.open:
-            return ("BUY-02",prelastM5)
-        if tmpfx[0]=="FXDOWN-UP":
-            return ("BUY-03",prelastM5)
-
-        if tmpfx[0] == "FXUP" and prelastM5.close < prelastM5.open:
-            return ("SELL-01",prelastM5)
-        if tmpfx[0] == "FXUP-DOWN":
-            return ("SELL-02",prelastM5)
-
-    def check3(tmpfx):
-
-
-
     def canb3(xt,kline,prekline):
         global  xbuy
         px5 = position(x5data)
@@ -4781,12 +4667,7 @@ def go17():
         pricelogging.info("kline=%s,=%s",lastm1,lastm1.time-prelastM5.time)
 
         if x5kdjdata[0][0] == "DOWN":
-            if tmpfx[2] == "DOWN" and prelastM5.close>prelastM5.open or tmpfx[2]==DOWN:
-
-
             if prelastM5.j - prelastM5.k>-9.8:
-                #xret = check(fenx5,tmpfenx5)
-                #if xret[0]=="UP" and prelastM5.macd > pre2lastM5.macd:
                 if lastm1.time - prelastM5.time >=7*60:
                     if xkdjdata[0][0] == "UP":
                         if valueMin(xkdjdata[1][2]) > valueMin(xkdjdata[3][2]) and lastm1.macd>prelastm1.macd and lastm1.close>lastm1.open:
@@ -4830,7 +4711,7 @@ def go17():
 
             if xkdjdata[0][0] == "DOWN":
                 if lastm1.macd > prelastm1.macd and lastm1.j>prelastm1.j and stock1Min.touchBollDn(xkdjdata[1][1].time)==True and lastm1.close > valueMin(xkdjdata[0][2]):
-                    if abs(lastm1.up-lastm1.dn) > 4:
+                    if abs(lastm1.up-lastm1.dn) > 5:
                         return 71
 
                 '''
@@ -4852,7 +4733,7 @@ def go17():
                     return 72
 
                 if lastm1.macd > prelastm1.macd and lastm1.j>prelastm1.j and stock1Min.touchBollDn(xkdjdata[1][1].time)==True and lastm1.close > valueMin(xkdjdata[0][2]):
-                    if abs(lastm1.up-lastm1.dn) > 4:
+                    if abs(lastm1.up-lastm1.dn) > 5:
                         return 71
 
                 '''
@@ -5019,6 +4900,573 @@ def go17():
                     sell(xret)
                     spec  = xret
                     return
+
+        if xret != None:
+            sell(xret)
+            spec  = xret
+            return
+
+
+def go18():
+    global buyPrice1,buyPrice2,bidsList,lastbuyTime,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
+    global fenx1,fenx5
+    m5up,m5down,m5next = stock5Min.forecastClose()
+    m1up,m1down,m1next = stock1Min.forecastClose()
+    lastM5 = stock5Min.lastKline()
+    prelastM5 = stock5Min.preLastKline()
+    pre2lastM5 = stock5Min.pre2LastKline()
+    current = stock1Min.lastKline()
+    lastm1 = stock1Min.preLastKline()
+    prelastm1 = stock1Min.pre2LastKline()
+    lastM15 = stock15Min.lastKline()
+
+    lastM15 = stock15Min.lastKline()
+    prelastM15 = stock15Min.preLastKline()
+    pre2lastM15 = stock15Min.pre2LastKline()
+
+    if current.time-lastM5.time>=5*60:
+        return
+
+    if current.time == buy1Time:
+        return
+
+    f1po1,f1po5 = ply.pl(stock1Min,stock5Min,"1","5",5)
+    f2po5,f2po15 = ply.pl(stock5Min,stock15Min,"5","15",15)
+
+    bymacd1 = ply.canbuybymacd(lastm1,prelastm1)
+    bykdj1 = ply.canbuybykdj(lastm1,prelastm1)
+
+    bymacd5 = ply.canbuybymacd(lastM5,prelastM5)
+    bykdj5 = ply.canbuybykdj(lastM5,prelastM5)
+
+    bymacd15 = ply.canbuybymacd(lastM15,prelastM15)
+    bykdj15 = ply.canbuybykdj(lastM15,prelastM15)
+
+    pricelogging.info("time=%s,fp1=%s,fp2=%s,fp3=%s,bymacd=%s,bykdj1=%s,bymacd5=%s,bykdj5=%s,bymacd15=%s,bykdj15=%s" % (time.ctime(current.time),f1po1,f1po5,f2po15,bymacd1,bykdj1,bymacd5,bykdj5,bymacd15,bykdj15))
+
+    def valueMax(kline):
+        if kline.close>kline.open:
+            return kline.close
+        return kline.open
+
+    def valueMin(kline):
+        if kline.close<kline.open:
+            return kline.close
+        return kline.open
+
+
+    def buy(tag):
+        global buyPrice1,lastbuyTime,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
+
+        if buyPrice1==None:
+            buy1Time = current.time
+            buy2Time = lastM5.time
+            buyPrice1 = current.close
+            m5data = None
+            kk1pos = f1po1
+            kk5pos = f1po5
+            buyTriggerTime = None
+            pricelogging.info("tbuy-%s,-%s,time=%s,deciderTime=%s,spec=%s" % (tag,buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),spec))
+            return
+        else:
+            pricelogging.info("tbuy-%s-buy-disable,time=%s" % (tag,time.ctime(stock1Min.lastKline().time)) )
+
+
+
+
+    xdata = stock1Min.searchKDJRange()
+    x5data = stock5Min.searchKDJRange()
+
+    xkdjdata = stock1Min.searchKDJTopAndDown()
+    x5kdjdata = stock5Min.searchKDJTopAndDown()
+
+    tmpfenx1 = stock1Min.checkIsUp()
+    tmpfenx5 = stock5Min.checkIsUp()
+
+    if fenx1==None:
+        fenx1 = tmpfenx1
+    elif fenx1[0][2] == tmpfenx1[0][2]:
+        fenx1 = tmpfenx1
+    elif fenx1[2]!=None and fenx1[2][2] < tmpfenx1[0][2]:
+        fenx1 = tmpfenx1
+    elif fenx1[2]==None:
+        fenx1 = tmpfenx1
+
+
+    if fenx5==None:
+        fenx5 = tmpfenx5
+    elif fenx5[0][2] == tmpfenx5[0][2]:
+        fenx5 = tmpfenx5
+    elif fenx5[2]!=None and fenx5[2][2] < tmpfenx5[0][2]:
+        fenx5 = tmpfenx5
+    elif fenx5[2]==None:
+        fenx5 = tmpfenx5
+
+    pricelogging.info(xdata)
+    pricelogging.info(xkdjdata)
+    pricelogging.info(x5kdjdata)
+
+    pricelogging.info("t=%s,fenx1=%s,tmp=%s",time.ctime(lastm1.time),fenx1,tmpfenx1)
+    pricelogging.info("t=%s,fenx5=%s,tmp=%s",time.ctime(lastm1.time),fenx5,tmpfenx5)
+
+    def zs(xt):
+        if xt[0][2] == "DOWN" :
+            xmax1 = xt[0][1][0]
+            xmin1 = xt[0][1][1]
+
+            xmax2 = xt[1][0][0]
+            xmin2 = xt[1][0][1]
+
+            xmax3 = xt[2][1][0]
+            xmin3 = xt[2][1][1]
+
+            xmax4 = xt[3][0][0]
+            xmin4 = xt[3][0][1]
+
+            xmax5 = xt[4][1][0]
+            xmin5 = xt[4][1][1]
+
+            if xmax2 < xmax4 and xmin3 < xmin5:  # 下降趋势
+                if xmax2 < xmin5:  # 3卖
+                    return (xmin3,xmax2,xt[2][1][2],xt[1][0][2])
+                else:
+                    return (max(xmin3,xmin5),min(xmax2,xmax4),xt[2][1][2],xt[1][0][2])  #慢下降
+            else:
+                return (max(xmin3,xmin5),min(xmax2,xmax4),xt[2][1][2],xt[1][0][2])   # 上涨趋势
+
+        if xt[0][2] == "UP" :
+            xmax1 = xt[0][0][0]
+            xmin1 = xt[0][0][1]
+
+            xmax2 = xt[1][1][0]
+            xmin2 = xt[1][1][1]
+
+            xmax3 = xt[2][0][0]
+            xmin3 = xt[2][0][1]
+
+            xmax4 = xt[3][1][0]
+            xmin4 = xt[3][1][1]
+
+            xmax5 = xt[4][0][0]
+            xmin5 = xt[4][0][1]
+
+            if xmax3 > xmax5 and xmin2 > xmin4:  # 上涨趋势
+                if xmin2 > xmax5: #3 买
+                    return (xmin2,xmax3,xt[1][1][2],xt[2][0][2])
+                else:
+                    return (max(xmin2,xmin4),min(xmax3,xmax5),xt[1][1][2],xt[2][0][2])
+            else:
+                return (max(xmin2,xmin4),min(xmax3,xmax5),xt[1][1][2],xt[2][0][2])
+
+    def sell(tag):
+        global buyPrice1,lastbuyTime,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
+        if buyPrice1==None:
+            pricelogging.info("tbuy-%s-sell-disable,time=%s" % (tag,time.ctime(stock1Min.lastKline().time)) )
+            return
+        '''
+        xzs = zs(xdata)
+        xspec = True
+        if tag!=90 and spec==43 and stock1Min.lastKline().close-buyPrice1<0:
+            if lastm1.macd>0:
+                if xdata[0][2] == "DOWN":
+                    if xdata[2][1][0] < stock1Min.lastKline().close and abs(xdata[2][1][0]-stock1Min.lastKline().close)<2:
+                        return
+                elif xdata[0][2] == "UP":
+                    if xdata[1][1][0] < stock1Min.lastKline().close and abs(xdata[1][1][0]-stock1Min.lastKline().close)<2:
+                        return
+
+        if tag!=90 and spec!=43 and stock1Min.lastKline().close-buyPrice1<0 and (lastM5.close > lastM5.boll or (prelastM5.j-prelastM5.k>0 and prelastM5.macd > pre2lastM5.macd)):
+            if stock1Min.lastKline().close < xzs[1]+1 and stock1Min.lastKline().close>xzs[0]-1 and abs(xzs[0]-stock1Min.lastKline().close)<2:
+                return
+            if xdata[0][2] == "DOWN":
+                if xdata[2][1][0] < stock1Min.lastKline().close and abs(xdata[2][1][0]-stock1Min.lastKline().close)<2:
+                    return
+            elif xdata[0][2] == "UP":
+                if xdata[1][1][0] < stock1Min.lastKline().close and abs(xdata[1][1][0]-stock1Min.lastKline().close)<2:
+                    return
+            '''
+        pricelogging.info("tbuy-%s-%s,sell-%s,diff=%s,time=%s" % (tag,buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+        buyPrice1 = None
+        spec = None
+        buy1Time = None
+        buy2Time = None
+        xspec = None
+        xkdj = None
+        upToDown = None
+        sellSpec = None
+        buyTriggerTime = lastM5.time
+        m5data = None
+        kk1pos = None
+        kk5pos = None
+        return
+
+    def position(xt):
+        if xt[0][2] == "DOWN" :
+
+            xmax1 = xt[0][1][0]
+            xmin1 = xt[0][1][1]
+
+            xmax2 = xt[1][0][0]
+            xmin2 = xt[1][0][1]
+
+            xmax3 = xt[2][1][0]
+            xmin3 = xt[2][1][1]
+
+            xmax4 = xt[3][0][0]
+            xmin4 = xt[3][0][1]
+
+            xmax5 = xt[4][1][0]
+            xmin5 = xt[4][1][1]
+
+            if xmax2 < xmax4 and xmin3 < xmin5:  # 下降趋势
+                if xmax2 < xmin5:  # 3卖
+                    return 21
+                else:
+                    return 22  #慢下降
+            elif xmax2 > xmax4 and xmin3 > xmin5:
+                return 23   # 上涨趋势
+            elif xmax2 < xmax4 and xmin3 > xmin5:
+                return 24 #左包含,左边长,震荡
+            elif xmax2 > xmax4 and xmin3 < xmin5:
+                return 25 #右包含,有边长,震荡
+            else:
+                return 26 #震荡
+
+        if xt[0][2] == "UP" :
+            xmax1 = xt[0][0][0]
+            xmin1 = xt[0][0][1]
+
+            xmax2 = xt[1][1][0]
+            xmin2 = xt[1][1][1]
+
+            xmax3 = xt[2][0][0]
+            xmin3 = xt[2][0][1]
+
+            xmax4 = xt[3][1][0]
+            xmin4 = xt[3][1][1]
+
+            xmax5 = xt[4][0][0]
+            xmin5 = xt[4][0][1]
+
+            if xmax3 > xmax5 and xmin2 > xmin4:  # 上涨趋势
+                if xmin2 > xmax5: #3 买
+                    return 31
+                else:
+                    return 32  # 慢上涨
+
+            elif xmax3 < xmax5 and xmin2 < xmin4:  # 下降趋势
+                return 33
+            elif xmin2 > xmin4 and xmax5 > xmax3:
+                return 34 # 左包含,震荡
+            elif xmin2 < xmin4 and xmax3 > xmax5:
+                return 35 # 右包含,震荡
+            else :
+                return 36 #震荡
+
+
+    def trzs(xt):
+        if xt[0][0] == "DOWN" :
+            return (valueMax(xt[1][1]),valueMin(xt[2][2]),valueMax(xt[3][1]))
+        elif xt[0][0] == "UP":
+            return (valueMin(xt[1][2]),valueMax(xt[2][1]),valueMin(xt[3][2]))
+
+    def rrrzs(xt):
+        if xt[0][0] == "DOWN" :
+            return (valueMin(xt[0][2]),valueMin(xt[2][2]))
+        elif xt[0][0] == "UP":
+            return (valueMin(xt[1][2]),valueMin(xt[3][2]))
+
+    def bolldown():
+        if xkdjdata[0][0] == "DOWN":
+            if stock1Min.touchBollDn(xkdjdata[1][1].time)==True:
+                return valueMin(xkdjdata[0][2])
+        if xkdjdata[0][0] == "UP":
+            if stock1Min.touchBollDn(xkdjdata[2][1].time)==True:
+                return valueMin(xkdjdata[1][2])
+
+    def check(fx,tmpfx):
+        # x you fanzhuan jixiang,(Flag,low,high)
+        if fx==None or tmpfx==None:
+            return
+        if tmpfx[3]=="DOWN":
+            if tmpfx[2] == None:
+                if fx[3] == "DOWN" and fx[2]==None:
+                    return ("DOWN-DOWN",tmpfx[1],tmpfx[1],tmpfx[0])
+                if fx[3] == "DOWN" and fx[2]!=None:
+                    if fx[2][2] == tmpfx[0][2]:
+                        if tmpfx[1][0] < fx[1][0] :
+                            return ("FXDOWN-DOWN",fx[1],tmpfx[1],tmpfx[0])
+                        else:
+                            return ("FXDOWN-DOWN-X",fx[1],tmpfx[1],tmpfx[0])
+                if fx[3] == "UP" and fx[2]!=None:
+                    return ("FXUP-DOWN",tmpfx[0],tmpfx[1],fx[1])
+            else:
+                if fx[3] == "DOWN" and fx[2] == None:
+                    if fx[0][2] == tmpfx[0][2]:
+                        return ("FXDOWN",tmpfx[0],tmpfx[1],tmpfx[2])  # gang xing cheng di fenxing
+                if fx[3] == "DOWN" and fx[2]!=None:
+                    if fx[2][2] == tmpfx[0][2]:
+                        if tmpfx[1][0] < fx[1][0]:
+                            return ("FXDOWN-FXDOWN-DOWN",tmpfx[0],tmpfx[1],tmpfx[2])
+                        else:
+                            return ("FXDOWN-FXDOWN-UP",tmpfx[0],tmpfx[1],tmpfx[2])
+                if fx[3] == "UP" and fx[2]!=None:
+                    if fx[2][2] == tmpfx[0][2]:
+                        if tmpfx[2][1] > tmpfx[0][1]:
+                            if tmpfx[2][1] < fx[1][1]:
+                                return ("FXUP-FXDOWN-XUP",tmpfx[1],tmpfx[2],fx[1])
+                            else:
+                                return ("FXUP-FXDOWN-UP",tmpfx[1],tmpfx[2],fx[1])
+                        else:
+                            return ("FXUP-FXDOWN-DOWN",tmpfx[1],tmpfx[2],fx[1])
+
+        if tmpfx[3]=="UP":
+            if tmpfx[2] == None:
+                if fx[3] == "UP" and fx[2] == None:
+                    return ("UP-UP",tmpfx[1],tmpfx[1],tmpfx[0])
+                if fx[3] == "UP" and fx[2] != None:
+                    if fx[2][2] == tmpfx[0][2]:
+                        if tmpfx[1][1] > fx[1][1]:
+                            return ("FXUP-UP",tmpfx[0],tmpfx[1],fx[1])
+                        else:
+                            return ("FXUP-UP-X",tmpfx[0],tmpfx[1],fx[1])
+                if fx[3]=="DOWN" and fx[2]!=None:
+                    return ("FXDOWN-UP",tmpfx[0],tmpfx[1],fx[1])
+            else:
+                if fx[3] == "UP" and fx[2] == None:
+                    if fx[0][2] == tmpfx[0][2]:
+                        return ("FXUP",tmpfx[0],tmpfx[1],tmpfx[2])
+                if fx[3] == "UP" and fx[2]!=None:
+                    if fx[2][2] == tmpfx[0][2]:
+                        if tmpfx[1][1] < fx[1][1]:
+                            return ("FXUP-FXUP-DOWN",tmpfx[1],tmpfx[2],fx[1])
+                        else:
+                            return ("FXUP-FXUP-UP",tmpfx[1],tmpfx[2],fx[1])
+                if fx[3] == "DOWN" and fx[2]!=None:
+                    if fx[2][2] == tmpfx[0][2]:
+                        if tmpfx[2][0] > tmpfx[0][0]:
+                            return ("FXDOWN-FXUP-UP",tmpfx[1],tmpfx[2],fx[1])
+                        else:
+                            if tmpfx[2][0] < fx[1][0]:
+                                return ("FXDOWN-FXUP-DOWN",tmpfx[1],tmpfx[2],fx[1])
+                            else:
+                                return ("FXDOWN-FXUP-XDOWN",tmpfx[1],tmpfx[2],fx[1])
+
+
+    def check2(tmpfx):
+        if tmpfx[0] == "DOWN-DOWN":
+            return ("XBUY-01",tmpfx[1][1])
+        if tmpfx[0] == "FXDOWN-DOWN":
+            return ("XBUY-02",tmpfx[2][1])
+        if tmpfx[0] == "FXDOWN-DOWN-X":
+            return ("XBUY-03",tmpfx[2][1])
+        if tmpfx[0] == "FXUP-DOWN":
+            return ("XBUY-04",tmpfx[2][1])
+        if tmpfx[0]=="FXDOWN":
+            if prelastM5.close>prelastM5.open:
+                return ("BUY-02",tmpfx[3][1])
+            else:
+                return ("XBUY-03",tmpfx[3][1])
+        if tmpfx[0] == "FXDOWN-FXDOWN-DOWN":
+            return ("XBUY-04",tmpfx[3][1])
+        if tmpfx[0] == "FXDOWN-FXDOWN-UP":
+            if prelastM5.close>prelastM5.open:
+                return ("BUY-05",tmpfx[3][1])
+            return ("XBUY-05",tmpfx[3][1])
+
+        if tmpfx[0] == "FXUP-FXDOWN-XUP":
+            return ("XBUY-06",tmpfx[2][1])
+
+        if tmpfx[0] == "FXUP-FXDOWN-UP":
+            if prelastM5.close>prelastM5.open:
+                return ("BUY-07",tmpfx[2][1])
+            return ("XBUY-07",tmpfx[2][1])
+
+        if tmpfx[0] == "FXUP-FXDOWN-DOWN":
+            return ("XBUY-07",tmpfx[2][1])
+
+
+        if tmpfx[0] == "UP-UP":
+            if prelastM5.close > prelastM5.open:
+                return ("BUY-08",tmpfx[1][1])
+            return ("XBUY-08",tmpfx[1][1])
+
+        if tmpfx[0] == "FXUP-UP":
+            if prelastM5.close > prelastM5.open:
+                return ("BUY-09",tmpfx[2][1])
+            return ("XBUY-09",tmpfx[2][1])
+
+        if tmpfx[0] == "FXUP-UP-X":
+            return ("XBUY-10",tmpfx[2][1])
+
+        if tmpfx[0] == "FXUP":
+            return ("XBUY-11",tmpfx[3][1])
+
+        if tmpfx[0] == "FXUP-FXUP-DOWN":
+            return ("XBUY-12",tmpfx[2][1])
+
+        if tmpfx[0] == "FXUP-FXUP-UP":
+            return ("BUY-13",tmpfx[2][1])
+
+
+        if tmpfx[0] == "FXDOWN-FXUP-UP":
+            return ("XBUY-14",tmpfx[2][1])
+
+        if tmpfx[0] == "FXDOWN-FXUP-DOWN":
+            return ("XBUY-15",tmpfx[2][1])
+
+        if tmpfx[0] == "FXDOWN-FXUP-XDOWN":
+            return ("XBUY-16",tmpfx[2][1])
+
+    def check3(tmpfx):
+        if tmpfx[0] == "DOWN-DOWN":
+            return ("SELL-01",tmpfx[1][0])
+
+        if tmpfx[0] == "FXDOWN-DOWN":
+            return ("SELL-02",tmpfx[2][0])
+
+        if tmpfx[0] == "FXDOWN-DOWN-X":
+            return ("XSELL-03",tmpfx[1][0])
+
+        if tmpfx[0] == "FXUP-DOWN":
+            return ("SELL-04",tmpfx[2][0])
+
+        if tmpfx[0]=="FXDOWN":
+            return ("XSELL-05",tmpfx[2][0])
+
+
+        if tmpfx[0] == "FXDOWN-FXDOWN-DOWN":
+            return ("XSELL-06",tmpfx[2][0])
+        if tmpfx[0] == "FXDOWN-FXDOWN-UP":
+            return ("XSELL-06",tmpfx[2][0])
+
+
+        if tmpfx[0] == "FXUP-FXDOWN-XUP":
+            return ("XSELL-06",tmpfx[1][0])
+
+
+        if tmpfx[0] == "FXUP-FXDOWN-UP":
+            return ("XSELL-07",tmpfx[1][0])
+
+        if tmpfx[0] == "FXUP-FXDOWN-DOWN":
+            return ("XSELL-08",tmpfx[1][0])
+
+
+        if tmpfx[0] == "UP-UP":
+            return ("XSELL-09",tmpfx[1][0])
+
+        if tmpfx[0] == "FXUP-UP":
+            return ("XSELL-10",tmpfx[2][0])
+
+
+        if tmpfx[0] == "FXUP-UP-X":
+            return ("XSELL-11",tmpfx[2][0])
+
+        if tmpfx[0] == "FXUP":
+            if prelastM5.close<prelastM5.open:
+                return ("SELL-12",tmpfx[3][0])
+
+            return ("XSELL-12",tmpfx[3][0])
+
+
+        if tmpfx[0] == "FXUP-FXUP-DOWN":
+            if prelastM5.close<prelastM5.open:
+                return ("SELL-13",tmpfx[2][0])
+            return ("XSELL-13",tmpfx[2][0])
+
+        if tmpfx[0] == "FXUP-FXUP-UP":
+            return ("XSELL-14",tmpfx[2][0])
+
+        if tmpfx[0] == "FXDOWN-FXUP-UP":
+            return ("XSELL-15",tmpfx[2][0])
+
+        if tmpfx[0] == "FXDOWN-FXUP-DOWN":
+            return ("XSELL-16",tmpfx[2][0])
+
+        if tmpfx[0] == "FXDOWN-FXUP-XDOWN":
+            return ("XSELL-17",tmpfx[2][0])
+
+
+    def canb3(xt,kline,prekline):
+        global  xbuy
+        px5 = position(x5data)
+        rzs5 = zs(x5data)
+
+        px = position(xt)
+        rzs = zs(xt)
+
+        fdata = stock1Min.findInFiveData()
+        gh = trzs(xkdjdata)
+        gh5 = trzs(x5kdjdata)
+
+        pricelogging.info("tbuy,-time=%s-%s-%s-px=%s,5p=%s,%s,=%s,5j=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1],gh,gh5))
+        pricelogging.info("kline=%s,=%s",lastm1,lastm1.time-prelastM5.time)
+        pricelogging.info("kline=%s,=%s",lastm1,lastm1.time-prelastM5.time)
+
+        if x5kdjdata[0][0] == "DOWN":
+            rfenx = check(fenx5,tmpfenx5)
+            rfens = check2(rfenx)
+            pricelogging.info("xfenx=%s,s=%s",rfenx,rfens)
+
+            if rfens!=None:
+                if rfens[0] == "BUY":
+                    if lastm1.macd > prelastm1.macd and lastm1.close>lastm1.open:
+                        return rfens[0]
+
+                if rfens[0] == "XBUY":
+                    if lastm1.high > rfens[1]:
+                        if lastm1.macd > prelastm1.macd and lastm1.close>lastm1.open:
+                            return rfens[0]
+
+    def cansell3(xt,kline,prekline):
+        px = position(xt)
+        rzs = zs(xt)
+
+        px5 = position(x5data)
+        rzs5 = zs(x5data)
+
+
+        gh = trzs(xkdjdata)
+        gh5 = rrrzs(x5kdjdata)
+
+        pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s,5p=%s,%s,=%s,5j=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1],gh,gh5))
+
+        #pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px))
+        rfenx = check(fenx5,tmpfenx5)
+        rfens = check3(rfenx)
+        pricelogging.info("xfenx=%s,s=%s",rfenx,rfens)
+
+        if rfens[0]!=None:
+            if rfens[0] == "SELL":
+                if lastm1.macd<prelastm1.macd:
+                    return rfens[0]
+            if rfens[0] == "XSELL":
+                if lastm1.low < rfens[1]:
+                    return rfens[0]
+
+    if buyPrice1==None:
+        ret = canb3(xdata,lastm1,prelastm1)
+        if ret!=None:
+            spec = ret
+            buy1Time = current.time
+            buy2Time = lastM5.time
+            xspec = x5kdjdata[0]
+            buy(ret)
+
+
+    if buyPrice1!=None:
+        pricelogging.info("sellspec=%s",sellSpec)
+
+        px = position(xdata)
+        rzs = zs(xdata)
+        px5 = position(x5data)
+        rzs5 = zs(x5data)
+
+        xret = cansell3(xdata,lastm1,prelastm1)
+        fdata = stock1Min.findInFiveData()
+
+        gh = trzs(xkdjdata)
+        gh5 = rrrzs(x5kdjdata)
 
         if xret != None:
             sell(xret)

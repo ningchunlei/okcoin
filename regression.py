@@ -10,7 +10,7 @@ import logging
 startime = sys.argv[1].replace(","," ")
 endtime = sys.argv[2].replace(","," ")
 
-store_dir = "/Users/jack"
+store_dir = "/root/ningcl/btc"
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
