@@ -5441,7 +5441,7 @@ def go18():
 
         pricelogging.info("t=%s,xfenx=%s,s=%s",time.ctime(prelastM5.time),rfenx,rfens)
 
-        if rfens[0]!=None:
+        if rfens!=None and rfens[0]!=None:
             if rfens[0].startswith("SELL"):
                 if lastm1.macd<prelastm1.macd:
                     return rfens[0]
