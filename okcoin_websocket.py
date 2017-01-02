@@ -5405,6 +5405,8 @@ def go18():
 
         if x5kdjdata[0][0] == "DOWN":
             rfenx = check(fenx5,tmpfenx5)
+            if rfenx==None:
+                return
             rfens = check2(rfenx)
             pricelogging.info("xfenx=%s,s=%s",rfenx,rfens)
 
@@ -5433,7 +5435,10 @@ def go18():
 
         #pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px))
         rfenx = check(fenx5,tmpfenx5)
+        if rfenx==None:
+            return
         rfens = check3(rfenx)
+
         pricelogging.info("xfenx=%s,s=%s",rfenx,rfens)
 
         if rfens[0]!=None:
