@@ -1060,6 +1060,10 @@ class stock(object):
         left = None
         middle = None
         right = None
+
+        if self.stocks[self.cursor].time == float(1483070400.0):
+            print "xxx"
+
         while True:
             if count == 0:
                 break;
@@ -1070,7 +1074,7 @@ class stock(object):
                     middle = (self.stocks[self.cursor-count+1].low,self.stocks[self.cursor-count+1].high,self.stocks[self.cursor-count+1].time)
                     #right = (self.stocks[self.cursor-count+1].low,self.stocks[self.cursor-count+1].high,self.stocks[self.cursor-count+1].time)
                     flag = "DOWN"
-                    count += 2
+                    count -= 2
                     continue
                 if self.stocks[self.cursor-count].high < self.stocks[self.cursor-count+1].high and \
                             self.stocks[self.cursor-count].low < self.stocks[self.cursor-count+1].low:
@@ -1078,7 +1082,7 @@ class stock(object):
                     middle = (self.stocks[self.cursor-count+1].low,self.stocks[self.cursor-count+1].high,self.stocks[self.cursor-count+1].time)
                     #right = (self.stocks[self.cursor-count+1].low,self.stocks[self.cursor-count+1].high,self.stocks[self.cursor-count+1].time)
                     flag = "UP"
-                    count += 2
+                    count -= 2
                     continue
 
             if flag == "UP" :
@@ -1110,6 +1114,13 @@ class stock(object):
                         right = None
                     elif self.stocks[self.cursor-count].high < right[1] and \
                                     self.stocks[self.cursor-count].low < right[0]:
+
+                        if self.stocks[self.cursor-count].low < middle[0]:
+                            left = right
+                            middle = (self.stocks[self.cursor-count].low,self.stocks[self.cursor-count].high,self.stocks[self.cursor-count].time)
+                            flag = "DOWN"
+                        else:
+                            right = (min(right[0],self.stocks[self.cursor-count].low),min(right[1],self.stocks[self.cursor-count].high),self.stocks[self.cursor-count].time)
                         left = right
                         middle = (self.stocks[self.cursor-count].low,self.stocks[self.cursor-count].high,self.stocks[self.cursor-count].time)
                         flag = "DOWN"
@@ -1134,10 +1145,13 @@ class stock(object):
                         right = None
                     elif self.stocks[self.cursor-count].high > right[1] and \
                                     self.stocks[self.cursor-count].low > right[0]:
-                        left = right
-                        middle = (self.stocks[self.cursor-count].low,self.stocks[self.cursor-count].high,self.stocks[self.cursor-count].time)
-                        right = None
-                        flag = "UP"
+                        if self.stocks[self.cursor-count].high < middle[1]:
+                            right = (min(right[0],self.stocks[self.cursor-count].low),min(right[1],self.stocks[self.cursor-count].high),self.stocks[self.cursor-count].time)
+                        else:
+                            left = right
+                            middle = (self.stocks[self.cursor-count].low,self.stocks[self.cursor-count].high,self.stocks[self.cursor-count].time)
+                            right = None
+                            flag = "UP"
                     elif self.stocks[self.cursor-count].high < right[1] and \
                                     self.stocks[self.cursor-count].low > right[0]:
                         right = (right[0],self.stocks[self.cursor-count].high,self.stocks[self.cursor-count].time)
@@ -1152,7 +1166,7 @@ class stock(object):
                             left = right
                             middle = (self.stocks[self.cursor-count].low,right[1],self.stocks[self.cursor-count].time)
                             right = None
-                if right==None:
+                else:
                     if  self.stocks[self.cursor-count].high < middle[1] and \
                                     self.stocks[self.cursor-count].low < middle[0]:
                         left = middle

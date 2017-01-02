@@ -4679,27 +4679,89 @@ def go17():
                 return valueMin(xkdjdata[1][2])
 
     def check(fx,tmpfx):
+        # x you fanzhuan jixiang,(Flag,low,high)
         if fx==None or tmpfx==None:
             return
         if tmpfx[3]=="DOWN":
             if tmpfx[2] == None:
-                if fx[3] == "DOWN" and fx[2].time == tmpfx[0].time:
-                    if tmpfx[1][0] < fx[1][0] :
-                        return ("DOWN",tmpfx[1][0],fx[2][1])
-                    else:
-                        return ("X-DOWN",fx[1][0],fx[2][1])
-                return ("DOWN",fx[1][0],fx[2][1])
+                if fx[3] == "DOWN" and fx[2]==None:
+                    return ("DOWN-DOWN",tmpfx[1],tmpfx[1],tmpfx[0])
+                if fx[3] == "DOWN" and fx[2]!=None:
+                    if fx[2][2] == tmpfx[0][2]:
+                        if tmpfx[1][0] < fx[1][0] :
+                            return ("FXDOWN-DOWN",fx[1],tmpfx[1],tmpfx[0])
+                        else:
+                            return ("FXDOWN-DOWN-X",fx[1],tmpfx[1],tmpfx[0])
+                if fx[3] == "UP" and fx[2]!=None:
+                    return ("FXUP-DOWN",tmpfx[0],tmpfx[1],fx[1])
             else:
-                return ("REVERT",fx[1][0],fx[2][1])
+                if fx[3] == "DOWN" and fx[2] == None:
+                    if fx[0][2] == tmpfx[0][2]:
+                        return ("FXDOWN",tmpfx[0],tmpfx[1],tmpfx[2])  # gang xing cheng di fenxing
+                if fx[3] == "DOWN" and fx[2]!=None:
+                    if fx[2][2] == tmpfx[0][2]:
+                        if tmpfx[1][0] < fx[1][0]:
+                            return ("FXDOWN-FXDOWN-DOWN",tmpfx[0],tmpfx[1],tmpfx[2])
+                        else:
+                            return ("FXDOWN-FXDOWN-UP",tmpfx[0],tmpfx[1],tmpfx[2])
+                if fx[3] == "UP" and fx[2]!=None:
+                    if fx[2][2] == tmpfx[0][2]:
+                        if tmpfx[2][1] > tmpfx[0][1]:
+                            if tmpfx[2][1] < fx[1][1]:
+                                return ("FXUP-FXDOWN-XUP",tmpfx[1],tmpfx[2],fx[1])
+                            else:
+                                return ("FXUP-FXDOWN-UP",tmpfx[1],tmpfx[2],fx[1])
+                        else:
+                            return ("FXUP-FXDOWN-DOWN",tmpfx[1],tmpfx[2],fx[1])
+
         if tmpfx[3]=="UP":
             if tmpfx[2] == None:
-                if fx[3] == "UP" and fx[2].time == tmpfx[0].time:
-                    if tmpfx[1][1] > fx[1][1]:
-                        return ("UP",fx[2][0],tmpfx[1][1])
-                    else:
-                        return ("X-UP",fx[2][0],fx[1][1])
+                if fx[3] == "UP" and fx[2] == None:
+                    return ("UP-UP",tmpfx[1],tmpfx[1],tmpfx[0])
+                if fx[3] == "UP" and fx[2] != None:
+                    if fx[2][2] == tmpfx[0][2]:
+                        if tmpfx[1][1] > fx[1][1]:
+                            return ("FXUP-UP",tmpfx[0],tmpfx[1],fx[1])
+                        else:
+                            return ("FXUP-UP-X",tmpfx[0],tmpfx[1],fx[1])
+                if fx[3]=="DOWN" and fx[2]!=None:
+                    return ("FXDOWN-UP",tmpfx[0],tmpfx[1],fx[1])
             else:
-                return ("REVERT",fx[2][0],fx[1][1])
+                if fx[3] == "UP" and fx[2] == None:
+                    if fx[0][2] == tmpfx[0][2]:
+                        return ("FXUP",tmpfx[0],tmpfx[1],tmpfx[2])
+                if fx[3] == "UP" and fx[2]!=None:
+                    if fx[2][2] == tmpfx[0][2]:
+                        if tmpfx[1][1] < fx[1][1]:
+                            return ("FXUP-FXUP-DOWN",tmpfx[1],tmpfx[2],fx[1])
+                        else:
+                            return ("FXUP-FXUP-UP",tmpfx[1],tmpfx[2],fx[1])
+                if fx[3] == "DOWN" and fx[2]!=None:
+                    if fx[2][2] == tmpfx[0][2]:
+                        if tmpfx[2][0] > tmpfx[0][0]:
+                            return ("FXDOWN-FXUP-UP",tmpfx[1],tmpfx[2],fx[1])
+                        else:
+                            if tmpfx[2][0] < fx[1][0]:
+                                return ("FXDOWN-FXUP-DOWN",tmpfx[1],tmpfx[2],fx[1])
+                            else:
+                                return ("FXDOWN-FXUP-XDOWN",tmpfx[1],tmpfx[2],fx[1])
+
+
+    def check2(fx,tmpfx):
+        if tmpfx[0]=="DOWN-DOWN" and prelastM5.close > prelastM5.open and prelastM5.low<pre2lastM5.low:
+            return ("BUY-01",prelastM5)
+        if tmpfx[0]=="FXDOWN" and prelastM5.close>prelastM5.open:
+            return ("BUY-02",prelastM5)
+        if tmpfx[0]=="FXDOWN-UP":
+            return ("BUY-03",prelastM5)
+
+        if tmpfx[0] == "FXUP" and prelastM5.close < prelastM5.open:
+            return ("SELL-01",prelastM5)
+        if tmpfx[0] == "FXUP-DOWN":
+            return ("SELL-02",prelastM5)
+
+    def check3(tmpfx):
+
 
 
     def canb3(xt,kline,prekline):
@@ -4719,6 +4781,9 @@ def go17():
         pricelogging.info("kline=%s,=%s",lastm1,lastm1.time-prelastM5.time)
 
         if x5kdjdata[0][0] == "DOWN":
+            if tmpfx[2] == "DOWN" and prelastM5.close>prelastM5.open or tmpfx[2]==DOWN:
+
+
             if prelastM5.j - prelastM5.k>-9.8:
                 #xret = check(fenx5,tmpfenx5)
                 #if xret[0]=="UP" and prelastM5.macd > pre2lastM5.macd:
