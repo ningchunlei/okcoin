@@ -4909,7 +4909,7 @@ def go17():
 
 def go18():
     global buyPrice1,buyPrice2,bidsList,lastbuyTime,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
-    global fenx1,fenx5
+    global fenx1,fenx5,lastfenx1,lastfenx5
     m5up,m5down,m5next = stock5Min.forecastClose()
     m1up,m1down,m1next = stock1Min.forecastClose()
     lastM5 = stock5Min.lastKline()
@@ -4985,22 +4985,16 @@ def go18():
 
     if fenx1==None:
         fenx1 = tmpfenx1
-    elif fenx1[0][2] == tmpfenx1[0][2]:
-        fenx1 = tmpfenx1
-    elif fenx1[2]!=None and fenx1[2][2] < tmpfenx1[0][2]:
-        fenx1 = tmpfenx1
-    elif fenx1[2]==None:
-        fenx1 = tmpfenx1
-
+    elif fenx1[0][2] < tmpfenx1[0][2]:
+        fenx1 = lastfenx1
 
     if fenx5==None:
         fenx5 = tmpfenx5
-    elif fenx5[0][2] == tmpfenx5[0][2]:
-        fenx5 = tmpfenx5
-    elif fenx5[2]!=None and fenx5[2][2] < tmpfenx5[0][2]:
-        fenx5 = tmpfenx5
-    elif fenx5[2]==None:
-        fenx5 = tmpfenx5
+    elif fenx5[0][2] < tmpfenx5[0][2]:
+        fenx5 = lastfenx5
+
+    lastfenx1 = tmpfenx1
+    lastfenx5 = tmpfenx5
 
     pricelogging.info(xdata)
     pricelogging.info(xkdjdata)
@@ -5219,6 +5213,9 @@ def go18():
                                 return ("FXUP-FXDOWN-UP",tmpfx[1],tmpfx[2],fx[1])
                         else:
                             return ("FXUP-FXDOWN-DOWN",tmpfx[1],tmpfx[2],fx[1])
+                if fx[3] == "UP" and fx[2]==None:
+                    if fx[0][2] == tmpfx[0][2]:
+                        return ("FXUP",tmpfx[0],tmpfx[1],tmpfx[2])
 
         if tmpfx[3]=="UP":
             if tmpfx[2] == None:
@@ -5403,23 +5400,24 @@ def go18():
         pricelogging.info("kline=%s,=%s",lastm1,lastm1.time-prelastM5.time)
         pricelogging.info("kline=%s,=%s",lastm1,lastm1.time-prelastM5.time)
 
-        if x5kdjdata[0][0] == "DOWN":
-            rfenx = check(fenx5,tmpfenx5)
-            if rfenx==None:
-                pricelogging.info("t=%s,xfenx=None",time.ctime(prelastM5.time))
-                return
-            rfens = check2(rfenx)
-            pricelogging.info("t=%s,xfenx=%s,s=%s",time.ctime(prelastM5.time),rfenx,rfens)
 
-            if rfens!=None:
-                if rfens[0].startswith("BUY"):
-                    if lastm1.macd > prelastm1.macd and lastm1.close>lastm1.open:
+        rfenx = check(fenx5,tmpfenx5)
+        if rfenx==None:
+            pricelogging.info("t=%s,xfenx=None",time.ctime(prelastM5.time))
+            return
+        rfens = check2(rfenx)
+        pricelogging.info("t=%s,xfenx=%s,s=%s",time.ctime(prelastM5.time),rfenx,rfens)
+
+        if rfens!=None:
+            if rfens[0].startswith("BUY"):
+                if lastm1.macd > prelastm1.macd and lastm1.close>lastm1.open:
+                    if lastm1.high > rfens[1]:
                         return rfens[0]
 
-                if rfens[0].startswith("XBUY"):
-                    if lastm1.high > rfens[1]:
-                        if lastm1.macd > prelastm1.macd and lastm1.close>lastm1.open:
-                            return rfens[0]
+            if rfens[0].startswith("XBUY"):
+                if lastm1.high > rfens[1]:
+                    if lastm1.macd > prelastm1.macd and lastm1.close>lastm1.open:
+                        return rfens[0]
 
     def cansell3(xt,kline,prekline):
         px = position(xt)
@@ -5460,6 +5458,7 @@ def go18():
             buy2Time = lastM5.time
             xspec = x5kdjdata[0]
             buy(ret)
+            return
 
 
     if buyPrice1!=None:
