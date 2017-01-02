@@ -5411,11 +5411,11 @@ def go18():
             pricelogging.info("xfenx=%s,s=%s",rfenx,rfens)
 
             if rfens!=None:
-                if rfens[0] == "BUY":
+                if rfens[0].startswith("BUY"):
                     if lastm1.macd > prelastm1.macd and lastm1.close>lastm1.open:
                         return rfens[0]
 
-                if rfens[0] == "XBUY":
+                if rfens[0].startswith("XBUY"):
                     if lastm1.high > rfens[1]:
                         if lastm1.macd > prelastm1.macd and lastm1.close>lastm1.open:
                             return rfens[0]
@@ -5442,10 +5442,10 @@ def go18():
         pricelogging.info("xfenx=%s,s=%s",rfenx,rfens)
 
         if rfens[0]!=None:
-            if rfens[0] == "SELL":
+            if rfens[0].startswith("SELL"):
                 if lastm1.macd<prelastm1.macd:
                     return rfens[0]
-            if rfens[0] == "XSELL":
+            if rfens[0].startswith("XSELL"):
                 if lastm1.low < rfens[1]:
                     return rfens[0]
 
