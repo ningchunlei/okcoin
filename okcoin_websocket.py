@@ -5408,7 +5408,7 @@ def go18():
             if rfenx==None:
                 return
             rfens = check2(rfenx)
-            pricelogging.info("xfenx=%s,s=%s",rfenx,rfens)
+            pricelogging.info("t=%s,xfenx=%s,s=%s",time.ctime(prelastM5.time),rfenx,rfens)
 
             if rfens!=None:
                 if rfens[0].startswith("BUY"):
@@ -5439,7 +5439,7 @@ def go18():
             return
         rfens = check3(rfenx)
 
-        pricelogging.info("xfenx=%s,s=%s",rfenx,rfens)
+        pricelogging.info("t=%s,xfenx=%s,s=%s",time.ctime(prelastM5.time),rfenx,rfens)
 
         if rfens[0]!=None:
             if rfens[0].startswith("SELL"):
