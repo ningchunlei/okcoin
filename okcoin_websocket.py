@@ -5406,6 +5406,7 @@ def go18():
         if x5kdjdata[0][0] == "DOWN":
             rfenx = check(fenx5,tmpfenx5)
             if rfenx==None:
+                pricelogging.info("t=%s,xfenx=None",time.ctime(prelastM5.time))
                 return
             rfens = check2(rfenx)
             pricelogging.info("t=%s,xfenx=%s,s=%s",time.ctime(prelastM5.time),rfenx,rfens)
@@ -5436,6 +5437,7 @@ def go18():
         #pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px))
         rfenx = check(fenx5,tmpfenx5)
         if rfenx==None:
+            pricelogging.info("t=%s,xfenx=None",time.ctime(prelastM5.time))
             return
         rfens = check3(rfenx)
 
@@ -5449,6 +5451,7 @@ def go18():
                 if lastm1.low < rfens[1]:
                     return rfens[0]
 
+    pricelogging.info("xkline=%s",lastm1)
     if buyPrice1==None:
         ret = canb3(xdata,lastm1,prelastm1)
         if ret!=None:
