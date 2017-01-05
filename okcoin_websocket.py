@@ -5467,6 +5467,7 @@ def go18():
 
         rfenx1 = check(fenx1,tmpfenx1)
         if rfenx1!=None:
+            pricelogging.info("t=%s,xfenx1=%s",time.ctime(lastm1.time),rfenx1)
             if rfenx1[0] == "FXUP" and lastm1.macd<prelastm1.macd:
                 if xkdjdata[0][0] == "UP":
                     if xkdjdata[0][2].macd >0 and xkdjdata[2][2].macd >0:
