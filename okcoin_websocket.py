@@ -5410,7 +5410,7 @@ def go18():
         pricelogging.info("t=%s,xfenx=%s,s=%s",time.ctime(prelastM5.time),rfenx,rfens)
 
         if rfens!=None:
-            if prelastM5.close>prelastM5.boll:
+            if not (pre2lastM5.j-pre2lastM5.k<0 and prelastM5.j-prelastM5.k>0):
                 if xkdjdata[0][0] == "UP":
                     if valueMax(xkdjdata[0][1]) < valueMax(xkdjdata[2][1]):
                         return
