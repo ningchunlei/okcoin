@@ -5469,17 +5469,7 @@ def go18():
         if rfenx1!=None:
             pricelogging.info("t=%s,xfenx1=%s",time.ctime(lastm1.time),rfenx1)
             if rfenx1[0] == "FXUP" and lastm1.macd<prelastm1.macd:
-                if xkdjdata[0][0] == "UP":
-                    if xkdjdata[0][2].macd >0 and xkdjdata[2][2].macd >0:
-                        if valueMax(xkdjdata[0][2]) < valueMax(xkdjdata[2][2]):
-                            return 53
-                    elif xkdjdata[0][2].macd >0 and xkdjdata[4][2].macd >0:
-                        if valueMax(xkdjdata[0][2]) < valueMax(xkdjdata[4][2]):
-                            return 54
-                if xkdjdata[0][0] == "DOWN":
-                    if xkdjdata[1][2].macd >0 and xkdjdata[3][2].macd >0:
-                        if valueMax(xkdjdata[1][2]) < valueMax(xkdjdata[3][2]):
-                            return 53
+                return "T-X"
 
             if rfenx1[0]=="FXUP-DOWN" and lastm1.close<lastm1.open and lastm1.macd<prelastm1.macd:
                 return "T-SELL"
