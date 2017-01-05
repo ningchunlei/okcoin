@@ -5410,6 +5410,13 @@ def go18():
         pricelogging.info("t=%s,xfenx=%s,s=%s",time.ctime(prelastM5.time),rfenx,rfens)
 
         if rfens!=None:
+            if prelastM5.close>prelastM5.boll:
+                if xkdjdata[0][0] == "UP":
+                    if valueMax(xkdjdata[0][1]) < valueMax(xkdjdata[2][1]):
+                        return
+                if xkdjdata[0][0] == "DOWN":
+                    if valueMax(xkdjdata[1][1]) < valueMax(xkdjdata[3][1]):
+                        return
             if rfens[0].startswith("BUY"):
                 if lastm1.macd > prelastm1.macd and lastm1.close>lastm1.open:
                     if lastm1.high > rfens[1]:
