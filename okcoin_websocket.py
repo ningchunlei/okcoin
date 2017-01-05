@@ -5403,14 +5403,15 @@ def go18():
 
         rfenx1 = check(fenx1,tmpfenx1)
 
-        if rfenx1!=None:
-            if rfenx1[0] == "FXDOWN":
-                if xkdjdata[0][0] == "UP":
-                    if valueMin(xkdjdata[1][2]) > valueMin(xkdjdata[3][2]) and lastm1.macd>prelastm1.macd and lastm1.close>lastm1.open:
-                        return 41
-            if xkdjdata[0][0] == "DOWN":
-                if valueMin(xkdjdata[0][2]) > valueMin(xkdjdata[2][2]) and lastm1.macd>prelastm1.macd and lastm1.close>lastm1.open:
-                    return 42
+        if prelastM5.j-prelastM5.k>0:
+            if rfenx1!=None:
+                if rfenx1[0] == "FXDOWN":
+                    if xkdjdata[0][0] == "UP":
+                        if valueMin(xkdjdata[1][2]) > valueMin(xkdjdata[3][2]) and lastm1.macd>prelastm1.macd and lastm1.close>lastm1.open:
+                            return 41
+                    if xkdjdata[0][0] == "DOWN":
+                        if valueMin(xkdjdata[0][2]) > valueMin(xkdjdata[2][2]) and lastm1.macd>prelastm1.macd and lastm1.close>lastm1.open:
+                            return 42
 
         rfenx = check(fenx5,tmpfenx5)
         if rfenx==None:
@@ -5418,18 +5419,19 @@ def go18():
             return
         rfens = check2(rfenx)
         pricelogging.info("t=%s,xfenx=%s,s=%s",time.ctime(prelastM5.time),rfenx,rfens)
-
-        if rfens!=None:
-            if rfens[0].startswith("BUY"):
-                if lastm1.macd > prelastm1.macd and lastm1.close>lastm1.open:
-                    if lastm1.high > rfens[1]:
-                        return rfens[0]
-
-            if rfens[0].startswith("XBUY"):
-                if lastm1.high > rfens[1]:
+        '''
+        if prelastM5.j-prelastM5.k>0:
+            if rfens!=None:
+                if rfens[0].startswith("BUY"):
                     if lastm1.macd > prelastm1.macd and lastm1.close>lastm1.open:
-                        return rfens[0]
+                        if lastm1.high > rfens[1]:
+                            return rfens[0]
 
+                if rfens[0].startswith("XBUY"):
+                    if lastm1.high > rfens[1]:
+                        if lastm1.macd > prelastm1.macd and lastm1.close>lastm1.open:
+                            return rfens[0]
+        '''
     def canbuy5():
         rfenx = check(fenx5,tmpfenx5)
         if rfenx==None:
