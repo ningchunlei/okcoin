@@ -5405,7 +5405,8 @@ def go18():
 
         if prelastM5.j-prelastM5.k>0:
             if rfenx1!=None:
-                if rfenx1[0] == "FXDOWN":
+                pricelogging.info("t=%s,xfenx1=%s",time.ctime(lastm1.time),rfenx1)
+                if rfenx1[0] == "FXDOWN" or rfenx1.startwith("FXDOWN-FXDOWN"):
                     if xkdjdata[0][0] == "UP":
                         if valueMin(xkdjdata[1][2]) > valueMin(xkdjdata[3][2]) and lastm1.macd>prelastm1.macd and lastm1.close>lastm1.open:
                             return 41
