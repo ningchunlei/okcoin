@@ -1025,6 +1025,7 @@ class stock(object):
 
         return flag
 
+
     def checkIsUp(self):
         count = 20
         flag = None
