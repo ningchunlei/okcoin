@@ -5404,7 +5404,7 @@ def go18():
 
         if xspec==True:
             if lastm1.j-lastm1.k>0 and prelastm1.j-prelastm1.k<0:
-                if (lastm1.macd>0 or lastm1.macd>prelastm1.macd) and lastM5.macd>prelastM5.macd and lastM5.j-lastM5.k>0
+                if (lastm1.macd>0 or lastm1.macd>prelastm1.macd) and lastM5.macd>prelastM5.macd and lastM5.j-lastM5.k>0:
                     return 41
             else:
                 xspec==None
