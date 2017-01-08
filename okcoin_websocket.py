@@ -5250,6 +5250,7 @@ def go18():
                                 return ("FXDOWN-FXUP-XDOWN",tmpfx[1],tmpfx[2],fx[1])
 
 
+
     def check2(tmpfx):
         if tmpfx[0] == "DOWN-DOWN":
             return ("XBUY-01",tmpfx[1][1])
@@ -5386,7 +5387,7 @@ def go18():
 
 
     def canb3(xt,kline,prekline):
-        global  xbuy
+        global  xbuy,xspec
         px5 = position(x5data)
         rzs5 = zs(x5data)
 
@@ -5401,31 +5402,33 @@ def go18():
         pricelogging.info("kline=%s,=%s",lastm1,lastm1.time-prelastM5.time)
         pricelogging.info("kline=%s,=%s",lastm1,lastm1.time-prelastM5.time)
 
-
-        rfenx = check(fenx5,tmpfenx5)
-        if rfenx==None:
-            pricelogging.info("t=%s,xfenx=None",time.ctime(prelastM5.time))
+        if xspec==True:
+            if lastm1.j-lastm1.k>0 and prelastm1.j-prelastm1.k<0:
+                if (lastm1.macd>0 or lastm1.macd>prelastm1.macd) and lastM5.j>prelastM5.j and lastM5.j-lastM5.k>0
+                    return 41
+            else:
+                xspec==None
             return
-        rfens = check2(rfenx)
-        pricelogging.info("t=%s,xfenx=%s,s=%s",time.ctime(prelastM5.time),rfenx,rfens)
 
-        if rfens!=None:
-            if not (pre2lastM5.j-pre2lastM5.k<0 and prelastM5.j-prelastM5.k>0):
-                if xkdjdata[0][0] == "UP":
-                    if valueMax(xkdjdata[0][1]) < valueMax(xkdjdata[2][1]):
-                        return
-                if xkdjdata[0][0] == "DOWN":
-                    if valueMax(xkdjdata[1][1]) < valueMax(xkdjdata[3][1]):
-                        return
-            if rfens[0].startswith("BUY"):
-                if lastm1.macd > prelastm1.macd and lastm1.close>lastm1.open:
-                    if lastm1.high > rfens[1]:
-                        return rfens[0]
+        if prelastM5.j - prelastM5.k>0 and prelastM5.macd > pre2lastM5.macd:
+            if prelastM5.close>prelastM5.open and prelastM5.high > pre2lastM5.high:
+                if lastm1.low < lastm1.boll and lastm1.j > prelastm1.j and lastm1.macd > prelastm1.macd:
+                    return 51
+                if lastm1.low > lastm1.boll and lastm1.time == prelastM5.time + 5*60:
+                    if lastm1.j-lastm1.k>0 and lastm1.j>prelastm1.j and lastm1.macd>prelastm1.macd:
+                        return 61
+                    else:
+                        xspec = True
 
-            if rfens[0].startswith("XBUY"):
-                if lastm1.high > rfens[1]:
-                    if lastm1.macd > prelastm1.macd and lastm1.close>lastm1.open:
-                        return rfens[0]
+        if prelastM5.j - prelastM5.k>-9.8 and prelastM5.j>pre2lastM5.j:
+            if tmpfenx5[3]=="DOWN" and tmpfenx5[2]!=None and prelastM5.close>prelastM5.open and prelastM5.macd > pre2lastM5.macd:
+                if lastm1.low < lastm1.boll and lastm1.j > prelastm1.j and lastm1.macd > prelastm1.macd:
+                    return 51
+                if lastm1.low > lastm1.boll and lastm1.time == prelastM5.time + 5*60:
+                    if lastm1.j-lastm1.k>0 and lastm1.j>prelastm1.j and lastm1.macd>prelastm1.macd:
+                        return 61
+                    else:
+                        xspec = True
 
     def cansell3(xt,kline,prekline):
         px = position(xt)
@@ -5440,22 +5443,10 @@ def go18():
 
         pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s,5p=%s,%s,=%s,5j=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1],gh,gh5))
 
-        #pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px))
-        rfenx = check(fenx5,tmpfenx5)
-        if rfenx==None:
-            pricelogging.info("t=%s,xfenx=None",time.ctime(prelastM5.time))
-            return
-        rfens = check3(rfenx)
+        if prelastM5.j<pre2lastM5.j and prelastM5.close<prelastM5.open:
+            if lastm1.j-lastm1.k<0 and lastm1.macd<prelastm1.macd:
+                return 71
 
-        pricelogging.info("t=%s,xfenx=%s,s=%s",time.ctime(prelastM5.time),rfenx,rfens)
-
-        if rfens!=None:
-            if rfens[0].startswith("SELL"):
-                if lastm1.macd<prelastm1.macd:
-                    return rfens[0]
-            if rfens[0].startswith("XSELL"):
-                if lastm1.low < rfens[1]:
-                    return rfens[0]
 
     pricelogging.info("xkline=%s",lastm1)
     if buyPrice1==None:
@@ -5464,19 +5455,7 @@ def go18():
             spec = ret
             buy1Time = current.time
             buy2Time = lastM5.time
-            xspec = x5kdjdata[0]
-            buy(ret)
-            return
-
-    pricelogging.info("xkline=%s",lastm1)
-
-    if buyPrice1==None:
-        ret = canb3(xdata,lastm1,prelastm1)
-        if ret!=None:
-            spec = ret
-            buy1Time = current.time
-            buy2Time = lastM5.time
-            xspec = x5kdjdata[0]
+            xspec = None
             buy(ret)
             return
 
