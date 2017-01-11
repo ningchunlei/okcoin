@@ -5492,6 +5492,14 @@ def go18():
             sellSpec = ret[1]
             buy(ret)
             return
+        ret = canb4(xdata,lastm1,prelastm1)
+        if ret!=None:
+            spec = ret[0]
+            buy1Time = current.time
+            buy2Time = lastM5.time
+            sellSpec = ret[1]
+            buy(ret)
+            return
 
 
     if buyPrice1!=None:
