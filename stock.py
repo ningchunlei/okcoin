@@ -1178,6 +1178,35 @@ class stock(object):
         return (left,middle,right,flag)
 
 
+    def checkMacdUp(self):
+        count = 1;
+
+        flag = self.stocks[self.cursor-count].macd
+        xkline = self.stocks[self.cursor-count]
+        ret = []
+
+        while True:
+            if len(ret) == 4:
+                break
+            if flag<0:
+                if self.stocks[self.cursor-count].macd<0:
+                    if xkline.low > self.stocks[self.cursor-count].low:
+                        xkline = self.stocks[self.cursor-count]
+                else:
+                    ret.append(xkline)
+                    flag = 1
+                    xkline = self.stocks[self.cursor-count]
+            else:
+                if self.stocks[self.cursor-count].macd>0:
+                    if xkline.high < self.stocks[self.cursor-count].high:
+                        xkline = self.stocks[self.cursor-count]
+                else:
+                    ret.append(xkline)
+                    flag = 1
+                    xkline = self.stocks[self.cursor-count]
+
+            count += 1
+        return ret
 
     def touchSimlarTimeUpFrom(self,count=1):
         flag = 0
@@ -1564,9 +1593,9 @@ class stock(object):
         return 当前K线的支撑价,转换价,下个K线同趋势的价位的预测
     '''
     def forecastClose(self):
-        pre = self.stocks[self.cursor-1]
-        last = self.stocks[self.cursor]
-        lowest,highest = self.lowhighprice(self.cursor-30,self.cursor+1)
+        pre = self.stocks[self.cursor-2]
+        last = self.stocks[self.cursor-1]
+        lowest,highest = self.lowhighprice(self.cursor-30,self.cursor)
 
         diff = pre.j - pre.k
         currentzhicheng = (9*diff - 8*pre.k+12 * pre.d)*(highest-lowest)/400.0 + lowest
@@ -1578,6 +1607,18 @@ class stock(object):
         nextprice = (9*diff - 8*last.k+12 * last.d)*(highest-lowest)/400.0 + lowest
 
         return currentzhicheng,fanzhuanprice,nextprice
+
+    def forecastKDJClose(self):
+        last = self.stocks[self.cursor-1]
+        lowest,highest = self.lowhighprice(self.cursor-30,self.cursor)
+
+        diff = 0
+        fanzhuanprice = (9*diff - 8*last.k+12 * last.d)*(highest-lowest)/400.0 + lowest
+
+        diff = last.j - last.k
+        nextprice = (9*diff - 8*last.k+12 * last.d)*(highest-lowest)/400.0 + lowest
+
+        return fanzhuanprice,nextprice
 
     def forecastMacd(self):
         close=[]

@@ -4910,8 +4910,9 @@ def go17():
 def go18():
     global buyPrice1,buyPrice2,bidsList,lastbuyTime,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
     global fenx1,fenx5,lastfenx1,lastfenx5
-    m5up,m5down,m5next = stock5Min.forecastClose()
-    m1up,m1down,m1next = stock1Min.forecastClose()
+    m5kdjzero,m5kdjbignext = stock5Min.forecastKDJClose()
+    m5macdZero,m5macdbignext = stock5Min.forecastMacd()
+
     lastM5 = stock5Min.lastKline()
     prelastM5 = stock5Min.preLastKline()
     pre2lastM5 = stock5Min.pre2LastKline()
@@ -5395,6 +5396,9 @@ def go18():
         rzs = zs(xt)
 
         fdata = stock1Min.findInFiveData()
+
+        kkdata = stock1Min.checkMacdUp()
+
         gh = trzs(xkdjdata)
         gh5 = trzs(x5kdjdata)
 
@@ -5402,60 +5406,83 @@ def go18():
         pricelogging.info("kline=%s,=%s",lastm1,lastm1.time-prelastM5.time)
         pricelogging.info("kline=%s,=%s",lastm1,lastm1.time-prelastM5.time)
 
-        if xspec==True:
-            if lastm1.j-lastm1.k>0 and prelastm1.j-prelastm1.k<0:
-                if (lastm1.macd>0 or lastm1.macd>prelastm1.macd) and lastM5.macd>prelastM5.macd and lastM5.j-lastM5.k>0:
-                    return 41
-            else:
-                xspec==None
-            return
 
-        if prelastM5.j - prelastM5.k>0 and prelastM5.macd > pre2lastM5.macd:
-            if prelastM5.close>prelastM5.open and prelastM5.high > pre2lastM5.high:
-                if lastm1.low < lastm1.boll and lastm1.j > prelastm1.j and lastm1.macd > prelastm1.macd:
-                    return 51
-                if lastm1.low > lastm1.boll and lastm1.time == prelastM5.time + 5*60:
-                    if lastm1.j-lastm1.k>0 and lastm1.j>prelastm1.j and lastm1.macd>prelastm1.macd:
-                        return 61
-                    else:
-                        xspec = True
+        if lastm1.macd<0:
+            if lastm1.macd > prelastm1.macd and lastm1.j > prelastm1.j:
+                if kkdata[0].low > kkdata[2].low:
+                    if lastm1.close > kkdata[0].close:
+                        if lastM5.macd<0 and lastM5.macd>prelastM5.macd:
+                            return (41,kkdata[0].close)
+                        elif lastM5.macd>0 and lastM5.macd>prelastM5.macd and prelastM5.macd > pre2lastM5.macd:
+                            return (42,kkdata[0].close)
+                elif kkdata[0].low < kkdata[2].low:
+                    if lastm1.close > kkdata[2].close:
+                        if lastm1.close > kkdata[0].close:
+                            if lastM5.macd<0 and lastM5.macd>prelastM5.macd:
+                                return (43,kkdata[0].close)
+                            elif lastM5.macd>0 and lastM5.macd>prelastM5.macd and prelastM5.macd > pre2lastM5.macd:
+                                return (44,kkdata[0].close)
+        else:
+            if lastm1.macd > prelastm1.macd and lastm1.j > prelastm1.j:
+                if kkdata[1].low > kkdata[3].low:
+                    if lastM5.macd<0 and lastM5.macd>prelastM5.macd:
+                        return (51,kkdata[1].close)
+                    elif lastM5.macd>0 and lastM5.macd>prelastM5.macd and prelastM5.macd > pre2lastM5.macd:
+                        return (52,kkdata[1].close)
+                elif kkdata[1].low < kkdata[3].low:
+                    if lastm1.close > kkdata[3].high:
+                        if lastm1.close > kkdata[1].close:
+                            if lastM5.macd<0 and lastM5.macd>prelastM5.macd:
+                                return (53,kkdata[1].close)
+                            elif lastM5.macd>0 and lastM5.macd>prelastM5.macd and prelastM5.macd > pre2lastM5.macd:
+                                return (54,kkdata[1].close)
 
-        if prelastM5.j - prelastM5.k>-9.8 and prelastM5.j>pre2lastM5.j:
-            if tmpfenx5[3]=="DOWN" and tmpfenx5[2]!=None and prelastM5.close>prelastM5.open and prelastM5.macd > pre2lastM5.macd:
-                if lastm1.low < lastm1.boll and lastm1.j > prelastm1.j and lastm1.macd > prelastm1.macd:
-                    return 51
-                if lastm1.low > lastm1.boll and lastm1.time == prelastM5.time + 5*60:
-                    if lastm1.j-lastm1.k>0 and lastm1.j>prelastm1.j and lastm1.macd>prelastm1.macd:
-                        return 61
-                    else:
-                        xspec = True
+    def canb4(xt,kline,prekline):
+
+        kkdata = stock5Min.checkMacdUp()
+
+        kkdata1 = stock1Min.checkMacdUp()
+        if prelastM5.macd<0 and prelastM5.macd>pre2lastM5.macd:
+            if kkdata[0].low > kkdata[2].low:
+                if lastm1.macd>0 and lastm1.macd>prelastm1.macd:
+                    if kkdata1[1].low < kkdata1[3].low:
+                        if lastm1.close > kkdata1[1].close:
+                            return (61,kkdata1[1].close)
+
+
+
 
     def cansell3(xt,kline,prekline):
-        px = position(xt)
-        rzs = zs(xt)
+        global sellSpec
 
-        px5 = position(x5data)
-        rzs5 = zs(x5data)
+        kkdata1 = stock1Min.checkMacdUp()
 
+        if lastm1.close < sellSpec:
+            return 110
 
-        gh = trzs(xkdjdata)
-        gh5 = rrrzs(x5kdjdata)
-
-        pricelogging.info("tbuy,-stime=%s-%s-%s-px=%s,5p=%s,%s,=%s,5j=%s" % (time.ctime(kline.time),rzs[0],rzs[1],px,rzs5[0],rzs5[1],gh,gh5))
-
-        if prelastM5.j<pre2lastM5.j and prelastM5.close<prelastM5.open:
-            if lastm1.j-lastm1.k<0 and lastm1.macd<prelastm1.macd:
+        if lastm1.macd>0:
+            if lastm1.close<kkdata1[1].close:
                 return 71
+            if lastM5.macd < prelastM5.macd:
+                if lastm1.close < kkdata1[2].close and lastm1.macd<prelastm1.macd:
+                    return 74
+        if lastm1.macd<0:
+            if lastm1.close<kkdata1[2].close:
+                return 72
+            if lastM5.macd < prelastM5.macd:
+                if kkdata1[1].close < kkdata1[3].close:
+                    return 73
 
-
+    pricelogging.info("m5macdbig=%s",m5macdbignext)
     pricelogging.info("xkline=%s",lastm1)
+
     if buyPrice1==None:
         ret = canb3(xdata,lastm1,prelastm1)
         if ret!=None:
-            spec = ret
+            spec = ret[0]
             buy1Time = current.time
             buy2Time = lastM5.time
-            xspec = None
+            sellSpec = ret[1]
             buy(ret)
             return
 
@@ -5476,8 +5503,8 @@ def go18():
 
         if xret != None:
             sell(xret)
-            spec  = xret
             xspec = None
+            sellSpec = None
             return
 
 def on_message(self,evt):
