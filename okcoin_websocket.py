@@ -5465,15 +5465,15 @@ def go18():
         if lastm1.macd>0:
             if lastm1.close<kkdata1[1].close:
                 return 71
-            if lastM5.macd < prelastM5.macd:
-                if lastm1.close < kkdata1[2].close and lastm1.macd<prelastm1.macd:
-                    return 74
+            #if lastM5.macd < prelastM5.macd and lastM5.macd>0:
+            #    if lastm1.close < kkdata1[2].close and lastm1.macd<prelastm1.macd:
+            #        return 74
         if lastm1.macd<0:
             if lastm1.close<kkdata1[2].close:
                 return 72
-            if lastM5.macd < prelastM5.macd:
-                if kkdata1[1].close < kkdata1[3].close:
-                    return 73
+            #if lastM5.macd < prelastM5.macd and lastM5.macd>0:
+            #    if kkdata1[1].close < kkdata1[3].close:
+            #        return 73
 
     pricelogging.info("m5macdbig=%s",m5macdbignext)
     pricelogging.info("xkline=%s",lastm1)
