@@ -5412,24 +5412,15 @@ def go18():
             if lastm1.macd > prelastm1.macd and lastm1.j > prelastm1.j:
                 if kkdata[0].low > kkdata[2].low:
                     if lastm1.close > kkdata[0].close:
-                        if lastM5.macd<0 and lastM5.macd>prelastM5.macd:
-                            return (41,kkdata[0].close)
-                        elif lastM5.macd>0 and lastM5.macd>prelastM5.macd and prelastM5.macd > pre2lastM5.macd:
-                            return (42,kkdata[0].close)
+                        return (41,kkdata[0].close)
                 elif kkdata[0].low < kkdata[2].low:
                     if lastm1.close > kkdata[2].close:
                         if lastm1.close > kkdata[0].close:
-                            if lastM5.macd<0 and lastM5.macd>prelastM5.macd:
-                                return (43,kkdata[0].close)
-                            elif lastM5.macd>0 and lastM5.macd>prelastM5.macd and prelastM5.macd > pre2lastM5.macd:
-                                return (44,kkdata[0].close)
+                            return (43,kkdata[0].close)
         else:
             if lastm1.macd > prelastm1.macd and lastm1.j > prelastm1.j:
                 if kkdata[1].low > kkdata[3].low:
-                    if lastM5.macd<0 and lastM5.macd>prelastM5.macd:
-                        return (51,kkdata[1].close)
-                    elif lastM5.macd>0 and lastM5.macd>prelastM5.macd and prelastM5.macd > pre2lastM5.macd:
-                        return (52,kkdata[1].close)
+                    return (52,kkdata[1].close)
                 elif kkdata[1].low < kkdata[3].low:
                     if lastm1.close > kkdata[2].high:
                         return (53,kkdata[2].high)
@@ -5454,6 +5445,9 @@ def go18():
 
         kkdata1 = stock1Min.checkMacdUp()
         pricelogging.info("macdkline1=%s",kkdata1)
+
+        if spec ==53 and lastm1.macd<prelastm1.macd:
+            return 120
 
         if lastm1.close < sellSpec:
             return 110
