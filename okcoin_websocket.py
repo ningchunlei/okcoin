@@ -5431,12 +5431,8 @@ def go18():
                     elif lastM5.macd>0 and lastM5.macd>prelastM5.macd and prelastM5.macd > pre2lastM5.macd:
                         return (52,kkdata[1].close)
                 elif kkdata[1].low < kkdata[3].low:
-                    if lastm1.close > kkdata[3].high:
-                        if lastm1.close > kkdata[1].close:
-                            if lastM5.macd<0 and lastM5.macd>prelastM5.macd:
-                                return (53,kkdata[1].close)
-                            elif lastM5.macd>0 and lastM5.macd>prelastM5.macd and prelastM5.macd > pre2lastM5.macd:
-                                return (54,kkdata[1].close)
+                    if lastm1.close > kkdata[2].high:
+                        return (53,kkdata[2].high)
 
     def canb4(xt,kline,prekline):
 
