@@ -5406,6 +5406,7 @@ def go18():
         pricelogging.info("kline=%s,=%s",lastm1,lastm1.time-prelastM5.time)
         pricelogging.info("kline=%s,=%s",lastm1,lastm1.time-prelastM5.time)
 
+        pricelogging.info("macdkline=%s",kkdata)
 
         if lastm1.macd<0:
             if lastm1.macd > prelastm1.macd and lastm1.j > prelastm1.j:
