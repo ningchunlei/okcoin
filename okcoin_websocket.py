@@ -5457,7 +5457,7 @@ def go18():
         global sellSpec
 
         kkdata1 = stock1Min.checkMacdUp()
-        pricelogging.info("macdkline=%s",kkdata1)
+        pricelogging.info("macdkline1=%s",kkdata1)
 
         if lastm1.close < sellSpec:
             return 110
