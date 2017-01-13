@@ -1218,7 +1218,7 @@ class stock(object):
                         xkline = self.stocks[self.cursor-count]
                 else:
                     ret.append(xkline)
-                    flag = 1
+                    flag = -1
                     xkline = self.stocks[self.cursor-count]
 
             count += 1
