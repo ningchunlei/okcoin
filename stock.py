@@ -52,11 +52,13 @@ class KLine(object):
         self.up = 0;
         self.dn = 0;
         self.mean = 0;
+        self.mn = {}
         self.po = None;
 
     def __str__(self):
         return "%s;close=%f;high=%f;low=%s;vol=%s;macd=%f;k=%f;j=%f,boll=%f," \
-               "up=%f,dn=%f" %(time.ctime(self.time),self.close,self.high,self.low,self.vol,self.macd,self.k,self.j,self.boll,self.up,self.dn)
+               "up=%f,dn=%f,m5=%s,m15=%s,m30=%s,m60=%s" %(time.ctime(self.time),self.close,self.high,self.low,self.vol,self.macd,self.k,self.j,self.boll,self.up,self.dn,\
+                                              self.mn["5"],self.mn["15"],self.mn["30"],self.mn["60"])
 
     def __unicode__(self):
         return str(self)
@@ -277,6 +279,10 @@ class stock(object):
         self.baseTime = klines[0].time
         self.macd(len(klines)-1,len(klines))
         self.mean(len(klines)-1,len(klines))
+        self.mean2(len(klines)-1,len(klines),5)
+        self.mean2(len(klines)-1,len(klines),15)
+        self.mean2(len(klines)-1,len(klines),30)
+        self.mean2(len(klines)-1,len(klines),60)
 
     def fetchTradeLine(self):
         klines = Client.fetchTrade(self._symbol)
@@ -286,6 +292,11 @@ class stock(object):
         self.baseTime = klines[0].time
         self.macd(len(klines)-1,len(klines))
         self.mean(len(klines)-1,len(klines))
+        self.mean2(len(klines)-1,len(klines),5)
+        self.mean2(len(klines)-1,len(klines),15)
+        self.mean2(len(klines)-1,len(klines),30)
+        self.mean2(len(klines)-1,len(klines),60)
+
 
     def updateKLine(self,kline):
         if (kline.time-self.baseTime)/self._interval >= len(self.stocks):
@@ -297,6 +308,11 @@ class stock(object):
         self.mean(self.cursor,300)
         self.kdj(self.cursor-300,self.cursor+1)
         self.boll(self.cursor-300,self.cursor+1)
+
+        self.mean2(self.cursor,300,5)
+        self.mean2(self.cursor,300,15)
+        self.mean2(self.cursor,300,30)
+        self.mean2(self.cursor,300,60)
 
     def canBuy(self):
         direction = self.stocks[self.cursor-1].j - self.stocks[self.cursor-1].k
@@ -1711,6 +1727,20 @@ class stock(object):
 
         for i in range(length):
             self.stocks[start-i].mean=mean[len(mean)-i-1]
+
+    def mean2(self,start,length,l):
+        close =[]
+        for i in range(length):
+            close.append(self.stocks[start-i].close)
+
+        close.reverse()
+
+        closedp = pandas.Series(close)
+
+        mean = pandas.rolling_mean(closedp,l)
+
+        for i in range(length):
+            self.stocks[start-i].mn[str(l)]=mean[len(mean)-i-1]
 
     def macd(self,start,length):
         '''
