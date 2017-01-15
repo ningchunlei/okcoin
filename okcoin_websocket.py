@@ -5413,6 +5413,8 @@ def go18():
         #    if lastm1.macd>prelastm1.macd:
         #        return 41
 
+
+
         if lastm1.macd<0:
             if kkdata[0].low < kkdata[2].low:
                 if prelastm1.mn["5"] < prelastm1.mn["15"] and prelastm1.mn["15"] < prelastm1.mn["30"] and prelastm1.mn["30"] < prelastm1.mn["60"]:
@@ -5429,6 +5431,9 @@ def go18():
                             return 42
                         elif lastm1.mn["5"]-lastm1.mn["15"]<5 and lastm1.mn["5"] > prelastm1.mn["5"]:
                             return 43
+        if lastM5.mn["5"] > lastM5.mn["15"] and lastM5.macd>0 and lastM5.macd > prelastM5.macd:
+            if lastm1.macd>0 and lastm1.mn["5"] > lastm1.mn["15"] and lastm1.macd> prelastm1.macd:
+                return 45
 
     def cansell3(xt,kline,prekline):
         global sellSpec,spec
