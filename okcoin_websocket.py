@@ -5407,38 +5407,25 @@ def go18():
         pricelogging.info("kline=%s,=%s",lastm1,lastm1.time-prelastM5.time)
         pricelogging.info("xkline=%s",kkdata)
 
+
+
         if lastm1.mn["5"]> lastm1.mn["15"] and lastm1.mn["15"]>lastm1.mn["30"] and lastm1.mn["30"]>lastm1.mn["60"]:
             if lastm1.macd>prelastm1.macd:
                 return 41
 
         if prelastm1.mn["5"] < prelastm1.mn["15"] and prelastm1.mn["15"] < prelastm1.mn["30"] and prelastm1.mn["30"] < prelastm1.mn["60"]:
-            if lastm1.macd<0:
-                if kkdata[0].low < kkdata[2].low:
-                    if lastm1.mn["5"]>lastm1.mn["15"] and lastm1.macd>prelastm1.macd:
-                        return 42
-            else:
-                if kkdata[1].low < kkdata[3].low:
-                    if lastm1.mn["5"]>lastm1.mn["15"] and lastm1.macd>prelastm1.macd:
-                        return 43
-
-    def canb4(xt,kline,prekline):
-
-        kkdata = stock5Min.checkMacdUp()
-
-        kkdata1 = stock1Min.checkMacdUp()
-        if prelastM5.macd<0 and prelastM5.macd>pre2lastM5.macd:
-            if kkdata[0].low > kkdata[2].low:
-                if lastm1.macd>0 and lastm1.macd>prelastm1.macd:
-                    if kkdata1[1].low < kkdata1[3].low:
-                        if lastm1.close > kkdata1[1].close:
-                            return (61,kkdata1[1].close)
-
-
-
+            if lastm1.dif<lastm1.dea and lastm1.dif-lastm1.dea>-0.9 and lastm1.macd > prelastm1.macd:
+                if lastm1.mn["5"]>lastm1.mn["15"]:
+                    return 42
+                elif lastm1.mn["5"]-lastm1.mn["15"]<5 and lastm1.mn["5"] > prelastm1.mn["5"]:
+                    return 43
 
     def cansell3(xt,kline,prekline):
         global sellSpec
 
+        if lastm1.macd<prelastm1.macd and lastm1.mn["5"]<prelastm1.mn["5"]:
+            if lastM5.mn["5"] < pre2lastM5.mn["15"]:
+                return 61
         if lastm1.mn["5"] < lastm1.mn["15"]:
             return 51
 
