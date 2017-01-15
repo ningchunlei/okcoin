@@ -5438,6 +5438,8 @@ def go18():
         if spec==43:
             if lastm1.mn["5"] < prelastm1.mn["5"] and lastm1.macd<prelastm1.macd:
                 return 71
+            if lastm1.mn["5"] > prelastm1.mn["5"]:
+                spec = 42
             return
 
         if lastm1.mn["5"] < lastm1.mn["15"] and lastm1.macd<prelastm1.macd:
