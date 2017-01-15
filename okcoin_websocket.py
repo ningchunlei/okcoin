@@ -5433,20 +5433,30 @@ def go18():
     def cansell3(xt,kline,prekline):
         global sellSpec,spec
 
+        kkdata = stock5Min.checkMacdUp()
+
         if spec==43:
             if lastm1.mn["5"] < prelastm1.mn["5"] and lastm1.macd<prelastm1.macd:
                 return 71
             return
 
+        if lastm1.mn["5"] < lastm1.mn["15"] and lastm1.macd<prelastm1.macd:
+            return 51
+
         if lastm1.macd<prelastm1.macd and lastm1.mn["5"]<prelastm1.mn["5"]:
             if lastM5.macd>0 and lastM5.macd > prelastM5.macd:
                 return
+
+            if lastM5.macd>prelastM5.macd and prelastM5.close>prelastM5.open:
+                if prelastM5.macd<0:
+                    if kkdata[0].low < kkdata[2].low:
+                        return
+
             if lastM5.mn["5"] < prelastM5.mn["15"]:
                 return 61
             else:
                 return
-        if lastm1.mn["5"] < lastm1.mn["15"] and lastm1.macd<prelastm1.macd:
-            return 51
+
 
 
     pricelogging.info("m5macdbig=%s",m5macdbignext)
