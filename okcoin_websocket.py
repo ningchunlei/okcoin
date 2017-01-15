@@ -5409,22 +5409,36 @@ def go18():
 
 
 
-        if lastm1.mn["5"]> lastm1.mn["15"] and lastm1.mn["15"]>lastm1.mn["30"] and lastm1.mn["30"]>lastm1.mn["60"]:
-            if lastm1.macd>prelastm1.macd:
-                return 41
+        #if lastm1.mn["5"]> lastm1.mn["15"] and lastm1.mn["15"]>lastm1.mn["30"] and lastm1.mn["30"]>lastm1.mn["60"]:
+        #    if lastm1.macd>prelastm1.macd:
+        #        return 41
 
-        if prelastm1.mn["5"] < prelastm1.mn["15"] and prelastm1.mn["15"] < prelastm1.mn["30"] and prelastm1.mn["30"] < prelastm1.mn["60"]:
-            if lastm1.dif<lastm1.dea and lastm1.dif-lastm1.dea>-0.5 and lastm1.macd > prelastm1.macd:
-                if lastm1.mn["5"]>lastm1.mn["15"]:
-                    return 42
-                elif lastm1.mn["5"]-lastm1.mn["15"]<5 and lastm1.mn["5"] > prelastm1.mn["5"] and lastm1.close>lastm1.mn["15"]:
-                    return 43
-            elif lastm1.macd > 0 and lastm1.macd > prelastm1.macd:
-                if lastm1.mn["5"]>lastm1.mn["15"]:
-                    return 42
-                elif lastm1.mn["5"]-lastm1.mn["15"]<5 and lastm1.mn["5"] > prelastm1.mn["5"] and lastm1.close>lastm1.mn["15"]:
-                    return 43
-
+        if lastm1.macd<0:
+            if kkdata[0].low < kkdata[2].low:
+                if prelastm1.mn["5"] < prelastm1.mn["15"] and prelastm1.mn["15"] < prelastm1.mn["30"] and prelastm1.mn["30"] < prelastm1.mn["60"]:
+                    if lastm1.dif<lastm1.dea and lastm1.dif-lastm1.dea>-0.5 and lastm1.macd > prelastm1.macd:
+                        if lastm1.mn["5"]>lastm1.mn["15"]:
+                            return 42
+                        elif lastm1.mn["5"]-lastm1.mn["15"]<5 and lastm1.mn["5"] > prelastm1.mn["5"] and lastm1.close>lastm1.mn["15"]:
+                            return 43
+                    elif lastm1.macd > 0 and lastm1.macd > prelastm1.macd:
+                        if lastm1.mn["5"]>lastm1.mn["15"]:
+                            return 42
+                        elif lastm1.mn["5"]-lastm1.mn["15"]<5 and lastm1.mn["5"] > prelastm1.mn["5"] and lastm1.close>lastm1.mn["15"]:
+                            return 43
+        else:
+            if kkdata[1].low < kkdata[3].low:
+                if prelastm1.mn["5"] < prelastm1.mn["15"] and prelastm1.mn["15"] < prelastm1.mn["30"] and prelastm1.mn["30"] < prelastm1.mn["60"]:
+                    if lastm1.dif<lastm1.dea and lastm1.dif-lastm1.dea>-0.5 and lastm1.macd > prelastm1.macd:
+                        if lastm1.mn["5"]>lastm1.mn["15"]:
+                            return 42
+                        elif lastm1.mn["5"]-lastm1.mn["15"]<5 and lastm1.mn["5"] > prelastm1.mn["5"] and lastm1.close>lastm1.mn["15"]:
+                            return 43
+                    elif lastm1.macd > 0 and lastm1.macd > prelastm1.macd:
+                        if lastm1.mn["5"]>lastm1.mn["15"]:
+                            return 42
+                        elif lastm1.mn["5"]-lastm1.mn["15"]<5 and lastm1.mn["5"] > prelastm1.mn["5"] and lastm1.close>lastm1.mn["15"]:
+                            return 43
 
     def cansell3(xt,kline,prekline):
         global sellSpec,spec
