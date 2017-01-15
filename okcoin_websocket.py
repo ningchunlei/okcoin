@@ -5419,6 +5419,12 @@ def go18():
                     return 42
                 elif lastm1.mn["5"]-lastm1.mn["15"]<5 and lastm1.mn["5"] > prelastm1.mn["5"]:
                     return 43
+            elif lastm1.macd > 0 and lastm1.macd > prelastm1.macd:
+                if lastm1.mn["5"]>lastm1.mn["15"]:
+                    return 42
+                elif lastm1.mn["5"]-lastm1.mn["15"]<5 and lastm1.mn["5"] > prelastm1.mn["5"]:
+                    return 43
+
 
     def cansell3(xt,kline,prekline):
         global sellSpec
