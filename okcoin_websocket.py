@@ -5429,8 +5429,10 @@ def go18():
     def cansell3(xt,kline,prekline):
         global sellSpec,spec
 
-        if spec==43 and lastm1.mn["5"] < prelastm1.mn["5"] and lastm1.macd<prelastm1.macd:
-            return 71
+        if spec==43:
+            if lastm1.mn["5"] < prelastm1.mn["5"] and lastm1.macd<prelastm1.macd:
+                return 71
+            return
 
         if lastm1.macd<prelastm1.macd and lastm1.mn["5"]<prelastm1.mn["5"]:
             if lastM5.mn["5"] < pre2lastM5.mn["15"]:
