@@ -5421,20 +5421,10 @@ def go18():
                             return 42
                         elif lastm1.mn["5"]-lastm1.mn["15"]<5 and lastm1.mn["5"] > prelastm1.mn["5"] and lastm1.close>lastm1.mn["15"]:
                             return 43
-                    elif lastm1.macd > 0 and lastm1.macd > prelastm1.macd:
-                        if lastm1.mn["5"]>lastm1.mn["15"]:
-                            return 42
-                        elif lastm1.mn["5"]-lastm1.mn["15"]<5 and lastm1.mn["5"] > prelastm1.mn["5"] and lastm1.close>lastm1.mn["15"]:
-                            return 43
         else:
             if kkdata[1].low < kkdata[3].low:
                 if prelastm1.mn["5"] < prelastm1.mn["15"] and prelastm1.mn["15"] < prelastm1.mn["30"] and prelastm1.mn["30"] < prelastm1.mn["60"]:
-                    if lastm1.dif<lastm1.dea and lastm1.dif-lastm1.dea>-0.5 and lastm1.macd > prelastm1.macd:
-                        if lastm1.mn["5"]>lastm1.mn["15"]:
-                            return 42
-                        elif lastm1.mn["5"]-lastm1.mn["15"]<5 and lastm1.mn["5"] > prelastm1.mn["5"] and lastm1.close>lastm1.mn["15"]:
-                            return 43
-                    elif lastm1.macd > 0 and lastm1.macd > prelastm1.macd:
+                    if lastm1.macd > 0 and lastm1.macd > prelastm1.macd:
                         if lastm1.mn["5"]>lastm1.mn["15"]:
                             return 42
                         elif lastm1.mn["5"]-lastm1.mn["15"]<5 and lastm1.mn["5"] > prelastm1.mn["5"]:
