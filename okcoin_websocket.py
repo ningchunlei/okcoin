@@ -5449,9 +5449,13 @@ def go18():
             return
 
         if lastm1.macd<prelastm1.macd and lastm1.mn["5"]<prelastm1.mn["5"]:
-            if lastM5.mn["5"] < pre2lastM5.mn["15"]:
+            if lastM5.macd>0 and lastM5.macd > prelastM5.macd:
+                return
+            if lastM5.mn["5"] < prelastM5.mn["15"]:
                 return 61
-        if lastm1.mn["5"] < lastm1.mn["15"]:
+            else:
+                return
+        if lastm1.mn["5"] < lastm1.mn["15"] and lastm1.macd<prelastm1.macd:
             return 51
 
 
