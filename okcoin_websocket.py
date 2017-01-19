@@ -5427,20 +5427,15 @@ def go18():
         if lastM5.mn["5"] > lastM5.mn["15"] and lastM5.mn["30"] > lastM5.mn["60"] and lastM5.macd>0:
             if lastm1.macd<0:
                 if kkdata[0].low > kkdata[2].low:
-                    if prelastm1.mn["5"] < prelastm1.mn["15"] and prelastm1.mn["30"] > prelastm1.mn["60"]:
+                    if lastm1.mn["5"] > lastm1.mn["15"] and prelastm1.mn["30"] > prelastm1.mn["60"]:
                         if lastm1.dif<lastm1.dea and lastm1.dif-lastm1.dea>-0.5 and lastm1.macd > prelastm1.macd:
-                            if lastm1.mn["5"]>lastm1.mn["15"]:
-                                return (82,kkdata[1].high)
-                            elif lastm1.mn["5"]-lastm1.mn["15"]<5 and lastm1.mn["5"] > prelastm1.mn["5"] and lastm1.close>lastm1.mn["15"]:
-                                return (83,kkdata[1].high)
+                            return (82,kkdata[1].high)
             else:
                 if kkdata[1].low > kkdata[3].low:
-                    if prelastm1.mn["5"] < prelastm1.mn["15"] and prelastm1.mn["30"] > prelastm1.mn["60"]:
+                    if lastm1.mn["5"] > lastm1.mn["15"] and prelastm1.mn["30"] > prelastm1.mn["60"]:
                         if lastm1.macd > 0 and lastm1.macd > prelastm1.macd:
                             if lastm1.mn["5"]>lastm1.mn["15"]:
                                 return (82,kkdata[2].high)
-                            elif lastm1.mn["5"]-lastm1.mn["15"]<5 and lastm1.mn["5"] > prelastm1.mn["5"]:
-                                return (83,kkdata[2].high)
 
         if lastM5.macd<0:
             if kkdata5[0].low < kkdata5[2].low:
