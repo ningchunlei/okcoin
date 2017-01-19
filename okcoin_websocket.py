@@ -4984,15 +4984,6 @@ def go18():
     tmpfenx1 = stock1Min.checkIsUp()
     tmpfenx5 = stock5Min.checkIsUp()
 
-    if fenx1==None:
-        fenx1 = tmpfenx1
-    elif fenx1[0][2] < tmpfenx1[0][2]:
-        fenx1 = lastfenx1
-
-    if fenx5==None:
-        fenx5 = tmpfenx5
-    elif fenx5[0][2] < tmpfenx5[0][2]:
-        fenx5 = lastfenx5
 
     lastfenx1 = tmpfenx1
     lastfenx5 = tmpfenx5
@@ -5398,6 +5389,7 @@ def go18():
         fdata = stock1Min.findInFiveData()
 
         kkdata = stock1Min.checkMacdUp()
+        kkdata5 = stock5Min.checkMacdUp()
 
         gh = trzs(xkdjdata)
         gh5 = trzs(x5kdjdata)
@@ -5420,39 +5412,92 @@ def go18():
                 if prelastm1.mn["5"] < prelastm1.mn["15"] and prelastm1.mn["15"] < prelastm1.mn["30"] and prelastm1.mn["30"] < prelastm1.mn["60"]:
                     if lastm1.dif<lastm1.dea and lastm1.dif-lastm1.dea>-0.5 and lastm1.macd > prelastm1.macd:
                         if lastm1.mn["5"]>lastm1.mn["15"]:
-                            return 42
+                            return (42,kkdata[0].close)
                         elif lastm1.mn["5"]-lastm1.mn["15"]<5 and lastm1.mn["5"] > prelastm1.mn["5"] and lastm1.close>lastm1.mn["15"]:
-                            return 43
+                            return (43,kkdata[0].close)
         else:
             if kkdata[1].low < kkdata[3].low:
                 if prelastm1.mn["5"] < prelastm1.mn["15"] and prelastm1.mn["15"] < prelastm1.mn["30"] and prelastm1.mn["30"] < prelastm1.mn["60"]:
                     if lastm1.macd > 0 and lastm1.macd > prelastm1.macd:
                         if lastm1.mn["5"]>lastm1.mn["15"]:
-                            return 42
+                            return (42,kkdata[1].close)
                         elif lastm1.mn["5"]-lastm1.mn["15"]<5 and lastm1.mn["5"] > prelastm1.mn["5"]:
-                            return 43
-        if lastM5.mn["5"] > lastM5.mn["15"] and lastM5.macd>5 and lastM5.macd > prelastM5.macd:
-            if lastm1.macd>0 and lastm1.mn["5"] > lastm1.mn["15"] and lastm1.mn["5"] > prelastm1.mn["5"] and lastm1.macd> prelastm1.macd:
-                return 45
+                            return (43,kkdata[1].close)
+
+        if lastM5.mn["5"] > lastM5.mn["15"] and lastM5.mn["30"] > lastM5.mn["60"] and lastM5.macd>0:
+            if lastm1.macd<0:
+                if kkdata[0].low > kkdata[2].low:
+                    if prelastm1.mn["5"] < prelastm1.mn["15"] and prelastm1.mn["30"] > prelastm1.mn["60"]:
+                        if lastm1.dif<lastm1.dea and lastm1.dif-lastm1.dea>-0.5 and lastm1.macd > prelastm1.macd:
+                            if lastm1.mn["5"]>lastm1.mn["15"]:
+                                return (82,kkdata[1].high)
+                            elif lastm1.mn["5"]-lastm1.mn["15"]<5 and lastm1.mn["5"] > prelastm1.mn["5"] and lastm1.close>lastm1.mn["15"]:
+                                return (83,kkdata[1].high)
+            else:
+                if kkdata[1].low > kkdata[3].low:
+                    if prelastm1.mn["5"] < prelastm1.mn["15"] and prelastm1.mn["30"] > prelastm1.mn["60"]:
+                        if lastm1.macd > 0 and lastm1.macd > prelastm1.macd:
+                            if lastm1.mn["5"]>lastm1.mn["15"]:
+                                return (82,kkdata[2].high)
+                            elif lastm1.mn["5"]-lastm1.mn["15"]<5 and lastm1.mn["5"] > prelastm1.mn["5"]:
+                                return (83,kkdata[2].high)
+
+        if lastM5.macd<0:
+            if kkdata5[0].low < kkdata5[2].low:
+                if prelastM5.mn["5"] < prelastM5.mn["15"] and prelastM5.mn["15"] < prelastM5.mn["30"] and prelastM5.mn["30"] < prelastM5.mn["60"]:
+                    if lastM5.dif<lastM5.dea and lastM5.dif-lastM5.dea>-0.5 and lastM5.macd > prelastM5.macd:
+                        if lastM5.mn["5"]>lastM5.mn["15"]:
+                            return 92
+
+                if prelastM5.mn["5"] > prelastM5.mn["15"] and prelastM5.mn["15"] > prelastM5.mn["30"] and prelastM5.mn["30"] > prelastM5.mn["60"]:
+                    if lastM5.close > kkdata5[1].high and lastM5.macd > prelastM5.macd:
+                        return 94
+
+        else:
+            if kkdata5[1].low < kkdata5[3].low:
+                if prelastM5.mn["5"] < prelastM5.mn["15"] and prelastM5.mn["15"] < prelastM5.mn["30"] and prelastM5.mn["30"] < prelastM5.mn["60"]:
+                    if lastM5.macd > 0 and lastM5.macd > prelastM5.macd:
+                        if lastM5.mn["5"]>lastM5.mn["15"]:
+                            return 92
+                if prelastM5.mn["5"] > prelastM5.mn["15"] and prelastM5.mn["15"] > prelastM5.mn["30"] and prelastM5.mn["30"] > prelastM5.mn["60"]:
+                    if lastM5.close > kkdata5[2].high and lastM5.macd > prelastM5.macd:
+                        return 94
+
 
     def cansell3(xt,kline,prekline):
         global sellSpec,spec
 
         kkdata = stock5Min.checkMacdUp()
 
-        if spec==45 and buy2Time==prelastM5.time and prelastM5.close<prelastM5.open:
-            return 61
-
         if spec==43:
-            if lastm1.mn["5"] < prelastm1.mn["5"] and lastm1.macd<prelastm1.macd:
-                return 71
-            if lastm1.mn["5"] > prelastm1.mn["5"]:
+            if lastm1.close<sellSpec or (lastm1.macd <0 and prelastm1.macd >0):
+                return 110
+            if lastm1.time-buy1Time>3*60:
+                if lastm1.mn["5"] < lastm1.mn["15"]:
+                    if lastm1.close > buyPrice1 :
+                        return 120
+            if lastm1.mn["5"] > lastm1.mn["15"]:
                 spec = 42
             return
 
-        if lastm1.mn["5"] < lastm1.mn["15"] and lastm1.macd<prelastm1.macd:
-            return 51
+        if spec==42:
+            if lastm1.mn["5"] < lastm1.mn["15"] and lastm1.macd<prelastm1.macd:
+                if lastm1.close<sellSpec or  (lastm1.macd <0 and prelastm1.macd >0):
+                    return 110
+                else:
+                    if lastm1.close > buyPrice1:
+                        return 51
 
+        if spec==82 or spec==83:
+            if lastm1.macd<prelastm1.macd and lastm1.close<sellSpec:
+                return 130
+
+
+        if spec==94:
+            if lastM5.mn["5"] < lastM5.mn["15"]:
+                return 94
+
+        '''
         if lastm1.macd<prelastm1.macd and lastm1.mn["5"]<prelastm1.mn["5"]:
             if lastM5.macd>0 and lastM5.macd > prelastM5.macd:
                 return
@@ -5466,7 +5511,7 @@ def go18():
                 return 61
             else:
                 return
-
+        '''
 
 
     pricelogging.info("m5macdbig=%s",m5macdbignext)
@@ -5475,7 +5520,13 @@ def go18():
     if buyPrice1==None:
         ret = canb3(xdata,lastm1,prelastm1)
         if ret!=None:
-            spec = ret
+            if type(ret)==int:
+                spec = ret
+                sellSpec = None
+            else:
+                spec = ret[0]
+                sellSpec = ret[1]
+
             buy1Time = current.time
             buy2Time = lastM5.time
             buy(ret)
