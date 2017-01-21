@@ -5438,6 +5438,7 @@ def go18():
 
 
     def canbuy4():
+
         kkdata5 = stock5Min.checkMacdUp()
         if lastM5.macd>0:
             if kkdata5[1].high < kkdata5[3].low:
@@ -5451,18 +5452,11 @@ def go18():
 
 
     def canbuy5():
-        kkdata5 = stock5Min.checkMacdUp()
-        ret = canbuy4()
+        kkdata = stock1Min.checkMacdUp()
         if lastm1.close > lastm1.mn["60"] and prelastm1.mn["5"] > prelastm1.mn["15"] and lastm1.close> prelastm1.mn["5"]:
             if lastm1.macd>0 and lastm1.macd>prelastm1.macd:
-                if ret!=None:
+                if prelastM5.macd>pre2lastM5.macd:
                     return (72,kkdata[2].high,kkdata[2])
-                else:
-                    if prelastM5.mn["30"] > prelastM5.mn["60"] and prelastM5.close>prelastM5.mn["30"] and prelastM5.close>prelastM5.open:
-                        if prelastM5.macd>0 and kkdata5[0].high>kkdata[2].high:
-                            return (72,kkdata[2].high,kkdata[2])
-                        elif prelastM5.macd<0 and kkdata5[1].high>kkdata[3].high:
-                            return (72,kkdata[2].high,kkdata[2])
 
     def cansell3(xt,kline,prekline):
         global sellSpec,spec
@@ -5521,7 +5515,7 @@ def go18():
     if buyPrice1==None:
         ret = canb3(xdata,lastm1,prelastm1)
         if ret==None:
-            ret = canbuy5(xdata,lastm1,prelastm1)
+            ret = canbuy5()
         if ret!=None:
             if type(ret)==int:
                 spec = ret
