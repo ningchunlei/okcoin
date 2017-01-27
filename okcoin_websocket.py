@@ -5189,7 +5189,7 @@ def go18():
     pricelogging.info("xkline=%s",lastm1)
 
     if buyPrice1==None:
-        ret = canb3(xdata,lastm1,prelastm1)
+        ret = canb3(None,lastm1,prelastm1)
         if ret!=None:
             if type(ret)==int:
                 spec = ret
@@ -5213,16 +5213,8 @@ def go18():
     if buyPrice1!=None:
         pricelogging.info("sellspec=%s",sellSpec)
 
-        px = position(xdata)
-        rzs = zs(xdata)
-        px5 = position(x5data)
-        rzs5 = zs(x5data)
 
-        xret = cansell3(xdata,lastm1,prelastm1)
-        fdata = stock1Min.findInFiveData()
-
-        gh = trzs(xkdjdata)
-        gh5 = rrrzs(x5kdjdata)
+        xret = cansell3(None,lastm1,prelastm1)
 
         if xret != None:
             sell(xret)
