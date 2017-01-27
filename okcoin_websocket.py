@@ -5105,7 +5105,7 @@ def go18():
             if lastm1.close<sellSpec:
                 return 110
 
-            if spec==43 or spec==42
+            if spec==43 or spec==42:
                 if (up5==None or up5==1) and  lastm1.mn["5"] > lastm1.mn["15"] and lastm1.mn["15"] > lastm1.mn["30"] and lastm1.mn["30"] > lastm1.mn["60"]:
                     if lastm1.close > m5data.high + (m5data.boll - m5data.dn):
                         downToUp = True
