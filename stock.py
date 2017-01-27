@@ -1689,6 +1689,37 @@ class stock(object):
             self.stocks[i].up = up[i-start]
             self.stocks[i].dn = dn[i-start]
 
+    def checkvm(self,indexTime):
+        count = 1
+        while True:
+            if self.stocks[self.cursor-count].time == indexTime:
+                break
+            count +=1
+
+        def valueMin(kline):
+            if kline.close<kline.open:
+                return kline.close
+            return kline.open
+
+
+        v1 = valueMin(self.stocks[self.cursor-count])
+        v2 = valueMin(self.stocks[self.cursor-count-1])
+        v3 = valueMin(self.stocks[self.cursor-count-2])
+        v4 = valueMin(self.stocks[self.cursor-count+1])
+
+        return min(v1,v2,v3,v4)
+
+
+    def checkdistance(self,indexTime):
+        count = 1
+        xcount = 0
+        while True:
+            if self.stocks[self.cursor-count].time == indexTime:
+                break
+            if self.stocks[self.cursor-count].macd>0 and self.stocks[self.cursor-count-1].macd<0:
+                xcount += 1
+            count +=1
+        return xcount;
 
     def macd2(self,start,length):
         close =[]
