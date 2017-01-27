@@ -65,6 +65,7 @@ lastbuyTime=None
 fenx1 = None
 fenx5 = None
 buttomDown = None
+buttomDownKline = None
 
 #business
 def buildMySign(params,secretKey):
@@ -4910,7 +4911,7 @@ def go17():
 
 def go18():
     global buyPrice1,buyPrice2,bidsList,lastbuyTime,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
-    global fenx1,fenx5,lastfenx1,lastfenx5,buttomDown
+    global fenx1,fenx5,lastfenx1,lastfenx5,buttomDown,buttomDownKline
     m5kdjzero,m5kdjbignext = stock5Min.forecastKDJClose()
     m5macdZero,m5macdbignext = stock5Min.forecastMacd()
 
@@ -5003,7 +5004,7 @@ def go18():
 
 
     def canb3(xt,kline,prekline):
-        global  xbuy,xspec,buyTriggerTime
+        global  xbuy,xspec,buyTriggerTime,buttomDown,buttomDownKline
 
         fdata = stock1Min.findInFiveData()
 
@@ -5046,7 +5047,10 @@ def go18():
             if lastm1.macd < 0 and lastm1.macd>prelastm1.macd and valueMin(lastm1) > buyTriggerTime[1]:
                 distance = stock1Min.checkdistance(buyTriggerTime[2].time)
                 if distance  == 1:
-                    return (41,buyTriggerTime[1])
+                    xt = (41,buyTriggerTime[1],buyTriggerTime[2])
+                    buyTriggerTime = None
+                    buyPrice3 = None
+                    return xt
                 elif distance > 1:
                     buyTriggerTime = None
                     buyPrice3 = None
@@ -5054,7 +5058,10 @@ def go18():
             elif lastm1.macd > 0 and prelastm1.macd<0 and valueMin(lastm1) > buyTriggerTime[1]:
                 distance = stock1Min.checkdistance(buyTriggerTime[2].time)
                 if distance == 2:
-                    return (44,buyTriggerTime[1])
+                    xt = (44,buyTriggerTime[1],buyTriggerTime[2])
+                    buyTriggerTime = None
+                    buyPrice3 = None
+                    return xt
                 elif distance > 2:
                     buyTriggerTime = None
                     buyPrice3 = None
@@ -5062,10 +5069,11 @@ def go18():
         if downToUp==True:
             if lastm1.macd<0 and lastm1.macd > prelastm1.macd and lastm1.mn["5"]>prelastm1.mn["5"]:
                 if valueMin(kkdata[0]) > buttomDown:
-                    return (45,buyTriggerTime[1])
+                    return (45,buttomDown,buttomDownKline)
                 else:
                     downToUp = None
                     buttomDown = None
+                    buttomDownKline = None
 
 
     def canbuy4():
@@ -5189,6 +5197,7 @@ def go18():
             else:
                 spec = ret[0]
                 sellSpec = ret[1]
+                buttomDownKline = ret[2]
 
             buy1Time = current.time
             buy2Time = lastM5.time
