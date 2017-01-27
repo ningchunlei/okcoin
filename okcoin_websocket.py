@@ -5097,7 +5097,7 @@ def go18():
                     return (72,kkdata[2].high,kkdata[2])
 
     def cansell3(xt,kline,prekline):
-        global sellSpec,spec,up15,up5,m5data,downToUp
+        global sellSpec,spec,up15,up5,m5data,downToUp,buttomDown
 
         kkdata = stock1Min.checkMacdUp()
 
