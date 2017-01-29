@@ -5307,7 +5307,7 @@ def go19():
                 if xdata[1][1][0] < stock1Min.lastKline().close and abs(xdata[1][1][0]-stock1Min.lastKline().close)<2:
                     return
             '''
-        pricelogging.info("tbuy-%s-%s,sell-%s,diff=%s,time=%s,up5=%s" % (tag,buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)),up5)
+        pricelogging.info("tbuy-%s-%s,sell-%s,diff=%s,time=%s,up5=%s" % (tag,buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time),up5))
         buyPrice1 = None
         spec = None
         buy1Time = None
