@@ -5353,10 +5353,6 @@ def go19():
                             xspec = None
                             buyTriggerTime = None
                             return xt
-                        else:
-                            pricelogging.info("tbuy spec=%s,time=%s,120,trigger=%s" % (xspec,time.ctime(lastm1.time),buyTriggerTime))
-                            xspec = None
-                            buyTriggerTime = None
                     elif distance > 1:
                         pricelogging.info("tbuy spec=%s,time=%s,121,trigger=%s" % (xspec,time.ctime(lastm1.time),buyTriggerTime))
                         xspec = None
@@ -5385,10 +5381,6 @@ def go19():
                             xspec = None
                             buyTriggerTime = None
                             return xt
-                        else:
-                            pricelogging.info("tbuy spec=%s,time=%s,123,trigger=%s" % (xspec,time.ctime(lastm1.time),buyTriggerTime))
-                            xspec = None
-                            buyTriggerTime = None
                     elif distance > 1:
                         pricelogging.info("tbuy spec=%s,time=%s,124,trigger=%s" % (xspec,time.ctime(lastm1.time),buyTriggerTime))
                         xspec = None
