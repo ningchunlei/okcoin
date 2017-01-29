@@ -5413,7 +5413,7 @@ def go19():
             if lastm1.close<sellSpec:
                 return 110
             if up5!=None:
-                if lastm1.close > up5[2]:
+                if lastm1.close > up5[2]-1:
                     up15 = True
 
                 if up15 == True:
