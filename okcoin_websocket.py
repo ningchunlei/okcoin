@@ -5337,11 +5337,11 @@ def go19():
             if lastm1.macd<0:
                 if prelastm1.mn["5"] < prelastm1.mn["15"] and prelastm1.mn["15"] < prelastm1.mn["30"] and prelastm1.mn["30"] < prelastm1.mn["60"]:
                     if lastm1.mn["5"]>lastm1.mn["15"]:
-                        return (42,stock1Min.checkvm(kkdata[0].time),kkdata[0])
+                        return (42,stock1Min.checkvm(kkdata[0].time)-3,kkdata[0])
             else:
                 if prelastm1.mn["5"] < prelastm1.mn["15"] and prelastm1.mn["15"] < prelastm1.mn["30"] and prelastm1.mn["30"] < prelastm1.mn["60"]:
                     if lastm1.mn["5"]>lastm1.mn["15"]:
-                        return (42,stock1Min.checkvm(kkdata[1].time),kkdata[1])
+                        return (42,stock1Min.checkvm(kkdata[1].time)-3,kkdata[1])
         elif xspec == 42 :
             if buyTriggerTime!=None:
                 if lastm1.macd < 0 and lastm1.macd>prelastm1.macd:
