@@ -5307,7 +5307,7 @@ def go19():
                 if xdata[1][1][0] < stock1Min.lastKline().close and abs(xdata[1][1][0]-stock1Min.lastKline().close)<2:
                     return
             '''
-        pricelogging.info("tbuy-%s-%s,sell-%s,diff=%s,time=%s" % (tag,buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)))
+        pricelogging.info("tbuy-%s-%s,sell-%s,diff=%s,time=%s,up5=%s" % (tag,buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time)),up5)
         buyPrice1 = None
         spec = None
         buy1Time = None
@@ -5347,7 +5347,7 @@ def go19():
                 if lastm1.macd < 0 and lastm1.macd>prelastm1.macd:
                     distance = stock1Min.checkdistance(buyTriggerTime[2].time)
                     if distance == 1:
-                        if valueMin(lastm1) > buyTriggerTime[1]:
+                        if valueMin(lastm1) > buyTriggerTime[1] and lastm1.mn["5"]>prelastm1.mn["5"]:
                             xt = (44,buyTriggerTime[1],buyTriggerTime[2],kkdata[1])
                             xspec = None
                             buyTriggerTime = None
@@ -5375,7 +5375,7 @@ def go19():
                 if lastm1.macd < 0 and lastm1.macd>prelastm1.macd:
                     distance = stock1Min.checkdistance(buyTriggerTime[2].time)
                     if distance == 1:
-                        if valueMin(lastm1) > buyTriggerTime[1]:
+                        if valueMin(lastm1) > buyTriggerTime[1] and lastm1.mn["5"]>prelastm1.mn["5"]:
                             xt = (44,buyTriggerTime[1],buyTriggerTime[2],kkdata[1])
                             xspec = None
                             buyTriggerTime = None
