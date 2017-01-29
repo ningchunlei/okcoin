@@ -5392,7 +5392,7 @@ def go19():
         if lastm1.macd>0:
             distance = stock1Min.checkdistance(buyTriggerTime[2].time)
             if distance == 2:
-                return (min(valueMin(kkdata[1]),kkdata[1].dn), min(valueMax(kkdata[1]),kkdata[1].up), min(valueMax(kkdata[1]),kkdata[1].up) + kkdata[1].up-kkdata[1].boll)
+                return (min(valueMin(kkdata[1]),kkdata[1].dn), min(valueMax(kkdata[2]),kkdata[1].up), min(valueMax(kkdata[2]),kkdata[1].up) + kkdata[1].up-kkdata[1].boll)
 
 
     def cansell3(xt,kline,prekline):
