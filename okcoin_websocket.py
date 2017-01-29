@@ -5353,9 +5353,11 @@ def go19():
                             buyTriggerTime = None
                             return xt
                         else:
+                            pricelogging.info("tbuy spec=%s,time=%s,120",xspec,time.ctime(lastm1.time))
                             xspec = None
                             buyTriggerTime = None
                     elif distance > 1:
+                        pricelogging.info("tbuy spec=%s,time=%s,121",xspec,time.ctime(lastm1.time))
                         xspec = None
                         buyTriggerTime = None
 
@@ -5368,6 +5370,7 @@ def go19():
                             buyTriggerTime = None
                             return xt
                     elif distance>1:
+                        pricelogging.info("tbuy spec=%s,time=%s,122",xspec,time.ctime(lastm1.time))
                         xspec = None
                         buyTriggerTime = None
         elif xspec == 51:
@@ -5381,9 +5384,11 @@ def go19():
                             buyTriggerTime = None
                             return xt
                         else:
+                            pricelogging.info("tbuy spec=%s,time=%s,123",xspec,time.ctime(lastm1.time))
                             xspec = None
                             buyTriggerTime = None
                     elif distance > 1:
+                        pricelogging.info("tbuy spec=%s,time=%s,124",xspec,time.ctime(lastm1.time))
                         xspec = None
                         buyTriggerTime = None
 
@@ -5430,7 +5435,7 @@ def go19():
             if ret[0] == 42 :
                 buyTriggerTime = ret
                 xspec = 42
-                pricelogging.info("tbuy spec=%s",xspec)
+                pricelogging.info("tbuy spec=%s,time=%s",xspec,time.ctime(lastm1.time))
             if ret[0] == 43 or ret[0] == 44:
                 buy1Time = current.time
                 buy2Time = lastM5.time
