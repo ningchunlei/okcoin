@@ -5430,6 +5430,7 @@ def go19():
             if ret[0] == 42 :
                 buyTriggerTime = ret
                 xspec = 42
+                pricelogging.info("tbuy spec=%s",xspec)
             if ret[0] == 43 or ret[0] == 44:
                 buy1Time = current.time
                 buy2Time = lastM5.time
@@ -5445,6 +5446,7 @@ def go19():
             if ret!=None:
                 up5 = ret
                 spec = 45
+                pricelogging.info("tbuy,sellspec=%s,up5=%s",sellSpec,up5)
 
         pricelogging.info("sellspec=%s,up5=%s",sellSpec,up5)
         xret = cansell3(None,lastm1,prelastm1)
@@ -5462,6 +5464,7 @@ def go19():
                 sell(xret)
                 xspec = None
                 sellSpec = None
+                spec = None
                 up15 = None
                 up5 = None
                 buyTriggerTime = None
