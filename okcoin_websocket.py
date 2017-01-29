@@ -5414,7 +5414,7 @@ def go19():
                 return 110
             if up5!=None:
                 if lastm1.close > up5[2] or (lastm1.close > up5[2]-1 and lastm1.close >=up5[1]+2):
-                    pricelogging.info("tbuy spec lastm1=%s,up5=%s",lastm1,up5)
+                    pricelogging.info("tbuy spec lastm1=%s,up5=%s" % ( lastm1,up5) )
                     up15 = True
 
                 if up15 == True:
