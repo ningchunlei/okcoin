@@ -5489,8 +5489,6 @@ def go19():
                 buyTriggerTime = tmp_buyTriggerTime
                 sellSpec = tmp_sellSpec
                 xspec = 51
-                up15 = None
-                up5 = None
             else:
                 sell(xret)
                 xspec = None
