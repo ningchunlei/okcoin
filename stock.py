@@ -1710,7 +1710,79 @@ class stock(object):
         return min(v1,v2,v3,v4)
 
 
+    def checkbymeancrossMin(self,count):
+        tmp = None
+        while True:
+            if self.stocks[self.cursor-count].mn["5"]>self.stocks[self.cursor-count].mn["15"]:
+                break
+            if tmp == None:
+                tmp = self.stocks[self.cursor-count]
+
+            if self.stocks[self.cursor-count].low<tmp.low:
+                tmp = self.stocks[self.cursor-count]
+
+            count += 1
+        return (tmp,count)
+
+    def checkbymeancrossMax(self,count):
+        tmp = None
+        while True:
+            if self.stocks[self.cursor-count].mn["5"]<self.stocks[self.cursor-count].mn["15"]:
+                break
+            if tmp == None:
+                tmp = self.stocks[self.cursor-count]
+
+            if self.stocks[self.cursor-count].high>tmp.high:
+                tmp = self.stocks[self.cursor-count]
+
+            count += 1
+        return (tmp,count)
+
+
     def checkdistance(self,indexTime):
+        count = 1
+        xcount = 0
+        while True:
+            if self.stocks[self.cursor-count].time == indexTime:
+                break
+            if self.stocks[self.cursor-count].macd>0 and self.stocks[self.cursor-count-1].macd<0 and self.stocks[self.cursor-count-2].macd<0:
+                xcount += 1
+            count +=1
+        return xcount;
+
+
+
+
+    def checkdistance3bymacd(self,indexTime):
+        count = 1
+        xcount = 0
+        while True:
+            if self.stocks[self.cursor-count].time == indexTime:
+                break
+
+            if self.stocks[self.cursor-count].macd>0 and self.stocks[self.cursor-count-1].macd<0 and self.stocks[self.cursor-count-2].macd<0:
+                xcount += 1
+
+            if xcount == 1 :
+                return self.stocks[self.cursor-count]
+            count +=1
+        return None
+
+    def checkdistance4bymean(self,indexTime,count):
+        xcount = 0
+        while True:
+            if self.stocks[self.cursor-count].time == indexTime:
+                break
+
+            if self.stocks[self.cursor-count].mn["5"]<self.stocks[self.cursor-count].mn["15"]:
+                xcount += 1
+
+            if xcount == 1 :
+                return self.stocks[self.cursor-count]
+            count +=1
+        return None
+
+    def checkdistance2(self,indexTime):
         count = 1
         xcount = 0
         while True:
