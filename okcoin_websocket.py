@@ -5324,7 +5324,7 @@ def go19():
 
 
     def canb3(xt,kline,prekline):
-        global  xbuy,xspec,buyTriggerTime,buttomDown,buttomDownKline,buyPrice3,downToUp
+        global  xbuy,xspec,buyTriggerTime,buttomDown,buttomDownKline,buyPrice3,downToUp,up5
 
         fdata = stock1Min.findInFiveData()
 
