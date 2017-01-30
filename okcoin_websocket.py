@@ -5363,6 +5363,9 @@ def go19():
                     #pricelogging.info("tbuy spec=%s,time=%s,distance=%s,trigger=%s,pre1=%s,pre2=%s,last=%s" % (xspec,time.ctime(lastm1.time),distance,buyTriggerTime,prelastm1,prelastm2,lastm1))
                     if distance == 1:
                         if prelastm1.macd<prelastm2.macd and prelastm1.macd<lastm1.macd and lastm1.mn["5"]>prelastm1.mn["5"]:
+                            temp1 = stock1Min.checkdistance3bymacd(buyTriggerTime[2].time)
+                            if temp1.time-buyTriggerTime[2].time>20:
+                                return
                             xt = (43,buyTriggerTime[1],buyTriggerTime[2],kkdata[0])
                             xspec = None
                             buyTriggerTime = None
