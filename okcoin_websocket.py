@@ -5390,7 +5390,7 @@ def go19():
                         tmpmin = stock1Min.checkbymeancrossMin(2)
                         if lastm1.close > up5[0]:
                             tmpmax = stock1Min.checkbymeancrossMax(tmpmin[1])
-                            up5 = (tmpmin,tmpmax,tmpmax)
+                            up5 = (stock1Min.checkvm(tmpmin[0].time),tmpmax[0].high,tmpmax)
                             return (45,buyTriggerTime[1],buyTriggerTime[2],kkdata[1])
 
                     '''
@@ -5418,7 +5418,7 @@ def go19():
             return 110
 
         if prelastm1.mn["5"]>prelastm1.mn["15"] and prelastm1.mn["15"] > prelastm1.mn["30"] and prelastm1.mn["30"] > prelastm1.mn["60"]:
-            if lastm1.mn["5"]<prelastm1.mn["15"] and lastm1.close>buyPrice1:
+            if lastm1.mn["5"]<lastm1.mn["15"] and lastm1.close>buyPrice1:
                 temp1 = stock1Min.checkdistance3bymacd(buyTriggerTime[2].time)
                 temp2 = stock1Min.checkdistance4bymean(buyTriggerTime[2].time,2)
                 if temp1!=None and temp2!=None:
