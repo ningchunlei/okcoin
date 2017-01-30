@@ -5393,10 +5393,11 @@ def go19():
                             up5 = (tmpmin,tmpmax,tmpmax)
                             return (45,buyTriggerTime[1],buyTriggerTime[2],kkdata[1])
 
+                    '''
                     if lastm1.close > up5[2] or (lastm1.close > up5[2]-1 and lastm1.close >=up5[1]+2):
                         if prelastm1.mn["30"] > prelastm1.mn["60"] and prelastm1.mn["5"]>prelastm1.mn["30"] and lastm1.mn["5"]<lastm1.mn["30"]:
                             return (53,buyTriggerTime[1],buyTriggerTime[2],kkdata[1])
-
+                    '''
                     if lastm1.close<up5[0] and lastm1.mn["5"] < lastm1.mn["60"]:
                         return (52,buyTriggerTime[1],buyTriggerTime[2],kkdata[1])
 
@@ -5429,10 +5430,11 @@ def go19():
             if lastm1.close<up5[0] and lastm1.mn["5"] < lastm1.mn["60"]:
                 return 52
 
+            '''
             if lastm1.close > up5[2] or (lastm1.close > up5[2]-1 and lastm1.close >=up5[1]+2):
                 if prelastm1.mn["30"] > prelastm1.mn["60"] and prelastm1.mn["5"]>prelastm1.mn["30"] and lastm1.mn["5"]<lastm1.mn["30"]:
                     return 53
-
+            '''
     pricelogging.info("m5macdbig=%s",m5macdbignext)
     pricelogging.info("xkline=%s",lastm1)
 
@@ -5461,7 +5463,7 @@ def go19():
                 xspec = None
                 spec = ret[0]
                 sellSpec = ret[1]
-            if ret[0] == 52 or ret[0] == 53:
+            if ret[0] == 52:
                 xspec = None
                 sellSpec = None
                 spec = None
