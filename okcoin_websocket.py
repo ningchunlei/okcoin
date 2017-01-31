@@ -5382,6 +5382,7 @@ def go19():
             if buyTriggerTime!=None:
                 if lastm1.mn["5"] > lastm1.mn["15"] and prelastm1.mn["5"] < prelastm1.mn["15"]:
                     tmpx = stock1Min.checkbymeancrossCount(buyTriggerTime[2].time);
+
                     if tmpx == 2:
                         vmin,vmax = stock1Min.checkbymeancrossRange(buyTriggerTime[2].time)
                         if vmin < buyTriggerTime[1]:

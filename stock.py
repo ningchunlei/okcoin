@@ -1716,7 +1716,7 @@ class stock(object):
         while True:
             if self.stocks[self.cursor-count].time == indexTime:
                 break
-            if self.stocks[self.cursor-count].mn["5"] > self.stocks[self.cursor-count].mn["15"] and self.stocks[self.cursor-count].mn["5"] < self.stocks[self.cursor-count].mn["15"]:
+            if self.stocks[self.cursor-count].mn["5"] > self.stocks[self.cursor-count].mn["15"] and self.stocks[self.cursor-count-1].mn["5"] < self.stocks[self.cursor-count-1].mn["15"]:
                 xcount += 1
             count +=1
         return xcount;
@@ -1729,7 +1729,7 @@ class stock(object):
         while True:
             if self.stocks[self.cursor-count].time == indexTime:
                 break
-            if self.stocks[self.cursor-count].mn["5"] > self.stocks[self.cursor-count].mn["15"] and self.stocks[self.cursor-count].mn["5"] < self.stocks[self.cursor-count].mn["15"]:
+            if self.stocks[self.cursor-count].mn["5"] > self.stocks[self.cursor-count].mn["15"] and self.stocks[self.cursor-count-1].mn["5"] < self.stocks[self.cursor-count-1].mn["15"]:
                 xcount += 1
 
             if tempmin == None:
