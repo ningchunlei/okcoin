@@ -1710,6 +1710,46 @@ class stock(object):
         return min(v1,v2,v3,v4)
 
 
+    def checkbymeancrossCount(self,indexTime):
+        xcount = 0
+        count = 1
+        while True:
+            if self.stocks[self.cursor-count].time == indexTime:
+                break
+            if self.stocks[self.cursor-count].mn["5"] > self.stocks[self.cursor-count].mn["15"] and self.stocks[self.cursor-count].mn["5"] < self.stocks[self.cursor-count].mn["15"]:
+                xcount += 1
+            count +=1
+        return xcount;
+
+    def checkbymeancrossRange(self,indexTime):
+        xcount = 0
+        count = 1
+        tempmin = None
+        tempmax = None
+        while True:
+            if self.stocks[self.cursor-count].time == indexTime:
+                break
+            if self.stocks[self.cursor-count].mn["5"] > self.stocks[self.cursor-count].mn["15"] and self.stocks[self.cursor-count].mn["5"] < self.stocks[self.cursor-count].mn["15"]:
+                xcount += 1
+
+            if tempmin == None:
+                tempmin = self.stocks[self.cursor-count]
+
+            if tempmax == None:
+                tempmax = self.stocks[self.cursor-count]
+
+            if tempmin.low > self.stocks[self.cursor-count].low:
+                tempmin = self.stocks[self.cursor-count]
+
+            if tempmax.high < self.stocks[self.cursor-count].high:
+                tempmax = self.stocks[self.cursor-count]
+
+            if xcount==2:
+                return (tempmin.low,tempmax.high)
+
+            count +=1
+        return (tempmin.low,tempmax.high)
+
     def checkbymeancrossMin(self,count):
         tmp = None
         while True:
