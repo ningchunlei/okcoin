@@ -5394,6 +5394,7 @@ def go19():
                             xspec = None
                             buyTriggerTime = None
                             up5 = (vmin,vmax,vmax)
+                            return xt
                     elif tmpx>2:
                         pricelogging.info("tbuy spec=%s,time=%s,132,trigger=%s" % (xspec,time.ctime(lastm1.time),buyTriggerTime))
                         xspec = None
