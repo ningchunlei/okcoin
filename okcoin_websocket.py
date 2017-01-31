@@ -67,6 +67,12 @@ fenx5 = None
 buttomDown = None
 buttomDownKline = None
 
+
+up5Copy = None
+buyTriggerTimeCopy = None
+specCopy = None
+
+
 #business
 def buildMySign(params,secretKey):
     sign = ''
@@ -5230,7 +5236,7 @@ def go18():
 
 def go19():
     global buyPrice1,buyPrice2,bidsList,lastbuyTime,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
-    global fenx1,fenx5,lastfenx1,lastfenx5,buttomDown,buttomDownKline
+    global fenx1,fenx5,lastfenx1,lastfenx5,buttomDown,buttomDownKline,up5Copy,buyTriggerTimeCopy
     m5kdjzero,m5kdjbignext = stock5Min.forecastKDJClose()
     m5macdZero,m5macdbignext = stock5Min.forecastMacd()
 
@@ -5324,7 +5330,7 @@ def go19():
 
 
     def canb3(xt,kline,prekline):
-        global  xbuy,xspec,buyTriggerTime,buttomDown,buttomDownKline,buyPrice3,downToUp,up5
+        global  xbuy,xspec,buyTriggerTime,buttomDown,buttomDownKline,buyPrice3,downToUp,up5,buyTriggerTimeCopy,up5Copy
 
         fdata = stock1Min.findInFiveData()
 
@@ -5342,6 +5348,36 @@ def go19():
                 if prelastm1.mn["5"] < prelastm1.mn["15"] and prelastm1.mn["15"] < prelastm1.mn["30"] and prelastm1.mn["30"] < prelastm1.mn["60"]:
                     if lastm1.mn["5"]>lastm1.mn["15"]:
                         return (42,stock1Min.checkvm(kkdata[1].time),kkdata[1])
+            if buyTriggerTimeCopy!=None:
+                if prelastm1.mn["5"] < prelastm1.mn["15"] and lastm1.mn["5"] > lastm1.mn["15"]:
+                    if lastm1.mn["5"] > lastm1.mn["60"] and lastM5.macd>0:
+                        if up5!=None:
+                            if lastm1.close > up5[0]:
+                                up5 = up5Copy
+                                xt =  (46,buyTriggerTimeCopy[1],buyTriggerTimeCopy[2])
+
+                                buyTriggerTimeCopy = None
+                                up5Copy = None
+
+                                return xt
+                            else:
+                                buyTriggerTimeCopy = None
+                                up5Copy = None
+                        else:
+                            if lastm1.close > buyTriggerTimeCopy[1]:
+                                up5 = up5Copy
+                                xt =  (46,buyTriggerTimeCopy[1],buyTriggerTimeCopy[2])
+
+                                buyTriggerTimeCopy = None
+                                up5Copy = None
+
+                                return xt
+                            else:
+                                buyTriggerTimeCopy = None
+                                up5Copy = None
+                    else:
+                        buyTriggerTimeCopy = None
+                        up5Copy = None
         elif xspec == 42 :
             if buyTriggerTime!=None:
                 if lastm1.macd < 0 and lastm1.macd>prelastm1.macd:
@@ -5363,9 +5399,7 @@ def go19():
                     #pricelogging.info("tbuy spec=%s,time=%s,distance=%s,trigger=%s,pre1=%s,pre2=%s,last=%s" % (xspec,time.ctime(lastm1.time),distance,buyTriggerTime,prelastm1,prelastm2,lastm1))
                     if distance == 1:
                         if prelastm1.macd<prelastm2.macd and prelastm1.macd<lastm1.macd and lastm1.mn["5"]>prelastm1.mn["5"]:
-                            temp1 = stock1Min.checkdistance3bymacd(buyTriggerTime[2].time)
-                            if temp1.time-buyTriggerTime[2].time>20:
-                                return
+
                             xt = (43,buyTriggerTime[1],buyTriggerTime[2],kkdata[0])
                             xspec = None
                             buyTriggerTime = None
@@ -5387,7 +5421,8 @@ def go19():
                             if lastm1.mn["30"] > lastm1.mn["60"] and lastm1.mn["15"] > lastm1.mn["30"]:
                                 tmpmin = stock1Min.checkbymeancrossMin(2)
                                 tmpmax = stock1Min.checkbymeancrossMax(tmpmin[1])
-                                up5 = (stock1Min.checkvm(tmpmin[0].time),tmpmax[0].high,tmpmax)
+                                if tmpmin!=None:
+                                    up5 = (stock1Min.checkvm(tmpmin[0].time),tmpmax[0].high,tmpmax)
                             return xt
                     elif distance > 1:
                         pricelogging.info("tbuy spec=%s,time=%s,124,trigger=%s" % (xspec,time.ctime(lastm1.time),buyTriggerTime))
@@ -5457,6 +5492,9 @@ def go19():
             if ret[0] == 42 :
                 buyTriggerTime = ret
                 xspec = 42
+                buyTriggerTimeCopy = None
+                up5Copy = None
+
                 pricelogging.info("tbuy spec=%s,time=%s,trigger=%s" % (xspec,time.ctime(lastm1.time),buyTriggerTime))
             if ret[0] == 43 or ret[0] == 44:
                 buy1Time = current.time
@@ -5468,6 +5506,10 @@ def go19():
                 sellSpec = ret[1]
                 up5= None
                 up15 = None
+
+                buyTriggerTimeCopy = None
+                up5Copy = None
+
             if ret[0] == 45:
                 buy1Time = current.time
                 buy2Time = lastM5.time
@@ -5476,7 +5518,13 @@ def go19():
                 xspec = None
                 spec = ret[0]
                 sellSpec = ret[1]
+
+                buyTriggerTimeCopy = None
+                up5Copy = None
             if ret[0] == 52:
+                buyTriggerTimeCopy = buyTriggerTime
+                up5Copy = up5
+
                 xspec = None
                 sellSpec = None
                 spec = None
@@ -5484,6 +5532,7 @@ def go19():
                 up5 = None
                 buyTriggerTime = None
                 buyPrice3 = None
+
 
     if buyPrice1!=None:
         if up5==None:
@@ -5502,7 +5551,14 @@ def go19():
                 buyTriggerTime = tmp_buyTriggerTime
                 sellSpec = tmp_sellSpec
                 xspec = 51
+
+                buyTriggerTimeCopy = None
+                up5Copy = None
             else:
+                buyTriggerTimeCopy = buyTriggerTime
+                up5Copy = up5
+
+
                 sell(xret)
                 xspec = None
                 sellSpec = None
@@ -5511,6 +5567,8 @@ def go19():
                 up5 = None
                 buyTriggerTime = None
                 buyPrice3 = None
+
+
                 return
 
 
