@@ -5339,6 +5339,28 @@ def go19():
 
         pricelogging.info("xkline=%s",kkdata)
 
+        if xspec == 42:
+            if buyTriggerTime!=None:
+                if lastm1.mn["5"] > lastm1.mn["15"] and prelastm1.mn["5"] < prelastm1.mn["15"]:
+                    tmpx = stock1Min.checkbymeancrossCount(buyTriggerTime[2].time);
+
+                    if tmpx == 2:
+                        vmin,vmax = stock1Min.checkbymeancrossRange(buyTriggerTime[2].time)
+                        if vmin < buyTriggerTime[1]:
+                            pricelogging.info("tbuy spec=%s,time=%s,131,trigger=%s" % (xspec,time.ctime(lastm1.time),buyTriggerTime))
+                            xspec = None
+                            buyTriggerTime = None
+                        else:
+                            xt = (44,buyTriggerTime[1],buyTriggerTime[2],kkdata[1])
+                            xspec = None
+                            buyTriggerTime = None
+                            up5 = (vmin,vmax,vmax)
+                            return xt
+                    elif tmpx>2:
+                        pricelogging.info("tbuy spec=%s,time=%s,132,trigger=%s" % (xspec,time.ctime(lastm1.time),buyTriggerTime))
+                        xspec = None
+                        buyTriggerTime = None
+
         if xspec == None:
             if lastm1.macd<0:
                 if prelastm1.mn["5"] < prelastm1.mn["15"] and prelastm1.mn["15"] < prelastm1.mn["30"] and prelastm1.mn["30"] < prelastm1.mn["60"]:
@@ -5378,27 +5400,7 @@ def go19():
                     else:
                         buyTriggerTimeCopy = None
                         up5Copy = None
-        elif xspec == 42 :
-            if buyTriggerTime!=None:
-                if lastm1.mn["5"] > lastm1.mn["15"] and prelastm1.mn["5"] < prelastm1.mn["15"]:
-                    tmpx = stock1Min.checkbymeancrossCount(buyTriggerTime[2].time);
-
-                    if tmpx == 2:
-                        vmin,vmax = stock1Min.checkbymeancrossRange(buyTriggerTime[2].time)
-                        if vmin < buyTriggerTime[1]:
-                            pricelogging.info("tbuy spec=%s,time=%s,131,trigger=%s" % (xspec,time.ctime(lastm1.time),buyTriggerTime))
-                            xspec = None
-                            buyTriggerTime = None
-                        else:
-                            xt = (44,buyTriggerTime[1],buyTriggerTime[2],kkdata[1])
-                            xspec = None
-                            buyTriggerTime = None
-                            up5 = (vmin,vmax,vmax)
-                            return xt
-                    elif tmpx>2:
-                        pricelogging.info("tbuy spec=%s,time=%s,132,trigger=%s" % (xspec,time.ctime(lastm1.time),buyTriggerTime))
-                        xspec = None
-                        buyTriggerTime = None
+        #elif xspec == 42 :
 
                 '''
                 if lastm1.macd < 0 and lastm1.macd>prelastm1.macd:
