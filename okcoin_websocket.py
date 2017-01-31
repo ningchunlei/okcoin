@@ -5533,6 +5533,15 @@ def go19():
                 buyTriggerTime = None
                 buyPrice3 = None
 
+            if ret[0] == 46:
+                buy1Time = current.time
+                buy2Time = lastM5.time
+                buy(ret)
+                buyTriggerTime = ret
+                xspec = None
+                spec = ret[0]
+                sellSpec = ret[1]
+
 
     if buyPrice1!=None:
         if up5==None:
