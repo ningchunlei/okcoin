@@ -5545,7 +5545,7 @@ def go19():
                     if max(lastm1.time-temp1.time,lastm1.time-temp2.time) > 15 :
                         return 51
 
-        if prelastm1.mn["5"]>prelastm1.mn["15"] and lastm1.mn["5"]<lastm1.mn["15"] and up5==None and buyTriggerTime!=None:
+        if prelastm1.mn["5"]>prelastm1.mn["15"] and lastm1.mn["5"]<lastm1.mn["15"] and up5==None and buyTriggerTime!=None and lastm1.macd<0:
             tmpx = stock1Min.checkbymeancrossCount(buyTriggerTime[2].time);
             if tmpx==1:
                 return 51
