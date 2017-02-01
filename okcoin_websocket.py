@@ -5339,9 +5339,9 @@ def go19():
 
         pricelogging.info("xkline=%s",kkdata)
 
-        '''
+
         if xspec == 42:
-            if buyTriggerTime!=None:
+            if buyTriggerTime!=None and lastM5.macd<0:
                 if lastm1.mn["5"] > lastm1.mn["15"] and prelastm1.mn["5"] < prelastm1.mn["15"]:
                     tmpx = stock1Min.checkbymeancrossCount(buyTriggerTime[2].time);
 
@@ -5361,7 +5361,7 @@ def go19():
                         pricelogging.info("tbuy spec=%s,time=%s,132,trigger=%s" % (xspec,time.ctime(lastm1.time),buyTriggerTime))
                         xspec = None
                         buyTriggerTime = None
-        '''
+
         if xspec == 51 and up5==None:
             if lastm1.macd<0:
                 if prelastm1.mn["5"] < prelastm1.mn["15"] and prelastm1.mn["15"] < prelastm1.mn["30"] and prelastm1.mn["30"] < prelastm1.mn["60"]:
@@ -5383,8 +5383,8 @@ def go19():
                     if lastm1.mn["5"]>lastm1.mn["15"]:
                         return (42,stock1Min.checkvm(kkdata[1].time)-3,kkdata[1])
             if buyTriggerTimeCopy!=None:
-                if prelastm1.mn["5"] < prelastm1.mn["15"] and lastm1.mn["5"] > lastm1.mn["15"]:
-                    if lastm1.mn["5"] > lastm1.mn["60"] and lastM5.macd>0:
+                if lastm1.mn["5"] > lastm1.mn["15"] and lastm1.macd>0:
+                    if lastm1.mn["5"] > lastm1.mn["60"] and (lastM5.macd>0 or (lastM5.mn["5"]>lastM5.mn["15"] and lastM5.mn["15"] > lastM5.mn["60"])):
                         if up5!=None:
                             if lastm1.close > up5[0]:
                                 up5 = up5Copy
@@ -5412,7 +5412,7 @@ def go19():
                     else:
                         buyTriggerTimeCopy = None
                         up5Copy = None
-        elif xspec == 42 :
+        elif xspec == 42 and lastM5.macd>0 :
                 if lastm1.macd < 0 and lastm1.macd>prelastm1.macd:
                     distance = stock1Min.checkdistance(buyTriggerTime[2].time)
                     #pricelogging.info("tbuy short spec=%s,time=%s,distance=%s,trigger=%s,pre1=%s,pre2=%s,last=%s" % (xspec,time.ctime(lastm1.time),distance,buyTriggerTime,prelastm1,prelastm2,lastm1))
