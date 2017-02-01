@@ -5496,9 +5496,13 @@ def go19():
             return 110
 
         if prelastm1.mn["5"]>prelastm1.mn["15"] and prelastm1.mn["15"] > prelastm1.mn["30"] and prelastm1.mn["15"] > prelastm1.mn["60"]:
-            if lastm1.mn["5"]<lastm1.mn["15"] and lastm1.close>buyPrice1:
+            if lastm1.mn["5"]<lastm1.mn["15"]:
+
                 temp1 = stock1Min.checkdistance3bymacd(buyTriggerTime[2].time)
                 temp2 = stock1Min.checkdistance4bymean(buyTriggerTime[2].time,2)
+
+                pricelogging.info("xbuy 51 time=%s,tmp1=%s,temp2=%s" % (time.ctime(lastm1.time),temp1,temp2))
+
                 if temp1!=None and temp2!=None:
                     if max(lastm1.time-temp1.time,lastm1.time-temp2.time) > 15 :
                         return 51
