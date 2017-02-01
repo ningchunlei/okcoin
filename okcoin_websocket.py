@@ -5362,6 +5362,17 @@ def go19():
                         xspec = None
                         buyTriggerTime = None
         '''
+        if xspec == 51 and up5==None:
+            if lastm1.macd<0:
+                if prelastm1.mn["5"] < prelastm1.mn["15"] and prelastm1.mn["15"] < prelastm1.mn["30"] and prelastm1.mn["30"] < prelastm1.mn["60"]:
+                    if lastm1.mn["5"]>lastm1.mn["15"]:
+                        return (42,stock1Min.checkvm(kkdata[0].time)-3,kkdata[0])
+            else:
+                if prelastm1.mn["5"] < prelastm1.mn["15"] and prelastm1.mn["15"] < prelastm1.mn["30"] and prelastm1.mn["30"] < prelastm1.mn["60"]:
+                    if lastm1.mn["5"]>lastm1.mn["15"]:
+                        return (42,stock1Min.checkvm(kkdata[1].time)-3,kkdata[1])
+
+
         if xspec == None:
             if lastm1.macd<0:
                 if prelastm1.mn["5"] < prelastm1.mn["15"] and prelastm1.mn["15"] < prelastm1.mn["30"] and prelastm1.mn["30"] < prelastm1.mn["60"]:
@@ -5458,6 +5469,30 @@ def go19():
                         pricelogging.info("tbuy spec=%s,time=%s,124,trigger=%s" % (xspec,time.ctime(lastm1.time),buyTriggerTime))
                         xspec = None
                         buyTriggerTime = None
+
+                elif lastm1.macd > 0 and lastm1.macd>prelastm1.macd and up5==None:
+                    distance = stock1Min.checkdistance(buyTriggerTime[2].time)
+                    if distance == 2:
+                        if valueMin(lastm1) > buyTriggerTime[1] and lastm1.mn["5"] > lastm1.mn["15"]:
+                            xt = (44,buyTriggerTime[1],buyTriggerTime[2],kkdata[1])
+                            xspec = None
+                            buyTriggerTime = None
+
+                            if lastm1.mn["30"] > lastm1.mn["60"] and lastm1.mn["15"] > lastm1.mn["30"]:
+                                tmpmin = stock1Min.checkbymeancrossMin(2)
+                                tmpmax = stock1Min.checkbymeancrossMax(tmpmin[1])
+                                if tmpmin!=None and tmpmin[0]!=None:
+                                    up5 = (stock1Min.checkvm(tmpmin[0].time)-2,tmpmax[0].high,tmpmax)
+                            return xt
+                        if valueMin(lastm1) < buyTriggerTime[1]:
+                            pricelogging.info("tbuy spec=%s,time=%s,119,trigger=%s" % (xspec,time.ctime(lastm1.time),buyTriggerTime))
+                            xspec = None
+                            buyTriggerTime = None
+                    elif distance > 2:
+                        pricelogging.info("tbuy spec=%s,time=%s,124,trigger=%s" % (xspec,time.ctime(lastm1.time),buyTriggerTime))
+                        xspec = None
+                        buyTriggerTime = None
+
                 elif up5!=None:
                     if lastm1.mn["5"] > lastm1.mn["15"] and prelastm1.mn["5"] < prelastm1.mn["15"]:
                         tmpmin = stock1Min.checkbymeancrossMin(2)
