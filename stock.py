@@ -1792,7 +1792,6 @@ class stock(object):
 
 
 
-
     def checkdistance3bymacd(self,indexTime):
         count = 1
         xcount = 0

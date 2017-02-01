@@ -5482,6 +5482,11 @@ def go19():
             if distance == 2:
                 return (min(valueMin(kkdata[1]),kkdata[1].dn), min(valueMax(kkdata[2]),kkdata[1].up), min(valueMax(kkdata[2]),kkdata[1].up) + kkdata[1].up-kkdata[1].boll)
 
+        if lastm1.mn["5"] > lastm1.mn["15"] and prelastm1.mn["5"] < prelastm1.mn["15"]:
+            tmpx = stock1Min.checkbymeancrossCount(buyTriggerTime[2].time);
+            if tmpx == 2:
+                vmin,vmax = stock1Min.checkbymeancrossRange(buyTriggerTime[2].time)
+                return (vmin,vmax,vmax)
 
     def cansell3(xt,kline,prekline):
         global sellSpec,spec,up15,up5,buyTriggerTime,buyPrice1
@@ -5571,6 +5576,7 @@ def go19():
                 xspec = None
                 spec = ret[0]
                 sellSpec = ret[1]
+        return
 
 
     if buyPrice1!=None:
