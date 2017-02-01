@@ -5531,6 +5531,11 @@ def go19():
                 up5Copy = None
 
                 pricelogging.info("tbuy spec=%s,time=%s,trigger=%s" % (xspec,time.ctime(lastm1.time),buyTriggerTime))
+
+                ret = canb3(None,lastm1,prelastm1)
+                if ret==None:
+                    return
+
             if ret[0] == 43 or ret[0] == 44:
                 buy1Time = current.time
                 buy2Time = lastM5.time
