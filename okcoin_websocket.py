@@ -5313,7 +5313,7 @@ def go19():
                 if xdata[1][1][0] < stock1Min.lastKline().close and abs(xdata[1][1][0]-stock1Min.lastKline().close)<2:
                     return
             '''
-        pricelogging.info("tbuy-%s-%s,sell-%s,diff=%s,time=%s,up5=%s" % (tag,buyPrice1,stock1Min.lastKline().close,(stock1Min.lastKline().close-buyPrice1),time.ctime(stock1Min.lastKline().time),up5))
+        pricelogging.info("tbuy-%s-%s,sell-%s,diff=%s,time=%s,up5=%s" % (tag,buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time),up5))
         buyPrice1 = None
         spec = None
         buy1Time = None
@@ -5545,14 +5545,17 @@ def go19():
                     if max(lastm1.time-temp1.time,lastm1.time-temp2.time) > 15 :
                         return 51
 
-
+        if prelastm1.mn["5"]>prelastm1.mn["15"] and lastm1.mn["5"]<lastm1.mn["15"] and up5==None and buyTriggerTime!=None:
+            tmpx = stock1Min.checkbymeancrossCount(buyTriggerTime[2].time);
+            if tmpx==1:
+                return 51
 
 
         if up5!=None:
             if lastm1.close<up5[0] and lastm1.mn["5"] < lastm1.mn["60"]:
                 return 52
 
-            if prelastm1.mn["30"] > prelastm1.mn["60"] and prelastm1.mn["5"]>prelastm1.mn["30"] and prelastm1.mn["15"] > prelastm1.mn["30"] and lastm1.mn["5"]<lastm1.mn["30"] and lastm1.close<lastm1.mn["60"]:
+            if prelastm1.mn["30"] > prelastm1.mn["60"] and prelastm1.mn["5"]>prelastm1.mn["30"] and prelastm1.mn["15"] > prelastm1.mn["30"] and lastm1.mn["5"]<lastm1.mn["30"]:
                 return 51
 
             '''
