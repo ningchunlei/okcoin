@@ -5448,7 +5448,7 @@ def go19():
                                 tmpmin = stock1Min.checkbymeancrossMin(2)
                                 tmpmax = stock1Min.checkbymeancrossMax(tmpmin[1])
                                 if tmpmin!=None and tmpmin[0]!=None:
-                                    up5 = (stock1Min.checkvm(tmpmin[0].time),tmpmax[0].high,tmpmax)
+                                    up5 = (stock1Min.checkvm(tmpmin[0].time)-2,tmpmax[0].high,tmpmax)
                             return xt
                         if valueMin(lastm1) < buyTriggerTime[1]:
                             pricelogging.info("tbuy spec=%s,time=%s,119,trigger=%s" % (xspec,time.ctime(lastm1.time),buyTriggerTime))
@@ -5463,7 +5463,7 @@ def go19():
                         tmpmin = stock1Min.checkbymeancrossMin(2)
                         if lastm1.close > up5[0]:
                             tmpmax = stock1Min.checkbymeancrossMax(tmpmin[1])
-                            up5 = (stock1Min.checkvm(tmpmin[0].time),tmpmax[0].high,tmpmax)
+                            up5 = (stock1Min.checkvm(tmpmin[0].time)-2,tmpmax[0].high,tmpmax)
                             return (45,buyTriggerTime[1],buyTriggerTime[2],kkdata[1])
 
                     '''
@@ -5480,7 +5480,7 @@ def go19():
         if lastm1.macd>0:
             distance = stock1Min.checkdistance(buyTriggerTime[2].time)
             if distance == 2:
-                return (min(valueMin(kkdata[1]),kkdata[1].dn), min(valueMax(kkdata[2]),kkdata[1].up), min(valueMax(kkdata[2]),kkdata[1].up) + kkdata[1].up-kkdata[1].boll)
+                return (min(valueMin(kkdata[1]),kkdata[1].dn)-2, min(valueMax(kkdata[2]),kkdata[1].up), min(valueMax(kkdata[2]),kkdata[1].up) + kkdata[1].up-kkdata[1].boll)
 
         if lastm1.mn["5"] > lastm1.mn["15"] and prelastm1.mn["5"] < prelastm1.mn["15"]:
             tmpx = stock1Min.checkbymeancrossCount(buyTriggerTime[2].time);
