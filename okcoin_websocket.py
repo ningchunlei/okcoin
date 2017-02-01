@@ -5620,6 +5620,12 @@ def go19():
                 xspec = None
                 spec = ret[0]
                 sellSpec = ret[1]
+
+        if up5==None:
+            ret = canbuy4()
+            if ret!=None:
+                up5 = ret
+                pricelogging.info("tbuy,sellspec=%s,up5=%s",sellSpec,up5)
         return
 
 
