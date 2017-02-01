@@ -5495,7 +5495,7 @@ def go19():
         if lastm1.close<sellSpec:
             return 110
 
-        if prelastm1.mn["5"]>prelastm1.mn["15"] and prelastm1.mn["15"] > prelastm1.mn["30"] and prelastm1.mn["30"] > prelastm1.mn["60"]:
+        if prelastm1.mn["5"]>prelastm1.mn["15"] and prelastm1.mn["15"] > prelastm1.mn["30"] and prelastm1.mn["15"] > prelastm1.mn["60"]:
             if lastm1.mn["5"]<lastm1.mn["15"] and lastm1.close>buyPrice1:
                 temp1 = stock1Min.checkdistance3bymacd(buyTriggerTime[2].time)
                 temp2 = stock1Min.checkdistance4bymean(buyTriggerTime[2].time,2)
