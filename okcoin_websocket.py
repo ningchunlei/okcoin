@@ -5512,6 +5512,9 @@ def go19():
     def canbuy4():
         global xspec,buyTriggerTime
         kkdata = stock1Min.checkMacdUp()
+
+        if buyTriggerTime==None:
+            return
         if lastm1.macd>0:
             distance = stock1Min.checkdistance(buyTriggerTime[2].time)
             if distance == 2:
