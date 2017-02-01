@@ -5552,7 +5552,7 @@ def go19():
             if lastm1.close<up5[0] and lastm1.mn["5"] < lastm1.mn["60"]:
                 return 52
 
-            if prelastm1.mn["30"] > prelastm1.mn["60"] and prelastm1.mn["5"]>prelastm1.mn["30"] and prelastm1.mn["15"] > prelastm1.mn["30"] and lastm1.mn["5"]<lastm1.mn["30"]:
+            if prelastm1.mn["30"] > prelastm1.mn["60"] and prelastm1.mn["5"]>prelastm1.mn["30"] and prelastm1.mn["15"] > prelastm1.mn["30"] and lastm1.mn["5"]<lastm1.mn["30"] and lastm1.close<lastm1.mn["60"]:
                 return 51
 
             '''
