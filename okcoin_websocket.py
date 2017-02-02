@@ -5339,7 +5339,7 @@ def go19():
 
         pricelogging.info("xkline=%s",kkdata)
 
-
+        '''
         if xspec == 42:
             if buyTriggerTime!=None and lastM5.macd<0:
                 if lastm1.mn["5"] > lastm1.mn["15"] and prelastm1.mn["5"] < prelastm1.mn["15"]:
@@ -5361,7 +5361,7 @@ def go19():
                         pricelogging.info("tbuy spec=%s,time=%s,132,trigger=%s" % (xspec,time.ctime(lastm1.time),buyTriggerTime))
                         xspec = None
                         buyTriggerTime = None
-
+        '''
         if xspec == 51 and up5==None:
             if lastm1.macd<0:
                 if prelastm1.mn["5"] < prelastm1.mn["15"] and prelastm1.mn["15"] < prelastm1.mn["30"] and prelastm1.mn["30"] < prelastm1.mn["60"]:
@@ -5412,7 +5412,7 @@ def go19():
                     else:
                         buyTriggerTimeCopy = None
                         up5Copy = None
-        elif xspec == 42 and lastM5.macd>0 :
+        elif xspec == 42:
                 if lastm1.macd < 0 and lastm1.macd>prelastm1.macd:
                     distance = stock1Min.checkdistance(buyTriggerTime[2].time)
                     #pricelogging.info("tbuy short spec=%s,time=%s,distance=%s,trigger=%s,pre1=%s,pre2=%s,last=%s" % (xspec,time.ctime(lastm1.time),distance,buyTriggerTime,prelastm1,prelastm2,lastm1))
@@ -5542,7 +5542,7 @@ def go19():
                 pricelogging.info("xbuy 51 time=%s,tmp1=%s,temp2=%s" % (time.ctime(lastm1.time),temp1,temp2))
 
                 if temp1!=None and temp2!=None:
-                    if max(lastm1.time-temp1.time,lastm1.time-temp2.time) > 15 :
+                    if max(lastm1.time-temp1.time,lastm1.time-temp2.time) > 15*60 :
                         return 51
 
         if prelastm1.mn["5"]>prelastm1.mn["15"] and lastm1.mn["5"]<lastm1.mn["15"] and up5==None and buyTriggerTime!=None and lastm1.macd<0:
@@ -5794,14 +5794,14 @@ def go20():
         if prelastM5.macd>=0:
             if lastm1.mn["5"] < lastm1.mn["15"] and lastm1.mn["15"]-lastm1.mn["5"] < 1.5 and lastm1.macd>prelastm1.macd:
                 tempmin = stock1Min.checkbymeancrossMin(1)
-                return (74,stock1Min.checkvm(tempmin[0].time),tempmin[0],lastm1.high)
+                return (74,tempmin[0].low,tempmin[0],lastm1.up)
             if lastm1.mn["5"] > lastm1.mn["15"] and prelastm1.mn["5"] < prelastm1.mn["5"] and lastm1.macd>prelastm1.macd:
                 tempmin = stock1Min.checkbymeancrossMin(2)
-                return (74,stock1Min.checkvm(tempmin[0].time),tempmin[0],lastm1.high)
+                return (74,tempmin[0].low,tempmin[0],lastm1.up)
         else:
             if lastm1.mn["5"] > lastm1.mn["15"] and prelastm1.mn["5"] < prelastm1.mn["5"] and lastm1.macd>prelastm1.macd:
                 tempmin = stock1Min.checkbymeancrossMin(2)
-                return (73,tempmin[0].low,tempmin[0],lastm1.high)
+                return (73,tempmin[0].low,tempmin[0],lastm1.up)
 
 
     def cansell3(xt,kline,prekline):
@@ -5869,6 +5869,8 @@ def go20():
                     sellSpec = None
                     spec = None
                     return
+                else:
+                    xspec=None
             if ret == "DIS":
                 xspec=None
             return
