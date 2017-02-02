@@ -5788,7 +5788,8 @@ def go20():
 
         kkdata = stock1Min.checkMacdUp()
 
-        pricelogging.info("xkline=%s",kkdata)
+        pricelogging.info("xkline=%s,current=%s",kkdata,current)
+
 
         if prelastM5.macd>0:
             if lastm1.mn["5"] < lastm1.mn["15"] and lastm1.mn["15"]-lastm1.mn["5"] < 1.5 and lastm1.macd>prelastm1.macd:
