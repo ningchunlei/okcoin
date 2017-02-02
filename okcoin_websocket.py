@@ -5794,10 +5794,10 @@ def go20():
         if prelastM5.macd>0:
             if lastm1.mn["5"] < lastm1.mn["15"] and lastm1.mn["15"]-lastm1.mn["5"] < 1.5 and lastm1.macd>prelastm1.macd:
                 tempmin = stock1Min.checkbymeancrossMin(1)
-                return (74,stock1Min.checkvm(tempmin[0]),tempmin[0],lastm1.high)
+                return (74,stock1Min.checkvm(tempmin[0].time),tempmin[0],lastm1.high)
             if lastm1.mn["5"] > lastm1.mn["15"] and prelastm1.mn["5"] < prelastm1.mn["5"] and lastm1.macd>prelastm1.macd:
                 tempmin = stock1Min.checkbymeancrossMin(2)
-                return (74,stock1Min.checkvm(tempmin[0]),tempmin[0],lastm1.high)
+                return (74,stock1Min.checkvm(tempmin[0].time),tempmin[0],lastm1.high)
         else:
             if lastm1.mn["5"] > lastm1.mn["15"] and prelastm1.mn["5"] < prelastm1.mn["5"] and lastm1.macd>prelastm1.macd:
                 tempmin = stock1Min.checkbymeancrossMin(2)
@@ -5825,7 +5825,7 @@ def go20():
                 if buyTriggerTime!=None and buyTriggerTimeCopy!=None and buyTriggerTimeCopy[1] > buyTriggerTime[1]:
                     buy1Time = current.time
                     buy2Time = lastM5.time
-                    buy(ret)
+                    buy(xspec)
                     xspec = None
                     buyTriggerTime = buyTriggerTimeCopy
                 else:
@@ -5840,6 +5840,9 @@ def go20():
                 if buyTriggerTime==None:
                     buyTriggerTime = ret
                     return
+
+                pricelogging.info("tbuy spec=73,time=%s" % lastm1)
+
                 xspec = 73
                 buyTriggerTimeCopy = ret
             if ret[1] == 74:
