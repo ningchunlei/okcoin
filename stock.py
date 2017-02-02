@@ -1692,6 +1692,8 @@ class stock(object):
     def checkvm(self,indexTime):
         count = 1
         while True:
+            if type(self.stocks[self.cursor-count])==int:
+                pricelogging.info("xcount=%s,indextime=%s" % (count,indexTime))
             if self.stocks[self.cursor-count].time == indexTime:
                 break
             count +=1
@@ -1720,6 +1722,37 @@ class stock(object):
                 xcount += 1
             count +=1
         return xcount;
+
+
+    def checkbymeancrossCount2(self,indexTime):
+        xcount = 0
+        count = 1
+
+        def confirm(fcount):
+            while True:
+                if fcount == 0:
+                    break
+                if self.stocks[self.cursor-fcount].close > self.stocks[self.cursor-fcount].mn["5"] and \
+                    self.stocks[self.cursor-fcount].macd > self.stocks[self.cursor-fcount-1].macd:
+                    return "BUY" #buy
+
+                if self.stocks[self.cursor-fcount].mn["5"]<self.stocks[self.cursor-fcount].mn["15"]:
+                    return "DIS" #dis
+                fcount = fcount - 1
+
+            return "DIS"
+
+
+        while True:
+            if self.stocks[self.cursor-count].time == indexTime:
+                break
+            if self.stocks[self.cursor-count].mn["5"] > self.stocks[self.cursor-count].mn["15"] and self.stocks[self.cursor-count-1].mn["5"] < self.stocks[self.cursor-count-1].mn["15"]:
+                ret = confirm(count+1)
+                if ret=="BUY":
+                    xcount += 1
+            count +=1
+        return xcount;
+
 
     def checkbymeancrossRange(self,indexTime):
         xcount = 0
@@ -1820,6 +1853,41 @@ class stock(object):
                 return self.stocks[self.cursor-count]
             count +=1
         return None
+
+
+    def checkmax2(self,indexTime,xprice):
+        count = 1
+        def valueMax(kline):
+            if kline.close>kline.open:
+                return kline.close
+            return kline.open
+
+        def valueMin(kline):
+            if kline.close<kline.open:
+                return kline.close
+            return kline.open
+
+        while True:
+            if self.stocks[self.cursor-count].time == indexTime:
+                break
+            if valueMax(self.stocks[self.cursor-count]) > xprice:
+                return True
+            count +=1
+        return False;
+
+
+    def checkmin2(self,indexTime):
+        count = 1
+        tempmin = None
+        while True:
+            if self.stocks[self.cursor-count].time == indexTime:
+                break
+            if tempmin ==None:
+                tempmin = self.stocks[self.cursor-count]
+            if tempmin.low > self.stocks[self.cursor-count].low:
+                tempmin = self.stocks[self.cursor-count]
+            count +=1
+        return tempmin;
 
     def checkdistance2(self,indexTime):
         count = 1
