@@ -5847,7 +5847,7 @@ def go20():
 
                 xspec = 73
                 buyTriggerTimeCopy = ret
-            if ret[1] == 74:
+            if ret[0] == 74:
                 buy1Time = current.time
                 buy2Time = lastM5.time
                 buy(ret)
