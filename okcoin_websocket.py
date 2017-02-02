@@ -5761,7 +5761,6 @@ def go20():
         xkdj = None
         upToDown = None
         sellSpec = None
-        buyTriggerTime = None
         m5data = None
         kk1pos = None
         kk5pos = None
@@ -5808,6 +5807,7 @@ def go20():
         global sellSpec,spec,up15,up5,buyTriggerTime,buyPrice1
 
         kkdata = stock1Min.checkMacdUp()
+
         if lastm1.close<buyTriggerTime[1]:
             return 110
 
