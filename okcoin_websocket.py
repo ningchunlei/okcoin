@@ -5444,7 +5444,10 @@ def go19():
                         pricelogging.info("tbuy spec=%s,time=%s,122,trigger=%s" % (xspec,time.ctime(lastm1.time),buyTriggerTime))
                         xspec = None
                         buyTriggerTime = None
-
+                if lastm1.mn["5"] < lastm1.mn["15"]:
+                    pricelogging.info("tbuy spec=%s,time=%s,125,trigger=%s" % (xspec,time.ctime(lastm1.time),buyTriggerTime))
+                    xspec = None
+                    buyTriggerTime = None
         elif xspec == 51:
             if buyTriggerTime!=None:
                 if lastm1.macd < 0 and lastm1.macd>prelastm1.macd and up5==None:
