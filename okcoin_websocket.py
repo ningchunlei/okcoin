@@ -5791,7 +5791,7 @@ def go20():
         pricelogging.info("xkline=%s,current=%s",kkdata,current)
 
 
-        if prelastM5.macd>0:
+        if prelastM5.macd>=0:
             if lastm1.mn["5"] < lastm1.mn["15"] and lastm1.mn["15"]-lastm1.mn["5"] < 1.5 and lastm1.macd>prelastm1.macd:
                 tempmin = stock1Min.checkbymeancrossMin(1)
                 return (74,stock1Min.checkvm(tempmin[0].time),tempmin[0],lastm1.high)
