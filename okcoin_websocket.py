@@ -5830,8 +5830,10 @@ def go20():
                     buyTriggerTime = buyTriggerTimeCopy
                 else:
                     xspec = None
+                    pricelogging.info("tbuy dis spec=73,time=%s,buytrigger=%s" % lastm1,buyTriggerTime)
             else:
                 xspec = None
+                pricelogging.info("tbuy dis spec=73,time=%s,buytrigger=%s" % lastm1,buyTriggerTime)
             return
 
         ret = canb3(None,lastm1,prelastm1)
@@ -5841,7 +5843,7 @@ def go20():
                     buyTriggerTime = ret
                     return
 
-                pricelogging.info("tbuy spec=73,time=%s" % lastm1)
+                pricelogging.info("tbuy spec=73,time=%s,buytrigger=%s" % lastm1,buyTriggerTime)
 
                 xspec = 73
                 buyTriggerTimeCopy = ret
