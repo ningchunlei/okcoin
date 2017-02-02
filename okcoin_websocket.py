@@ -5413,7 +5413,7 @@ def go19():
                         buyTriggerTimeCopy = None
                         up5Copy = None
         elif xspec == 42:
-                if lastm1.macd < 0 and lastm1.macd>prelastm1.macd:
+                if lastm1.macd < 0 and lastm1.macd>prelastm1.macd and lastm1.close>lastm1.mn["5"]:
                     distance = stock1Min.checkdistance(buyTriggerTime[2].time)
                     #pricelogging.info("tbuy short spec=%s,time=%s,distance=%s,trigger=%s,pre1=%s,pre2=%s,last=%s" % (xspec,time.ctime(lastm1.time),distance,buyTriggerTime,prelastm1,prelastm2,lastm1))
                     if distance == 1:
@@ -5431,7 +5431,7 @@ def go19():
                         xspec = None
                         buyTriggerTime = None
 
-                if lastm1.macd>0:
+                if lastm1.macd>0 and lastm1.close>lastm1.mn["5"]:
                     distance = stock1Min.checkdistance(buyTriggerTime[2].time)
                     #pricelogging.info("tbuy spec=%s,time=%s,distance=%s,trigger=%s,pre1=%s,pre2=%s,last=%s" % (xspec,time.ctime(lastm1.time),distance,buyTriggerTime,prelastm1,prelastm2,lastm1))
                     if distance == 1:
