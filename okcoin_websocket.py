@@ -5570,6 +5570,26 @@ def go19():
     pricelogging.info("xkline=%s",lastm1)
 
     if buyPrice1==None:
+
+        if xspec == 98:
+            if lastm1.mn["5"]<lastm1.mn["15"]:
+                xspec = None
+                m5data= None
+
+                xspec = None
+                sellSpec = None
+                spec = None
+                up15 = None
+                up5 = None
+                buyTriggerTime = None
+                buyPrice3 = None
+            else:
+                if lastm1.close>m5data:
+                    buy1Time = current.time
+                    buy2Time = lastM5.time
+                    buy(buyTriggerTime)
+            return
+
         ret = canb3(None,lastm1,prelastm1)
         if ret!=None:
             if ret[0] == 42 :
@@ -5585,11 +5605,10 @@ def go19():
                     return
 
             if ret[0] == 43 or ret[0] == 44:
-                buy1Time = current.time
-                buy2Time = lastM5.time
-                buy(ret)
+                xspec = 98
+                m5data = stock1Min.checkvmMax(lastm1.time)
+
                 buyTriggerTime = ret
-                xspec = None
                 spec = ret[0]
                 sellSpec = ret[1]
                 up5= None
@@ -5597,6 +5616,8 @@ def go19():
 
                 buyTriggerTimeCopy = None
                 up5Copy = None
+
+                return
 
             if ret[0] == 45:
                 buy1Time = current.time
