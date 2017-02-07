@@ -284,6 +284,12 @@ class stock(object):
         self.mean2(len(klines)-1,len(klines),30)
         self.mean2(len(klines)-1,len(klines),60)
 
+        self.mean2(len(klines)-1,len(klines),10)
+        self.mean2(len(klines)-1,len(klines),25)
+        self.mean2(len(klines)-1,len(klines),50)
+
+
+
     def fetchTradeLine(self):
         klines = Client.fetchTrade(self._symbol)
         self.stocks=[0]*2*self._maxLength
@@ -296,6 +302,10 @@ class stock(object):
         self.mean2(len(klines)-1,len(klines),15)
         self.mean2(len(klines)-1,len(klines),30)
         self.mean2(len(klines)-1,len(klines),60)
+
+        self.mean2(len(klines)-1,len(klines),10)
+        self.mean2(len(klines)-1,len(klines),25)
+        self.mean2(len(klines)-1,len(klines),50)
 
 
     def updateKLine(self,kline):
@@ -313,6 +323,10 @@ class stock(object):
         self.mean2(self.cursor,300,15)
         self.mean2(self.cursor,300,30)
         self.mean2(self.cursor,300,60)
+
+        self.mean2(self.cursor,300,10)
+        self.mean2(self.cursor,300,25)
+        self.mean2(self.cursor,300,50)
 
     def canBuy(self):
         direction = self.stocks[self.cursor-1].j - self.stocks[self.cursor-1].k
