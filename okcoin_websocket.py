@@ -5869,14 +5869,14 @@ def go21():
 
         if prelastm1.close < prelastm1.mn["25"]:
             if prelastm2.mn["5"] < prelastm2.mn["10"]:
-                if prelastm1.mn["5"] > prelastm1.mn["10"] and prelastm1.macd > prelastm2.macd:
+                if prelastm1.mn["5"] > prelastm1.mn["10"]:
                     if prelastm1.macd<0:
                         return (42,stock1Min.checkvm(prelastm1.time),kkdata[0])
                     else:
                         return (42,stock1Min.checkvm(prelastm1.time),kkdata[1])
         else:
             if prelastm2.mn["5"] < prelastm2.mn["10"]:
-                if prelastm1.mn["5"] > prelastm1.mn["10"] and prelastm1.macd > prelastm2.macd:
+                if prelastm1.mn["5"] > prelastm1.mn["10"]:
                     if prelastm1.macd<0:
                         return (43,stock1Min.checkvm(prelastm1.time),kkdata[0])
                     else:
