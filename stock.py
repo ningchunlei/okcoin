@@ -1726,6 +1726,25 @@ class stock(object):
         return min(v1,v2,v3,v4)
 
 
+
+    def checkvmMax(self,indexTime):
+        count = 1
+        while True:
+            if type(self.stocks[self.cursor-count])==int:
+                pricelogging.info("xcount=%s,indextime=%s" % (count,indexTime))
+            if self.stocks[self.cursor-count].time == indexTime:
+                break
+            count +=1
+
+
+        v1 = self.stocks[self.cursor-count].high
+        v2 = self.stocks[self.cursor-count-1].high
+        v3 = self.stocks[self.cursor-count-2].high
+        v4 = self.stocks[self.cursor-count-3].high
+
+        return max(v1,v2,v3,v4)
+
+
     def checkbymeancrossCount(self,indexTime):
         xcount = 0
         count = 1
