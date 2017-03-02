@@ -6216,6 +6216,226 @@ def go20():
                 return
 
 
+def go22():
+    global buyPrice1,buyPrice2,bidsList,lastbuyTime,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
+    global fenx1,fenx5,lastfenx1,lastfenx5,buttomDown,buttomDownKline,up5Copy,buyTriggerTimeCopy
+    m5kdjzero,m5kdjbignext = stock5Min.forecastKDJClose()
+    m5macdZero,m5macdbignext = stock5Min.forecastMacd()
+
+    lastM5 = stock5Min.lastKline()
+    prelastM5 = stock5Min.preLastKline()
+    pre2lastM5 = stock5Min.pre2LastKline()
+    current = stock1Min.lastKline()
+    lastm1 = stock1Min.preLastKline()
+    prelastm1 = stock1Min.pre2LastKline()
+    prelastm2 = stock1Min.preMyLastKline(3)
+    lastM15 = stock15Min.lastKline()
+
+    lastM15 = stock15Min.lastKline()
+    prelastM15 = stock15Min.preLastKline()
+    pre2lastM15 = stock15Min.pre2LastKline()
+
+    if current.time-lastM5.time>=5*60:
+        return
+
+    if current.time == buy1Time:
+        return
+
+
+    def valueMax(kline):
+        if kline.close>kline.open:
+            return kline.close
+        return kline.open
+
+    def valueMin(kline):
+        if kline.close<kline.open:
+            return kline.close
+        return kline.open
+
+
+    def buy(tag):
+        global buyPrice1,lastbuyTime,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
+
+        if buyPrice1==None:
+            buy1Time = current.time
+            buy2Time = lastM5.time
+            buyPrice1 = current.close
+            m5data = None
+            buyTriggerTime = None
+            pricelogging.info("tbuy-%s,-%s,time=%s,deciderTime=%s,spec=%s" % (tag,buyPrice1,time.ctime(stock1Min.lastKline().time),time.ctime(buy1Time),spec))
+            return
+        else:
+            pricelogging.info("tbuy-%s-buy-disable,time=%s" % (tag,time.ctime(stock1Min.lastKline().time)) )
+
+
+    def sell(tag):
+        global buyPrice1,lastbuyTime,buyPrice2,bidsList,asksList,buy1Time,buy2Time,buyTriggerTime,buyPrice3,downToUp,upToDown,middleToUp,spec,xspec,sellSpec,xbuy,xkdj,up15,up5,kk1pos,kk5pos,kk15pos,m5data
+        if buyPrice1==None:
+            pricelogging.info("tbuy-%s-sell-disable,time=%s" % (tag,time.ctime(stock1Min.lastKline().time)) )
+            return
+        '''
+        xzs = zs(xdata)
+        xspec = True
+        if tag!=90 and spec==43 and stock1Min.lastKline().close-buyPrice1<0:
+            if lastm1.macd>0:
+                if xdata[0][2] == "DOWN":
+                    if xdata[2][1][0] < stock1Min.lastKline().close and abs(xdata[2][1][0]-stock1Min.lastKline().close)<2:
+                        return
+                elif xdata[0][2] == "UP":
+                    if xdata[1][1][0] < stock1Min.lastKline().close and abs(xdata[1][1][0]-stock1Min.lastKline().close)<2:
+                        return
+
+        if tag!=90 and spec!=43 and stock1Min.lastKline().close-buyPrice1<0 and (lastM5.close > lastM5.boll or (prelastM5.j-prelastM5.k>0 and prelastM5.macd > pre2lastM5.macd)):
+            if stock1Min.lastKline().close < xzs[1]+1 and stock1Min.lastKline().close>xzs[0]-1 and abs(xzs[0]-stock1Min.lastKline().close)<2:
+                return
+            if xdata[0][2] == "DOWN":
+                if xdata[2][1][0] < stock1Min.lastKline().close and abs(xdata[2][1][0]-stock1Min.lastKline().close)<2:
+                    return
+            elif xdata[0][2] == "UP":
+                if xdata[1][1][0] < stock1Min.lastKline().close and abs(xdata[1][1][0]-stock1Min.lastKline().close)<2:
+                    return
+            '''
+        pricelogging.info("tbuy-%s-%s,sell-%s,diff=%s,time=%s,up5=%s" % (tag,buyPrice1,stock1Min.lastKline().open,(stock1Min.lastKline().open-buyPrice1),time.ctime(stock1Min.lastKline().time),up5))
+        buyPrice1 = None
+        spec = None
+        buy1Time = None
+        buy2Time = None
+        xspec = None
+        xkdj = None
+        upToDown = None
+        sellSpec = None
+        buyTriggerTime = None
+        m5data = None
+        kk1pos = None
+        kk5pos = None
+        return
+
+
+    def canb3(xt,kline,prekline):
+        global  xbuy,xspec,buyTriggerTime,buttomDown,buttomDownKline,buyPrice3,downToUp,up5,buyTriggerTimeCopy,up5Copy
+
+        fdata = stock1Min.findInFiveData()
+
+        kkdata = stock1Min.checkMacdUp()
+        kkdata5 = stock5Min.checkMacdUp()
+
+        pricelogging.info("xkline=%s",kkdata)
+
+        '''
+        if xspec == 42:
+            if buyTriggerTime!=None and lastM5.macd<0:
+                if lastm1.mn["5"] > lastm1.mn["15"] and prelastm1.mn["5"] < prelastm1.mn["15"]:
+                    tmpx = stock1Min.checkbymeancrossCount(buyTriggerTime[2].time);
+
+                    if tmpx == 2:
+                        vmin,vmax = stock1Min.checkbymeancrossRange(buyTriggerTime[2].time)
+                        if vmin < buyTriggerTime[1]:
+                            pricelogging.info("tbuy spec=%s,time=%s,131,trigger=%s" % (xspec,time.ctime(lastm1.time),buyTriggerTime))
+                            xspec = None
+                            buyTriggerTime = None
+                        else:
+                            xt = (44,buyTriggerTime[1],buyTriggerTime[2],kkdata[1])
+                            xspec = None
+                            buyTriggerTime = None
+                            up5 = (vmin,vmax,vmax)
+                            return xt
+                    elif tmpx>2:
+                        pricelogging.info("tbuy spec=%s,time=%s,132,trigger=%s" % (xspec,time.ctime(lastm1.time),buyTriggerTime))
+                        xspec = None
+                        buyTriggerTime = None
+        '''
+
+        if prelastm1.close < prelastm1.mn["25"]:
+            if prelastm2.mn["5"] < prelastm2.mn["10"]:
+                if prelastm1.mn["5"] > prelastm1.mn["10"]:
+                    if prelastm1.macd<0:
+                        return (42,stock1Min.checkvm(prelastm1.time),kkdata[0])
+                    else:
+                        return (42,stock1Min.checkvm(prelastm1.time),kkdata[1])
+        else:
+            if prelastm2.mn["5"] < prelastm2.mn["10"]:
+                if prelastm1.mn["5"] > prelastm1.mn["10"]:
+                    if prelastm1.macd<0:
+                        return (43,stock1Min.checkvm(prelastm1.time),kkdata[0])
+                    else:
+                        return (43,stock1Min.checkvm(prelastm1.time),kkdata[1])
+
+    def canbuy4():
+        global xspec,buyTriggerTime
+        kkdata = stock1Min.checkMacdUp()
+
+        if buyTriggerTime==None:
+            return
+        if lastm1.macd>0:
+            distance = stock1Min.checkdistance(buyTriggerTime[2].time)
+            if distance == 2:
+                return (min(valueMin(kkdata[1]),kkdata[1].dn)-2, min(valueMax(kkdata[2]),kkdata[1].up), min(valueMax(kkdata[2]),kkdata[1].up) + kkdata[1].up-kkdata[1].boll)
+
+        if lastm1.mn["5"] > lastm1.mn["15"] and prelastm1.mn["5"] < prelastm1.mn["15"]:
+            tmpx = stock1Min.checkbymeancrossCount(buyTriggerTime[2].time);
+            if tmpx == 2:
+                vmin,vmax = stock1Min.checkbymeancrossRange(buyTriggerTime[2].time)
+                return (vmin,vmax,vmax)
+
+    def cansell3(xt,kline,prekline):
+        global sellSpec,spec,up15,up5,buyTriggerTime,buyPrice1
+
+        kkdata = stock1Min.checkMacdUp()
+        if lastm1.close<sellSpec:
+            return 110
+
+        if prelastm1.mn["5"]>prelastm1.mn["15"] and prelastm1.mn["15"] > prelastm1.mn["30"] and prelastm1.mn["15"] > prelastm1.mn["60"]:
+            if lastm1.mn["5"]<lastm1.mn["15"]:
+
+                temp1 = stock1Min.checkdistance3bymacd(buyTriggerTime[2].time)
+                temp2 = stock1Min.checkdistance4bymean(buyTriggerTime[2].time,2)
+
+                pricelogging.info("xbuy 51 time=%s,tmp1=%s,temp2=%s" % (time.ctime(lastm1.time),temp1,temp2))
+
+                if temp1!=None and temp2!=None:
+                    if max(lastm1.time-temp1.time,lastm1.time-temp2.time) > 15*60 :
+                        return 51
+
+        if prelastm1.mn["5"]>prelastm1.mn["15"] and lastm1.mn["5"]<lastm1.mn["15"] and up5==None and buyTriggerTime!=None and lastm1.macd<0:
+            tmpx = stock1Min.checkbymeancrossCount(buyTriggerTime[2].time);
+            if tmpx==1:
+                return 51
+
+
+        if up5!=None:
+            if lastm1.close<up5[0] and lastm1.mn["5"] < lastm1.mn["60"]:
+                return 52
+
+            if prelastm1.mn["30"] > prelastm1.mn["60"] and prelastm1.mn["5"]>prelastm1.mn["30"] and prelastm1.mn["15"] > prelastm1.mn["30"] and lastm1.mn["5"]<lastm1.mn["30"]:
+                return 51
+
+            '''
+            if lastm1.close > up5[2] or (lastm1.close > up5[2]-1 and lastm1.close >=up5[1]+2):
+                if prelastm1.mn["30"] > prelastm1.mn["60"] and prelastm1.mn["5"]>prelastm1.mn["30"] and lastm1.mn["5"]<lastm1.mn["30"]:
+                    return 53
+            '''
+    pricelogging.info("m5macdbig=%s",m5macdbignext)
+    pricelogging.info("xkline=%s",lastm1)
+
+    if buyPrice1==None:
+
+        if prelastm1.dif < 0 and lastm1.dif>=0:
+            buy1Time = current.time
+            buy2Time = lastM5.time
+            buy(1)
+
+    if buyPrice1!=None:
+        pricelogging.info("sellspec=%s,up5=%s",sellSpec,up5)
+
+        if prelastm1.dif >= 0 and lastm1.dif<0:
+            sell(120)
+            sellSpec = None
+            spec = None
+            up15 = None
+            up5 = None
+            buyTriggerTime = None
+            buyPrice3 = None
+
 
 def on_message(self,evt):
     global last_time
